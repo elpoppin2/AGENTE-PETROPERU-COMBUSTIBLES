@@ -91,3 +91,14 @@ def test_respaldo_de_texto_y_pdf_style():
              "Diesel B5 S-50 UV  14.80 Soles/Gal\nAsfalto 3.20")
     res = {p.combustible: p.precio for p in a.precios_de_texto(texto, "f", "General")}
     assert res == {"DIESEL_B5_S50": 14.60, "DIESEL_B5_S50_UV": 14.80}
+
+
+def test_nombre_partido_en_varias_celdas_como_en_pdf():
+    import agente_petroperu as a
+    filas = [["Producto", "", "Callao", "Talara"],
+             ["Diesel B5", "S-50", "14.60", "14.82"],
+             ["Diesel B5", "S-50 UV", "14.75", "14.95"],
+             ["Diesel B5", "S-50 Industrial", "14.10", "14.20"]]
+    res = {(p.combustible, p.ubicacion): p.precio for p in a.precios_de_tabla(filas, "f", "General")}
+    assert res == {("DIESEL_B5_S50", "Callao"): 14.60, ("DIESEL_B5_S50", "Talara"): 14.82,
+                   ("DIESEL_B5_S50_UV", "Callao"): 14.75, ("DIESEL_B5_S50_UV", "Talara"): 14.95}

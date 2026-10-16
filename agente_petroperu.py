@@ -132,12 +132,14 @@ def precios_de_tabla(filas: list[list[str]], fuente: str, ubicacion_defecto: str
         return resultado
 
     # Combustibles como filas; cada columna numérica es una ubicación/planta.
+    # El nombre del producto puede venir partido en varias celdas
+    # ("Diesel B5" | "S-50 UV"), así que se unen las celdas previas al primer precio.
     for fila in filas:
-        idx = next((i for i, c in enumerate(fila) if identificar_combustible(c)), None)
-        if idx is None:
+        idx = next((i for i, c in enumerate(fila) if a_precio(c) is not None), len(fila))
+        clave = identificar_combustible(" ".join(fila[:idx]))
+        if clave is None:
             continue
-        clave = identificar_combustible(fila[idx])
-        for i, celda in enumerate(fila[idx + 1:], start=idx + 1):
+        for i, celda in enumerate(fila[idx:], start=idx):
             valor = a_precio(celda)
             if valor is None:
                 continue
