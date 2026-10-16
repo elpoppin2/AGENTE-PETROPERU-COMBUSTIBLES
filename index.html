@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Precios Diésel Petroperú</title>
 <meta name="description" content="Evolución de los precios de lista del Diésel B5 S-50 y B5 S-50 UV en las plantas de Petroperú.">
+<script>
+try { const t = localStorage.getItem("tema"); if (t === "dark" || t === "light") document.documentElement.dataset.theme = t; } catch {}
+</script>
 <style>
 :root {
   color-scheme: light;
@@ -20,6 +23,8 @@
   --series-2: #eb6834;  /* B5 S-50 */
   --up: #b42318;
   --down: #067647;
+  --up-bg: #fdecea;
+  --down-bg: #e4f5eb;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -36,6 +41,8 @@
     --series-2: #d95926;
     --up: #f97066;
     --down: #47cd89;
+    --up-bg: #3b1f1c;
+    --down-bg: #14301f;
   }
 }
 :root[data-theme="dark"] {
@@ -52,6 +59,8 @@
   --series-2: #d95926;
   --up: #f97066;
   --down: #47cd89;
+  --up-bg: #3b1f1c;
+  --down-bg: #14301f;
 }
 * { box-sizing: border-box; }
 body {
@@ -59,6 +68,24 @@ body {
   font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 48px; }
+.encabezado { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px 16px; flex-wrap: wrap; }
+.encabezado > div { min-width: 0; flex: 1 1 320px; }
+.tema {
+  flex: none; display: inline-flex; align-items: center; gap: 8px; font: inherit; font-size: 14px;
+  color: var(--text-primary); background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: 999px; padding: 6px 14px; min-height: 36px; cursor: pointer;
+}
+.tema svg { width: 16px; height: 16px; }
+button:focus-visible, select:focus-visible, rect:focus-visible { outline: 2px solid var(--series-1); outline-offset: 2px; }
+.pill { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; line-height: 1.6; border-radius: 999px; padding: 1px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pill.sube { background: var(--up-bg); color: var(--up); }
+.pill.baja { background: var(--down-bg); color: var(--down); }
+.pill.igual { background: var(--grid); color: var(--text-secondary); }
+.pill.nuevo { background: var(--text-primary); color: var(--surface-1); letter-spacing: 0.04em; text-transform: uppercase; font-size: 11px; }
+.tile .cabeza { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+td.sube { background: var(--up-bg); color: var(--up); }
+td.baja { background: var(--down-bg); color: var(--down); }
+td .flecha { display: inline-block; width: 1.1em; font-size: 11px; }
 h1 { font-size: 24px; line-height: 1.25; margin: 0 0 4px; letter-spacing: -0.01em; }
 h2 { font-size: 16px; margin: 0 0 2px; }
 .sub { color: var(--text-secondary); margin: 0; }
@@ -77,6 +104,8 @@ select, .seg button {
 .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
 .tile .nombre { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 13px; }
 .chip { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+.tile.cambio-sube { border-color: var(--up); }
+.tile.cambio-baja { border-color: var(--down); }
 .tile .valor { font-size: 32px; font-weight: 650; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin: 4px 0 2px; }
 .tile .valor small { font-size: 15px; font-weight: 500; color: var(--text-secondary); margin-right: 4px; }
 .delta { font-size: 13px; font-variant-numeric: tabular-nums; }
@@ -108,8 +137,13 @@ a { color: var(--series-1); }
 </head>
 <body>
 <main>
-  <h1>Precios del diésel en plantas de Petroperú</h1>
-  <p class="sub">Precios de lista con impuestos (S/ por galón, sin descuentos ni FISE). <span id="actualizado"></span></p>
+  <div class="encabezado">
+    <div>
+      <h1>Precios del diésel en plantas de Petroperú</h1>
+      <p class="sub">Precios de lista con impuestos (S/ por galón, sin descuentos ni FISE). <span id="actualizado"></span></p>
+    </div>
+    <button type="button" class="tema" id="tema" aria-label="Cambiar entre modo claro y oscuro"></button>
+  </div>
 
   <div class="filtros" role="group" aria-label="Filtros">
     <label>Planta
@@ -129,7 +163,7 @@ a { color: var(--series-1); }
 
   <footer class="muted">
     Fuente: <a href="https://www.petroperu.com.pe/productos/lista-de-precios-en-nuestras-plantas/">listas de precios Automotriz de Petroperú</a>
-    (Addendum N° 1). Se actualiza automáticamente cada día a las 08:07 (hora de Lima).
+    (Addendum N° 1). El agente revisa la web de Petroperú cada día a las 08:07 (hora de Lima); con la página abierta, los datos nuevos aparecen solos.
     <a href="data/listas.csv">Descargar datos (CSV)</a>
   </footer>
 </main>
@@ -164,16 +198,59 @@ function leerCSV(texto) {
   });
 }
 
+let textoActual = "";
+
+// Descarga data/listas.csv; devuelve true si trajo datos distintos a los que ya se muestran.
+async function cargarDatos() {
+  const r = await fetch("data/listas.csv?v=" + Date.now(), { cache: "no-store" });
+  if (!r.ok) throw new Error(r.status);
+  const texto = await r.text();
+  if (texto === textoActual) return false;
+  const nuevos = {};
+  for (const f of leerCSV(texto)) {
+    const p = (nuevos[f.ubicacion] ??= {});
+    (p[f.combustible] ??= []).push({ fecha: new Date(f.vigencia + "T00:00:00Z"), precio: +f.precio });
+  }
+  for (const p of Object.values(nuevos)) for (const s of Object.values(p)) s.sort((a, b) => a.fecha - b.fecha);
+  datos = nuevos; textoActual = texto;
+  return true;
+}
+
+// Con la página abierta, busca datos nuevos cada 15 minutos y al volver a la pestaña.
+async function revisar() {
+  try { if (await cargarDatos()) { actualizarEncabezado(); dibujar(); } } catch {}
+}
+
+const diasDesde = f => Math.floor((Date.now() - +f) / 864e5);
+
+function actualizarEncabezado() {
+  const ultima = new Date(Math.max(...Object.values(datos).flatMap(p => Object.values(p).map(s => +s.at(-1).fecha))));
+  const dias = diasDesde(ultima);
+  const caja = document.getElementById("actualizado");
+  caja.replaceChildren(`Lista vigente desde el ${fFecha(ultima)} (${dias <= 0 ? "hoy" : dias === 1 ? "hace 1 día" : `hace ${dias} días`}). `);
+  if (dias <= 7) caja.append(el("span", { class: "pill nuevo", title: "Petroperú publicó una lista nueva en los últimos 7 días" }, "Nuevo"));
+}
+
+const ICONO_SOL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const ICONO_LUNA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+const temaActual = () => document.documentElement.dataset.theme
+  || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+function pintarBotonTema() {
+  const oscuro = temaActual() === "dark";
+  document.getElementById("tema").innerHTML = (oscuro ? ICONO_SOL : ICONO_LUNA) + `<span>${oscuro ? "Modo claro" : "Modo oscuro"}</span>`;
+}
+
 async function iniciar() {
+  pintarBotonTema();
+  document.getElementById("tema").addEventListener("click", () => {
+    const nuevo = temaActual() === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = nuevo;
+    try { localStorage.setItem("tema", nuevo); } catch {}
+    pintarBotonTema();
+    if (Object.keys(datos).length) dibujar();
+  });
   try {
-    const r = await fetch("data/listas.csv?v=" + Date.now());
-    if (!r.ok) throw new Error(r.status);
-    const filas = leerCSV(await r.text());
-    for (const f of filas) {
-      const p = (datos[f.ubicacion] ??= {});
-      (p[f.combustible] ??= []).push({ fecha: new Date(f.vigencia + "T00:00:00Z"), precio: +f.precio });
-    }
-    for (const p of Object.values(datos)) for (const s of Object.values(p)) s.sort((a, b) => a.fecha - b.fecha);
+    await cargarDatos();
   } catch (e) {
     document.getElementById("contenido").innerHTML = '<p class="estado">No se pudieron cargar los datos.</p>';
     return;
@@ -189,12 +266,17 @@ async function iniciar() {
     document.querySelectorAll("#rango button").forEach(x => x.setAttribute("aria-pressed", x === b));
     estado.meses = +b.dataset.meses; dibujar();
   }));
-  const ultima = new Date(Math.max(...Object.values(datos).flatMap(p => Object.values(p).map(s => +s.at(-1).fecha))));
-  document.getElementById("actualizado").textContent = `Lista vigente desde el ${fFecha(ultima)}.`;
+  actualizarEncabezado();
   dibujar();
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", dibujar);
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { pintarBotonTema(); dibujar(); });
+  setInterval(revisar, 15 * 60 * 1000);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") revisar(); });
   let t; window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(dibujar, 120); });
 }
+
+// Dirección de un cambio de precio: "sube", "baja" o "igual".
+const direccion = d => d > 0.00005 ? "sube" : d < -0.00005 ? "baja" : "igual";
+const FLECHA = { sube: "▲", baja: "▼", igual: "=" };
 
 const nombrePlanta = p => p.toLowerCase().replace(/(^|[\s.])\S/g, s => s.toUpperCase());
 
@@ -222,9 +304,17 @@ function dibujar() {
     const s = planta[prod.clave];
     const card = el("div", { class: "card tile" });
     const nombre = el("div", { class: "nombre" }, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre);
-    card.append(nombre);
+    const cabeza = el("div", { class: "cabeza" }, nombre);
+    card.append(cabeza);
     if (!s?.length) { card.append(el("div", { class: "valor" }, "—"), el("div", { class: "muted" }, "Sin precio en esta planta")); tarjetas.append(card); continue; }
     const actual = s.at(-1), anterior = s.at(-2), base = precioEn(s, inicio) || s[0];
+    // Resalta la tarjeta cuando la última lista cambió el precio.
+    if (anterior) {
+      const dir = direccion(actual.precio - anterior.precio);
+      const texto = dir === "igual" ? "Sin cambio" : `${dir === "sube" ? "Subió" : "Bajó"} S/ ${fmt(Math.abs(actual.precio - anterior.precio))}`;
+      cabeza.append(el("span", { class: `pill ${dir}` }, `${FLECHA[dir]} ${texto}`));
+      if (dir !== "igual") card.classList.add(`cambio-${dir}`);
+    }
     card.append(el("div", { class: "valor" }, el("small", {}, "S/"), fmt(actual.precio)));
     const delta = el("div", { class: "delta" });
     const parte = (ref, texto) => {
@@ -236,7 +326,10 @@ function dibujar() {
     };
     parte(anterior, "vs. lista anterior");
     parte(base, estado.meses ? `en ${estado.meses === 12 ? "1 año" : estado.meses + " meses"}` : "desde ene. 2023");
-    card.append(delta, el("div", { class: "muted" }, `Vigente desde el ${fFecha(actual.fecha)}`));
+    let ultimoCambio = null;
+    for (let i = s.length - 1; i > 0; i--) if (direccion(s[i].precio - s[i - 1].precio) !== "igual") { ultimoCambio = s[i].fecha; break; }
+    card.append(delta, el("div", { class: "muted" }, `Vigente desde el ${fFecha(actual.fecha)}` +
+      (ultimoCambio && +ultimoCambio !== +actual.fecha ? ` · último cambio: ${fFecha(ultimoCambio)}` : "")));
     tarjetas.append(card);
   }
   cont.append(tarjetas);
@@ -252,6 +345,9 @@ function dibujar() {
   c1.append(ley);
   cont.append(c1);
   graficoLineas(g1, planta, inicio);
+  ley.append(g1.dataset.marcas === "si"
+    ? el("span", {}, el("span", { style: "color:var(--up)" }, "▲"), "subió", el("span", { style: "color:var(--down);margin-left:6px" }, "▼"), "bajó")
+    : el("span", { class: "muted" }, "Elige 6 meses o 1 año para ver cada cambio marcado"));
 
   // --- Comparación entre plantas ---
   const c2 = el("section", { class: "card", style: "margin-top:16px" });
@@ -267,14 +363,20 @@ function dibujar() {
 
   // --- Tabla ---
   const c3 = el("section", { class: "card", style: "margin-top:16px" });
-  const det = el("details", {}, el("summary", {}, `Ver tabla de listas · ${nombrePlanta(estado.planta)}`));
+  const det = el("details", {}, el("summary", {}, `Ver tabla de listas · ${nombrePlanta(estado.planta)}`),
+    el("p", { class: "muted", style: "margin:8px 0 0" }, "▲ en rojo: subió respecto a la lista anterior. ▼ en verde: bajó. = sin cambio."));
   const fechas = [...new Set(PRODUCTOS.flatMap(p => (planta[p.clave] || []).filter(x => x.fecha >= inicio).map(x => +x.fecha)))].sort((a, b) => b - a);
   const tabla = el("table", {}, el("thead", {}, el("tr", {}, el("th", {}, "Vigencia"), ...PRODUCTOS.map(p => el("th", {}, p.corto)))));
   const tb = el("tbody");
   for (const f of fechas) {
     tb.append(el("tr", {}, el("td", {}, fFecha(new Date(f))), ...PRODUCTOS.map(p => {
-      const x = (planta[p.clave] || []).find(v => +v.fecha === f);
-      return el("td", {}, x ? fmt4(x.precio) : "—");
+      const serie = planta[p.clave] || [];
+      const i = serie.findIndex(v => +v.fecha === f);
+      if (i < 0) return el("td", {}, "—");
+      const x = serie[i], prev = serie[i - 1];
+      const dir = prev ? direccion(x.precio - prev.precio) : "igual";
+      const attrs = dir === "igual" ? {} : { class: dir, title: `${dir === "sube" ? "Subió" : "Bajó"} S/ ${fmt4(Math.abs(x.precio - prev.precio))}` };
+      return el("td", attrs, el("span", { class: "flecha", "aria-hidden": "true" }, prev ? FLECHA[dir] : ""), fmt4(x.precio));
     })));
   }
   tabla.append(tb);
@@ -321,6 +423,7 @@ function graficoLineas(caja, planta, inicio) {
   const d = new Date(x0); d.setUTCDate(1); d.setUTCMonth(Math.ceil(d.getUTCMonth() / pasoMeses) * pasoMeses);
   const minSep = ancho < 560 ? 64 : 56; let ultX = -Infinity;
   for (; +d <= x1; d.setUTCMonth(d.getUTCMonth() + pasoMeses)) {
+    if (+d < x0) continue;  // el primer mes puede empezar antes del periodo
     const px = x(+d); if (px - ultX < minSep) continue; ultX = px;
     svg.append(el("svg:line", { x1: px, x2: px, y1: alto - m.b, y2: alto - m.b + 4, stroke: css("--axis") }));
     svg.append(el("svg:text", { x: px, y: alto - 8, "text-anchor": "middle" }, fMes(d)));
@@ -335,8 +438,18 @@ function graficoLineas(caja, planta, inicio) {
     path += `H${x(x1)}`;
     svg.append(el("svg:path", { d: path, fill: "none", stroke: css(s.color), "stroke-width": 2, "stroke-linejoin": "round" }));
     const ult = s.pts.at(-1);
+    s.cambios = s.pts.slice(1).map((p, i) => ({ p, dir: direccion(p.precio - s.pts[i].precio) })).filter(c => c.dir !== "igual");
     svg.append(el("svg:circle", { cx: x(x1), cy: y(ult.precio), r: 4, fill: css(s.color), stroke: css("--surface-1"), "stroke-width": 2 }));
   }
+  // Marcas de cambio de precio: triángulo hacia arriba (subió) o hacia abajo (bajó).
+  const totalCambios = series.reduce((n, s) => n + s.cambios.length, 0);
+  if (totalCambios <= 90) for (const s of series) for (const { p, dir } of s.cambios) {
+    const cx = x(+p.fecha), cy = y(p.precio), k = dir === "sube" ? -1 : 1;
+    svg.append(el("svg:path", { d: `M${cx},${cy + 6 * k}L${cx + 5},${cy - 3 * k}L${cx - 5},${cy - 3 * k}Z`,
+      fill: css(dir === "sube" ? "--up" : "--down"), stroke: css("--surface-1"), "stroke-width": 1.5 }));
+  }
+  caja.dataset.marcas = totalCambios <= 90 ? "si" : "no";
+
   // Etiquetas directas al final (separadas si se superponen)
   if (ancho >= 560) {
     const etq = series.map(s => ({ s, y: y(s.pts.at(-1).precio) })).sort((a, b) => a.y - b.y);
@@ -371,6 +484,9 @@ function graficoLineas(caja, planta, inicio) {
       tip.append(el("div", { class: "fila" },
         el("span", {}, el("span", { class: "chip", style: `background:var(${s.color})` }), s.corto),
         el("strong", {}, "S/ " + fmt4(p.precio))));
+      const cambio = s.cambios.find(c => c.p === p);
+      if (cambio && diasDesde(p.fecha) - diasDesde(f) < 1) tip.append(el("div", { class: "fila" }, el("span", {}),
+        el("span", { class: `pill ${cambio.dir}` }, `${FLECHA[cambio.dir]} cambio este día`)));
     });
     tip.style.opacity = 1;
     const izq = xx + 16 + tip.offsetWidth > ancho ? xx - tip.offsetWidth - 16 : xx + 16;
