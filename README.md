@@ -30,6 +30,7 @@ S-50) se ignora. Para cambiar la selección, edita la lista `COMBUSTIBLES` en
 |---|---|
 | `data/historial.csv` | Una fila por día, combustible y ubicación/planta |
 | `data/precios_actuales.json` | Foto de los precios del último día consultado |
+| `data/listas.csv` | Un precio por lista publicada por Petroperú (desde 2023); alimenta el tablero |
 
 Columna `estado`:
 
@@ -38,6 +39,15 @@ Columna `estado`:
 - `ultimo_registrado` – no se pudo obtener ese día; se usa el último precio guardado.
 
 `fecha_precio` es la fecha de vigencia de la lista de Petroperú de la que sale el precio.
+
+## Tablero
+
+`index.html` es un tablero con gráficos que lee `data/listas.csv`. Publicado con
+GitHub Pages en https://elpoppin2.github.io/AGENTE-PETROPERU-COMBUSTIBLES/ y se
+actualiza solo cada vez que el agente guarda una lista nueva.
+
+Para cargar listas antiguas: *Actions → Cargar histórico Petroperú → Run workflow*
+(o `python agente_petroperu.py --historico 2023-01-01`).
 
 ## Uso local
 

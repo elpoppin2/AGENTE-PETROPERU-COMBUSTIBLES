@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Precios Diésel Petroperú</title>
+<meta name="description" content="Evolución de los precios de lista del Diésel B5 S-50 y B5 S-50 UV en las plantas de Petroperú.">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f6f6f4;
+  --surface-1: #fcfcfb;
+  --border: #e3e2de;
+  --grid: #ecebe7;
+  --axis: #b9b8b2;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #77766f;
+  --series-1: #2a78d6;  /* B5 S-50 UV */
+  --series-2: #eb6834;  /* B5 S-50 */
+  --up: #b42318;
+  --down: #067647;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #111110;
+    --surface-1: #1a1a19;
+    --border: #2f2f2c;
+    --grid: #262624;
+    --axis: #4a4a46;
+    --text-primary: #f0efec;
+    --text-secondary: #c3c2b7;
+    --text-muted: #9a998f;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --up: #f97066;
+    --down: #47cd89;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #111110;
+  --surface-1: #1a1a19;
+  --border: #2f2f2c;
+  --grid: #262624;
+  --axis: #4a4a46;
+  --text-primary: #f0efec;
+  --text-secondary: #c3c2b7;
+  --text-muted: #9a998f;
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --up: #f97066;
+  --down: #47cd89;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--page); color: var(--text-primary);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 24px; line-height: 1.25; margin: 0 0 4px; letter-spacing: -0.01em; }
+h2 { font-size: 16px; margin: 0 0 2px; }
+.sub { color: var(--text-secondary); margin: 0; }
+.muted { color: var(--text-muted); font-size: 13px; }
+.filtros { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; margin: 20px 0 16px; }
+.filtros label { display: grid; gap: 4px; font-size: 13px; color: var(--text-secondary); }
+select, .seg button {
+  font: inherit; color: var(--text-primary); background: var(--surface-1);
+  border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; min-height: 36px;
+}
+.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; cursor: pointer; color: var(--text-secondary); }
+.seg button + button { border-left: 1px solid var(--border); }
+.seg button[aria-pressed="true"] { background: var(--text-primary); color: var(--surface-1); }
+.tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.tile .nombre { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 13px; }
+.chip { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+.tile .valor { font-size: 32px; font-weight: 650; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin: 4px 0 2px; }
+.tile .valor small { font-size: 15px; font-weight: 500; color: var(--text-secondary); margin-right: 4px; }
+.delta { font-size: 13px; font-variant-numeric: tabular-nums; }
+.delta .sube { color: var(--up); } .delta .baja { color: var(--down); }
+.grafico { position: relative; margin-top: 12px; }
+svg { display: block; width: 100%; overflow: visible; }
+svg text { fill: var(--text-muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.leyenda { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--text-secondary); margin-top: 8px; }
+.leyenda span { display: inline-flex; align-items: center; gap: 6px; }
+.tooltip {
+  position: absolute; pointer-events: none; background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 10px; font-size: 13px; box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+  min-width: 170px; opacity: 0; transition: opacity .1s; z-index: 2;
+}
+.tooltip .fila { display: flex; align-items: center; gap: 6px; justify-content: space-between; }
+.tooltip .fila span:first-child { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); }
+.tooltip strong { font-variant-numeric: tabular-nums; }
+.dos { display: grid; grid-template-columns: 1fr; gap: 16px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--text-secondary); font-weight: 600; font-size: 13px; position: sticky; top: 0; background: var(--surface-1); }
+.tabla-scroll { max-height: 360px; overflow: auto; margin-top: 8px; }
+details summary { cursor: pointer; color: var(--text-secondary); font-size: 14px; }
+.estado { padding: 40px 0; text-align: center; color: var(--text-secondary); }
+footer { margin-top: 24px; }
+a { color: var(--series-1); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Precios del diésel en plantas de Petroperú</h1>
+  <p class="sub">Precios de lista con impuestos (S/ por galón, sin descuentos ni FISE). <span id="actualizado"></span></p>
+
+  <div class="filtros" role="group" aria-label="Filtros">
+    <label>Planta
+      <select id="planta"></select>
+    </label>
+    <div>
+      <div class="muted" id="rango-label" style="margin-bottom:4px">Periodo</div>
+      <div class="seg" id="rango" aria-labelledby="rango-label">
+        <button data-meses="6">6 meses</button>
+        <button data-meses="12">1 año</button>
+        <button data-meses="0" aria-pressed="true">Desde 2023</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="contenido"><p class="estado">Cargando precios…</p></div>
+
+  <footer class="muted">
+    Fuente: <a href="https://www.petroperu.com.pe/productos/lista-de-precios-en-nuestras-plantas/">listas de precios Automotriz de Petroperú</a>
+    (Addendum N° 1). Se actualiza automáticamente cada día a las 08:07 (hora de Lima).
+    <a href="data/listas.csv">Descargar datos (CSV)</a>
+  </footer>
+</main>
+
+<script>
+const PRODUCTOS = [
+  { clave: "DIESEL_B5_S50_UV", nombre: "Diésel B5 S-50 UV", corto: "B5 S-50 UV", color: "--series-1" },
+  { clave: "DIESEL_B5_S50", nombre: "Diésel B5 S-50", corto: "B5 S-50", color: "--series-2" },
+];
+const fmt = n => n.toLocaleString("es-PE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmt4 = n => n.toLocaleString("es-PE", { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+const fFecha = d => d.toLocaleDateString("es-PE", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
+const fMes = d => d.toLocaleDateString("es-PE", { month: "short", year: "2-digit", timeZone: "UTC" });
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const el = (tag, attrs = {}, ...hijos) => {
+  const e = tag.startsWith("svg:") ? document.createElementNS("http://www.w3.org/2000/svg", tag.slice(4)) : document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  for (const h of hijos) e.append(h);
+  return e;
+};
+
+let datos = {}; // datos[planta][producto] = [{fecha: Date, precio}]
+let estado = { planta: "CALLAO", meses: 0 };
+
+function leerCSV(texto) {
+  const [cab, ...filas] = texto.trim().split(/\r?\n/);
+  const cols = cab.split(",");
+  return filas.map(f => {
+    const v = f.split(","); const o = {};
+    cols.forEach((c, i) => o[c] = v[i]);
+    return o;
+  });
+}
+
+async function iniciar() {
+  try {
+    const r = await fetch("data/listas.csv?v=" + Date.now());
+    if (!r.ok) throw new Error(r.status);
+    const filas = leerCSV(await r.text());
+    for (const f of filas) {
+      const p = (datos[f.ubicacion] ??= {});
+      (p[f.combustible] ??= []).push({ fecha: new Date(f.vigencia + "T00:00:00Z"), precio: +f.precio });
+    }
+    for (const p of Object.values(datos)) for (const s of Object.values(p)) s.sort((a, b) => a.fecha - b.fecha);
+  } catch (e) {
+    document.getElementById("contenido").innerHTML = '<p class="estado">No se pudieron cargar los datos.</p>';
+    return;
+  }
+  const plantas = Object.keys(datos).sort((a, b) => a.localeCompare(b, "es"));
+  const sel = document.getElementById("planta");
+  for (const p of plantas) sel.append(el("option", { value: p }, nombrePlanta(p)));
+  try { estado.planta = localStorage.getItem("planta") || estado.planta; } catch {}
+  if (!datos[estado.planta]) estado.planta = plantas[0];
+  sel.value = estado.planta;
+  sel.addEventListener("change", () => { estado.planta = sel.value; try { localStorage.setItem("planta", sel.value); } catch {} dibujar(); });
+  document.querySelectorAll("#rango button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll("#rango button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    estado.meses = +b.dataset.meses; dibujar();
+  }));
+  const ultima = new Date(Math.max(...Object.values(datos).flatMap(p => Object.values(p).map(s => +s.at(-1).fecha))));
+  document.getElementById("actualizado").textContent = `Lista vigente desde el ${fFecha(ultima)}.`;
+  dibujar();
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", dibujar);
+  let t; window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(dibujar, 120); });
+}
+
+const nombrePlanta = p => p.toLowerCase().replace(/(^|[\s.])\S/g, s => s.toUpperCase());
+
+function desde() {
+  if (!estado.meses) return new Date("2023-01-01T00:00:00Z");
+  const d = new Date(); d.setUTCMonth(d.getUTCMonth() - estado.meses); return d;
+}
+
+// Precio vigente en una fecha (la última lista publicada en o antes de esa fecha).
+function precioEn(serie, fecha) {
+  let r = null;
+  for (const p of serie) { if (p.fecha <= fecha) r = p; else break; }
+  return r;
+}
+
+function dibujar() {
+  const cont = document.getElementById("contenido");
+  cont.replaceChildren();
+  const planta = datos[estado.planta];
+  const inicio = desde();
+
+  // --- Tarjetas con el precio vigente ---
+  const tarjetas = el("div", { class: "tarjetas" });
+  for (const prod of PRODUCTOS) {
+    const s = planta[prod.clave];
+    const card = el("div", { class: "card tile" });
+    const nombre = el("div", { class: "nombre" }, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre);
+    card.append(nombre);
+    if (!s?.length) { card.append(el("div", { class: "valor" }, "—"), el("div", { class: "muted" }, "Sin precio en esta planta")); tarjetas.append(card); continue; }
+    const actual = s.at(-1), anterior = s.at(-2), base = precioEn(s, inicio) || s[0];
+    card.append(el("div", { class: "valor" }, el("small", {}, "S/"), fmt(actual.precio)));
+    const delta = el("div", { class: "delta" });
+    const parte = (ref, texto) => {
+      if (!ref) return;
+      const d = actual.precio - ref.precio, pct = d / ref.precio * 100;
+      const span = el("span", { class: d > 0.00005 ? "sube" : d < -0.00005 ? "baja" : "" },
+        (d > 0.00005 ? "▲ " : d < -0.00005 ? "▼ " : "= ") + (d >= 0 ? "+" : "−") + fmt(Math.abs(d)) + ` (${pct >= 0 ? "+" : "−"}${Math.abs(pct).toFixed(1)}%)`);
+      delta.append(el("div", {}, span, " " + texto));
+    };
+    parte(anterior, "vs. lista anterior");
+    parte(base, estado.meses ? `en ${estado.meses === 12 ? "1 año" : estado.meses + " meses"}` : "desde ene. 2023");
+    card.append(delta, el("div", { class: "muted" }, `Vigente desde el ${fFecha(actual.fecha)}`));
+    tarjetas.append(card);
+  }
+  cont.append(tarjetas);
+
+  // --- Evolución en el tiempo ---
+  const c1 = el("section", { class: "card" });
+  c1.append(el("h2", {}, `Evolución del precio · ${nombrePlanta(estado.planta)}`),
+    el("p", { class: "muted", style: "margin:0" }, "Cada escalón es una nueva lista de precios de Petroperú."));
+  const g1 = el("div", { class: "grafico" });
+  c1.append(g1);
+  const ley = el("div", { class: "leyenda" });
+  for (const prod of PRODUCTOS) if (planta[prod.clave]) ley.append(el("span", {}, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre));
+  c1.append(ley);
+  cont.append(c1);
+  graficoLineas(g1, planta, inicio);
+
+  // --- Comparación entre plantas ---
+  const c2 = el("section", { class: "card", style: "margin-top:16px" });
+  c2.append(el("h2", {}, "Precio vigente por planta"),
+    el("p", { class: "muted", style: "margin:0" }, "Lista más reciente. La planta seleccionada aparece resaltada."));
+  const g2 = el("div", { class: "grafico" });
+  c2.append(g2);
+  const ley2 = el("div", { class: "leyenda" });
+  for (const prod of PRODUCTOS) ley2.append(el("span", {}, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre));
+  c2.append(ley2);
+  cont.append(c2);
+  graficoBarras(g2);
+
+  // --- Tabla ---
+  const c3 = el("section", { class: "card", style: "margin-top:16px" });
+  const det = el("details", {}, el("summary", {}, `Ver tabla de listas · ${nombrePlanta(estado.planta)}`));
+  const fechas = [...new Set(PRODUCTOS.flatMap(p => (planta[p.clave] || []).filter(x => x.fecha >= inicio).map(x => +x.fecha)))].sort((a, b) => b - a);
+  const tabla = el("table", {}, el("thead", {}, el("tr", {}, el("th", {}, "Vigencia"), ...PRODUCTOS.map(p => el("th", {}, p.corto)))));
+  const tb = el("tbody");
+  for (const f of fechas) {
+    tb.append(el("tr", {}, el("td", {}, fFecha(new Date(f))), ...PRODUCTOS.map(p => {
+      const x = (planta[p.clave] || []).find(v => +v.fecha === f);
+      return el("td", {}, x ? fmt4(x.precio) : "—");
+    })));
+  }
+  tabla.append(tb);
+  det.append(el("div", { class: "tabla-scroll" }, tabla));
+  c3.append(det);
+  cont.append(c3);
+}
+
+function escala(d0, d1, r0, r1) { return v => r0 + (v - d0) / (d1 - d0 || 1) * (r1 - r0); }
+
+function ticksBonitos(min, max, n = 5) {
+  const paso0 = (max - min) / n, mag = 10 ** Math.floor(Math.log10(paso0));
+  const paso = [1, 2, 2.5, 5, 10].map(m => m * mag).find(p => p >= paso0);
+  // El último tick siempre cubre el máximo, para que ninguna marca se salga del eje.
+  const fin = Math.ceil(max / paso - 1e-9) * paso;
+  const t = []; for (let v = Math.floor(min / paso) * paso; v <= fin + 1e-9; v += paso) t.push(+v.toFixed(6));
+  return t;
+}
+
+function graficoLineas(caja, planta, inicio) {
+  const ancho = caja.clientWidth, alto = ancho < 560 ? 260 : 320;
+  const m = { t: 12, r: ancho < 560 ? 12 : 92, b: 28, l: 44 };
+  const hoy = new Date();
+  const series = PRODUCTOS.filter(p => planta[p.clave]?.length).map(p => {
+    const s = planta[p.clave];
+    const base = precioEn(s, inicio);
+    const pts = [...(base ? [{ fecha: inicio, precio: base.precio }] : []), ...s.filter(x => x.fecha > inicio)];
+    return { ...p, pts };
+  }).filter(s => s.pts.length);
+  if (!series.length) { caja.append(el("p", { class: "estado" }, "Sin datos para este periodo.")); return; }
+  const vals = series.flatMap(s => s.pts.map(p => p.precio));
+  const yt = ticksBonitos(Math.min(...vals) - 0.3, Math.max(...vals) + 0.3);
+  const x0 = Math.min(...series.map(s => +s.pts[0].fecha)), x1 = +hoy;
+  const x = escala(x0, x1, m.l, ancho - m.r), y = escala(yt[0], yt.at(-1), alto - m.b, m.t);
+  const svg = el("svg:svg", { viewBox: `0 0 ${ancho} ${alto}`, height: alto, role: "img",
+    "aria-label": `Evolución del precio del diésel en ${nombrePlanta(estado.planta)}` });
+
+  for (const v of yt) {
+    svg.append(el("svg:line", { x1: m.l, x2: ancho - m.r, y1: y(v), y2: y(v), stroke: css("--grid") }));
+    svg.append(el("svg:text", { x: m.l - 8, y: y(v) + 4, "text-anchor": "end" }, fmt(v)));
+  }
+  // Marcas del eje X: inicio de cada trimestre (o mes si el periodo es corto)
+  const pasoMeses = (x1 - x0) / 2.6e9 > 14 ? 3 : 1;
+  const d = new Date(x0); d.setUTCDate(1); d.setUTCMonth(Math.ceil(d.getUTCMonth() / pasoMeses) * pasoMeses);
+  const minSep = ancho < 560 ? 64 : 56; let ultX = -Infinity;
+  for (; +d <= x1; d.setUTCMonth(d.getUTCMonth() + pasoMeses)) {
+    const px = x(+d); if (px - ultX < minSep) continue; ultX = px;
+    svg.append(el("svg:line", { x1: px, x2: px, y1: alto - m.b, y2: alto - m.b + 4, stroke: css("--axis") }));
+    svg.append(el("svg:text", { x: px, y: alto - 8, "text-anchor": "middle" }, fMes(d)));
+  }
+  svg.append(el("svg:line", { x1: m.l, x2: ancho - m.r, y1: alto - m.b, y2: alto - m.b, stroke: css("--axis") }));
+
+  for (const s of series) {
+    let path = "";
+    s.pts.forEach((p, i) => {
+      path += i === 0 ? `M${x(+p.fecha)},${y(p.precio)}` : `H${x(+p.fecha)}V${y(p.precio)}`;
+    });
+    path += `H${x(x1)}`;
+    svg.append(el("svg:path", { d: path, fill: "none", stroke: css(s.color), "stroke-width": 2, "stroke-linejoin": "round" }));
+    const ult = s.pts.at(-1);
+    svg.append(el("svg:circle", { cx: x(x1), cy: y(ult.precio), r: 4, fill: css(s.color), stroke: css("--surface-1"), "stroke-width": 2 }));
+  }
+  // Etiquetas directas al final (separadas si se superponen)
+  if (ancho >= 560) {
+    const etq = series.map(s => ({ s, y: y(s.pts.at(-1).precio) })).sort((a, b) => a.y - b.y);
+    for (let i = 1; i < etq.length; i++) if (etq[i].y - etq[i - 1].y < 30) etq[i].y = etq[i - 1].y + 30;
+    for (const { s, y: py } of etq) {
+      svg.append(el("svg:text", { x: x(x1) + 10, y: py - 2, style: "fill:var(--text-secondary)" }, s.corto));
+      svg.append(el("svg:text", { x: x(x1) + 10, y: py + 13, style: "fill:var(--text-primary);font-weight:600" }, "S/ " + fmt(s.pts.at(-1).precio)));
+    }
+  }
+
+  // Cruz de lectura + tooltip
+  const guia = el("svg:line", { y1: m.t, y2: alto - m.b, stroke: css("--axis"), "stroke-dasharray": "3 3", opacity: 0 });
+  const puntos = series.map(s => el("svg:circle", { r: 4, fill: css(s.color), stroke: css("--surface-1"), "stroke-width": 2, opacity: 0 }));
+  svg.append(guia, ...puntos);
+  const zona = el("svg:rect", { x: m.l, y: m.t, width: ancho - m.l - m.r, height: alto - m.t - m.b, fill: "transparent", tabindex: 0,
+    "aria-label": "Mover para ver el precio en cada fecha" });
+  svg.append(zona);
+  caja.append(svg);
+  const tip = el("div", { class: "tooltip", role: "status" });
+  caja.append(tip);
+
+  const mostrar = px => {
+    const f = new Date(Math.max(x0, Math.min(x1, x0 + (px - m.l) / (ancho - m.l - m.r) * (x1 - x0))));
+    const xx = x(+f);
+    guia.setAttribute("x1", xx); guia.setAttribute("x2", xx); guia.setAttribute("opacity", 1);
+    tip.replaceChildren(el("div", { class: "muted", style: "margin-bottom:4px" }, fFecha(f)));
+    series.forEach((s, i) => {
+      const p = precioEn(s.pts, f);
+      puntos[i].setAttribute("opacity", p ? 1 : 0);
+      if (!p) return;
+      puntos[i].setAttribute("cx", xx); puntos[i].setAttribute("cy", y(p.precio));
+      tip.append(el("div", { class: "fila" },
+        el("span", {}, el("span", { class: "chip", style: `background:var(${s.color})` }), s.corto),
+        el("strong", {}, "S/ " + fmt4(p.precio))));
+    });
+    tip.style.opacity = 1;
+    const izq = xx + 16 + tip.offsetWidth > ancho ? xx - tip.offsetWidth - 16 : xx + 16;
+    tip.style.left = Math.max(0, izq) + "px"; tip.style.top = m.t + "px";
+  };
+  const ocultar = () => { tip.style.opacity = 0; guia.setAttribute("opacity", 0); puntos.forEach(p => p.setAttribute("opacity", 0)); };
+  zona.addEventListener("pointermove", e => { const r = svg.getBoundingClientRect(); mostrar((e.clientX - r.left) * ancho / r.width); });
+  zona.addEventListener("pointerleave", ocultar);
+  let kx = ancho - m.r;
+  zona.addEventListener("focus", () => mostrar(kx));
+  zona.addEventListener("blur", ocultar);
+  zona.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") { kx = Math.max(m.l, Math.min(ancho - m.r, kx + (e.key === "ArrowLeft" ? -10 : 10))); mostrar(kx); e.preventDefault(); }
+  });
+}
+
+function graficoBarras(caja) {
+  const filas = Object.keys(datos).map(p => ({
+    planta: p,
+    v: Object.fromEntries(PRODUCTOS.map(pr => [pr.clave, datos[p][pr.clave]?.at(-1)?.precio])),
+  })).sort((a, b) => (a.v.DIESEL_B5_S50_UV ?? a.v.DIESEL_B5_S50) - (b.v.DIESEL_B5_S50_UV ?? b.v.DIESEL_B5_S50));
+  const ancho = caja.clientWidth, alturaBarra = 9, gap = 2, grupo = alturaBarra * 2 + gap + 12;
+  const m = { t: 4, r: 64, b: 24, l: ancho < 560 ? 104 : 124 };
+  const alto = m.t + m.b + filas.length * grupo;
+  const vals = filas.flatMap(f => Object.values(f.v).filter(v => v != null));
+  const xt = ticksBonitos(0, Math.max(...vals), ancho < 560 ? 3 : 6);
+  const x = escala(0, xt.at(-1), m.l, ancho - m.r);
+  const svg = el("svg:svg", { viewBox: `0 0 ${ancho} ${alto}`, height: alto, role: "img", "aria-label": "Precio vigente por planta" });
+  for (const v of xt) {
+    svg.append(el("svg:line", { x1: x(v), x2: x(v), y1: m.t, y2: alto - m.b, stroke: css("--grid") }));
+    svg.append(el("svg:text", { x: x(v), y: alto - 6, "text-anchor": "middle" }, fmt(v).replace(/,00$|\.00$/, "")));
+  }
+  const tip = el("div", { class: "tooltip", role: "status" });
+  filas.forEach((f, i) => {
+    const y0 = m.t + i * grupo + 6;
+    const sel = f.planta === estado.planta;
+    svg.append(el("svg:text", { x: m.l - 10, y: y0 + alturaBarra + 4, "text-anchor": "end",
+      style: sel ? "fill:var(--text-primary);font-weight:650" : "" }, nombrePlanta(f.planta)));
+    PRODUCTOS.forEach((pr, j) => {
+      const v = f.v[pr.clave]; if (v == null) return;
+      const yy = y0 + j * (alturaBarra + gap), w = x(v) - m.l;
+      const r = Math.min(4, w / 2);
+      // Barra con el extremo de datos redondeado y anclada a la línea base
+      const d = `M${m.l},${yy}H${m.l + w - r}Q${m.l + w},${yy} ${m.l + w},${yy + r}V${yy + alturaBarra - r}Q${m.l + w},${yy + alturaBarra} ${m.l + w - r},${yy + alturaBarra}H${m.l}Z`;
+      const barra = el("svg:path", { d, fill: css(pr.color), opacity: sel || !estado.planta ? 1 : 0.55 });
+      svg.append(barra);
+      if (sel) svg.append(el("svg:text", { x: m.l + w + 6, y: yy + alturaBarra - 1, style: "fill:var(--text-primary);font-size:11px" }, fmt(v)));
+      const hit = el("svg:rect", { x: m.l, y: yy - 1, width: Math.max(w, 24), height: alturaBarra + 2, fill: "transparent" });
+      hit.addEventListener("pointermove", e => {
+        const rc = svg.getBoundingClientRect();
+        tip.replaceChildren(el("div", { class: "muted" }, nombrePlanta(f.planta)),
+          el("div", { class: "fila" }, el("span", {}, el("span", { class: "chip", style: `background:var(${pr.color})` }), pr.corto), el("strong", {}, "S/ " + fmt4(v))));
+        tip.style.opacity = 1;
+        const px = (e.clientX - rc.left) + 14;
+        tip.style.left = Math.min(px, rc.width - tip.offsetWidth) + "px";
+        tip.style.top = (yy * rc.height / alto - tip.offsetHeight - 6) + "px";
+      });
+      hit.addEventListener("pointerleave", () => tip.style.opacity = 0);
+      hit.addEventListener("click", () => { estado.planta = f.planta; document.getElementById("planta").value = f.planta; dibujar(); });
+      hit.style.cursor = "pointer";
+      svg.append(hit);
+    });
+  });
+  svg.append(el("svg:line", { x1: m.l, x2: m.l, y1: m.t, y2: alto - m.b, stroke: css("--axis") }));
+  caja.append(svg, tip);
+}
+
+iniciar();
+</script>
+</body>
+</html>
