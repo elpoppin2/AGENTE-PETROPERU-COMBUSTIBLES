@@ -47,6 +47,8 @@ ZONA = ZoneInfo("America/Lima")
 DIR_DATOS = Path(os.environ.get("PETROPERU_DATOS", Path(__file__).parent / "data"))
 HISTORIAL = DIR_DATOS / "historial.csv"
 ACTUALES = DIR_DATOS / "precios_actuales.json"
+LISTAS = DIR_DATOS / "listas.csv"  # un precio por lista publicada (para gráficos)
+COLUMNAS_LISTAS = ["vigencia", "combustible", "ubicacion", "precio", "fuente"]
 COLUMNAS = [
     "fecha_consulta", "combustible", "ubicacion", "precio", "estado",
     "fecha_precio", "fuente",
@@ -408,12 +410,73 @@ def registrar(precios: list[Precio], hoy: str) -> list[dict]:
     return actuales
 
 
+def guardar_listas(precios: list[Precio]) -> int:
+    """Agrega a data/listas.csv los precios de cada lista publicada por Petroperú.
+
+    Si ya existe un precio para la misma vigencia, combustible y planta, se
+    reemplaza (Petroperú a veces publica una corrección el mismo día).
+    """
+    filas: dict[tuple[str, str, str], dict] = {}
+    if LISTAS.exists():
+        with LISTAS.open(newline="", encoding="utf-8") as f:
+            for fila in csv.DictReader(f):
+                filas[(fila["vigencia"], fila["combustible"], fila["ubicacion"])] = fila
+    nuevos = 0
+    for p in precios:
+        if not p.vigencia:
+            continue
+        clave = (p.vigencia, p.combustible, p.ubicacion)
+        nuevos += clave not in filas
+        filas[clave] = {"vigencia": p.vigencia, "combustible": p.combustible, "ubicacion": p.ubicacion,
+                        "precio": f"{p.precio:.4f}", "fuente": p.fuente}
+    DIR_DATOS.mkdir(parents=True, exist_ok=True)
+    with LISTAS.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=COLUMNAS_LISTAS)
+        w.writeheader()
+        w.writerows(filas[k] for k in sorted(filas))
+    return nuevos
+
+
+def historico(desde: str, sesion: requests.Session) -> list[Precio]:
+    """Lee todas las listas "Automotriz" publicadas desde la fecha indicada."""
+    r = descargar(sesion, URLS_INICIO[0].strip())
+    if r is None:
+        return []
+    listas = sorted(l for l in listas_automotrices(r.text, r.url) if l[0] >= desde)
+    log.info("Listas automotrices desde %s: %d", desde, len(listas))
+    precios: list[Precio] = []
+    for fecha, url_pdf in listas:  # de la más antigua a la más reciente
+        pdf = descargar(sesion, url_pdf)
+        hallados: list[Precio] = []
+        if pdf is not None:
+            try:
+                hallados = deduplicar(extraer_pdf(pdf.content, url_pdf, "General"))
+            except Exception as e:
+                log.error("No se pudo leer el PDF %s: %s", url_pdf, e)
+        for p in hallados:
+            p.vigencia = fecha
+        resumen = {c: sum(p.combustible == c for p in hallados) for c, _ in COMBUSTIBLES}
+        nivel = logging.INFO if all(resumen.values()) else logging.WARNING
+        log.log(nivel, "LISTA %s %s %s", fecha, resumen, url_pdf)
+        precios += hallados
+        time.sleep(0.5)  # no saturar la web de Petroperú
+    return precios
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--descubrir", action="store_true", help="muestra lo encontrado sin guardar nada")
     parser.add_argument("--fecha", help="fecha de consulta AAAA-MM-DD (por defecto, hoy en Lima)")
+    parser.add_argument("--historico", metavar="DESDE",
+                        help="carga en data/listas.csv todas las listas desde AAAA-MM-DD y termina")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
+    if args.historico:
+        precios = historico(args.historico, nueva_sesion())
+        nuevos = guardar_listas(precios)
+        log.info("Histórico: %d precios leídos, %d nuevos en %s", len(precios), nuevos, LISTAS)
+        return 0 if precios else 1
 
     hoy = args.fecha or datetime.now(ZONA).date().isoformat()
     precios, paginas = recorrer(URLS_INICIO, nueva_sesion())
@@ -429,6 +492,7 @@ def main() -> int:
     if not precios:
         log.warning("No se obtuvieron precios hoy; se usarán los últimos registrados.")
     actuales = registrar(precios, hoy)
+    guardar_listas(precios)
     if not actuales:
         log.error("No hay precios de hoy ni historial previo. Revise la URL con --descubrir.")
         return 1

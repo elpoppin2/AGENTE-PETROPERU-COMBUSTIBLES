@@ -132,3 +132,16 @@ def test_pdf_real_anterior_y_cambio_de_precio(agente):
         dia8 = [r for r in csv.DictReader(f) if r["fecha_consulta"] == "2026-10-08"]
     assert dia8 and {r["estado"] for r in dia8} == {"ultimo_registrado"}
     assert {r["fecha_precio"] for r in dia8} == {"2026-10-06"}
+
+
+def test_historico_desde_fecha(agente, servidor, monkeypatch):
+    monkeypatch.setattr(agente, "URLS_INICIO", [servidor + "plantas.html"])
+    monkeypatch.setattr(agente.time, "sleep", lambda s: None)
+    precios = agente.historico("2026-10-01", agente.nueva_sesion())
+    assert len(precios) == 64  # 2 listas automotrices x 16 plantas x 2 diésel
+    assert agente.guardar_listas(precios) == 64
+    assert agente.guardar_listas(precios[:5]) == 0  # no duplica al repetir
+    with agente.LISTAS.open() as f:
+        filas = list(csv.DictReader(f))
+    assert {f["vigencia"] for f in filas} == {"2026-10-06", "2026-10-13"}
+    assert len(agente.historico("2026-10-10", agente.nueva_sesion())) == 32
