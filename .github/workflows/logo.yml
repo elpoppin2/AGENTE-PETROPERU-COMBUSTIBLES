@@ -1,0 +1,51 @@
+name: Descargar logo UNACEM (temporal)
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  logo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests beautifulsoup4
+      - name: Buscar el logo en la web de UNACEM
+        shell: python
+        run: |
+          import re, pathlib, requests
+          from urllib.parse import urljoin
+          from bs4 import BeautifulSoup
+          s = requests.Session(); s.headers["User-Agent"] = "Mozilla/5.0"
+          out = pathlib.Path("assets"); out.mkdir(exist_ok=True)
+          notas = []
+          for base in ["https://www.unacem.com.pe/", "https://unacem.com.pe/"]:
+              try:
+                  r = s.get(base, timeout=30)
+              except Exception as e:
+                  notas.append(f"{base} ERROR {e}"); continue
+              notas.append(f"{base} -> {r.status_code} {r.url}")
+              sopa = BeautifulSoup(r.text, "html.parser")
+              cands = []
+              for img in sopa.find_all(["img", "source"]):
+                  src = img.get("src") or img.get("data-src") or (img.get("srcset") or "").split(" ")[0]
+                  texto = " ".join([src or "", img.get("alt", ""), " ".join(img.get("class", []))]).lower()
+                  if src and "logo" in texto:
+                      cands.append(urljoin(r.url, src))
+              for link in sopa.find_all("link", rel=True):
+                  if any("icon" in x for x in link["rel"]) and link.get("href"):
+                      notas.append("icono: " + urljoin(r.url, link["href"]))
+              notas += ["candidato: " + c for c in cands]
+              for i, c in enumerate(dict.fromkeys(cands)):
+                  try:
+                      d = s.get(c, timeout=30)
+                      ext = re.search(r"\.(svg|png|webp|jpe?g)", c.lower())
+                      ext = ext.group(1) if ext else "bin"
+                      (out / f"logo-candidato-{i}.{ext}").write_bytes(d.content)
+                      notas.append(f"guardado logo-candidato-{i}.{ext} <- {c} ({len(d.content)} bytes)")
+                  except Exception as e:
+                      notas.append(f"no se pudo bajar {c}: {e}")
+              if cands: break
+          (out / "logo-candidatos.txt").write_text("\n".join(notas) + "\n")
+      - run: |
+          git config user.name agente-petroperu
+          git config user.email agente-petroperu@users.noreply.github.com
+          git add assets && git commit -m "Candidatos de logo UNACEM" && git pull --rebase origin main && git push
