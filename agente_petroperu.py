@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Agente diario de precios de combustibles automotores de Petroperú.
+"""Agente diario de precios del Diésel B5 S-50 y Diésel B5 S-50 UV de Petroperú.
 
 Cada ejecución:
   1. Entra a la página de precios de Petroperú.
   2. Sigue cada enlace de precios (páginas HTML o PDF) y extrae los precios
-     de los combustibles para automóviles (gasoholes, gasolinas, diésel B5, GLP).
+     del Diésel B5 S-50 y del Diésel B5 S-50 UV (uso vehicular).
   3. Guarda una fila por combustible y ubicación en data/historial.csv.
      Si Petroperú no publicó cambios (o la web no responde), se registra el
      último precio conocido, marcado como "ultimo_registrado".
@@ -52,24 +52,14 @@ COLUMNAS = [
     "fecha_precio", "fuente",
 ]
 
-# Combustibles de uso automotor. El orden importa: el primer patrón que
-# coincide gana. Se excluyen productos industriales, de aviación y marinos.
+# Sólo se registran estos dos diésel. El orden importa: el primer patrón que
+# coincide gana, así "B5 S-50 UV" no se confunde con el "B5 S-50" a secas.
+# Acepta variantes como "Diésel B5 S-50 UV", "Diesel B5-S50UV", "DB5 S-50"
+# y "Diesel B5 S-50 (Uso Vehicular)".
+_B5_S50 = r"(?:diesel\s*(?:db)?\s*|\bd)b5\W*s\W*50"
 COMBUSTIBLES = [
-    ("GASOHOL_84", r"gasohol\s*(?:regular\s*)?84"),
-    ("GASOHOL_90", r"gasohol\s*(?:regular\s*)?90"),
-    ("GASOHOL_95", r"gasohol\s*(?:premium\s*)?95"),
-    ("GASOHOL_97", r"gasohol\s*(?:premium\s*)?97"),
-    ("GASOHOL_REGULAR", r"gasohol\s*regular"),
-    ("GASOHOL_PREMIUM", r"gasohol\s*premium"),
-    ("GASOLINA_84", r"gasolina\s*84"),
-    ("GASOLINA_90", r"gasolina\s*90"),
-    ("GASOLINA_95", r"gasolina\s*95"),
-    ("GASOLINA_97", r"gasolina\s*97"),
-    ("GASOLINA_REGULAR", r"gasolina\s*regular"),
-    ("GASOLINA_PREMIUM", r"gasolina\s*premium"),
-    ("DIESEL_B5_S50", r"diesel\s*(?:db)?\s*b5.*s\s*-?\s*50|diesel\s*b5\s*uv|db5\s*s\s*-?\s*50"),
-    ("DIESEL_B5", r"diesel\s*b5"),
-    ("GLP_AUTOMOTRIZ", r"glp|gas\s*licuado"),
+    ("DIESEL_B5_S50_UV", _B5_S50 + r"\W*(?:uv|.*uso\s*vehicular)"),
+    ("DIESEL_B5_S50", _B5_S50),
 ]
 EXCLUIR = re.compile(r"industrial|marino|turbo|residual|aviacion|jet|petroleo\s*industrial|asfalto|solvente")
 NUMERO = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d{1,4}))(?![\d.,])")
@@ -157,13 +147,13 @@ def precios_de_tabla(filas: list[list[str]], fuente: str, ubicacion_defecto: str
 
 
 def precios_de_texto(texto: str, fuente: str, ubicacion: str) -> list[Precio]:
-    """Respaldo: líneas del tipo 'Gasohol 90 Plus ..... 15.43'."""
+    """Respaldo: líneas del tipo 'Diesel B5 S-50 UV ..... 14.75'."""
     resultado = []
     for linea in texto.splitlines():
         clave = identificar_combustible(linea)
         if not clave:
             continue
-        resto = re.split(r"84|90|95|97|s\s*-?\s*50", normalizar(linea), maxsplit=1)[-1]
+        resto = re.split(r"s\W*50", normalizar(linea), maxsplit=1)[-1]
         valor = a_precio(resto)
         if valor is not None:
             resultado.append(Precio(clave, ubicacion, valor, fuente))
@@ -358,7 +348,7 @@ def main() -> int:
 
     hoy = args.fecha or datetime.now(ZONA).date().isoformat()
     precios, paginas = recorrer(URLS_INICIO, nueva_sesion())
-    log.info("Páginas leídas: %d | precios automotores encontrados: %d", len(paginas), len(precios))
+    log.info("Páginas leídas: %d | precios de diésel encontrados: %d", len(paginas), len(precios))
 
     if args.descubrir:
         for url in paginas:

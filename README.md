@@ -1,15 +1,22 @@
-# Agente de precios de combustibles – Petroperú
+# Agente de precios de diésel – Petroperú
 
 Agente que **todos los días** entra a la página de precios de Petroperú, abre
-cada lista de precios (páginas HTML o PDF) y guarda el precio de cada
-combustible para automóviles. Si ese día Petroperú no publicó cambios —o la web
+cada lista de precios (páginas HTML o PDF) y guarda el precio del
+**Diésel B5 S-50** y del **Diésel B5 S-50 UV (uso vehicular)**. Si ese día Petroperú no publicó cambios —o la web
 no responde— se registra **el último precio conocido**.
 
 ## Combustibles que registra
 
-Gasohol 84/90/95/97, Gasohol/Gasolina Regular y Premium, Gasolina 84/90/95/97,
-Diésel B5 S-50 (uso vehicular) y GLP automotriz. Se excluyen productos
-industriales, marinos, de aviación (Turbo), residuales y asfaltos.
+| Clave | Producto |
+|---|---|
+| `DIESEL_B5_S50` | Diésel B5 S-50 |
+| `DIESEL_B5_S50_UV` | Diésel B5 S-50 UV (uso vehicular) |
+
+Reconoce variantes de escritura como `Diesel B5-S50`, `DB5 S-50`,
+`Diesel B5-S50UV` o `Diésel B5 S-50 (Uso Vehicular)`. Todo lo demás
+(gasoholes, gasolinas, GLP, Turbo, Diésel B5 S-50 Industrial, Diésel B5 sin
+S-50) se ignora. Para cambiar la selección, edita la lista `COMBUSTIBLES` en
+`agente_petroperu.py`.
 
 ## Resultados
 
