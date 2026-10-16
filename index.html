@@ -201,10 +201,21 @@ function leerCSV(texto) {
 let textoActual = "";
 
 // Descarga data/listas.csv; devuelve true si trajo datos distintos a los que ya se muestran.
+// Se lee primero del repositorio (siempre al día, aunque GitHub Pages tarde en
+// volver a publicar) y, si falla, la copia publicada junto a esta página.
+const FUENTES = [
+  "https://raw.githubusercontent.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES/main/data/listas.csv",
+  "data/listas.csv",
+];
 async function cargarDatos() {
-  const r = await fetch("data/listas.csv?v=" + Date.now(), { cache: "no-store" });
-  if (!r.ok) throw new Error(r.status);
-  const texto = await r.text();
+  let texto = null;
+  for (const url of FUENTES) {
+    try {
+      const r = await fetch(url + "?v=" + Date.now(), { cache: "no-store" });
+      if (r.ok) { texto = await r.text(); break; }
+    } catch {}
+  }
+  if (texto === null) throw new Error("sin datos");
   if (texto === textoActual) return false;
   const nuevos = {};
   for (const f of leerCSV(texto)) {
