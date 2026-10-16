@@ -36,7 +36,7 @@ from bs4 import BeautifulSoup
 
 URLS_INICIO = os.environ.get(
     "PETROPERU_URLS",
-    "https://www.petroperu.com.pe/productos/precios-de-venta/",
+    "https://www.petroperu.com.pe/productos/lista-de-precios-en-nuestras-plantas/",
 ).split(",")
 DOMINIOS_PERMITIDOS = ("petroperu.com.pe",)
 PALABRAS_ENLACE = ("precio", "lista", "combustible", "tarifa")
@@ -54,14 +54,18 @@ COLUMNAS = [
 
 # Sólo se registran estos dos diésel. El orden importa: el primer patrón que
 # coincide gana, así "B5 S-50 UV" no se confunde con el "B5 S-50" a secas.
-# Acepta variantes como "Diésel B5 S-50 UV", "Diesel B5-S50UV", "DB5 S-50"
-# y "Diesel B5 S-50 (Uso Vehicular)".
-_B5_S50 = r"(?:diesel\s*(?:db)?\s*|\bd)b5\W*s\W*50"
+# En los PDF de Petroperú aparecen como "DIESEL B5 UV S-50" y "DIESEL B5 S-50"
+# (Addendum N° 1); también se aceptan "Diesel B5-S50UV", "DB5 S-50" o
+# "Diesel B5 S-50 (Uso Vehicular)". "DIESEL B5 UV" sin S-50 no se registra.
+_B5 = r"(?:diesel\s*(?:db)?\s*|\bd)b5"
+_S50 = r"s\W*50"
 COMBUSTIBLES = [
-    ("DIESEL_B5_S50_UV", _B5_S50 + r"\W*(?:uv|.*uso\s*vehicular)"),
-    ("DIESEL_B5_S50", _B5_S50),
+    ("DIESEL_B5_S50_UV", _B5 + r"\W*(?:uv\W*" + _S50 + "|" + _S50 + r"\W*(?:uv|.*uso\s*vehicular))"),
+    ("DIESEL_B5_S50", _B5 + r"\W*" + _S50),
 ]
-EXCLUIR = re.compile(r"industrial|marino|turbo|residual|aviacion|jet|petroleo\s*industrial|asfalto|solvente")
+# "G. E." = precio para generadoras eléctricas (Addendum N° 2), no automotor.
+EXCLUIR = re.compile(r"industrial|marino|turbo|residual|aviacion|jet|asfalto|solvente|\bg\s*\.\s*e\b|generador")
+VIGENCIA = re.compile(r"vigencia\s+a\s+partir\s+del\s+(\d{2})\.(\d{2})\.(\d{4})", re.I)
 NUMERO = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d{1,4}))(?![\d.,])")
 PRECIO_MIN, PRECIO_MAX = 1.0, 100.0  # soles por galón/kg razonables
 
@@ -74,6 +78,7 @@ class Precio:
     ubicacion: str
     precio: float
     fuente: str
+    vigencia: str | None = None  # fecha AAAA-MM-DD desde la que rige el precio
 
 
 def normalizar(texto: str) -> str:
@@ -116,14 +121,21 @@ def precios_de_tabla(filas: list[list[str]], fuente: str, ubicacion_defecto: str
     filas = [[(c or "").strip() for c in f] for f in filas if any((c or "").strip() for c in f)]
     if not filas:
         return []
-    encabezado = filas[0]
+    # El encabezado puede ocupar varias filas (en los PDF de Petroperú
+    # "DIESEL B5 UV S-50" está una fila debajo de "PLANTAS"): se unen por
+    # columna todas las filas anteriores a la primera que tiene precios.
+    inicio = next((k for k, f in enumerate(filas) if any(a_precio(c) is not None for c in f)), len(filas))
+    ancho = max(len(f) for f in filas)
+    encabezado = [" ".join(f[i] for f in filas[:inicio] if i < len(f) and f[i]) for i in range(ancho)]
+    datos = filas[inicio:]
     resultado: list[Precio] = []
 
     combustibles_en_encabezado = [identificar_combustible(c) for c in encabezado]
-    if sum(1 for c in combustibles_en_encabezado if c) >= 2:
+    if any(combustibles_en_encabezado):
         # Combustibles como columnas; cada fila es una ubicación/planta.
-        for fila in filas[1:]:
-            ubicacion = limpiar_ubicacion(fila[0] if fila else "", ubicacion_defecto)
+        for fila in datos:
+            etiqueta = next((c for c in fila if c and a_precio(c) is None), "")
+            ubicacion = limpiar_ubicacion(etiqueta, ubicacion_defecto)
             for i, celda in enumerate(fila):
                 clave = combustibles_en_encabezado[i] if i < len(combustibles_en_encabezado) else None
                 valor = a_precio(celda)
@@ -134,7 +146,7 @@ def precios_de_tabla(filas: list[list[str]], fuente: str, ubicacion_defecto: str
     # Combustibles como filas; cada columna numérica es una ubicación/planta.
     # El nombre del producto puede venir partido en varias celdas
     # ("Diesel B5" | "S-50 UV"), así que se unen las celdas previas al primer precio.
-    for fila in filas:
+    for fila in datos:
         idx = next((i for i, c in enumerate(fila) if a_precio(c) is not None), len(fila))
         clave = identificar_combustible(" ".join(fila[:idx]))
         if clave is None:
@@ -143,7 +155,7 @@ def precios_de_tabla(filas: list[list[str]], fuente: str, ubicacion_defecto: str
             valor = a_precio(celda)
             if valor is None:
                 continue
-            columna = encabezado[i] if i < len(encabezado) and encabezado is not fila else ""
+            columna = encabezado[i] if i < len(encabezado) else ""
             resultado.append(Precio(clave, limpiar_ubicacion(columna, ubicacion_defecto), valor, fuente))
     return resultado
 
@@ -191,7 +203,28 @@ def extraer_pdf(contenido: bytes, fuente: str, ubicacion: str) -> list[Precio]:
             texto_total.append(pagina.extract_text() or "")
     if not precios:
         precios = precios_de_texto("\n".join(texto_total), fuente, ubicacion)
+    # La primera "VIGENCIA A PARTIR DEL dd.mm.aaaa" es la de esta lista (al pie
+    # aparece también la de la lista anterior).
+    m = VIGENCIA.search("\n".join(texto_total))
+    if m:
+        for p in precios:
+            p.vigencia = p.vigencia or f"{m.group(3)}-{m.group(2)}-{m.group(1)}"
     return precios
+
+
+def listas_automotrices(html: str, base: str) -> list[tuple[str, str]]:
+    """Listas "Automotriz" de la página de Petroperú, de la más reciente a la más antigua.
+
+    Cada lista es un <li data-date="AAAA-MM-DD"> con el título "Automotriz" y
+    un enlace al PDF; las demás categorías (Marino, Aviación, Asfaltos...) se ignoran.
+    """
+    listas = []
+    for li in BeautifulSoup(html, "html.parser").select("li[data-date]"):
+        titulo = li.select_one(".title")
+        enlace = li.find("a", href=True)
+        if titulo and enlace and normalizar(titulo.get_text()) == "automotriz":
+            listas.append((li["data-date"], urljoin(base, enlace["href"])))
+    return sorted(listas, reverse=True)
 
 
 # --------------------------------------------------------------------------
@@ -229,7 +262,37 @@ def enlace_relevante(url: str, texto: str) -> bool:
 
 
 def recorrer(urls_inicio: list[str], sesion: requests.Session) -> tuple[list[Precio], list[str]]:
-    """Visita la página de precios y cada enlace de precios que contiene."""
+    """Visita la página de precios y lee la lista automotriz vigente.
+
+    Si la página no tiene el formato conocido de Petroperú, sigue cada enlace
+    de precios que encuentre (páginas HTML o PDF) como respaldo.
+    """
+    for url in urls_inicio:
+        r = descargar(sesion, url.strip())
+        if r is None:
+            continue
+        listas = listas_automotrices(r.text, r.url)
+        if not listas:
+            continue
+        fecha, url_pdf = listas[0]
+        log.info("Lista automotriz vigente: %s (%s); %d listas publicadas", fecha, url_pdf, len(listas))
+        pdf = descargar(sesion, url_pdf)
+        if pdf is None:
+            return [], [r.url]
+        try:
+            precios = extraer_pdf(pdf.content, url_pdf, "General")
+        except Exception as e:
+            log.error("No se pudo leer el PDF %s: %s", url_pdf, e)
+            return [], [r.url, url_pdf]
+        for p in precios:
+            p.vigencia = fecha
+        log.info("PDF  %s -> %d precios", url_pdf, len(precios))
+        return deduplicar(precios), [r.url, url_pdf]
+    return recorrer_enlaces(urls_inicio, sesion)
+
+
+def recorrer_enlaces(urls_inicio: list[str], sesion: requests.Session) -> tuple[list[Precio], list[str]]:
+    """Respaldo: visita la página de precios y cada enlace de precios que contiene."""
     pendientes = [(u.strip(), 0, "General") for u in urls_inicio if u.strip()]
     visitadas: set[str] = set()
     precios: list[Precio] = []
@@ -308,13 +371,17 @@ def registrar(precios: list[Precio], hoy: str) -> list[dict]:
     for p in precios:
         previo = anteriores.get((p.combustible, p.ubicacion))
         sin_cambio = previo is not None and abs(float(previo["precio"]) - p.precio) < 1e-6
+        if p.vigencia:
+            fecha_precio = p.vigencia
+        else:
+            fecha_precio = previo["fecha_precio"] if sin_cambio else hoy
         filas_hoy[(p.combustible, p.ubicacion)] = {
             "fecha_consulta": hoy,
             "combustible": p.combustible,
             "ubicacion": p.ubicacion,
-            "precio": f"{p.precio:.2f}",
+            "precio": f"{p.precio:.4f}",
             "estado": "sin_cambio" if sin_cambio else "actualizado",
-            "fecha_precio": previo["fecha_precio"] if sin_cambio else hoy,
+            "fecha_precio": fecha_precio,
             "fuente": p.fuente,
         }
 

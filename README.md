@@ -1,7 +1,8 @@
 # Agente de precios de diésel – Petroperú
 
-Agente que **todos los días** entra a la página de precios de Petroperú, abre
-cada lista de precios (páginas HTML o PDF) y guarda el precio del
+Agente que **todos los días** entra a
+[Listas de precios en nuestras plantas de ventas](https://www.petroperu.com.pe/productos/lista-de-precios-en-nuestras-plantas/),
+abre la lista **Automotriz** más reciente (PDF) y guarda, por cada planta de venta, el precio del
 **Diésel B5 S-50** y del **Diésel B5 S-50 UV (uso vehicular)**. Si ese día Petroperú no publicó cambios —o la web
 no responde— se registra **el último precio conocido**.
 
@@ -11,6 +12,11 @@ no responde— se registra **el último precio conocido**.
 |---|---|
 | `DIESEL_B5_S50` | Diésel B5 S-50 |
 | `DIESEL_B5_S50_UV` | Diésel B5 S-50 UV (uso vehicular) |
+
+Los precios salen del **Addendum N° 1** de cada lista (soles por galón, con
+impuestos, sin descuentos ni FISE). No se registran el "DIESEL B5 UV" ni el
+"DIESEL B5" sin S-50 de la primera página, ni los precios "G. E." (generadoras
+eléctricas) del Addendum N° 2.
 
 Reconoce variantes de escritura como `Diesel B5-S50`, `DB5 S-50`,
 `Diesel B5-S50UV` o `Diésel B5 S-50 (Uso Vehicular)`. Todo lo demás
@@ -31,7 +37,7 @@ Columna `estado`:
 - `sin_cambio` – Petroperú publica el mismo precio que el día anterior.
 - `ultimo_registrado` – no se pudo obtener ese día; se usa el último precio guardado.
 
-`fecha_precio` indica desde cuándo rige ese precio.
+`fecha_precio` es la fecha de vigencia de la lista de Petroperú de la que sale el precio.
 
 ## Uso local
 

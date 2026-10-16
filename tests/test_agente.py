@@ -55,7 +55,11 @@ def test_entra_a_cada_lista_y_solo_registra_los_dos_diesel(agente, servidor, mon
     ("Diésel B5 S-50 UV", "DIESEL_B5_S50_UV"),
     ("Diesel B5-S50UV", "DIESEL_B5_S50_UV"),
     ("Diesel B5 S-50 (Uso Vehicular)", "DIESEL_B5_S50_UV"),
+    ("DIESEL B5 UV\nS-50", "DIESEL_B5_S50_UV"),
+    ("DIESEL B5\nS-50", "DIESEL_B5_S50"),
     ("Diésel B5 S-50 Industrial", None),
+    ("DIESEL B5 UV", None),
+    ("DIESEL B5 S-50\nG. E.", None),
     ("Diesel B5", None),
     ("Gasohol 90 Plus", None),
     ("GLP", None),
@@ -71,7 +75,7 @@ def test_usa_ultimo_precio_si_no_hay_actualizacion(agente):
     # Día 2: la web no responde -> se arrastran ambos precios.
     dia2 = {f["combustible"]: f for f in agente.registrar([], "2026-10-15")}
     assert dia2["DIESEL_B5_S50"]["estado"] == "ultimo_registrado"
-    assert dia2["DIESEL_B5_S50"]["precio"] == "14.60"
+    assert dia2["DIESEL_B5_S50"]["precio"] == "14.6000"
     assert dia2["DIESEL_B5_S50"]["fecha_precio"] == "2026-10-14"
     # Día 3: sólo cambia el 90; el 95 sigue igual.
     dia3 = {f["combustible"]: f for f in agente.registrar(
@@ -96,9 +100,35 @@ def test_respaldo_de_texto_y_pdf_style():
 def test_nombre_partido_en_varias_celdas_como_en_pdf():
     import agente_petroperu as a
     filas = [["Producto", "", "Callao", "Talara"],
-             ["Diesel B5", "S-50", "14.60", "14.82"],
+             ["Diesel B5", "S-50", "14.6000", "14.82"],
              ["Diesel B5", "S-50 UV", "14.75", "14.95"],
              ["Diesel B5", "S-50 Industrial", "14.10", "14.20"]]
     res = {(p.combustible, p.ubicacion): p.precio for p in a.precios_de_tabla(filas, "f", "General")}
     assert res == {("DIESEL_B5_S50", "Callao"): 14.60, ("DIESEL_B5_S50", "Talara"): 14.82,
                    ("DIESEL_B5_S50_UV", "Callao"): 14.75, ("DIESEL_B5_S50_UV", "Talara"): 14.95}
+
+
+def test_lista_real_de_petroperu(agente, servidor):
+    """Página con el formato real y el PDF real del 13-Oct-2026 (Addendum N° 1)."""
+    precios, paginas = agente.recorrer([servidor + "plantas.html"], agente.nueva_sesion())
+    assert paginas[-1].endswith("/lista_2026-10-13.pdf")  # la más reciente de "Automotriz"
+    tabla = {(p.combustible, p.ubicacion): p.precio for p in precios}
+    assert len(tabla) == 32  # 16 plantas x 2 diésel
+    assert tabla[("DIESEL_B5_S50_UV", "CALLAO")] == 22.9038
+    assert tabla[("DIESEL_B5_S50", "CALLAO")] == 24.4732
+    assert tabla[("DIESEL_B5_S50_UV", "TALARA")] == 23.0218
+    assert tabla[("DIESEL_B5_S50", "PTO. MALDONADO")] == 23.9483
+    assert {p.vigencia for p in precios} == {"2026-10-13"}
+
+
+def test_pdf_real_anterior_y_cambio_de_precio(agente):
+    leer = lambda f: agente.extraer_pdf((FIXTURES / f).read_bytes(), f, "General")
+    agente.registrar(leer("lista_2026-10-06.pdf"), "2026-10-07")
+    agente.registrar([], "2026-10-08")  # sin novedades: se usa el último precio
+    filas = {(f["combustible"], f["ubicacion"]): f for f in agente.registrar(leer("lista_2026-10-13.pdf"), "2026-10-13")}
+    assert len(filas) == 32
+    assert {f["fecha_precio"] for f in filas.values()} == {"2026-10-13"}
+    with agente.HISTORIAL.open() as f:
+        dia8 = [r for r in csv.DictReader(f) if r["fecha_consulta"] == "2026-10-08"]
+    assert dia8 and {r["estado"] for r in dia8} == {"ultimo_registrado"}
+    assert {r["fecha_precio"] for r in dia8} == {"2026-10-06"}
