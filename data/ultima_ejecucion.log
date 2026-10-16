@@ -1,0 +1,7 @@
+2026-10-16 19:50:16,342 INFO HTML https://www.petroperu.com.pe/productos/precios-de-venta/ -> 0 precios
+2026-10-16 19:50:16,983 INFO HTML https://www.petroperu.com.pe/busqueda?txtSearch=productos/precios%20de%20venta/&error=404 -> 0 precios
+2026-10-16 19:50:17,574 INFO HTML https://www.petroperu.com.pe/busqueda?Kfn=busqueda&txtSearch=productos%2Fprecios+de+venta%2F&error=404&K=276&SortBy=AstrTitle -> 0 precios
+2026-10-16 19:50:18,327 INFO HTML https://www.petroperu.com.pe/busqueda?Kfn=busqueda&txtSearch=productos%2Fprecios+de+venta%2F&error=404&K=276&SortBy=DstrTitle -> 0 precios
+2026-10-16 19:50:18,328 INFO Páginas leídas: 4 | precios de diésel encontrados: 0
+2026-10-16 19:50:18,328 WARNING No se obtuvieron precios hoy; se usarán los últimos registrados.
+2026-10-16 19:50:18,328 ERROR No hay precios de hoy ni historial previo. Revise la URL con --descubrir.
