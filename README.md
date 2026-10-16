@@ -64,7 +64,7 @@ Variables opcionales: `PETROPERU_URLS` (URLs de inicio separadas por coma),
 
 **Opción A – GitHub Actions (recomendada):** sube esta carpeta a un repositorio
 de GitHub. El flujo `.github/workflows/precios-diarios.yml` se ejecuta todos los
-días a las 08:07 (hora de Lima) y guarda el historial en el mismo repositorio.
+días a las 08:00 y a las 12:30 (hora de Lima) y guarda el historial en el mismo repositorio.
 También puedes lanzarlo a mano en *Actions → Precios diarios Petroperú → Run workflow*.
 
 **Opción B – Tu computadora:**

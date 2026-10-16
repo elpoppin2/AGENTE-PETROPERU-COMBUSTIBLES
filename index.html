@@ -76,6 +76,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 48px; }
   border-radius: 999px; padding: 6px 14px; min-height: 36px; cursor: pointer;
 }
 .tema svg { width: 16px; height: 16px; }
+.logo { display: block; height: 38px; width: auto; max-width: 100%; margin: 0 0 14px -2px; }
 button:focus-visible, select:focus-visible, rect:focus-visible { outline: 2px solid var(--series-1); outline-offset: 2px; }
 .pill { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; line-height: 1.6; border-radius: 999px; padding: 1px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .pill.sube { background: var(--up-bg); color: var(--up); }
@@ -139,6 +140,7 @@ a { color: var(--series-1); }
 <main>
   <div class="encabezado">
     <div>
+      <img class="logo" src="assets/logo-unacem.svg" alt="UNACEM" width="166" height="38">
       <h1>Precios del diésel en plantas de Petroperú</h1>
       <p class="sub">Precios de lista con impuestos (S/ por galón, sin descuentos ni FISE). <span id="actualizado"></span></p>
     </div>
@@ -152,9 +154,10 @@ a { color: var(--series-1); }
     <div>
       <div class="muted" id="rango-label" style="margin-bottom:4px">Periodo</div>
       <div class="seg" id="rango" aria-labelledby="rango-label">
+        <button data-meses="3" aria-pressed="true">3 meses</button>
         <button data-meses="6">6 meses</button>
         <button data-meses="12">1 año</button>
-        <button data-meses="0" aria-pressed="true">Desde 2023</button>
+        <button data-meses="0">Desde 2023</button>
       </div>
     </div>
   </div>
@@ -163,7 +166,7 @@ a { color: var(--series-1); }
 
   <footer class="muted">
     Fuente: <a href="https://www.petroperu.com.pe/productos/lista-de-precios-en-nuestras-plantas/">listas de precios Automotriz de Petroperú</a>
-    (Addendum N° 1). El agente revisa la web de Petroperú cada día a las 08:07 (hora de Lima); con la página abierta, los datos nuevos aparecen solos.
+    (Addendum N° 1). El agente revisa la web de Petroperú cada día a las 08:00 y a las 12:30 (hora de Lima); con la página abierta, los datos nuevos aparecen solos.
     <a href="data/listas.csv">Descargar datos (CSV)</a>
   </footer>
 </main>
@@ -186,7 +189,7 @@ const el = (tag, attrs = {}, ...hijos) => {
 };
 
 let datos = {}; // datos[planta][producto] = [{fecha: Date, precio}]
-let estado = { planta: "CALLAO", meses: 0 };
+let estado = { planta: "CALLAO", meses: 3 };
 
 function leerCSV(texto) {
   const [cab, ...filas] = texto.trim().split(/\r?\n/);
@@ -358,7 +361,10 @@ function dibujar() {
   graficoLineas(g1, planta, inicio);
   ley.append(g1.dataset.marcas === "si"
     ? el("span", {}, el("span", { style: "color:var(--up)" }, "▲"), "subió", el("span", { style: "color:var(--down);margin-left:6px" }, "▼"), "bajó")
-    : el("span", { class: "muted" }, "Elige 6 meses o 1 año para ver cada cambio marcado"));
+    : el("span", { class: "muted" }, "Elige 3 meses, 6 meses o 1 año para ver cada cambio marcado"));
+  if (+g1.dataset.ocultas > 0) ley.append(el("span", { class: "muted" },
+    `${g1.dataset.ocultas} variaciones sin etiqueta por falta de espacio: pasa el mouse sobre el gráfico` +
+    (estado.meses === 3 ? "" : " o elige 3 meses")));
 
   // --- Comparación entre plantas ---
   const c2 = el("section", { class: "card", style: "margin-top:16px" });
@@ -449,17 +455,44 @@ function graficoLineas(caja, planta, inicio) {
     path += `H${x(x1)}`;
     svg.append(el("svg:path", { d: path, fill: "none", stroke: css(s.color), "stroke-width": 2, "stroke-linejoin": "round" }));
     const ult = s.pts.at(-1);
-    s.cambios = s.pts.slice(1).map((p, i) => ({ p, dir: direccion(p.precio - s.pts[i].precio) })).filter(c => c.dir !== "igual");
+    s.cambios = s.pts.slice(1).map((p, i) => ({ p, d: p.precio - s.pts[i].precio, dir: direccion(p.precio - s.pts[i].precio) }))
+      .filter(c => c.dir !== "igual");
     svg.append(el("svg:circle", { cx: x(x1), cy: y(ult.precio), r: 4, fill: css(s.color), stroke: css("--surface-1"), "stroke-width": 2 }));
   }
   // Marcas de cambio de precio: triángulo hacia arriba (subió) o hacia abajo (bajó).
   const totalCambios = series.reduce((n, s) => n + s.cambios.length, 0);
-  if (totalCambios <= 90) for (const s of series) for (const { p, dir } of s.cambios) {
+  const conMarcas = totalCambios <= 160;
+  if (conMarcas) for (const s of series) for (const { p, dir } of s.cambios) {
     const cx = x(+p.fecha), cy = y(p.precio), k = dir === "sube" ? -1 : 1;
     svg.append(el("svg:path", { d: `M${cx},${cy + 6 * k}L${cx + 5},${cy - 3 * k}L${cx - 5},${cy - 3 * k}Z`,
       fill: css(dir === "sube" ? "--up" : "--down"), stroke: css("--surface-1"), "stroke-width": 1.5 }));
   }
-  caja.dataset.marcas = totalCambios <= 90 ? "si" : "no";
+  // Variación en soles junto a cada triángulo. La serie más cara (B5 S-50)
+  // lleva sus etiquetas por encima de su línea y la más barata (UV) por debajo,
+  // así no quedan entre las dos líneas. Se colocan de la más reciente a la más
+  // antigua y se omiten las que pisarían otra etiqueta o un triángulo.
+  let mostradas = 0;
+  if (conMarcas) {
+    const media = s => s.pts.reduce((a, p) => a + p.precio, 0) / s.pts.length;
+    const masCara = series.reduce((a, b) => media(b) > media(a) ? b : a);
+    const ocupadas = series.flatMap(s => s.cambios.map(({ p }) => ({ x: x(+p.fecha) - 6, y: y(p.precio) - 7, w: 12, h: 14 })));
+    const choca = b => ocupadas.some(o => b.x < o.x + o.w && o.x < b.x + b.w && b.y < o.y + o.h && o.y < b.y + b.h);
+    const todos = series.flatMap(s => s.cambios.map(c => ({ ...c, arriba: s === masCara })))
+      .sort((a, b) => b.p.fecha - a.p.fecha);
+    for (const { p, d, dir, arriba } of todos) {
+      const texto = (d > 0 ? "+" : "−") + fmt(Math.abs(d));
+      const w = texto.length * 6.4 + 4, h = 13;
+      const cx = x(+p.fecha), cy = y(p.precio);
+      const box = { x: cx - w / 2, y: arriba ? cy - 9 - h : cy + 9, w, h };
+      if (box.x < m.l || box.x + w > ancho - m.r + 6 || box.y < 0 || box.y + h > alto - m.b || choca(box)) continue;
+      ocupadas.push(box); mostradas++;
+      svg.append(el("svg:text", { x: cx, y: box.y + 10, "text-anchor": "middle",
+        style: `fill:var(${dir === "sube" ? "--up" : "--down"});font-size:11px;font-weight:600;` +
+          "paint-order:stroke;stroke:var(--surface-1);stroke-width:3px;stroke-linejoin:round" }, texto));
+    }
+  }
+  caja.dataset.marcas = conMarcas ? "si" : "no";
+  caja.dataset.ocultas = conMarcas ? totalCambios - mostradas : 0;
 
   // Etiquetas directas al final (separadas si se superponen)
   if (ancho >= 560) {
@@ -497,7 +530,7 @@ function graficoLineas(caja, planta, inicio) {
         el("strong", {}, "S/ " + fmt4(p.precio))));
       const cambio = s.cambios.find(c => c.p === p);
       if (cambio && diasDesde(p.fecha) - diasDesde(f) < 1) tip.append(el("div", { class: "fila" }, el("span", {}),
-        el("span", { class: `pill ${cambio.dir}` }, `${FLECHA[cambio.dir]} cambio este día`)));
+        el("span", { class: `pill ${cambio.dir}` }, `${FLECHA[cambio.dir]} ${cambio.d > 0 ? "+" : "−"}S/ ${fmt4(Math.abs(cambio.d))} este día`)));
     });
     tip.style.opacity = 1;
     const izq = xx + 16 + tip.offsetWidth > ancho ? xx - tip.offsetWidth - 16 : xx + 16;

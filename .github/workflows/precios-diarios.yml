@@ -2,8 +2,15 @@ name: Precios diarios Petroperú
 
 on:
   schedule:
-    - cron: "7 13 * * *"   # todos los días a las 08:07 hora de Lima (13:07 UTC)
+    # Hora de Lima = UTC-5 (Perú no cambia de horario en el año).
+    - cron: "0 13 * * *"    # 08:00 hora de Lima
+    - cron: "30 17 * * *"   # 12:30 hora de Lima
   workflow_dispatch:         # permite ejecutarlo a mano desde la pestaña Actions
+
+# Si dos ejecuciones coinciden, la segunda espera a la primera.
+concurrency:
+  group: precios-petroperu
+  cancel-in-progress: false
 
 permissions:
   contents: write
