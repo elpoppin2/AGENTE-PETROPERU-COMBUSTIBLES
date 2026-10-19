@@ -1,6 +1,7 @@
-2026-10-19 04:24:55,119 INFO Lista automotriz vigente: 2026-10-17 (https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf); 1012 listas publicadas
-2026-10-19 04:24:55,897 INFO PDF  https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf -> 32 precios
-2026-10-19 04:24:55,899 INFO Páginas leídas: 2 | precios de diésel encontrados: 32
+2026-10-19 05:11:40,985 INFO Lista automotriz vigente: 2026-10-17 (https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf); 1012 listas publicadas
+2026-10-19 05:11:42,296 INFO PDF  https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf -> 32 precios
+2026-10-19 05:11:42,297 INFO Páginas leídas: 2 | precios de diésel encontrados: 32
+2026-10-19 05:11:43,589 INFO Excel actualizado: /home/runner/work/AGENTE-PETROPERU-COMBUSTIBLES/AGENTE-PETROPERU-COMBUSTIBLES/data/precios-diesel-petroperu.xlsx (9376 precios)
 DIESEL_B5_S50      CALLAO                              S/ 24.8272  sin_cambio        (precio desde 2026-10-17)
 DIESEL_B5_S50      CHIMBOTE                            S/ 24.6974  sin_cambio        (precio desde 2026-10-17)
 DIESEL_B5_S50      CONCHAN                             S/ 24.8272  sin_cambio        (precio desde 2026-10-17)
