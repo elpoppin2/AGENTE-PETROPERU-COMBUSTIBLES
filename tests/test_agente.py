@@ -156,9 +156,42 @@ def test_reporte_de_cambio_entre_dos_listas(agente, monkeypatch, tmp_path):
             p.vigencia = v
         agente.guardar_listas(precios)
     assert agente.reporte_cambio("2026-10-06") is None  # no hay lista anterior
-    titulo, cuerpo = agente.reporte_cambio("2026-10-13")
+    titulo, cuerpo, mensaje = agente.reporte_cambio("2026-10-13")
     assert "13 oct. 2026" in titulo and "Callao ▲ +0.45" in titulo
     assert "| Callao | 22.9038 | ▲ +0.4484 | 24.4732 | ▲ +0.4484 |" in cuerpo
     assert "6 oct. 2026" in cuerpo and "cc @" in cuerpo
     ruta = agente.escribir_reporte("2026-10-13")
     assert ruta.name == "2026-10-13.md" and ruta.read_text().startswith("# Cambio de precios")
+    assert "Callao: B5 S-50 UV S/ 22.90 (▲ +0.45)" in mensaje and len(mensaje) < 600
+    html = agente.markdown_a_html(cuerpo)
+    assert "<table" in html and "#b42318" in html and "<script" not in html
+
+
+def test_enviar_avisos_por_correo_y_whatsapp(agente, monkeypatch):
+    import smtplib
+    P = agente.Precio
+    for v, precio in (("2026-10-06", 20.0), ("2026-10-13", 20.5)):
+        agente.guardar_listas([P("DIESEL_B5_S50_UV", "CALLAO", precio, "x", v), P("DIESEL_B5_S50", "CALLAO", precio + 1, "x", v)])
+    enviados, urls = [], []
+
+    class SMTPFalso:
+        def __init__(self, *a, **k): pass
+        def __enter__(self): return self
+        def __exit__(self, *a): pass
+        def login(self, u, c): assert (u, c) == ("bot@gmail.com", "clave")
+        def send_message(self, m): enviados.append(m)
+
+    class Resp:
+        def raise_for_status(self): pass
+
+    monkeypatch.setattr(smtplib, "SMTP_SSL", SMTPFalso)
+    monkeypatch.setattr(agente.requests, "get", lambda url, timeout: urls.append(url) or Resp())
+    monkeypatch.setattr(agente.time, "sleep", lambda s: None)
+    monkeypatch.setenv("AVISO_CORREO_USUARIO", "bot@gmail.com")
+    monkeypatch.setenv("AVISO_CORREO_CLAVE", "clave")
+    monkeypatch.setenv("AVISO_CORREOS", "a@x.pe, b@x.pe")
+    monkeypatch.setenv("AVISO_WHATSAPP", "+51999000111:123, +51999000222:456")
+    assert agente.enviar_avisos("2026-10-13", "https://github.com/x/issues/1")
+    assert len(enviados) == 1 and enviados[0]["To"] == "a@x.pe, b@x.pe"
+    assert "13 oct. 2026" in enviados[0]["Subject"]
+    assert len(urls) == 2 and "phone=%2B51999000111" in urls[0] and "apikey=123" in urls[0]

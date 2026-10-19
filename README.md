@@ -48,6 +48,22 @@ anterior) y lo publica como *Issue* con la etiqueta **cambio de precio**.
 GitHub lo envía por correo y a la app de GitHub. Para probarlo: *Actions →
 Precios diarios Petroperú → Run workflow* marcando "Enviar otra vez el aviso".
 
+### Enviar el aviso a otros correos y a WhatsApp
+
+El aviso también puede llegar por correo a cualquier persona y por WhatsApp.
+Se configura en GitHub, en *Settings → Secrets and variables → Actions →
+New repository secret* (los secrets no se ven en el repositorio, que es público):
+
+| Secret | Valor |
+|---|---|
+| `AVISO_CORREO_USUARIO` | Cuenta de Gmail que envía, p. ej. `avisos.precios@gmail.com` |
+| `AVISO_CORREO_CLAVE` | Contraseña de aplicación de esa cuenta (Cuenta de Google → Seguridad → Verificación en 2 pasos → Contraseñas de aplicaciones) |
+| `AVISO_CORREOS` | Destinatarios separados por comas |
+| `AVISO_WHATSAPP` | `telefono:apikey` de [CallMeBot](https://www.callmebot.com/blog/free-api-whatsapp-messages/), separados por comas, p. ej. `+51999888777:123456` |
+
+Para obtener su `apikey`, cada persona agrega el número de CallMeBot a sus
+contactos y le envía por WhatsApp el mensaje *I allow callmebot to send me messages*.
+
 ## Tablero
 
 `index.html` es un tablero con gráficos que lee `data/listas.csv`. Publicado con

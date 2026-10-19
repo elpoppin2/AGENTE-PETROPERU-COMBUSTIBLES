@@ -28,7 +28,7 @@ import unicodedata
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import quote, urljoin, urlparse
 from zoneinfo import ZoneInfo
 
 import requests
@@ -456,8 +456,10 @@ def fecha_larga(iso: str) -> str:
     return f"{int(d)} {MESES[int(m) - 1]} {a}"
 
 
-def reporte_cambio(vigencia: str) -> tuple[str, str] | None:
-    """Arma el reporte (título, cuerpo en Markdown) de una lista frente a la anterior.
+def reporte_cambio(vigencia: str) -> tuple[str, str, str] | None:
+    """Arma el reporte de una lista frente a la anterior.
+
+    Devuelve (título, cuerpo en Markdown, mensaje corto para WhatsApp).
 
     Devuelve None si no hay lista anterior con la que comparar.
     """
@@ -479,10 +481,11 @@ def reporte_cambio(vigencia: str) -> tuple[str, str] | None:
         v = float(vieja[clave]["precio"]) if clave in vieja else None
         return n, v, (n - v if v is not None else None)
 
-    resumen, filas_tabla = [], []
+    resumen, filas_tabla, corto = [], [], []
     for comb, nombre in NOMBRES.items():
         difs = [x[2] for k in nueva if k[0] == comb and (x := variacion(k)) and x[2] is not None]
         suben = sum(d > 0.00005 for d in difs); bajan = sum(d < -0.00005 for d in difs)
+        corto.append(f"{nombre}: ▲ {suben} · ▼ {bajan} · = {len(difs) - suben - bajan} plantas")
         if suben or bajan:
             rango = sorted({round(d, 4) for d in difs if abs(d) > 0.00005})
             montos = " a ".join(f"{d:+.4f}" for d in (rango[0], rango[-1])) if len(rango) > 1 else f"{rango[0]:+.4f}"
@@ -515,6 +518,18 @@ def reporte_cambio(vigencia: str) -> tuple[str, str] | None:
     if callao and callao[2] is not None and abs(callao[2]) > 0.00005:
         detalle = f" (B5 S-50 UV Callao {'▲' if callao[2] > 0 else '▼'} {callao[2]:+.2f})"
     titulo = f"Cambio de precios Petroperú: lista del {fecha_larga(vigencia)}{detalle}"
+    en_callao = []
+    for comb, nombre in NOMBRES.items():
+        x = variacion((comb, "CALLAO"))
+        if x and x[2] is not None:
+            f = "▲" if x[2] > 0.00005 else "▼" if x[2] < -0.00005 else "="
+            en_callao.append(f"{nombre.replace('Diésel ', '')} S/ {x[0]:.2f} ({f} {x[2]:+.2f})")
+    mensaje = "\n".join([
+        f"⛽ *Petroperú: nueva lista del {fecha_larga(vigencia)}*",
+        *(["Callao: " + " · ".join(en_callao)] if en_callao else []),
+        *corto,
+        f"Detalle: {URL_TABLERO}",
+    ])
     cuerpo = "\n".join([
         f"## Nueva lista de precios Petroperú, vigente desde el {fecha_larga(vigencia)}",
         "",
@@ -531,7 +546,7 @@ def reporte_cambio(vigencia: str) -> tuple[str, str] | None:
         "",
         f"_Aviso automático del agente de precios. cc @{USUARIO_AVISO}_",
     ])
-    return titulo, cuerpo
+    return titulo, cuerpo, mensaje
 
 
 def escribir_reporte(vigencia: str) -> Path | None:
@@ -539,7 +554,7 @@ def escribir_reporte(vigencia: str) -> Path | None:
     rep = reporte_cambio(vigencia)
     if rep is None:
         return None
-    titulo, cuerpo = rep
+    titulo, cuerpo, _ = rep
     DIR_REPORTES.mkdir(parents=True, exist_ok=True)
     ruta = DIR_REPORTES / f"{vigencia}.md"
     ruta.write_text(f"# {titulo}\n\n{cuerpo}\n", encoding="utf-8")
@@ -549,6 +564,104 @@ def escribir_reporte(vigencia: str) -> Path | None:
             f.write(f"reporte={ruta}\ntitulo={titulo}\n")
     log.info("Reporte de cambio de precios: %s", ruta)
     return ruta
+
+
+def markdown_a_html(md: str) -> str:
+    """Convierte el Markdown sencillo de los reportes (títulos, viñetas, tabla, enlaces) a HTML."""
+    import html as _html
+
+    def en_linea(t: str) -> str:
+        t = _html.escape(t)
+        t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
+        t = re.sub(r"\[(.+?)\]\((https?://[^)]+)\)", r'<a href="\2">\1</a>', t)
+        return re.sub(r"(?<!\w)_(.+?)_(?!\w)", r"<i>\1</i>", t)
+
+    partes, en_lista, tabla = [], False, []
+    celda = "padding:4px 10px;border-bottom:1px solid #ddd;text-align:{}"
+    for linea in md.splitlines() + [""]:
+        if linea.startswith("|"):
+            if not re.fullmatch(r"\|[-:| ]+\|", linea):
+                tabla.append([c.strip() for c in linea.strip("|").split("|")])
+            continue
+        if tabla:
+            cab, *filas = tabla
+            th = "".join(f'<th style="{celda.format("left" if i == 0 else "right")}">{en_linea(c)}</th>' for i, c in enumerate(cab))
+            trs = "".join("<tr>" + "".join(
+                f'<td style="{celda.format("left" if i == 0 else "right")};color:'
+                f'{"#b42318" if c.startswith("▲") else "#067647" if c.startswith("▼") else "inherit"}">{en_linea(c)}</td>'
+                for i, c in enumerate(f)) + "</tr>" for f in filas)
+            partes.append(f'<table style="border-collapse:collapse;font-size:14px"><tr>{th}</tr>{trs}</table>')
+            tabla = []
+        if linea.startswith("- "):
+            if not en_lista:
+                partes.append("<ul>"); en_lista = True
+            partes.append(f"<li>{en_linea(linea[2:])}</li>")
+            continue
+        if en_lista:
+            partes.append("</ul>"); en_lista = False
+        if linea.startswith("## "):
+            partes.append(f"<h2>{en_linea(linea[3:])}</h2>")
+        elif linea.strip():
+            partes.append(f"<p>{en_linea(linea)}</p>")
+    return '<div style="font-family:Arial,sans-serif;font-size:15px;color:#111">' + "".join(partes) + "</div>"
+
+
+def enviar_avisos(vigencia: str, enlace: str | None = None) -> bool:
+    """Envía el reporte por correo y WhatsApp a los destinatarios configurados.
+
+    Se configura con variables de entorno (en GitHub, como *secrets* del repositorio):
+      AVISO_CORREO_USUARIO / AVISO_CORREO_CLAVE  cuenta que envía (Gmail: contraseña de aplicación)
+      AVISO_CORREOS                              destinatarios, separados por comas
+      AVISO_CORREO_SERVIDOR                      opcional, por defecto smtp.gmail.com
+      AVISO_WHATSAPP                             telefono:apikey de CallMeBot, separados por comas
+    Lo que no esté configurado se omite. Devuelve False si algún envío falló.
+    """
+    import smtplib
+    from email.message import EmailMessage
+
+    rep = reporte_cambio(vigencia)
+    if rep is None:
+        log.warning("No hay reporte para la lista %s", vigencia)
+        return True
+    titulo, cuerpo, mensaje = rep
+    if enlace:
+        cuerpo += f"\n\n[Ver el aviso en GitHub]({enlace})"
+    ok = True
+
+    usuario, clave = os.environ.get("AVISO_CORREO_USUARIO"), os.environ.get("AVISO_CORREO_CLAVE")
+    destinos = [c.strip() for c in os.environ.get("AVISO_CORREOS", "").split(",") if c.strip()]
+    if usuario and clave and destinos:
+        correo = EmailMessage()
+        correo["Subject"], correo["From"], correo["To"] = titulo, usuario, ", ".join(destinos)
+        correo.set_content(cuerpo)
+        correo.add_alternative(markdown_a_html(cuerpo), subtype="html")
+        try:
+            with smtplib.SMTP_SSL(os.environ.get("AVISO_CORREO_SERVIDOR", "smtp.gmail.com"), 465, timeout=30) as smtp:
+                smtp.login(usuario, clave)
+                smtp.send_message(correo)
+            log.info("Correo enviado a %d destinatarios", len(destinos))
+        except Exception as e:
+            log.error("No se pudo enviar el correo: %s", e)
+            ok = False
+    else:
+        log.info("Correo no configurado; se omite")
+
+    contactos = [c.strip() for c in os.environ.get("AVISO_WHATSAPP", "").split(",") if ":" in c]
+    for contacto in contactos:
+        telefono, apikey = (x.strip() for x in contacto.split(":", 1))
+        url = (f"https://api.callmebot.com/whatsapp.php?phone={quote(telefono)}"
+               f"&text={quote(mensaje)}&apikey={quote(apikey)}")
+        try:
+            r = requests.get(url, timeout=30)
+            r.raise_for_status()
+            log.info("WhatsApp enviado a ...%s", telefono[-3:])
+        except requests.RequestException as e:
+            log.error("No se pudo enviar el WhatsApp a ...%s: %s", telefono[-3:], type(e).__name__)
+            ok = False
+        time.sleep(2)  # CallMeBot limita la frecuencia de mensajes
+    if not contactos:
+        log.info("WhatsApp no configurado; se omite")
+    return ok
 
 
 def historico(desde: str, sesion: requests.Session) -> list[Precio]:
@@ -585,8 +698,14 @@ def main() -> int:
                         help="carga en data/listas.csv todas las listas desde AAAA-MM-DD y termina")
     parser.add_argument("--reporte", metavar="VIGENCIA",
                         help="genera el reporte de la lista AAAA-MM-DD (o 'ultima') frente a la anterior y termina")
+    parser.add_argument("--enviar", metavar="VIGENCIA",
+                        help="envía por correo y WhatsApp el reporte de la lista AAAA-MM-DD y termina")
+    parser.add_argument("--enlace", help="enlace al aviso en GitHub para incluir en el correo")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
+    if args.enviar:
+        return 0 if enviar_avisos(args.enviar, args.enlace) else 1
 
     if args.historico:
         precios = historico(args.historico, nueva_sesion())

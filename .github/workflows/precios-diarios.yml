@@ -51,6 +51,7 @@ jobs:
           git pull --rebase origin main && git push
       - name: Avisar del cambio de precio
         # GitHub envía el aviso por correo y a la app de GitHub de quien vigila el repositorio.
+        id: aviso
         if: steps.agente.outputs.reporte != '' || steps.prueba.outputs.reporte != ''
         env:
           GH_TOKEN: ${{ github.token }}
@@ -59,4 +60,15 @@ jobs:
         run: |
           gh label create "cambio de precio" --color d73a4a --description "Nueva lista de precios de Petroperú" 2>/dev/null || true
           tail -n +3 "$REPORTE" > cuerpo.md   # sin el título, que va como título del aviso
-          gh issue create --title "$TITULO" --body-file cuerpo.md --label "cambio de precio"
+          URL=$(gh issue create --title "$TITULO" --body-file cuerpo.md --label "cambio de precio")
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+      - name: Enviar por correo y WhatsApp
+        # Destinatarios y claves se guardan como secrets del repositorio (ver README).
+        if: steps.aviso.outcome == 'success'
+        env:
+          REPORTE: ${{ steps.agente.outputs.reporte || steps.prueba.outputs.reporte }}
+          AVISO_CORREO_USUARIO: ${{ secrets.AVISO_CORREO_USUARIO }}
+          AVISO_CORREO_CLAVE: ${{ secrets.AVISO_CORREO_CLAVE }}
+          AVISO_CORREOS: ${{ secrets.AVISO_CORREOS }}
+          AVISO_WHATSAPP: ${{ secrets.AVISO_WHATSAPP }}
+        run: python agente_petroperu.py --enviar "$(basename "$REPORTE" .md)" --enlace "${{ steps.aviso.outputs.url }}"
