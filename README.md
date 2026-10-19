@@ -41,6 +41,14 @@ Columna `estado`:
 
 `fecha_precio` es la fecha de vigencia de la lista de Petroperú de la que sale el precio.
 
+## Reporte diario por correo
+
+Todos los días, en la primera ejecución desde las 07:00 de Lima (hoy a las
+07:57), se envía un reporte con los precios vigentes de las 16 plantas, diga o
+no "sin cambios". Llega a `AVISO_CORREOS` y a la cuenta que lo envía. Para
+probarlo sin consumir el envío del día: *Run workflow* marcando "Enviar el
+reporte diario aunque ya haya salido hoy".
+
 ## Avisos de cambio de precio
 
 Cuando Petroperú publica una lista nueva, el agente guarda un reporte en

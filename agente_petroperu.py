@@ -600,7 +600,9 @@ def markdown_a_html(md: str) -> str:
             continue
         if en_lista:
             partes.append("</ul>"); en_lista = False
-        if linea.startswith("## "):
+        if linea.startswith("### "):
+            partes.append(f"<h3>{en_linea(linea[4:])}</h3>")
+        elif linea.startswith("## "):
             partes.append(f"<h2>{en_linea(linea[3:])}</h2>")
         elif linea.strip():
             partes.append(f"<p>{en_linea(linea)}</p>")
@@ -617,9 +619,6 @@ def enviar_avisos(vigencia: str, enlace: str | None = None) -> bool:
       AVISO_WHATSAPP                             telefono:apikey de CallMeBot, separados por comas
     Lo que no esté configurado se omite. Devuelve False si algún envío falló.
     """
-    import smtplib
-    from email.message import EmailMessage
-
     rep = reporte_cambio(vigencia)
     if rep is None:
         log.warning("No hay reporte para la lista %s", vigencia)
@@ -627,10 +626,22 @@ def enviar_avisos(vigencia: str, enlace: str | None = None) -> bool:
     titulo, cuerpo, mensaje = rep
     if enlace:
         cuerpo += f"\n\n[Ver el aviso en GitHub]({enlace})"
-    ok = True
+    return enviar(titulo, cuerpo, mensaje)
 
+
+def enviar(titulo: str, cuerpo: str, mensaje: str, copia_remitente: bool = False) -> bool:
+    """Envía un reporte (Markdown) por correo y su resumen corto por WhatsApp.
+
+    Con copia_remitente=True el correo también llega a la cuenta que lo envía.
+    """
+    import smtplib
+    from email.message import EmailMessage
+
+    ok = True
     usuario, clave = os.environ.get("AVISO_CORREO_USUARIO"), os.environ.get("AVISO_CORREO_CLAVE")
     destinos = [c.strip() for c in os.environ.get("AVISO_CORREOS", "").split(",") if c.strip()]
+    if copia_remitente and usuario and usuario.lower() not in (d.lower() for d in destinos):
+        destinos.append(usuario)
     if usuario and clave and destinos:
         correo = EmailMessage()
         correo["Subject"], correo["From"], correo["To"] = titulo, usuario, ", ".join(destinos)
@@ -749,6 +760,78 @@ def generar_excel() -> Path | None:
     return EXCEL
 
 
+ESTADO_DIARIO = DIR_DATOS / "reporte_diario.json"  # último reporte diario enviado
+HORA_REPORTE_DIARIO = 7  # el reporte diario sale en la primera ejecución desde las 07:00 de Lima
+
+
+def reporte_diario(hoy: str) -> tuple[str, str, str] | None:
+    """Reporte de todos los días: precios vigentes y si hubo lista nueva desde el último envío."""
+    vigencias = vigencias_registradas()
+    if not vigencias:
+        return None
+    vigente = max(vigencias)
+    rep = reporte_cambio(vigente)
+    previo = {}
+    if ESTADO_DIARIO.exists():
+        try:
+            previo = json.loads(ESTADO_DIARIO.read_text(encoding="utf-8"))
+        except ValueError:
+            previo = {}
+    dias = (datetime.fromisoformat(hoy) - datetime.fromisoformat(vigente)).days
+    # Lista nueva = publicada después del último reporte diario (o hoy, si es el primero).
+    nueva = vigente > previo["vigencia"] if previo.get("vigencia") else dias <= 0
+    hace = "hoy" if dias <= 0 else "ayer" if dias == 1 else f"hace {dias} días"
+    if nueva:
+        estado = f"**Hay lista nueva de Petroperú**, vigente desde el {fecha_larga(vigente)}. Abajo, la variación por planta."
+        resumen = "lista nueva"
+    else:
+        estado = (f"**Sin cambios de precio.** Sigue vigente la lista del {fecha_larga(vigente)} "
+                  f"(publicada {hace}).")
+        resumen = "sin cambios"
+    titulo = f"Reporte diario de precios del diésel, {fecha_larga(hoy)}: {resumen}"
+    if rep:
+        _, cuerpo_lista, mensaje = rep
+        detalle = cuerpo_lista.split("\n", 1)[1]  # se reemplaza el título del reporte de cambio
+        cuerpo = "\n".join([f"## Reporte diario: {fecha_larga(hoy)}", "", estado, "",
+                            f"### Lista vigente desde el {fecha_larga(vigente)}", detalle])
+        mensaje = f"📋 Reporte diario {fecha_larga(hoy)}: {resumen}.\n" + mensaje.split("\n", 1)[1]
+    else:
+        cuerpo = f"## Reporte diario: {fecha_larga(hoy)}\n\n{estado}\n\n[Ver el tablero]({URL_TABLERO})"
+        mensaje = f"📋 Reporte diario {fecha_larga(hoy)}: {resumen}.\nDetalle: {URL_TABLERO}"
+    return titulo, cuerpo, mensaje
+
+
+def enviar_reporte_diario(forzar: bool = False) -> bool | None:
+    """Envía el reporte diario una sola vez por día, desde las 07:00 de Lima.
+
+    Devuelve True si se envió, False si falló el envío y None si no correspondía.
+    """
+    ahora = datetime.now(ZONA)
+    hoy = ahora.date().isoformat()
+    previo = {}
+    if ESTADO_DIARIO.exists():
+        try:
+            previo = json.loads(ESTADO_DIARIO.read_text(encoding="utf-8"))
+        except ValueError:
+            previo = {}
+    if not forzar and (ahora.hour < HORA_REPORTE_DIARIO or previo.get("fecha") == hoy):
+        log.info("Reporte diario: no corresponde ahora (ya enviado hoy o antes de las %02d:00)", HORA_REPORTE_DIARIO)
+        return None
+    rep = reporte_diario(hoy)
+    if rep is None:
+        return None
+    if not enviar(*rep, copia_remitente=True):
+        return False
+    if not forzar:  # una prueba manual no cuenta como el envío del día
+        ESTADO_DIARIO.write_text(json.dumps({"fecha": hoy, "vigencia": max(vigencias_registradas())}), encoding="utf-8")
+    log.info("Reporte diario enviado: %s", rep[0])
+    salida = os.environ.get("GITHUB_OUTPUT")
+    if salida:
+        with open(salida, "a", encoding="utf-8") as f:
+            f.write("enviado=true\n")
+    return True
+
+
 def historico(desde: str, sesion: requests.Session) -> list[Precio]:
     """Lee todas las listas "Automotriz" publicadas desde la fecha indicada."""
     r = descargar(sesion, URLS_INICIO[0].strip())
@@ -787,8 +870,14 @@ def main() -> int:
                         help="envía por correo y WhatsApp el reporte de la lista AAAA-MM-DD y termina")
     parser.add_argument("--enlace", help="enlace al aviso en GitHub para incluir en el correo")
     parser.add_argument("--excel", action="store_true", help="solo regenera el Excel del histórico y termina")
+    parser.add_argument("--reporte-diario", action="store_true",
+                        help="envía el reporte diario si aún no salió hoy (desde las 07:00 de Lima) y termina")
+    parser.add_argument("--forzar", action="store_true", help="con --reporte-diario, lo envía aunque ya haya salido hoy")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
+    if args.reporte_diario:
+        return 1 if enviar_reporte_diario(args.forzar) is False else 0
 
     if args.excel:
         return 0 if generar_excel() else 1

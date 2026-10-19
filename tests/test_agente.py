@@ -209,3 +209,37 @@ def test_excel_con_todo_el_historico(agente):
     assert [c.value for c in wb["Precios vigentes"][5]][:2] == ["Callao", 20.5]
     assert wb["Histórico B5 S-50 UV"]["B2"].value == 20.5 and wb["Histórico B5 S-50 UV"]["B3"].value == 20.0
     assert wb["Datos"].max_row == 5
+
+
+def test_reporte_diario_con_y_sin_cambios(agente, monkeypatch):
+    from datetime import datetime
+    P = agente.Precio
+    agente.guardar_listas([P("DIESEL_B5_S50_UV", "CALLAO", 20.0, "a", "2026-10-13"), P("DIESEL_B5_S50", "CALLAO", 21.0, "a", "2026-10-13")])
+    agente.guardar_listas([P("DIESEL_B5_S50_UV", "CALLAO", 20.4, "b", "2026-10-17"), P("DIESEL_B5_S50", "CALLAO", 21.4, "b", "2026-10-17")])
+    enviados = []
+    monkeypatch.setattr(agente, "enviar", lambda t, c, m, copia_remitente=False: enviados.append((t, c, m, copia_remitente)) or True)
+
+    class Reloj(datetime):
+        actual = datetime(2026, 10, 19, 6, 30)
+        @classmethod
+        def now(cls, tz=None): return cls.actual.replace(tzinfo=tz)
+    monkeypatch.setattr(agente, "datetime", Reloj)
+
+    assert agente.enviar_reporte_diario() is None          # antes de las 07:00 no sale
+    Reloj.actual = datetime(2026, 10, 19, 7, 57)
+    assert agente.enviar_reporte_diario() is True           # primer envío del día
+    titulo, cuerpo, mensaje, copia = enviados[-1]
+    assert "19 oct. 2026: sin cambios" in titulo and copia
+    assert "Sigue vigente la lista del 17 oct. 2026 (publicada hace 2 días)" in cuerpo
+    assert "| Callao | 20.4000 | ▲ +0.4000 |" in cuerpo
+    assert agente.enviar_reporte_diario() is None           # no se repite el mismo día
+
+    agente.guardar_listas([P("DIESEL_B5_S50_UV", "CALLAO", 20.1, "c", "2026-10-20"), P("DIESEL_B5_S50", "CALLAO", 21.1, "c", "2026-10-20")])
+    Reloj.actual = datetime(2026, 10, 20, 8, 0)
+    assert agente.enviar_reporte_diario() is True
+    assert "lista nueva" in enviados[-1][0] and "Hay lista nueva" in enviados[-1][1]
+    assert agente.enviar_reporte_diario(forzar=True) is True  # para pruebas manuales
+    Reloj.actual = datetime(2026, 10, 21, 6, 0)
+    assert agente.enviar_reporte_diario(forzar=True) is True
+    Reloj.actual = datetime(2026, 10, 21, 7, 57)
+    assert agente.enviar_reporte_diario() is True           # la prueba no consumió el envío del día

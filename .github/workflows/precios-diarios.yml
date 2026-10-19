@@ -11,6 +11,10 @@ on:
         description: "Enviar otra vez el aviso de la última lista (para probar las alertas)"
         type: boolean
         default: false
+      forzar_reporte_diario:
+        description: "Enviar el reporte diario aunque ya haya salido hoy (para probarlo)"
+        type: boolean
+        default: false
 
 # Si dos ejecuciones coinciden, la segunda espera a la primera.
 concurrency:
@@ -40,6 +44,15 @@ jobs:
         id: prueba
         if: inputs.reenviar_aviso
         run: python agente_petroperu.py --reporte ultima
+      - name: Reporte diario por correo
+        # Sale una vez al día, en la primera ejecución desde las 07:00 de Lima, haya o no cambios.
+        id: diario
+        env:
+          AVISO_CORREO_USUARIO: ${{ secrets.AVISO_CORREO_USUARIO }}
+          AVISO_CORREO_CLAVE: ${{ secrets.AVISO_CORREO_CLAVE }}
+          AVISO_CORREOS: ${{ secrets.AVISO_CORREOS }}
+          AVISO_WHATSAPP: ${{ secrets.AVISO_WHATSAPP }}
+        run: python agente_petroperu.py --reporte-diario ${{ inputs.forzar_reporte_diario && '--forzar' || '' }}
       - name: Guardar historial en el repositorio
         if: always()
         run: |
@@ -52,7 +65,7 @@ jobs:
       - name: Avisar del cambio de precio
         # GitHub envía el aviso por correo y a la app de GitHub de quien vigila el repositorio.
         id: aviso
-        if: steps.agente.outputs.reporte != '' || steps.prueba.outputs.reporte != ''
+        if: ${{ !cancelled() && (steps.agente.outputs.reporte != '' || steps.prueba.outputs.reporte != '') }}
         env:
           GH_TOKEN: ${{ github.token }}
           REPORTE: ${{ steps.agente.outputs.reporte || steps.prueba.outputs.reporte }}
@@ -64,7 +77,8 @@ jobs:
           echo "url=$URL" >> "$GITHUB_OUTPUT"
       - name: Enviar por correo y WhatsApp
         # Destinatarios y claves se guardan como secrets del repositorio (ver README).
-        if: steps.aviso.outcome == 'success'
+        # Si el reporte diario ya salió en esta ejecución, ya incluye la lista nueva.
+        if: steps.aviso.outcome == 'success' && steps.diario.outputs.enviado != 'true'
         env:
           REPORTE: ${{ steps.agente.outputs.reporte || steps.prueba.outputs.reporte }}
           AVISO_CORREO_USUARIO: ${{ secrets.AVISO_CORREO_USUARIO }}
