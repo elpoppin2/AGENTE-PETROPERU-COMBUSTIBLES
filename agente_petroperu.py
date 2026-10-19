@@ -48,6 +48,7 @@ DIR_DATOS = Path(os.environ.get("PETROPERU_DATOS", Path(__file__).parent / "data
 HISTORIAL = DIR_DATOS / "historial.csv"
 ACTUALES = DIR_DATOS / "precios_actuales.json"
 LISTAS = DIR_DATOS / "listas.csv"
+EXCEL = DIR_DATOS / "precios-diesel-petroperu.xlsx"  # descarga del tablero
 DIR_REPORTES = Path(os.environ.get("PETROPERU_REPORTES", Path(__file__).parent / "reportes"))
 URL_TABLERO = "https://elpoppin2.github.io/AGENTE-PETROPERU-COMBUSTIBLES/"
 USUARIO_AVISO = os.environ.get("PETROPERU_AVISAR_A", "elpoppin2")  # se le menciona en el aviso  # un precio por lista publicada (para gráficos)
@@ -588,7 +589,7 @@ def markdown_a_html(md: str) -> str:
             th = "".join(f'<th style="{celda.format("left" if i == 0 else "right")}">{en_linea(c)}</th>' for i, c in enumerate(cab))
             trs = "".join("<tr>" + "".join(
                 f'<td style="{celda.format("left" if i == 0 else "right")};color:'
-                f'{"#b42318" if c.startswith("▲") else "#067647" if c.startswith("▼") else "inherit"}">{en_linea(c)}</td>'
+                f'{"#b54708" if c.startswith("▲") else "#067647" if c.startswith("▼") else "inherit"}">{en_linea(c)}</td>'
                 for i, c in enumerate(f)) + "</tr>" for f in filas)
             partes.append(f'<table style="border-collapse:collapse;font-size:14px"><tr>{th}</tr>{trs}</table>')
             tabla = []
@@ -664,6 +665,90 @@ def enviar_avisos(vigencia: str, enlace: str | None = None) -> bool:
     return ok
 
 
+def generar_excel() -> Path | None:
+    """Crea el Excel con todo el histórico de data/listas.csv.
+
+    Hojas: precios vigentes por planta, histórico de cada diésel (una columna
+    por planta) y los datos en formato tabla, con su PDF de origen.
+    """
+    from datetime import date
+    from openpyxl import Workbook
+    from openpyxl.styles import Alignment, Font, PatternFill
+    from openpyxl.utils import get_column_letter
+
+    if not LISTAS.exists():
+        return None
+    with LISTAS.open(newline="", encoding="utf-8") as f:
+        filas = list(csv.DictReader(f))
+    if not filas:
+        return None
+    fecha = lambda iso: date.fromisoformat(iso)
+    plantas = sorted({r["ubicacion"] for r in filas})
+    vigencias = sorted({r["vigencia"] for r in filas})
+    precio = {(r["vigencia"], r["combustible"], r["ubicacion"]): float(r["precio"]) for r in filas}
+    ultimo: dict[tuple[str, str], tuple[str, float]] = {}
+    for r in sorted(filas, key=lambda r: r["vigencia"]):
+        ultimo[(r["combustible"], r["ubicacion"])] = (r["vigencia"], float(r["precio"]))
+
+    rojo = PatternFill("solid", fgColor="E60000")
+    cabecera = Font(bold=True, color="FFFFFF")
+    titulo = Font(bold=True, size=14)
+    num, fmt_fecha = "0.0000", "dd/mm/yyyy"
+
+    def encabezar(ws, fila, valores, anchos):
+        for i, v in enumerate(valores, start=1):
+            c = ws.cell(row=fila, column=i, value=v)
+            c.fill, c.font = rojo, cabecera
+            c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        for i, w in enumerate(anchos, start=1):
+            ws.column_dimensions[get_column_letter(i)].width = w
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Precios vigentes"
+    ws["A1"] = "Precios de lista del diésel en plantas de Petroperú"
+    ws["A1"].font = titulo
+    ws["A2"] = (f"Soles por galón, con impuestos, sin descuentos ni FISE. Lista vigente desde el "
+                f"{fecha(vigencias[-1]).strftime('%d/%m/%Y')}. Fuente: Petroperú (Addendum N° 1).")
+    encabezar(ws, 4, ["Planta", "B5 S-50 UV", "Vigente desde", "B5 S-50", "Vigente desde"], [18, 14, 14, 14, 14])
+    for i, planta in enumerate(plantas, start=5):
+        ws.cell(row=i, column=1, value=planta.title())
+        for j, comb in enumerate(("DIESEL_B5_S50_UV", "DIESEL_B5_S50")):
+            if (comb, planta) in ultimo:
+                v, pr = ultimo[(comb, planta)]
+                ws.cell(row=i, column=2 + 2 * j, value=pr).number_format = num
+                ws.cell(row=i, column=3 + 2 * j, value=fecha(v)).number_format = fmt_fecha
+    ws.freeze_panes = "B5"
+
+    for comb, nombre in NOMBRES.items():
+        h = wb.create_sheet(f"Histórico {nombre.replace('Diésel ', '')}")
+        encabezar(h, 1, ["Vigencia", *(p.title() for p in plantas)], [12, *([13] * len(plantas))])
+        for i, v in enumerate(reversed(vigencias), start=2):  # la más reciente arriba
+            h.cell(row=i, column=1, value=fecha(v)).number_format = fmt_fecha
+            for j, planta in enumerate(plantas, start=2):
+                if (v, comb, planta) in precio:
+                    h.cell(row=i, column=j, value=precio[(v, comb, planta)]).number_format = num
+        h.freeze_panes = "B2"
+        h.auto_filter.ref = f"A1:{get_column_letter(len(plantas) + 1)}{len(vigencias) + 1}"
+
+    d = wb.create_sheet("Datos")
+    encabezar(d, 1, ["Vigencia", "Combustible", "Planta", "Precio (S/ por galón)", "PDF de Petroperú"], [12, 20, 18, 14, 60])
+    ordenadas = sorted(sorted(filas, key=lambda r: (r["combustible"], r["ubicacion"])), key=lambda r: r["vigencia"], reverse=True)
+    for i, r in enumerate(ordenadas, start=2):  # la lista más reciente arriba
+        d.cell(row=i, column=1, value=fecha(r["vigencia"])).number_format = fmt_fecha
+        d.cell(row=i, column=2, value=NOMBRES.get(r["combustible"], r["combustible"]))
+        d.cell(row=i, column=3, value=r["ubicacion"].title())
+        d.cell(row=i, column=4, value=float(r["precio"])).number_format = num
+        d.cell(row=i, column=5, value=r["fuente"])
+    d.freeze_panes = "A2"
+    d.auto_filter.ref = f"A1:E{len(filas) + 1}"
+
+    DIR_DATOS.mkdir(parents=True, exist_ok=True)
+    wb.save(EXCEL)
+    log.info("Excel actualizado: %s (%d precios)", EXCEL, len(filas))
+    return EXCEL
+
+
 def historico(desde: str, sesion: requests.Session) -> list[Precio]:
     """Lee todas las listas "Automotriz" publicadas desde la fecha indicada."""
     r = descargar(sesion, URLS_INICIO[0].strip())
@@ -701,8 +786,12 @@ def main() -> int:
     parser.add_argument("--enviar", metavar="VIGENCIA",
                         help="envía por correo y WhatsApp el reporte de la lista AAAA-MM-DD y termina")
     parser.add_argument("--enlace", help="enlace al aviso en GitHub para incluir en el correo")
+    parser.add_argument("--excel", action="store_true", help="solo regenera el Excel del histórico y termina")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
+    if args.excel:
+        return 0 if generar_excel() else 1
 
     if args.enviar:
         return 0 if enviar_avisos(args.enviar, args.enlace) else 1
@@ -710,6 +799,7 @@ def main() -> int:
     if args.historico:
         precios = historico(args.historico, nueva_sesion())
         nuevos = guardar_listas(precios)
+        generar_excel()
         log.info("Histórico: %d precios leídos, %d nuevos en %s", len(precios), nuevos, LISTAS)
         return 0 if precios else 1
 
@@ -736,6 +826,7 @@ def main() -> int:
     actuales = registrar(precios, hoy)
     conocidas = vigencias_registradas()
     guardar_listas(precios)
+    generar_excel()
     # Si Petroperú publicó una lista nueva, se prepara el reporte para el aviso.
     nuevas = sorted({p.vigencia for p in precios if p.vigencia} - conocidas)
     if nuevas and conocidas:

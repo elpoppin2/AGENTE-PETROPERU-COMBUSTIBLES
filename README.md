@@ -31,6 +31,7 @@ S-50) se ignora. Para cambiar la selección, edita la lista `COMBUSTIBLES` en
 | `data/historial.csv` | Una fila por día, combustible y ubicación/planta |
 | `data/precios_actuales.json` | Foto de los precios del último día consultado |
 | `data/listas.csv` | Un precio por lista publicada por Petroperú (desde 2023); alimenta el tablero |
+| `data/precios-diesel-petroperu.xlsx` | Excel con todo el histórico (precios vigentes, histórico por planta y datos); se descarga desde el tablero |
 
 Columna `estado`:
 

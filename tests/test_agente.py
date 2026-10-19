@@ -164,7 +164,7 @@ def test_reporte_de_cambio_entre_dos_listas(agente, monkeypatch, tmp_path):
     assert ruta.name == "2026-10-13.md" and ruta.read_text().startswith("# Cambio de precios")
     assert "Callao: B5 S-50 UV S/ 22.90 (▲ +0.45)" in mensaje and len(mensaje) < 600
     html = agente.markdown_a_html(cuerpo)
-    assert "<table" in html and "#b42318" in html and "<script" not in html
+    assert "<table" in html and "#b54708" in html and "<script" not in html
 
 
 def test_enviar_avisos_por_correo_y_whatsapp(agente, monkeypatch):
@@ -195,3 +195,17 @@ def test_enviar_avisos_por_correo_y_whatsapp(agente, monkeypatch):
     assert len(enviados) == 1 and enviados[0]["To"] == "a@x.pe, b@x.pe"
     assert "13 oct. 2026" in enviados[0]["Subject"]
     assert len(urls) == 2 and "phone=%2B51999000111" in urls[0] and "apikey=123" in urls[0]
+
+
+def test_excel_con_todo_el_historico(agente):
+    from openpyxl import load_workbook
+    P = agente.Precio
+    agente.guardar_listas([P("DIESEL_B5_S50_UV", "CALLAO", 20.0, "a.pdf", "2026-10-06"),
+                           P("DIESEL_B5_S50", "CALLAO", 21.0, "a.pdf", "2026-10-06"),
+                           P("DIESEL_B5_S50_UV", "CALLAO", 20.5, "b.pdf", "2026-10-13"),
+                           P("DIESEL_B5_S50", "TALARA", 21.7, "b.pdf", "2026-10-13")])
+    wb = load_workbook(agente.generar_excel())
+    assert wb.sheetnames == ["Precios vigentes", "Histórico B5 S-50 UV", "Histórico B5 S-50", "Datos"]
+    assert [c.value for c in wb["Precios vigentes"][5]][:2] == ["Callao", 20.5]
+    assert wb["Histórico B5 S-50 UV"]["B2"].value == 20.5 and wb["Histórico B5 S-50 UV"]["B3"].value == 20.0
+    assert wb["Datos"].max_row == 5
