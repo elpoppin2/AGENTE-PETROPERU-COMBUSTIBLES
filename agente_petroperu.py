@@ -47,7 +47,10 @@ ZONA = ZoneInfo("America/Lima")
 DIR_DATOS = Path(os.environ.get("PETROPERU_DATOS", Path(__file__).parent / "data"))
 HISTORIAL = DIR_DATOS / "historial.csv"
 ACTUALES = DIR_DATOS / "precios_actuales.json"
-LISTAS = DIR_DATOS / "listas.csv"  # un precio por lista publicada (para gráficos)
+LISTAS = DIR_DATOS / "listas.csv"
+DIR_REPORTES = Path(os.environ.get("PETROPERU_REPORTES", Path(__file__).parent / "reportes"))
+URL_TABLERO = "https://elpoppin2.github.io/AGENTE-PETROPERU-COMBUSTIBLES/"
+USUARIO_AVISO = os.environ.get("PETROPERU_AVISAR_A", "elpoppin2")  # se le menciona en el aviso  # un precio por lista publicada (para gráficos)
 COLUMNAS_LISTAS = ["vigencia", "combustible", "ubicacion", "precio", "fuente"]
 COLUMNAS = [
     "fecha_consulta", "combustible", "ubicacion", "precio", "estado",
@@ -437,6 +440,117 @@ def guardar_listas(precios: list[Precio]) -> int:
     return nuevos
 
 
+def vigencias_registradas() -> set[str]:
+    if not LISTAS.exists():
+        return set()
+    with LISTAS.open(newline="", encoding="utf-8") as f:
+        return {fila["vigencia"] for fila in csv.DictReader(f)}
+
+
+NOMBRES = {"DIESEL_B5_S50_UV": "Diésel B5 S-50 UV", "DIESEL_B5_S50": "Diésel B5 S-50"}
+MESES = ["ene.", "feb.", "mar.", "abr.", "may.", "jun.", "jul.", "ago.", "set.", "oct.", "nov.", "dic."]
+
+
+def fecha_larga(iso: str) -> str:
+    a, m, d = iso.split("-")
+    return f"{int(d)} {MESES[int(m) - 1]} {a}"
+
+
+def reporte_cambio(vigencia: str) -> tuple[str, str] | None:
+    """Arma el reporte (título, cuerpo en Markdown) de una lista frente a la anterior.
+
+    Devuelve None si no hay lista anterior con la que comparar.
+    """
+    listas: dict[str, dict[tuple[str, str], dict]] = {}
+    with LISTAS.open(newline="", encoding="utf-8") as f:
+        for fila in csv.DictReader(f):
+            listas.setdefault(fila["vigencia"], {})[(fila["combustible"], fila["ubicacion"])] = fila
+    fechas = sorted(listas)
+    if vigencia not in listas or fechas.index(vigencia) == 0:
+        return None
+    anterior = fechas[fechas.index(vigencia) - 1]
+    nueva, vieja = listas[vigencia], listas[anterior]
+    fuente = next(iter(nueva.values()))["fuente"]
+
+    def variacion(clave):
+        if clave not in nueva:
+            return None
+        n = float(nueva[clave]["precio"])
+        v = float(vieja[clave]["precio"]) if clave in vieja else None
+        return n, v, (n - v if v is not None else None)
+
+    resumen, filas_tabla = [], []
+    for comb, nombre in NOMBRES.items():
+        difs = [x[2] for k in nueva if k[0] == comb and (x := variacion(k)) and x[2] is not None]
+        suben = sum(d > 0.00005 for d in difs); bajan = sum(d < -0.00005 for d in difs)
+        if suben or bajan:
+            rango = sorted({round(d, 4) for d in difs if abs(d) > 0.00005})
+            montos = " a ".join(f"{d:+.4f}" for d in (rango[0], rango[-1])) if len(rango) > 1 else f"{rango[0]:+.4f}"
+            resumen.append(f"- **{nombre}**: " + ", ".join(
+                t for t in (f"▲ subió en {suben} plantas" if suben else "", f"▼ bajó en {bajan} plantas" if bajan else "",
+                            f"sin cambio en {len(difs) - suben - bajan}" if len(difs) - suben - bajan else "") if t)
+                           + f" (S/ {montos} por galón).")
+        else:
+            resumen.append(f"- **{nombre}**: sin cambios.")
+
+    def celda(clave):
+        x = variacion(clave)
+        if not x:
+            return "—", "—"
+        n, v, d = x
+        if d is None:
+            return f"{n:.4f}", "nuevo"
+        if abs(d) <= 0.00005:
+            return f"{n:.4f}", "= sin cambio"
+        return f"{n:.4f}", f"{'▲' if d > 0 else '▼'} {d:+.4f}"
+
+    plantas = sorted({k[1] for k in nueva})
+    for planta in plantas:
+        uv, uv_d = celda(("DIESEL_B5_S50_UV", planta))
+        s50, s50_d = celda(("DIESEL_B5_S50", planta))
+        filas_tabla.append(f"| {planta.title()} | {uv} | {uv_d} | {s50} | {s50_d} |")
+
+    callao = variacion(("DIESEL_B5_S50_UV", "CALLAO"))
+    detalle = ""
+    if callao and callao[2] is not None and abs(callao[2]) > 0.00005:
+        detalle = f" (B5 S-50 UV Callao {'▲' if callao[2] > 0 else '▼'} {callao[2]:+.2f})"
+    titulo = f"Cambio de precios Petroperú: lista del {fecha_larga(vigencia)}{detalle}"
+    cuerpo = "\n".join([
+        f"## Nueva lista de precios Petroperú, vigente desde el {fecha_larga(vigencia)}",
+        "",
+        f"Comparada con la lista anterior, del {fecha_larga(anterior)}. Precios de lista con impuestos, "
+        "en soles por galón, sin descuentos ni FISE.",
+        "",
+        *resumen,
+        "",
+        "| Planta | B5 S-50 UV | Variación | B5 S-50 | Variación |",
+        "|---|---:|---:|---:|---:|",
+        *filas_tabla,
+        "",
+        f"[Ver el tablero]({URL_TABLERO}) · [PDF de Petroperú]({fuente})",
+        "",
+        f"_Aviso automático del agente de precios. cc @{USUARIO_AVISO}_",
+    ])
+    return titulo, cuerpo
+
+
+def escribir_reporte(vigencia: str) -> Path | None:
+    """Guarda el reporte en reportes/AAAA-MM-DD.md y lo anuncia a GitHub Actions."""
+    rep = reporte_cambio(vigencia)
+    if rep is None:
+        return None
+    titulo, cuerpo = rep
+    DIR_REPORTES.mkdir(parents=True, exist_ok=True)
+    ruta = DIR_REPORTES / f"{vigencia}.md"
+    ruta.write_text(f"# {titulo}\n\n{cuerpo}\n", encoding="utf-8")
+    salida = os.environ.get("GITHUB_OUTPUT")
+    if salida:
+        with open(salida, "a", encoding="utf-8") as f:
+            f.write(f"reporte={ruta}\ntitulo={titulo}\n")
+    log.info("Reporte de cambio de precios: %s", ruta)
+    return ruta
+
+
 def historico(desde: str, sesion: requests.Session) -> list[Precio]:
     """Lee todas las listas "Automotriz" publicadas desde la fecha indicada."""
     r = descargar(sesion, URLS_INICIO[0].strip())
@@ -469,6 +583,8 @@ def main() -> int:
     parser.add_argument("--fecha", help="fecha de consulta AAAA-MM-DD (por defecto, hoy en Lima)")
     parser.add_argument("--historico", metavar="DESDE",
                         help="carga en data/listas.csv todas las listas desde AAAA-MM-DD y termina")
+    parser.add_argument("--reporte", metavar="VIGENCIA",
+                        help="genera el reporte de la lista AAAA-MM-DD (o 'ultima') frente a la anterior y termina")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
@@ -477,6 +593,13 @@ def main() -> int:
         nuevos = guardar_listas(precios)
         log.info("Histórico: %d precios leídos, %d nuevos en %s", len(precios), nuevos, LISTAS)
         return 0 if precios else 1
+
+    if args.reporte:
+        vigencia = max(vigencias_registradas(), default=None) if args.reporte == "ultima" else args.reporte
+        ruta = escribir_reporte(vigencia) if vigencia else None
+        if ruta:
+            print(ruta.read_text(encoding="utf-8"))
+        return 0 if ruta else 1
 
     hoy = args.fecha or datetime.now(ZONA).date().isoformat()
     precios, paginas = recorrer(URLS_INICIO, nueva_sesion())
@@ -492,7 +615,12 @@ def main() -> int:
     if not precios:
         log.warning("No se obtuvieron precios hoy; se usarán los últimos registrados.")
     actuales = registrar(precios, hoy)
+    conocidas = vigencias_registradas()
     guardar_listas(precios)
+    # Si Petroperú publicó una lista nueva, se prepara el reporte para el aviso.
+    nuevas = sorted({p.vigencia for p in precios if p.vigencia} - conocidas)
+    if nuevas and conocidas:
+        escribir_reporte(nuevas[-1])
     if not actuales:
         log.error("No hay precios de hoy ni historial previo. Revise la URL con --descubrir.")
         return 1

@@ -40,6 +40,14 @@ Columna `estado`:
 
 `fecha_precio` es la fecha de vigencia de la lista de Petroperú de la que sale el precio.
 
+## Avisos de cambio de precio
+
+Cuando Petroperú publica una lista nueva, el agente guarda un reporte en
+`reportes/AAAA-MM-DD.md` (precio de cada planta, variación frente a la lista
+anterior) y lo publica como *Issue* con la etiqueta **cambio de precio**.
+GitHub lo envía por correo y a la app de GitHub. Para probarlo: *Actions →
+Precios diarios Petroperú → Run workflow* marcando "Enviar otra vez el aviso".
+
 ## Tablero
 
 `index.html` es un tablero con gráficos que lee `data/listas.csv`. Publicado con

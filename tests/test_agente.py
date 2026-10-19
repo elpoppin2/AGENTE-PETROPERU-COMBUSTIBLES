@@ -145,3 +145,20 @@ def test_historico_desde_fecha(agente, servidor, monkeypatch):
         filas = list(csv.DictReader(f))
     assert {f["vigencia"] for f in filas} == {"2026-10-06", "2026-10-13"}
     assert len(agente.historico("2026-10-10", agente.nueva_sesion())) == 32
+
+
+def test_reporte_de_cambio_entre_dos_listas(agente, monkeypatch, tmp_path):
+    monkeypatch.setattr(agente, "DIR_REPORTES", tmp_path / "reportes")
+    leer = lambda f: agente.extraer_pdf((FIXTURES / f).read_bytes(), f, "General")
+    for f, v in (("lista_2026-10-06.pdf", "2026-10-06"), ("lista_2026-10-13.pdf", "2026-10-13")):
+        precios = leer(f)
+        for p in precios:
+            p.vigencia = v
+        agente.guardar_listas(precios)
+    assert agente.reporte_cambio("2026-10-06") is None  # no hay lista anterior
+    titulo, cuerpo = agente.reporte_cambio("2026-10-13")
+    assert "13 oct. 2026" in titulo and "Callao ▲ +0.45" in titulo
+    assert "| Callao | 22.9038 | ▲ +0.4484 | 24.4732 | ▲ +0.4484 |" in cuerpo
+    assert "6 oct. 2026" in cuerpo and "cc @" in cuerpo
+    ruta = agente.escribir_reporte("2026-10-13")
+    assert ruta.name == "2026-10-13.md" and ruta.read_text().startswith("# Cambio de precios")

@@ -6,6 +6,11 @@ on:
     - cron: "0 13 * * *"    # 08:00 hora de Lima
     - cron: "30 17 * * *"   # 12:30 hora de Lima
   workflow_dispatch:         # permite ejecutarlo a mano desde la pestaña Actions
+    inputs:
+      reenviar_aviso:
+        description: "Enviar otra vez el aviso de la última lista (para probar las alertas)"
+        type: boolean
+        default: false
 
 # Si dos ejecuciones coinciden, la segunda espera a la primera.
 concurrency:
@@ -14,6 +19,7 @@ concurrency:
 
 permissions:
   contents: write
+  issues: write   # para publicar el aviso de cambio de precio
 
 jobs:
   consultar:
@@ -26,14 +32,31 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Ejecutar agente
+        id: agente
         run: |
           set -o pipefail
           python agente_petroperu.py 2>&1 | tee data/ultima_ejecucion.log
+      - name: Preparar de nuevo el aviso de la última lista
+        id: prueba
+        if: inputs.reenviar_aviso
+        run: python agente_petroperu.py --reporte ultima
       - name: Guardar historial en el repositorio
         if: always()
         run: |
           git config user.name "agente-petroperu"
           git config user.email "agente-petroperu@users.noreply.github.com"
-          git add data/
+          mkdir -p reportes
+          git add data/ reportes/
           git diff --cached --quiet || git commit -m "Precios Petroperú $(TZ=America/Lima date +%F)"
           git pull --rebase origin main && git push
+      - name: Avisar del cambio de precio
+        # GitHub envía el aviso por correo y a la app de GitHub de quien vigila el repositorio.
+        if: steps.agente.outputs.reporte != '' || steps.prueba.outputs.reporte != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORTE: ${{ steps.agente.outputs.reporte || steps.prueba.outputs.reporte }}
+          TITULO: ${{ steps.agente.outputs.titulo || steps.prueba.outputs.titulo }}
+        run: |
+          gh label create "cambio de precio" --color d73a4a --description "Nueva lista de precios de Petroperú" 2>/dev/null || true
+          tail -n +3 "$REPORTE" > cuerpo.md   # sin el título, que va como título del aviso
+          gh issue create --title "$TITULO" --body-file cuerpo.md --label "cambio de precio"
