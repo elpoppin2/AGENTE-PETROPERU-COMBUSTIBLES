@@ -1,293 +1,293 @@
 {
-  "fecha_consulta": "2026-10-19",
+  "fecha_consulta": "2026-10-20",
   "precios": [
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "CALLAO",
-      "precio": "24.8272",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "25.0750",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "CHIMBOTE",
-      "precio": "24.6974",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "25.1812",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "CONCHAN",
-      "precio": "24.8272",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "25.0750",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "CUSCO",
-      "precio": "28.4498",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "28.9336",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "EL MILAGRO",
-      "precio": "25.0160",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "25.4998",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "ETEN",
-      "precio": "24.8626",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "25.3464",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "ILO",
-      "precio": "28.1354",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "28.6192",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "JULIACA",
-      "precio": "28.5088",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "28.9926",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "MOLLENDO",
-      "precio": "27.8834",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "28.3672",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "PISCO",
-      "precio": "24.6974",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "24.9452",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "PIURA",
-      "precio": "24.2018",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "24.6856",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "PTO. MALDONADO",
-      "precio": "23.9483",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "24.3583",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "SALAVERRY",
-      "precio": "24.8626",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "25.5824",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "SUPE",
-      "precio": "25.0514",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "25.2992",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "TALARA",
-      "precio": "24.0012",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "24.4850",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50",
       "ubicacion": "TARAPOTO",
-      "precio": "25.3287",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "25.8125",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "CALLAO",
-      "precio": "23.2578",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "23.5056",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "CHIMBOTE",
-      "precio": "23.1280",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "23.6118",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "CONCHAN",
-      "precio": "23.2578",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "23.5056",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "CUSCO",
-      "precio": "26.8804",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "27.3642",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "EL MILAGRO",
-      "precio": "23.4466",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "23.9304",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "ETEN",
-      "precio": "23.2932",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "23.7770",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "ILO",
-      "precio": "26.5660",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "27.0498",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "JULIACA",
-      "precio": "26.9394",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "27.4232",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "MOLLENDO",
-      "precio": "26.3140",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "26.7978",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "PISCO",
-      "precio": "23.1280",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "23.3758",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "PIURA",
-      "precio": "22.6324",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "23.1162",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "PTO. MALDONADO",
-      "precio": "22.6183",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "23.0283",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "SALAVERRY",
-      "precio": "23.2932",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "24.0130",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "SUPE",
-      "precio": "23.4820",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "23.7298",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "TALARA",
-      "precio": "22.4318",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "22.9156",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     },
     {
-      "fecha_consulta": "2026-10-19",
+      "fecha_consulta": "2026-10-20",
       "combustible": "DIESEL_B5_S50_UV",
       "ubicacion": "TARAPOTO",
-      "precio": "23.7593",
-      "estado": "sin_cambio",
-      "fecha_precio": "2026-10-17",
-      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1738-y7Zd1Cc0Bs0Xc5E.pdf"
+      "precio": "24.2431",
+      "estado": "actualizado",
+      "fecha_precio": "2026-10-20",
+      "fuente": "https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1739-r5Om9Qk6Uc2Ni6G.pdf"
     }
   ]
 }
