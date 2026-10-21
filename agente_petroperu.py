@@ -829,32 +829,65 @@ def sin_impuestos(precio: float) -> float:
     return precio / (1 + IGV) - ISC_B5_S50
 
 
+def _renglones(pagina) -> str:
+    """Reconstruye los renglones a partir de la posición de cada letra.
+
+    Algunos PDF de Osinergmin traen las letras con una escala que hace que la
+    extracción normal las devuelva una por una; aquí se agrupan por altura (con
+    tolerancia) y se ordenan de izquierda a derecha.
+    """
+    renglones: list[list[dict]] = []
+    for c in sorted(pagina.chars, key=lambda c: c["top"]):
+        if renglones and abs(c["top"] - renglones[-1][0]["top"]) <= 3:
+            renglones[-1].append(c)
+        else:
+            renglones.append([c])
+    lineas = []
+    for r in renglones:
+        texto, prev = "", None
+        for c in sorted(r, key=lambda c: c["x0"]):
+            if prev is not None and c["x0"] - prev["x1"] > max(1.5, (prev["x1"] - prev["x0"]) * 0.6):
+                texto += " "
+            texto += c["text"]
+            prev = c
+        lineas.append(" ".join(texto.split()))
+    return "\n".join(lineas)
+
+
 def extraer_osinergmin(contenido: bytes, fuente: str, fecha: str | None = None) -> list[dict]:
     """Lee la tabla de precios de referencia del Diésel B5 por planta de un PDF semanal."""
     import pdfplumber
 
-    filas = []
     with pdfplumber.open(io.BytesIO(contenido)) as pdf:
-        for pagina in pdf.pages:
-            texto = pagina.extract_text() or ""
-            if "por Planta" not in texto:
-                continue
-            m = _FECHA_OSI.search(texto)
-            if m:
-                d, mes, a = m.groups()
-                fecha = f"{'20' + a if len(a) == 2 else a}-{mes}-{d}"
-            for linea in texto.splitlines():
-                f = _FILA_OSI.match(linea.strip())
-                if not f:
-                    continue
-                planta = normalizar(f["p"]).upper()
-                planta = _PLANTAS_OSI.get(planta, planta)
-                num = lambda t: None if t == "-" else float(t.replace(",", "."))
-                filas.append({"fecha": fecha, "planta": planta, "b5_bajo_azufre": num(f["bajo"]),
-                              "b5_alto_azufre": num(f["alto"]), "componente_logistico": num(f["log"]) or 0.0,
-                              "fuente": fuente})
+        for leer in (lambda pg: pg.extract_text() or "", _renglones):
+            filas = _filas_osinergmin(pdf, leer, fuente, fecha)
             if filas:
-                break
+                return filas
+    return []
+
+
+def _filas_osinergmin(pdf, leer, fuente: str, fecha: str | None) -> list[dict]:
+    filas = []
+    for pagina in pdf.pages:
+        texto = leer(pagina)
+        if "por Planta" not in texto:
+            continue
+        m = _FECHA_OSI.search(texto)
+        if m:
+            d, mes, a = m.groups()
+            fecha = f"{'20' + a if len(a) == 2 else a}-{mes}-{d}"
+        for linea in texto.splitlines():
+            f = _FILA_OSI.match(linea.strip())
+            if not f:
+                continue
+            planta = normalizar(f["p"]).upper()
+            planta = _PLANTAS_OSI.get(planta, planta)
+            num = lambda t: None if t == "-" else float(t.replace(",", "."))
+            filas.append({"fecha": fecha, "planta": planta, "b5_bajo_azufre": num(f["bajo"]),
+                          "b5_alto_azufre": num(f["alto"]), "componente_logistico": num(f["log"]) or 0.0,
+                          "fuente": fuente})
+        if filas:
+            break
     return filas
 
 
@@ -883,35 +916,38 @@ def guardar_osinergmin(filas: list[dict]) -> int:
 
 
 def actualizar_osinergmin(sesion: requests.Session, hasta: str | None = None) -> int:
-    """Descarga las publicaciones semanales de Osinergmin que aún no estén en data/osinergmin.csv.
+    """Descarga las publicaciones semanales de Osinergmin que falten en data/osinergmin.csv.
 
-    Osinergmin publica los lunes (o el siguiente día hábil); se prueba de lunes a jueves de cada
-    semana desde la última fecha guardada (o desde enero de 2023 la primera vez).
+    Osinergmin publica los lunes (o el siguiente día hábil). Se recorren todas las semanas
+    desde enero de 2023 y solo se piden las que no tienen datos, probando de lunes a jueves;
+    así una semana que falló se recupera sola en la siguiente ejecución.
     """
     from datetime import date, timedelta
 
-    fechas = {r["fecha"] for r in leer_osinergmin()}
-    inicio = date.fromisoformat(max(fechas)) + timedelta(days=1) if fechas else date.fromisoformat(OSINERGMIN_DESDE)
+    semanas_con_datos = {date.fromisoformat(r["fecha"]) - timedelta(days=date.fromisoformat(r["fecha"]).weekday())
+                         for r in leer_osinergmin()}
+    inicio = date.fromisoformat(OSINERGMIN_DESDE)
     fin = date.fromisoformat(hasta) if hasta else datetime.now(ZONA).date()
     lunes = inicio - timedelta(days=inicio.weekday())
     filas: list[dict] = []
     while lunes <= fin:
-        for k in range(4):
-            dia = lunes + timedelta(days=k)
-            if dia < inicio or dia > fin or dia.isoformat() in fechas:
-                continue
-            url = URL_OSINERGMIN.format(dia)
-            try:
-                r = sesion.get(url, timeout=30)
-            except requests.RequestException as e:
-                log.warning("Osinergmin no respondió para %s: %s", dia, e)
-                continue
-            if r.status_code == 200 and r.content[:4] == b"%PDF":
-                halladas = extraer_osinergmin(r.content, url, dia.isoformat())
-                log.info("OSINERGMIN %s -> %d plantas", dia, len(halladas))
-                filas += halladas
-                break
-            time.sleep(0.2)
+        if lunes not in semanas_con_datos:
+            for k in range(4):
+                dia = lunes + timedelta(days=k)
+                if dia < inicio or dia > fin:
+                    continue
+                url = URL_OSINERGMIN.format(dia)
+                try:
+                    r = sesion.get(url, timeout=30)
+                except requests.RequestException as e:
+                    log.warning("Osinergmin no respondió para %s: %s", dia, e)
+                    continue
+                if r.status_code == 200 and r.content[:4] == b"%PDF":
+                    halladas = extraer_osinergmin(r.content, url, dia.isoformat())
+                    log.log(logging.INFO if halladas else logging.WARNING, "OSINERGMIN %s -> %d plantas", dia, len(halladas))
+                    filas += halladas
+                    break
+                time.sleep(0.2)
         lunes += timedelta(days=7)
     return guardar_osinergmin(filas) if filas else 0
 

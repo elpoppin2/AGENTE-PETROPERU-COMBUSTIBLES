@@ -284,3 +284,11 @@ def test_actualizar_osinergmin_busca_cada_semana(agente, monkeypatch):
     pedidas.clear()
     assert agente.actualizar_osinergmin(Sesion(), hasta="2026-10-21") == 0  # ya estaba
     assert not any(u.endswith("19102026.pdf") for u in pedidas)
+
+
+def test_osinergmin_pdf_con_letras_sueltas():
+    """El PDF del 12-oct-2026 trae las letras con otra escala; se lee por posición."""
+    import agente_petroperu as a
+    filas = {r["planta"]: r for r in a.extraer_osinergmin((FIXTURES / "osinergmin_2026-10-12.pdf").read_bytes(), "x")}
+    assert len(filas) == 18 and filas["CALLAO"]["fecha"] == "2026-10-12"
+    assert filas["MOLLENDO"]["b5_bajo_azufre"] == 17.35 and filas["PTO. MALDONADO"]["b5_alto_azufre"] == 17.65
