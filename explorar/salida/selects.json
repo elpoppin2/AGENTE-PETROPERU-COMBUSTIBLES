@@ -1,0 +1,112 @@
+[
+ {
+  "id": "departmento",
+  "name": "Departamento",
+  "opciones": [
+   [
+    "#",
+    "Elige el Departamento"
+   ],
+   [
+    "10000",
+    "AMAZONAS"
+   ],
+   [
+    "20000",
+    "ANCASH"
+   ],
+   [
+    "30000",
+    "APURIMAC"
+   ],
+   [
+    "40000",
+    "AREQUIPA"
+   ],
+   [
+    "50000",
+    "AYACUCHO"
+   ],
+   [
+    "60000",
+    "CAJAMARCA"
+   ],
+   [
+    "80000",
+    "CUSCO"
+   ],
+   [
+    "90000",
+    "HUANCAVELICA"
+   ],
+   [
+    "100000",
+    "HUANUCO"
+   ],
+   [
+    "110000",
+    "ICA"
+   ],
+   [
+    "120000",
+    "JUNIN"
+   ],
+   [
+    "130000",
+    "LA LIBERTAD"
+   ],
+   [
+    "140000",
+    "LAMBAYEQUE"
+   ],
+   [
+    "150000",
+    "LIMA"
+   ],
+   [
+    "160000",
+    "LORETO"
+   ],
+   [
+    "170000",
+    "MADRE DE DIOS"
+   ],
+   [
+    "180000",
+    "MOQUEGUA"
+   ],
+   [
+    "190000",
+    "PASCO"
+   ],
+   [
+    "200000",
+    "PIURA"
+   ],
+   [
+    "70000",
+    "PROV. CONST. DEL CALLAO"
+   ],
+   [
+    "210000",
+    "PUNO"
+   ],
+   [
+    "220000",
+    "SAN MARTIN"
+   ],
+   [
+    "230000",
+    "TACNA"
+   ],
+   [
+    "240000",
+    "TUMBES"
+   ],
+   [
+    "250000",
+    "UCAYALI"
+   ]
+  ]
+ }
+]

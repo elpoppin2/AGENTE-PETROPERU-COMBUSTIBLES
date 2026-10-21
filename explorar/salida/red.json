@@ -1,0 +1,594 @@
+[
+ {
+  "url": "https://www.facilito.gob.pe/facilito/pages/facilito/buscadorEESS.jsp",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/html",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google.com/recaptcha/api.js?render=6Le5C4cfAAAAABbO98BHMzZKAUVimVJSzcKrbK03",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/javascript; charset=utf-8",
+  "post": "",
+  "cuerpo": "/* PLEASE DO NOT COPY AND PASTE THIS CODE. */(function(){var w=window,C='___grecaptcha_cfg',cfg=w[C]=w[C]||{},N='grecaptcha';var gr=w[N]=w[N]||{};gr.ready=gr.ready||function(f){(cfg['fns']=cfg['fns']||[]).push(f);};w['__recaptcha_api']='https://www.google.com/recaptcha/api2/';(cfg['render']=cfg['render']||[]).push('6Le5C4cfAAAAABbO98BHMzZKAUVimVJSzcKrbK03');(cfg['anchor-ms']=cfg['anchor-ms']||[]).push(20000);(cfg['execute-ms']=cfg['execute-ms']||[]).push(30000);w['__google_recaptcha_client']=true;var d=document,po=d.createElement('script');po.type='text/javascript';po.async=true; po.charset='utf-8';var v=w.navigator,m=d.createElement('meta');m.httpEquiv='origin-trial';m.content='A7vZI3v+Gz7JfuRolKNM4Aff6zaGuT7X0mf3wtoZTnKv6497cVMnhy03KDqX7kBz/q/iidW7srW31oQbBt4VhgoAAACUeyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGUuY29tOjQ0MyIsImZlYXR1cmUiOiJEaXNhYmxlVGhpcmRQYXJ0eVN0b3JhZ2VQYXJ0aXRpb25pbmczIiwiZXhwaXJ5IjoxNzU3OTgwODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==';if(v&&v.cookieDeprecationLabel){v.cookieDeprecationLabel.getValue().then(function(l){if(l!=='treatment_1.1'&&l!=='treatment_1.2'&&l!=='control_1.1'){d.head.prepend(m);}});}else{d.head.prepend(m);}po.src='https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/recaptcha__en.js';po.crossOrigin='anonymous';po.integrity='sha384-MfhGH2E6ODxTd15SRBg5brmVxS5o/RxnXLqKDic+OfkI3CSgHC3NjS3hFyIe9GOK';var e=d.querySelector('script[nonce]'),n=e&&(e['nonce']||e.getAttribute('nonce'));if(n){po.setAttribute('nonce',n)"
+ },
+ {
+  "url": "https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css; charset=utf-8",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/aos/aos.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/css/jquery.mapify.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/bootstrap/css/bootstrap.min.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/css/style.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/boxicons/css/boxicons.min.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/datatables/datatables.min.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0ITw.woff2",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "font/woff2",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/recaptcha__en.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/javascript",
+  "post": "",
+  "cuerpo": "(function(){/*\n\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n Copyright Google LLC\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n\n Copyright (c) 2015-2018 Google, Inc., Netflix, Inc., Microsoft Corp. and contributors\n Licensed under the Apache License, Version 2.0 (the \"License\");\n you may not use this file except in compliance with the License.\n You may obtain a copy of the License at\n     http://www.apache.org/licenses/LICENSE-2.0\n Unless required by applicable law or agreed to in writing, software\n distributed under the License is distributed on an \"AS IS\" BASIS,\n WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n See the License for the specific language governing permissions and\n limitations under the License.\n*/\n/*\n\n Copyright 2005, 2007 Bob Ippolito. All Rights Reserved.\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: MIT\n*/\n/*\n\n Copyright (c) 2013-2016 Dmitry Chestnykh. All rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions are\n met:\n\n    * Redistributions of source code must retain the above copyright\n notice, this list of conditions and the following disclaimer.\n    * Redistributions in binary form must reproduce the above\n copyright notice, this list of conditions and the following disclaimer\n in the docum"
+ },
+ {
+  "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KLJ7X4F",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "application/javascript; charset=UTF-8",
+  "post": "",
+  "cuerpo": "\n// Copyright 2012 Google Inc. All rights reserved.\n \n(function(){\n\nvar data = {\n\n\"resource\": {\n  \"version\":\"5\",\n  \n  \"macros\":[{\"function\":\"__e\"},{\"function\":\"__u\",\"vtp_component\":\"URL\",\"vtp_enableMultiQueryKeys\":false,\"vtp_enableIgnoreEmptyQueryParam\":false},{\"function\":\"__u\",\"vtp_component\":\"HOST\",\"vtp_enableMultiQueryKeys\":false,\"vtp_enableIgnoreEmptyQueryParam\":false},{\"function\":\"__u\",\"vtp_component\":\"PATH\",\"vtp_enableMultiQueryKeys\":false,\"vtp_enableIgnoreEmptyQueryParam\":false},{\"function\":\"__f\",\"vtp_component\":\"URL\"},{\"function\":\"__e\"}],\n  \"tags\":[{\"function\":\"__googtag\",\"metadata\":[\"map\"],\"once_per_event\":true,\"vtp_tagId\":\"G-4ZZCP431ZY\",\"vtp_configSettingsTable\":[\"list\",[\"map\",\"parameter\",\"send_page_view\",\"parameterValue\",\"true\"]],\"tag_id\":3},{\"function\":\"__gaawe\",\"metadata\":[\"map\"],\"once_per_event\":true,\"vtp_sendEcommerceData\":false,\"vtp_eventName\":\"Facilito (eventos)\",\"vtp_measurementIdOverride\":\"G-4ZZCP431ZY\",\"vtp_enableUserProperties\":true,\"vtp_enableEuid\":true,\"vtp_migratedToV2\":true,\"vtp_demoV2\":false,\"tag_id\":5}],\n  \"predicates\":[{\"function\":\"_eq\",\"arg0\":[\"macro\",0],\"arg1\":\"gtm.js\"},{\"function\":\"_eq\",\"arg0\":[\"macro\",0],\"arg1\":\"gtm.init_consent\"},{\"function\":\"_eq\",\"arg0\":[\"macro\",0],\"arg1\":\"gtm.init\"}],\n  \"rules\":[[[\"if\",0],[\"add\",0,1]],[[\"if\",1],[\"add\",0,1]],[[\"if\",2],[\"add\",0,1]]]\n}\n\n\n\n,\"runtime\":[\n[50,\"__e\",[46,\"a\"],[36,[13,[41,\"$0\"],[3,\"$0\",[\"require\",\"internal.getEventData\"]],[\"$0\",\"event\"]]]]\n,\n[50,\"__f\",[46,\"a\"],[52,\"b\",[\"require\",\"copyFromDataLayer\"]],"
+ },
+ {
+  "url": "https://www.googletagmanager.com/gtag/js?id=G-4ZZCP431ZY&cx=c&gtm=4e6aj1",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "application/javascript; charset=UTF-8",
+  "post": "",
+  "cuerpo": "\n// Copyright 2012 Google Inc. All rights reserved.\n \n(function(){\n\nvar data = {\n\n\"resource\": {\n  \"version\":\"1\",\n  \n  \"macros\":[{\"function\":\"__c\",\"vtp_value\":true},{\"function\":\"__e\"},{\"function\":\"__actids\"},{\"function\":\"__v\",\"vtp_name\":\"gtm.configContainerId\",\"vtp_dataLayerVersion\":1},{\"function\":\"__c\",\"vtp_value\":\"\"},{\"function\":\"__c\",\"vtp_value\":0}],\n  \"tags\":[{\"function\":\"__ogt_auto_events\",\"priority\":21,\"vtp_enableOutboundClick\":true,\"vtp_enableScroll\":true,\"vtp_enableDownload\":true,\"vtp_enableHistoryEvents\":true,\"vtp_enableForm\":true,\"vtp_enableVideo\":true,\"vtp_enablePageView\":true,\"vtp_enableInPageEventsHidden\":false,\"tag_id\":9},{\"function\":\"__ogt_1p_data_v2\",\"priority\":11,\"vtp_isAutoEnabled\":true,\"vtp_isManualEnabled\":false,\"vtp_autoPhoneEnabled\":true,\"vtp_autoCollectExclusionSelectors\":[\"list\",[\"map\",\"exclusionSelector\",\"\"]],\"vtp_isEnabled\":true,\"vtp_autoAddressEnabled\":true,\"vtp_autoEmailEnabled\":true,\"vtp_isAutoCollectPiiEnabledFlag\":true,\"tag_id\":11},{\"function\":\"__ccd_ga_first\",\"priority\":10,\"vtp_instanceDestinationId\":\"G-4ZZCP431ZY\",\"tag_id\":22},{\"function\":\"__set_product_settings\",\"priority\":9,\"vtp_instanceDestinationId\":\"G-4ZZCP431ZY\",\"vtp_foreignTldMacroResult\":[\"macro\",4],\"vtp_isChinaVipRegionMacroResult\":[\"macro\",5],\"tag_id\":21},{\"function\":\"__ccd_ga_regscope\",\"priority\":8,\"vtp_settingsTable\":[\"list\",[\"map\",\"redactFieldGroup\",\"DEVICE_AND_GEO\",\"disallowAllRegions\",false,\"disallowedRegions\",\"\"],[\"map\",\"redactFieldGroup\",\"GOOGLE_SIGNALS\",\"disallowAllRegions\",tr"
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/img/logo-facilito.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394za20ozb866448795zd866448795xf1&_p=1792596648606&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=2&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115616985~115938465~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=0&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FbuscadorEESS.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=page_view&_fv=1&_nsi=1&_ss=1&tfd=2475",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394z8866448795za20gzb866448795zd866448795xf1&_p=1792596648606&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=2&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=4&tag_exp=115616985~115938465~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=1&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FbuscadorEESS.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=Facilito%20(eventos)&_et=1&tfd=2489",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394z8866448795za20gzb866448795zd866448795xf1&_p=1792596648606&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=2&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=2&tag_exp=115616985~115938465~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=0&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FbuscadorEESS.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=Facilito%20(eventos)&_et=2&tfd=2482",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394za20ozb866448795zd866448795xf1&_p=1792596648606&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAACAAQ&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=2&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=3&tag_exp=115616985~115938465~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=1&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FbuscadorEESS.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=page_view&tfd=2485",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394za20ozb866448795zd866448795xf1&_p=1792596648606&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAACAAQ&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=2&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=5&tag_exp=115616985~115938465~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=1&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FbuscadorEESS.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=page_view&_et=2&tfd=2491",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/img/logo.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/img/peru.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "application/javascript",
+  "post": "",
+  "cuerpo": "/*!\n  * Bootstrap v5.1.3 (https://getbootstrap.com/)\n  * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)\n  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)\n  */\n!function(t,e){\"object\"==typeof exports&&\"undefined\"!=typeof module?module.exports=e():\"function\"==typeof define&&define.amd?define(e):(t=\"undefined\"!=typeof globalThis?globalThis:t||self).bootstrap=e()}(this,(function(){\"use strict\";const t=\"transitionend\",e=t=>{let e=t.getAttribute(\"data-bs-target\");if(!e||\"#\"===e){let i=t.getAttribute(\"href\");if(!i||!i.includes(\"#\")&&!i.startsWith(\".\"))return null;i.includes(\"#\")&&!i.startsWith(\"#\")&&(i=`#${i.split(\"#\")[1]}`),e=i&&\"#\"!==i?i.trim():null}return e},i=t=>{const i=e(t);return i&&document.querySelector(i)?i:null},n=t=>{const i=e(t);return i?document.querySelector(i):null},s=e=>{e.dispatchEvent(new Event(t))},o=t=>!(!t||\"object\"!=typeof t)&&(void 0!==t.jquery&&(t=t[0]),void 0!==t.nodeType),r=t=>o(t)?t.jquery?t[0]:t:\"string\"==typeof t&&t.length>0?document.querySelector(t):null,a=(t,e,i)=>{Object.keys(i).forEach((n=>{const s=i[n],r=e[n],a=r&&o(r)?\"element\":null==(l=r)?`${l}`:{}.toString.call(l).match(/\\s([a-z]+)/i)[1].toLowerCase();var l;if(!new RegExp(s).test(a))throw new TypeError(`${t.toUpperCase()}: Option \"${n}\" provided type \"${a}\" but expected type \"${s}\".`)}))},l=t=>!(!o(t)||0===t.getClientRects().length)&&\"visible\"===getComputedStyle(t).getPropertyValue(\"visibility\"),c=t=>!t||t.nodeType!==N"
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/js/jquery-3.2.1.slim.min.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "application/javascript",
+  "post": "",
+  "cuerpo": "/*! jQuery v3.2.1 -ajax,-ajax/jsonp,-ajax/load,-ajax/parseXML,-ajax/script,-ajax/var/location,-ajax/var/nonce,-ajax/var/rquery,-ajax/xhr,-manipulation/_evalUrl,-event/ajax,-effects,-effects/Tween,-effects/animatedSelector | (c) JS Foundation and other contributors | jquery.org/license */\n!function(a,b){\"use strict\";\"object\"==typeof module&&\"object\"==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error(\"jQuery requires a window with a document\");return b(a)}:b(a)}(\"undefined\"!=typeof window?window:this,function(a,b){\"use strict\";var c=[],d=a.document,e=Object.getPrototypeOf,f=c.slice,g=c.concat,h=c.push,i=c.indexOf,j={},k=j.toString,l=j.hasOwnProperty,m=l.toString,n=m.call(Object),o={};function p(a,b){b=b||d;var c=b.createElement(\"script\");c.text=a,b.head.appendChild(c).parentNode.removeChild(c)}var q=\"3.2.1 -ajax,-ajax/jsonp,-ajax/load,-ajax/parseXML,-ajax/script,-ajax/var/location,-ajax/var/nonce,-ajax/var/rquery,-ajax/xhr,-manipulation/_evalUrl,-event/ajax,-effects,-effects/Tween,-effects/animatedSelector\",r=function(a,b){return new r.fn.init(a,b)},s=/^[\\s\\uFEFF\\xA0]+|[\\s\\uFEFF\\xA0]+$/g,t=/^-ms-/,u=/-([a-z])/g,v=function(a,b){return b.toUpperCase()};r.fn=r.prototype={jquery:q,constructor:r,length:0,toArray:function(){return f.call(this)},get:function(a){return null==a?f.call(this):a<0?this[a+this.length]:this[a]},pushStack:function(a){var b=r.merge(this.constructor(),a);return b.prevObject=this,b},each:function(a){return r.each("
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/boxicons/fonts/boxicons.woff2",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "font/woff2",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/js/jquery.mapify.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "application/javascript",
+  "post": "",
+  "cuerpo": "/* \n\t\nThe MIT License (MIT)\n\nCopyright (c) 2014 etienne-martin\nContributions by Miro Hudak <mhudak@dev.enscope.com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n\n*/\n\n!function(t,i,o,s){function e(i,o){var e=this;this.element=i,this.options=o,this.isPopOverEnabled=0!=this.options.popOver,this.isCustomPopOver=0!=this.options.popOver.customPopOver&&this.options.popOver.customPopOver!=s,this._initImageMap(),this._initPopOver(),this._bindEvents(),this._remapZones(),t(this.element).bind(\"load.mapify\",function(){e._remapZo"
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/js/main.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "application/javascript",
+  "post": "",
+  "cuerpo": "(function() {\r\n  \"use strict\";\r\n\r\n  const select = (el, all = false) => {\r\n    el = el.trim()\r\n    if (all) {\r\n      return [...document.querySelectorAll(el)]\r\n    } else {\r\n      return document.querySelector(el)\r\n    }\r\n  }\r\n\r\n  const on = (type, el, listener, all = false) => {\r\n    let selectEl = select(el, all)\r\n    if (selectEl) {\r\n      if (all) {\r\n        selectEl.forEach(e => e.addEventListener(type, listener))\r\n      } else {\r\n        selectEl.addEventListener(type, listener)\r\n      }\r\n    }\r\n  }\r\n\r\n  const onscroll = (el, listener) => {\r\n    el.addEventListener('scroll', listener)\r\n  }\r\n\r\n  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle=\"tooltip\"]'))\r\n  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {\r\n    return new bootstrap.Tooltip(tooltipTriggerEl)\r\n  })\r\n\r\n  let navbarlinks = select('#navbar .scrollto', true)\r\n  const navbarlinksActive = () => {\r\n    let position = window.scrollY + 200\r\n    navbarlinks.forEach(navbarlink => {\r\n      if (!navbarlink.hash) return\r\n      let section = select(navbarlink.hash)\r\n      if (!section) return\r\n      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {\r\n        navbarlink.classList.add('active')\r\n      } else {\r\n        navbarlink.classList.remove('active')\r\n      }\r\n    })\r\n  }\r\n  window.addEventListener('load', navbarlinksActive)\r\n  onscroll(document, navbarlinksActive)\r\n\r\n  const scrollto = (el) => {\r\n    let header = sele"
+ },
+ {
+  "url": "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Le5C4cfAAAAABbO98BHMzZKAUVimVJSzcKrbK03&co=aHR0cHM6Ly93d3cuZmFjaWxpdG8uZ29iLnBlOjQ0Mw..&hl=en&v=4EDjxXf4knsx6UBM1L2V6cv8&size=invisible&anchor-ms=20000&execute-ms=30000&cb=lmt0x2fjtnv9",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/html; charset=utf-8",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/styles__ltr.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/recaptcha__en.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/javascript",
+  "post": "",
+  "cuerpo": "(function(){/*\n\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n Copyright Google LLC\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n\n Copyright (c) 2015-2018 Google, Inc., Netflix, Inc., Microsoft Corp. and contributors\n Licensed under the Apache License, Version 2.0 (the \"License\");\n you may not use this file except in compliance with the License.\n You may obtain a copy of the License at\n     http://www.apache.org/licenses/LICENSE-2.0\n Unless required by applicable law or agreed to in writing, software\n distributed under the License is distributed on an \"AS IS\" BASIS,\n WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n See the License for the specific language governing permissions and\n limitations under the License.\n*/\n/*\n\n Copyright 2005, 2007 Bob Ippolito. All Rights Reserved.\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: MIT\n*/\n/*\n\n Copyright (c) 2013-2016 Dmitry Chestnykh. All rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions are\n met:\n\n    * Redistributions of source code must retain the above copyright\n notice, this list of conditions and the following disclaimer.\n    * Redistributions in binary form must reproduce the above\n copyright notice, this list of conditions and the following disclaimer\n in the docum"
+ },
+ {
+  "url": "https://www.gstatic.com/recaptcha/api2/logo_48.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://fonts.gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "font/woff2",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google.com/recaptcha/api2/webworker.js?hl=en&v=4EDjxXf4knsx6UBM1L2V6cv8",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/javascript; charset=utf-8",
+  "post": "",
+  "cuerpo": "importScripts('https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/recaptcha__en.js');"
+ },
+ {
+  "url": "https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/recaptcha__en.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/javascript",
+  "post": "",
+  "cuerpo": "(function(){/*\n\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n Copyright Google LLC\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n\n Copyright (c) 2015-2018 Google, Inc., Netflix, Inc., Microsoft Corp. and contributors\n Licensed under the Apache License, Version 2.0 (the \"License\");\n you may not use this file except in compliance with the License.\n You may obtain a copy of the License at\n     http://www.apache.org/licenses/LICENSE-2.0\n Unless required by applicable law or agreed to in writing, software\n distributed under the License is distributed on an \"AS IS\" BASIS,\n WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n See the License for the specific language governing permissions and\n limitations under the License.\n*/\n/*\n\n Copyright 2005, 2007 Bob Ippolito. All Rights Reserved.\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: MIT\n*/\n/*\n\n Copyright (c) 2013-2016 Dmitry Chestnykh. All rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions are\n met:\n\n    * Redistributions of source code must retain the above copyright\n notice, this list of conditions and the following disclaimer.\n    * Redistributions in binary form must reproduce the above\n copyright notice, this list of conditions and the following disclaimer\n in the docum"
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/",
+  "metodo": "GET",
+  "estado": 302,
+  "tipo": "text/html",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/pages/facilito/menuPrecios.jsp",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/html;charset=Cp1252",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css; charset=utf-8",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/aos/aos.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/bootstrap/css/bootstrap.min.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/boxicons/css/boxicons.min.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/css/jquery.mapify.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/datatables/datatables.min.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/css/style.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/img/logo-facilito.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/img/logo.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394z8866448795za20gzb866448795zd866448795xf1&_p=1792596648606&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=2&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=6&tag_exp=115616985~115938465~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=1&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FbuscadorEESS.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=Facilito%20(eventos)&_et=1&tfd=7492",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google.com/recaptcha/api.js?render=6Le5C4cfAAAAABbO98BHMzZKAUVimVJSzcKrbK03",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/javascript; charset=utf-8",
+  "post": "",
+  "cuerpo": "/* PLEASE DO NOT COPY AND PASTE THIS CODE. */(function(){var w=window,C='___grecaptcha_cfg',cfg=w[C]=w[C]||{},N='grecaptcha';var gr=w[N]=w[N]||{};gr.ready=gr.ready||function(f){(cfg['fns']=cfg['fns']||[]).push(f);};w['__recaptcha_api']='https://www.google.com/recaptcha/api2/';(cfg['render']=cfg['render']||[]).push('6Le5C4cfAAAAABbO98BHMzZKAUVimVJSzcKrbK03');(cfg['anchor-ms']=cfg['anchor-ms']||[]).push(20000);(cfg['execute-ms']=cfg['execute-ms']||[]).push(30000);w['__google_recaptcha_client']=true;var d=document,po=d.createElement('script');po.type='text/javascript';po.async=true; po.charset='utf-8';var v=w.navigator,m=d.createElement('meta');m.httpEquiv='origin-trial';m.content='A7vZI3v+Gz7JfuRolKNM4Aff6zaGuT7X0mf3wtoZTnKv6497cVMnhy03KDqX7kBz/q/iidW7srW31oQbBt4VhgoAAACUeyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGUuY29tOjQ0MyIsImZlYXR1cmUiOiJEaXNhYmxlVGhpcmRQYXJ0eVN0b3JhZ2VQYXJ0aXRpb25pbmczIiwiZXhwaXJ5IjoxNzU3OTgwODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==';if(v&&v.cookieDeprecationLabel){v.cookieDeprecationLabel.getValue().then(function(l){if(l!=='treatment_1.1'&&l!=='treatment_1.2'&&l!=='control_1.1'){d.head.prepend(m);}});}else{d.head.prepend(m);}po.src='https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/recaptcha__en.js';po.crossOrigin='anonymous';po.integrity='sha384-MfhGH2E6ODxTd15SRBg5brmVxS5o/RxnXLqKDic+OfkI3CSgHC3NjS3hFyIe9GOK';var e=d.querySelector('script[nonce]'),n=e&&(e['nonce']||e.getAttribute('nonce'));if(n){po.setAttribute('nonce',n)"
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "application/javascript",
+  "post": "",
+  "cuerpo": "/*!\n  * Bootstrap v5.1.3 (https://getbootstrap.com/)\n  * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)\n  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)\n  */\n!function(t,e){\"object\"==typeof exports&&\"undefined\"!=typeof module?module.exports=e():\"function\"==typeof define&&define.amd?define(e):(t=\"undefined\"!=typeof globalThis?globalThis:t||self).bootstrap=e()}(this,(function(){\"use strict\";const t=\"transitionend\",e=t=>{let e=t.getAttribute(\"data-bs-target\");if(!e||\"#\"===e){let i=t.getAttribute(\"href\");if(!i||!i.includes(\"#\")&&!i.startsWith(\".\"))return null;i.includes(\"#\")&&!i.startsWith(\"#\")&&(i=`#${i.split(\"#\")[1]}`),e=i&&\"#\"!==i?i.trim():null}return e},i=t=>{const i=e(t);return i&&document.querySelector(i)?i:null},n=t=>{const i=e(t);return i?document.querySelector(i):null},s=e=>{e.dispatchEvent(new Event(t))},o=t=>!(!t||\"object\"!=typeof t)&&(void 0!==t.jquery&&(t=t[0]),void 0!==t.nodeType),r=t=>o(t)?t.jquery?t[0]:t:\"string\"==typeof t&&t.length>0?document.querySelector(t):null,a=(t,e,i)=>{Object.keys(i).forEach((n=>{const s=i[n],r=e[n],a=r&&o(r)?\"element\":null==(l=r)?`${l}`:{}.toString.call(l).match(/\\s([a-z]+)/i)[1].toLowerCase();var l;if(!new RegExp(s).test(a))throw new TypeError(`${t.toUpperCase()}: Option \"${n}\" provided type \"${a}\" but expected type \"${s}\".`)}))},l=t=>!(!o(t)||0===t.getClientRects().length)&&\"visible\"===getComputedStyle(t).getPropertyValue(\"visibility\"),c=t=>!t||t.nodeType!==N"
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/js/main.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "application/javascript",
+  "post": "",
+  "cuerpo": "(function() {\r\n  \"use strict\";\r\n\r\n  const select = (el, all = false) => {\r\n    el = el.trim()\r\n    if (all) {\r\n      return [...document.querySelectorAll(el)]\r\n    } else {\r\n      return document.querySelector(el)\r\n    }\r\n  }\r\n\r\n  const on = (type, el, listener, all = false) => {\r\n    let selectEl = select(el, all)\r\n    if (selectEl) {\r\n      if (all) {\r\n        selectEl.forEach(e => e.addEventListener(type, listener))\r\n      } else {\r\n        selectEl.addEventListener(type, listener)\r\n      }\r\n    }\r\n  }\r\n\r\n  const onscroll = (el, listener) => {\r\n    el.addEventListener('scroll', listener)\r\n  }\r\n\r\n  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle=\"tooltip\"]'))\r\n  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {\r\n    return new bootstrap.Tooltip(tooltipTriggerEl)\r\n  })\r\n\r\n  let navbarlinks = select('#navbar .scrollto', true)\r\n  const navbarlinksActive = () => {\r\n    let position = window.scrollY + 200\r\n    navbarlinks.forEach(navbarlink => {\r\n      if (!navbarlink.hash) return\r\n      let section = select(navbarlink.hash)\r\n      if (!section) return\r\n      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {\r\n        navbarlink.classList.add('active')\r\n      } else {\r\n        navbarlink.classList.remove('active')\r\n      }\r\n    })\r\n  }\r\n  window.addEventListener('load', navbarlinksActive)\r\n  onscroll(document, navbarlinksActive)\r\n\r\n  const scrollto = (el) => {\r\n    let header = sele"
+ },
+ {
+  "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0ITw.woff2",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "font/woff2",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/boxicons/fonts/boxicons.woff2",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "font/woff2",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KLJ7X4F",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "application/javascript; charset=UTF-8",
+  "post": "",
+  "cuerpo": "\n// Copyright 2012 Google Inc. All rights reserved.\n \n(function(){\n\nvar data = {\n\n\"resource\": {\n  \"version\":\"5\",\n  \n  \"macros\":[{\"function\":\"__e\"},{\"function\":\"__u\",\"vtp_component\":\"URL\",\"vtp_enableMultiQueryKeys\":false,\"vtp_enableIgnoreEmptyQueryParam\":false},{\"function\":\"__u\",\"vtp_component\":\"HOST\",\"vtp_enableMultiQueryKeys\":false,\"vtp_enableIgnoreEmptyQueryParam\":false},{\"function\":\"__u\",\"vtp_component\":\"PATH\",\"vtp_enableMultiQueryKeys\":false,\"vtp_enableIgnoreEmptyQueryParam\":false},{\"function\":\"__f\",\"vtp_component\":\"URL\"},{\"function\":\"__e\"}],\n  \"tags\":[{\"function\":\"__googtag\",\"metadata\":[\"map\"],\"once_per_event\":true,\"vtp_tagId\":\"G-4ZZCP431ZY\",\"vtp_configSettingsTable\":[\"list\",[\"map\",\"parameter\",\"send_page_view\",\"parameterValue\",\"true\"]],\"tag_id\":3},{\"function\":\"__gaawe\",\"metadata\":[\"map\"],\"once_per_event\":true,\"vtp_sendEcommerceData\":false,\"vtp_eventName\":\"Facilito (eventos)\",\"vtp_measurementIdOverride\":\"G-4ZZCP431ZY\",\"vtp_enableUserProperties\":true,\"vtp_enableEuid\":true,\"vtp_migratedToV2\":true,\"vtp_demoV2\":false,\"tag_id\":5}],\n  \"predicates\":[{\"function\":\"_eq\",\"arg0\":[\"macro\",0],\"arg1\":\"gtm.js\"},{\"function\":\"_eq\",\"arg0\":[\"macro\",0],\"arg1\":\"gtm.init_consent\"},{\"function\":\"_eq\",\"arg0\":[\"macro\",0],\"arg1\":\"gtm.init\"}],\n  \"rules\":[[[\"if\",0],[\"add\",0,1]],[[\"if\",1],[\"add\",0,1]],[[\"if\",2],[\"add\",0,1]]]\n}\n\n\n\n,\"runtime\":[\n[50,\"__e\",[46,\"a\"],[36,[13,[41,\"$0\"],[3,\"$0\",[\"require\",\"internal.getEventData\"]],[\"$0\",\"event\"]]]]\n,\n[50,\"__f\",[46,\"a\"],[52,\"b\",[\"require\",\"copyFromDataLayer\"]],"
+ },
+ {
+  "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptsg8zYS_SKggPNyCg4TYFq.woff2",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "font/woff2",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.googletagmanager.com/gtag/js?id=G-4ZZCP431ZY&cx=c&gtm=4e6aj1",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "application/javascript; charset=UTF-8",
+  "post": "",
+  "cuerpo": "\n// Copyright 2012 Google Inc. All rights reserved.\n \n(function(){\n\nvar data = {\n\n\"resource\": {\n  \"version\":\"1\",\n  \n  \"macros\":[{\"function\":\"__c\",\"vtp_value\":true},{\"function\":\"__e\"},{\"function\":\"__actids\"},{\"function\":\"__v\",\"vtp_name\":\"gtm.configContainerId\",\"vtp_dataLayerVersion\":1},{\"function\":\"__c\",\"vtp_value\":\"\"},{\"function\":\"__c\",\"vtp_value\":0}],\n  \"tags\":[{\"function\":\"__ogt_auto_events\",\"priority\":21,\"vtp_enableOutboundClick\":true,\"vtp_enableScroll\":true,\"vtp_enableDownload\":true,\"vtp_enableHistoryEvents\":true,\"vtp_enableForm\":true,\"vtp_enableVideo\":true,\"vtp_enablePageView\":true,\"vtp_enableInPageEventsHidden\":false,\"tag_id\":9},{\"function\":\"__ogt_1p_data_v2\",\"priority\":11,\"vtp_isAutoEnabled\":true,\"vtp_isManualEnabled\":false,\"vtp_autoPhoneEnabled\":true,\"vtp_autoCollectExclusionSelectors\":[\"list\",[\"map\",\"exclusionSelector\",\"\"]],\"vtp_isEnabled\":true,\"vtp_autoAddressEnabled\":true,\"vtp_autoEmailEnabled\":true,\"vtp_isAutoCollectPiiEnabledFlag\":true,\"tag_id\":11},{\"function\":\"__ccd_ga_first\",\"priority\":10,\"vtp_instanceDestinationId\":\"G-4ZZCP431ZY\",\"tag_id\":22},{\"function\":\"__set_product_settings\",\"priority\":9,\"vtp_instanceDestinationId\":\"G-4ZZCP431ZY\",\"vtp_foreignTldMacroResult\":[\"macro\",4],\"vtp_isChinaVipRegionMacroResult\":[\"macro\",5],\"tag_id\":21},{\"function\":\"__ccd_ga_regscope\",\"priority\":8,\"vtp_settingsTable\":[\"list\",[\"map\",\"redactFieldGroup\",\"DEVICE_AND_GEO\",\"disallowAllRegions\",false,\"disallowedRegions\",\"\"],[\"map\",\"redactFieldGroup\",\"GOOGLE_SIGNALS\",\"disallowAllRegions\",tr"
+ },
+ {
+  "url": "https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/recaptcha__en.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/javascript",
+  "post": "",
+  "cuerpo": "(function(){/*\n\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n Copyright Google LLC\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n\n Copyright (c) 2015-2018 Google, Inc., Netflix, Inc., Microsoft Corp. and contributors\n Licensed under the Apache License, Version 2.0 (the \"License\");\n you may not use this file except in compliance with the License.\n You may obtain a copy of the License at\n     http://www.apache.org/licenses/LICENSE-2.0\n Unless required by applicable law or agreed to in writing, software\n distributed under the License is distributed on an \"AS IS\" BASIS,\n WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n See the License for the specific language governing permissions and\n limitations under the License.\n*/\n/*\n\n Copyright 2005, 2007 Bob Ippolito. All Rights Reserved.\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: MIT\n*/\n/*\n\n Copyright (c) 2013-2016 Dmitry Chestnykh. All rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions are\n met:\n\n    * Redistributions of source code must retain the above copyright\n notice, this list of conditions and the following disclaimer.\n    * Redistributions in binary form must reproduce the above\n copyright notice, this list of conditions and the following disclaimer\n in the docum"
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394za20ozb866448795zd866448795xf1&_p=1792596655553&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=19&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115616986~115938466~115938468~118012008~118897920~118897930~120213116~120385423~120420415~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=1&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FmenuPrecios.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=page_view&tfd=1084",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394z8866448795za20gzb866448795zd866448795xf1&_p=1792596655553&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=19&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=2&tag_exp=115616986~115938466~115938468~118012008~118897920~118897930~120213116~120385423~120420415~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=1&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FmenuPrecios.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=Facilito%20(eventos)&tfd=1087",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394za20ozb866448795zd866448795xf1&_p=1792596655553&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAACAAQ&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=19&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=3&tag_exp=115616986~115938466~115938468~118012008~118897920~118897930~120213116~120385423~120420415~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=1&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FmenuPrecios.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=page_view&_et=1&tfd=1090",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394z8866448795za20gzb866448795zd866448795xf1&_p=1792596655553&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=19&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=4&tag_exp=115616986~115938466~115938468~118012008~118897920~118897930~120213116~120385423~120420415~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=1&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FmenuPrecios.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=Facilito%20(eventos)&tfd=1095",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394za20ozb866448795zd866448795xf1&_p=1792596655553&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAACAAQ&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=19&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=5&tag_exp=115616986~115938466~115938468~118012008~118897920~118897930~120213116~120385423~120420415~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=1&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FmenuPrecios.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=page_view&_et=3&tfd=1097",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/img/GV1.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/img/GLP1.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/img/GE1.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/vendor/aos/aos.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "application/javascript",
+  "post": "",
+  "cuerpo": "!function(e,t){\"object\"==typeof exports&&\"object\"==typeof module?module.exports=t():\"function\"==typeof define&&define.amd?define([],t):\"object\"==typeof exports?exports.AOS=t():e.AOS=t()}(this,function(){return function(e){function t(o){if(n[o])return n[o].exports;var i=n[o]={exports:{},id:o,loaded:!1};return e[o].call(i.exports,i,i.exports,t),i.loaded=!0,i.exports}var n={};return t.m=e,t.c=n,t.p=\"dist/\",t(0)}([function(e,t,n){\"use strict\";function o(e){return e&&e.__esModule?e:{default:e}}var i=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},r=n(1),a=(o(r),n(6)),u=o(a),c=n(7),s=o(c),f=n(8),d=o(f),l=n(9),p=o(l),m=n(10),b=o(m),v=n(11),y=o(v),g=n(14),h=o(g),w=[],k=!1,x={offset:120,delay:0,easing:\"ease\",duration:400,disable:!1,once:!1,startEvent:\"DOMContentLoaded\",throttleDelay:99,debounceDelay:50,disableMutationObserver:!1},j=function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0];if(e&&(k=!0),k)return w=(0,y.default)(w,x),(0,b.default)(w,x.once),w},O=function(){w=(0,h.default)(),j()},M=function(){w.forEach(function(e,t){e.node.removeAttribute(\"data-aos\"),e.node.removeAttribute(\"data-aos-easing\"),e.node.removeAttribute(\"data-aos-duration\"),e.node.removeAttribute(\"data-aos-delay\")})},S=function(e){return e===!0||\"mobile\"===e&&p.default.mobile()||\"phone\"===e&&p.default.phone()||\"tablet\"===e&&p.default.tablet()||\"function\"==typeof e&&e()===!0},_=functio"
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/img/GE2.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Le5C4cfAAAAABbO98BHMzZKAUVimVJSzcKrbK03&co=aHR0cHM6Ly93d3cuZmFjaWxpdG8uZ29iLnBlOjQ0Mw..&hl=en&v=4EDjxXf4knsx6UBM1L2V6cv8&size=invisible&anchor-ms=20000&execute-ms=30000&cb=xsdq5ebndjg3",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/html; charset=utf-8",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/styles__ltr.css",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/css",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/recaptcha__en.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/javascript",
+  "post": "",
+  "cuerpo": "(function(){/*\n\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n Copyright Google LLC\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n\n Copyright (c) 2015-2018 Google, Inc., Netflix, Inc., Microsoft Corp. and contributors\n Licensed under the Apache License, Version 2.0 (the \"License\");\n you may not use this file except in compliance with the License.\n You may obtain a copy of the License at\n     http://www.apache.org/licenses/LICENSE-2.0\n Unless required by applicable law or agreed to in writing, software\n distributed under the License is distributed on an \"AS IS\" BASIS,\n WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n See the License for the specific language governing permissions and\n limitations under the License.\n*/\n/*\n\n Copyright 2005, 2007 Bob Ippolito. All Rights Reserved.\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: MIT\n*/\n/*\n\n Copyright (c) 2013-2016 Dmitry Chestnykh. All rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions are\n met:\n\n    * Redistributions of source code must retain the above copyright\n notice, this list of conditions and the following disclaimer.\n    * Redistributions in binary form must reproduce the above\n copyright notice, this list of conditions and the following disclaimer\n in the docum"
+ },
+ {
+  "url": "https://www.facilito.gob.pe/facilito/assets/img/DG1.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://fonts.gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "font/woff2",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.gstatic.com/recaptcha/api2/logo_48.png",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "image/png",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google.com/recaptcha/api2/webworker.js?hl=en&v=4EDjxXf4knsx6UBM1L2V6cv8",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/javascript; charset=utf-8",
+  "post": "",
+  "cuerpo": "importScripts('https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/recaptcha__en.js');"
+ },
+ {
+  "url": "https://www.gstatic.com/recaptcha/releases/4EDjxXf4knsx6UBM1L2V6cv8/recaptcha__en.js",
+  "metodo": "GET",
+  "estado": 200,
+  "tipo": "text/javascript",
+  "post": "",
+  "cuerpo": "(function(){/*\n\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n Copyright Google LLC\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: Apache-2.0\n*/\n/*\n\n\n Copyright (c) 2015-2018 Google, Inc., Netflix, Inc., Microsoft Corp. and contributors\n Licensed under the Apache License, Version 2.0 (the \"License\");\n you may not use this file except in compliance with the License.\n You may obtain a copy of the License at\n     http://www.apache.org/licenses/LICENSE-2.0\n Unless required by applicable law or agreed to in writing, software\n distributed under the License is distributed on an \"AS IS\" BASIS,\n WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n See the License for the specific language governing permissions and\n limitations under the License.\n*/\n/*\n\n Copyright 2005, 2007 Bob Ippolito. All Rights Reserved.\n Copyright The Closure Library Authors.\n SPDX-License-Identifier: MIT\n*/\n/*\n\n Copyright (c) 2013-2016 Dmitry Chestnykh. All rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions are\n met:\n\n    * Redistributions of source code must retain the above copyright\n notice, this list of conditions and the following disclaimer.\n    * Redistributions in binary form must reproduce the above\n copyright notice, this list of conditions and the following disclaimer\n in the docum"
+ },
+ {
+  "url": "https://www.osinergmin.gob.pe/seccion/institucional/regulacion-tarifaria/publicaciones/hidrocarburos",
+  "metodo": "GET",
+  "estado": 404,
+  "tipo": "text/html",
+  "post": "",
+  "cuerpo": ""
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-4ZZCP431ZY&gtm=45je6aj1v890826394z8866448795za20gzb866448795zd866448795xf1&_p=1792596655553&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&cid=159092102.1792596650&frm=0&ngs=1&pscdl=noapi&rcb=19&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=6&tag_exp=115616986~115938466~115938468~118012008~118897920~118897930~120213116~120385423~120420415~120469145~120469153~121246026~121246034&sid=1792596649&sct=1&seg=1&dl=https%3A%2F%2Fwww.facilito.gob.pe%2Ffacilito%2Fpages%2Ffacilito%2FmenuPrecios.jsp&dt=%3A%3A%3A%20Osinergmin%20-%20FACILITO%20%3A%3A%3A&en=Facilito%20(eventos)&_et=1&tfd=6098",
+  "metodo": "POST",
+  "estado": 204,
+  "tipo": "text/plain",
+  "post": "",
+  "cuerpo": ""
+ }
+]
