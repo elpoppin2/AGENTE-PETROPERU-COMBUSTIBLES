@@ -1,0 +1,18 @@
+name: Explorar Osinergmin (temporal)
+on:
+  push:
+    branches: [exploracion-osinergmin]
+    paths: [explorar/**]
+permissions:
+  contents: write
+jobs:
+  explorar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install playwright && python -m playwright install --with-deps chromium
+      - run: python explorar/facilito.py
+      - run: |
+          git config user.name agente-petroperu
+          git config user.email agente-petroperu@users.noreply.github.com
+          git add explorar/salida && git commit -m "Resultado exploración Osinergmin" && git push
