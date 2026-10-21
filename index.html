@@ -38,6 +38,12 @@ try { const t = localStorage.getItem("tema"); if (t === "dark" || t === "light")
   --letrero-suave: #a3a8ad;
   --letrero-up: #fdb022;
   --letrero-down: #47cd89;
+  --mapa-0: #f08f82;         /* mapa: rampa roja de 5 tramos, de menor a mayor precio */
+  --mapa-1: #e9644f;
+  --mapa-2: #d93a2b;
+  --mapa-3: #b8180f;
+  --mapa-4: #860c07;
+  --mapa-vacio: #dcdfe1;     /* departamento sin planta */
   --f-titulo: "Barlow Semi Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
   --f-texto: "Barlow", "Segoe UI", Roboto, Arial, sans-serif;
 }
@@ -61,6 +67,12 @@ try { const t = localStorage.getItem("tema"); if (t === "dark" || t === "light")
     --down-bg: #14301f;
     --letrero-linea: #2f3236;
     --alto-azufre: #b9bec2;
+    --mapa-0: #8a2620;
+    --mapa-1: #b02e24;
+    --mapa-2: #d93a2d;
+    --mapa-3: #f26a5e;
+    --mapa-4: #ffa199;
+    --mapa-vacio: #2c2f32;
   }
 }
 :root[data-theme="dark"] {
@@ -82,6 +94,12 @@ try { const t = localStorage.getItem("tema"); if (t === "dark" || t === "light")
   --down-bg: #14301f;
   --letrero-linea: #2f3236;
   --alto-azufre: #b9bec2;
+  --mapa-0: #8a2620;
+  --mapa-1: #b02e24;
+  --mapa-2: #d93a2d;
+  --mapa-3: #f26a5e;
+  --mapa-4: #ffa199;
+  --mapa-vacio: #2c2f32;
 }
 * { box-sizing: border-box; }
 body {
@@ -203,6 +221,27 @@ svg text { fill: var(--text-muted); font: 500 12px var(--f-texto); font-variant-
 .tooltip .fila span:first-child { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); }
 .tooltip strong { font-variant-numeric: tabular-nums; }
 
+/* --- Mapa del Perú junto a las barras por planta --- */
+.panorama { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 20px 44px; align-items: start; }
+@media (max-width: 860px) { .panorama { grid-template-columns: 1fr; } .panorama > .grafico:first-child { max-width: 460px; width: 100%; margin-inline: auto; } }
+.mapa { overflow: visible; touch-action: manipulation; }
+.mapa .depto { stroke: var(--papel); stroke-width: .9; stroke-linejoin: round; transition: opacity .15s; }
+.mapa .depto.con-planta { cursor: pointer; }
+.mapa .depto:focus { outline: none; }
+.mapa .depto:focus-visible { stroke: var(--series-1); stroke-width: 2.5; }
+.mapa:has(.depto:hover) .depto:not(:hover) { opacity: .78; }
+.mapa .contorno { fill: none; stroke-linejoin: round; pointer-events: none; }
+.mapa .planta { fill: var(--text-primary); stroke: var(--papel); stroke-width: 1.4; pointer-events: none; }
+.mapa .rotulo { fill: var(--text-primary); font: 600 13px var(--f-titulo); paint-order: stroke; stroke: var(--papel); stroke-width: 3.5px; stroke-linejoin: round; pointer-events: none; }
+.mapa-leyenda { font-size: 13px; gap: 4px 14px; }
+.mapa-leyenda .punto { width: 8px; height: 8px; border-radius: 50%; background: var(--text-primary); display: inline-block; }
+.tooltip .tip-titulo { font: 600 16px/1.2 var(--f-titulo); color: var(--text-primary); margin-bottom: 2px; }
+.tooltip .tip-planta { color: var(--text-muted); font-size: 12px; margin-top: 6px; }
+.tooltip .tip-planta.sel { color: var(--text-primary); font-weight: 600; }
+.tooltip .tip-pie { margin-top: 6px; padding-top: 5px; border-top: 1px solid var(--border); font-size: 12px; }
+.tooltip .fila strong { margin-left: 10px; }
+.tooltip .fila .pill { margin-left: 6px; }
+
 /* --- Tabla y descarga --- */
 table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
 th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--border); }
@@ -243,6 +282,7 @@ a { color: var(--series-1); }
 .animar .serie { stroke-dasharray: 1; stroke-dashoffset: 1; animation: trazar 1.1s cubic-bezier(.3,.6,.2,1) forwards; }
 .animar .tras-trazo { animation: aparecer .45s ease-out 1s both; }
 .animar .barra { transform-box: fill-box; transform-origin: left center; animation: crecer .7s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i) * 30ms); }
+.animar .depto { animation: aparecer .5s ease-out both; animation-delay: calc(var(--i) * 18ms); }
 .animar .cambios { animation: aparecer .5s ease-out 1.05s both; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -291,6 +331,7 @@ a { color: var(--series-1); }
   <footer class="muted">
     Fuente: <a href="https://www.petroperu.com.pe/productos/lista-de-precios-en-nuestras-plantas/">listas de precios Automotriz de Petroperú</a>
     (Addendum N° 1) y <a href="https://www.osinergmin.gob.pe/seccion/centro_documental/gart/PreciosReferencia/">precios de referencia de Osinergmin</a> (publicación semanal). El agente revisa la web de Petroperú cada día a las 08:00 y a las 12:30 (hora de Lima); con la página abierta, los datos nuevos aparecen solos.
+    Mapa: <a href="https://github.com/juaneladio/peru-geojson">peru-geojson</a> (MPL 2.0).
     Descarga los datos en <a href="data/precios-diesel-petroperu.xlsx" download>Excel</a> o en <a href="data/listas.csv">CSV</a>.
   </footer>
 </main>
@@ -430,7 +471,7 @@ async function iniciar() {
     if (Object.keys(datos).length) dibujar();
   });
   try {
-    await Promise.all([cargarDatos(), cargarOsinergmin().catch(() => false)]);
+    await Promise.all([cargarDatos(), cargarOsinergmin().catch(() => false), cargarMapa()]);
   } catch (e) {
     document.getElementById("contenido").innerHTML = '<p class="estado">No se pudieron cargar los datos.</p>';
     return;
@@ -568,17 +609,10 @@ function dibujar(animar = false) {
     `${g1.dataset.ocultas} variaciones sin etiqueta por falta de espacio: pasa el mouse o toca el gráfico` +
     (estado.meses === 3 ? "" : " o elige 3 meses")));
 
-  // --- Comparación entre plantas ---
-  const c2 = el("section", { class: "bloque" });
-  c2.append(el("h2", {}, "Precio vigente por planta"),
-    el("p", { class: "nota" }, "Lista más reciente, de menor a mayor precio. Toca una planta para verla arriba."));
-  const g2 = el("div", { class: "grafico" });
-  c2.append(g2);
-  const ley2 = el("div", { class: "leyenda" });
-  for (const prod of PRODUCTOS) ley2.append(el("span", {}, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre));
-  c2.append(ley2);
-  cont.append(c2);
-  graficoBarras(g2);
+  // --- Comparación entre departamentos y plantas ---
+  bloquePanorama(cont, "Precio vigente por departamento y planta", datos, PRODUCTOS, "DIESEL_B5_S50",
+    { fecha: "Lista del", cambio: "frente a la lista anterior", sinPlanta: "Petroperú no tiene planta de venta en este departamento.",
+      barras: "Lista más reciente, de menor a mayor precio." });
 
   // --- Tabla ---
   const c3 = el("section", { class: "bloque tabla-card" });
@@ -659,17 +693,10 @@ function dibujarOsinergmin(cont, animar) {
   c1.append(ley);
 
   // Referencia vigente en todos los puntos del Perú
-  const c2 = el("section", { class: "bloque" });
-  c2.append(el("h2", {}, "Precio de referencia por planta"),
-    el("p", { class: "nota" }, `Publicación más reciente, de menor a mayor precio. Toca una planta para verla arriba.`));
-  const g2 = el("div", { class: "grafico" });
-  c2.append(g2);
-  const ley2 = el("div", { class: "leyenda" });
-  for (const p of OSI_PRODUCTOS) ley2.append(el("span", {}, el("span", { class: "chip", style: `background:var(${p.color})` }), p.nombre));
-  c2.append(ley2);
-  cont.append(c2);
   const vigentes = Object.fromEntries(Object.entries(osi).filter(([, p]) => +p.bajo.at(-1)?.fecha === +ultima));
-  graficoBarras(g2, vigentes, OSI_PRODUCTOS);
+  bloquePanorama(cont, "Precio de referencia por departamento y planta", vigentes, OSI_PRODUCTOS, "bajo",
+    { fecha: "Publicación del", cambio: "frente a la semana anterior", sinPlanta: "Osinergmin no publica una planta en este departamento.",
+      barras: "Publicación más reciente, de menor a mayor precio." });
 
   // Publicaciones semanales
   const c3 = el("section", { class: "bloque tabla-card" });
@@ -712,6 +739,161 @@ function tablaSerie(planta, prods, inicio, titulo, formato) {
   }
   tabla.append(tb);
   return tabla;
+}
+
+// Sección con el mapa del Perú (izquierda) y las barras por planta (derecha).
+function bloquePanorama(cont, titulo, fuente, prods, principal, textos) {
+  const c = el("section", { class: "bloque" });
+  c.append(el("h2", {}, titulo), el("p", { class: "nota" }, geo
+    ? "Pasa el mouse o toca un departamento para ver su último precio; haz clic o vuelve a tocar para abrir sus datos. Las barras también se pueden tocar."
+    : textos.barras + " Toca una planta para verla arriba."));
+  const panel = el("div", { class: geo ? "panorama" : "" });
+  const gMapa = el("div", { class: "grafico" }), gBarras = el("div", { class: "grafico" });
+  const ley = el("div", { class: "leyenda" });
+  for (const p of prods) ley.append(el("span", {}, el("span", { class: "chip", style: `background:var(${p.color})` }), p.nombre));
+  if (geo) panel.append(gMapa);
+  panel.append(el("div", {}, gBarras, ley));
+  c.append(panel);
+  cont.append(c);
+  if (geo) mapaPeru(gMapa, fuente, prods, principal, textos);
+  graficoBarras(gBarras, fuente, prods);
+}
+
+// Abre los datos de una planta: la elige en el filtro y sube hasta su letrero.
+function irAPlanta(planta) {
+  estado.planta = planta;
+  try { localStorage.setItem("planta", planta); } catch {}
+  document.getElementById("planta").value = planta;
+  dibujar(true);
+  document.querySelector(".letrero")?.scrollIntoView({ behavior: sinMovimiento.matches ? "auto" : "smooth", block: "start" });
+}
+
+// Mapa del Perú por departamento. El color es el precio vigente del producto
+// principal en sus plantas (promedio si tiene más de una), en 5 tramos de menor a
+// mayor. Al pasar el mouse muestra el último precio; al hacer clic abre los datos.
+// En pantallas táctiles el primer toque muestra el precio y el segundo abre los datos.
+let geo = null;
+async function cargarMapa() {
+  try { const r = await fetch("assets/peru-departamentos.json"); if (r.ok) geo = await r.json(); } catch {}
+}
+
+function mapaPeru(caja, fuente, prods, principal, textos) {
+  const deps = {};  // deps[departamento] = plantas con precio en esta vista
+  for (const [p, info] of Object.entries(geo.plantas)) if (fuente[p]) (deps[info.departamento] ??= []).push(p);
+  for (const l of Object.values(deps)) l.sort((a, b) => a.localeCompare(b, "es"));
+  const valor = dep => {
+    const v = deps[dep].map(p => fuente[p][principal]?.at(-1)?.precio).filter(v => v != null);
+    return v.length ? v.reduce((a, b) => a + b) / v.length : null;
+  };
+  const valores = Object.keys(deps).map(valor).filter(v => v != null).sort((a, b) => a - b);
+  const cortes = [1, 2, 3, 4].map(i => valores[Math.floor(i * valores.length / 5)]);
+  const tramo = v => cortes.filter(c => v >= c).length;
+  const tramos = [];
+  for (const v of valores) { const t = (tramos[tramo(v)] ??= { min: v, max: v }); t.max = v; }
+  const depSel = geo.plantas[estado.planta]?.departamento;
+  const fmtD = n => Math.abs(n) < 0.005 ? fmt4(n) : fmt(n);
+
+  const svg = el("svg:svg", { viewBox: `0 0 ${geo.ancho} ${geo.alto}`, class: "mapa", role: "group",
+    "aria-label": `Mapa del Perú: ${prods.find(p => p.clave === principal).nombre} por departamento` });
+  const tip = el("div", { class: "tooltip", role: "status" });
+  const hover = el("svg:path", { class: "contorno", style: "stroke:var(--text-primary);stroke-width:1.6", opacity: 0 });
+  let tactil = false, armado = null;
+
+  const contenido = (d, resaltar) => {
+    const plantas = deps[d.clave];
+    tip.replaceChildren(el("div", { class: "tip-titulo" }, d.nombre));
+    if (!plantas) { tip.append(el("div", { class: "muted" }, textos.sinPlanta)); return; }
+    let fecha = 0;
+    for (const p of plantas) {
+      tip.append(el("div", { class: "tip-planta" + (p === resaltar ? " sel" : "") }, `Planta ${nombrePlanta(p)}`));
+      for (const pr of prods) {
+        const s = fuente[p][pr.clave]; if (!s?.length) continue;
+        const a = s.at(-1), b = s.at(-2), dif = b ? a.precio - b.precio : 0, dir = direccion(dif);
+        fecha = Math.max(fecha, +a.fecha);
+        tip.append(el("div", { class: "fila" },
+          el("span", {}, el("span", { class: "chip", style: `background:var(${pr.color})` }), pr.corto),
+          el("span", {}, el("strong", {}, "S/ " + fmt(a.precio)),
+            el("span", { class: `pill ${dir}`, title: `${dir === "igual" ? "Sin cambio" : dir === "sube" ? "Subió" : "Bajó"} ${textos.cambio}` },
+              dir === "igual" ? "=" : `${FLECHA[dir]} ${fmtD(Math.abs(dif))}`))));
+      }
+    }
+    tip.append(el("div", { class: "muted tip-pie" }, `${textos.fecha} ${fFecha(new Date(fecha))}. Variación ${textos.cambio}.`,
+      el("br"), tactil ? "Toca otra vez para ver los datos" : "Haz clic para ver los datos"));
+  };
+  // Ubica el tooltip junto a un punto del mapa (coordenadas del viewBox)
+  const ubicar = (vx, vy) => {
+    const r = svg.getBoundingClientRect(), k = r.width / geo.ancho;
+    const px = vx * k, py = vy * k;
+    tip.style.opacity = 1;
+    tip.style.left = Math.max(0, Math.min(px + 16, r.width - tip.offsetWidth)) + "px";
+    tip.style.top = (py - tip.offsetHeight - 14 >= 0 ? py - tip.offsetHeight - 14 : py + 18) + "px";
+  };
+  const enVista = e => { const r = svg.getBoundingClientRect(); return [(e.clientX - r.left) * geo.ancho / r.width, (e.clientY - r.top) * geo.ancho / r.width]; };
+  const mostrar = (d, e, resaltar) => {
+    if (e?.pointerType) tactil = e.pointerType === "touch";  // al tocar, el foco llega sin pointerType
+    contenido(d, resaltar);
+    hover.setAttribute("d", d.d); hover.setAttribute("opacity", 1);
+    if (e?.clientX != null) ubicar(...enVista(e));
+    else { const b = e.getBBox(); ubicar(b.x + b.width / 2, b.y + b.height / 2); }
+  };
+  const ocultar = e => {
+    if (e?.pointerType === "touch") return;  // en el celular el tooltip queda hasta el siguiente toque
+    tip.style.opacity = 0; hover.setAttribute("opacity", 0); armado = null;
+  };
+  // Clic: abre la planta. En pantalla táctil, el primer toque solo muestra el precio.
+  const elegir = (d, planta, e) => {
+    if (!deps[d.clave]) return;
+    if (tactil && armado !== (planta || d.clave)) { armado = planta || d.clave; mostrar(d, e, planta); return; }
+    irAPlanta(planta || (deps[d.clave].includes(estado.planta) ? estado.planta : deps[d.clave][0]));
+  };
+
+  const capaDeps = el("svg:g");
+  geo.departamentos.forEach((d, i) => {
+    const plantas = deps[d.clave], v = plantas ? valor(d.clave) : null;
+    const precios = plantas?.map(p => `${nombrePlanta(p)} S/ ${fmt(fuente[p][principal]?.at(-1)?.precio ?? NaN)}`).join(", ");
+    const camino = el("svg:path", { d: d.d, "fill-rule": "evenodd", class: "depto" + (plantas ? " con-planta" : ""),
+      style: `--i:${i};fill:var(${v == null ? "--mapa-vacio" : `--mapa-${tramo(v)}`})`,
+      ...(plantas ? { tabindex: 0, role: "button", "aria-label": `${d.nombre}: ${precios}. Ver datos` } : {}) });
+    camino.addEventListener("pointerdown", e => mostrar(d, e));
+    camino.addEventListener("pointermove", e => { if (e.pointerType !== "touch") mostrar(d, e); });
+    camino.addEventListener("pointerleave", ocultar);
+    camino.addEventListener("click", e => elegir(d, null, e));
+    if (plantas) {
+      camino.addEventListener("focus", () => mostrar(d, camino));
+      camino.addEventListener("blur", () => ocultar());
+      camino.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tactil = false; elegir(d, null, e); } });
+    }
+    capaDeps.append(camino);
+  });
+  svg.append(capaDeps, hover);
+  const sel = geo.departamentos.find(d => d.clave === depSel);
+  if (sel && deps[depSel]) svg.append(el("svg:path", { class: "contorno", d: sel.d, style: "stroke:var(--regla);stroke-width:2.2" }));
+
+  // Plantas: un punto en su ubicación; la elegida, con anillo y nombre.
+  for (const [p, info] of Object.entries(geo.plantas)) {
+    if (!fuente[p]) continue;
+    const d = geo.departamentos.find(x => x.clave === info.departamento), elegida = p === estado.planta;
+    if (elegida) svg.append(el("svg:circle", { class: "contorno tras-trazo", cx: info.x, cy: info.y, r: 7.5, style: "stroke:var(--text-primary);stroke-width:1.6" }));
+    svg.append(el("svg:circle", { class: "planta", cx: info.x, cy: info.y, r: elegida ? 4.2 : 3.2 }));
+    if (elegida) {
+      const izq = info.x > geo.ancho * 0.62;
+      svg.append(el("svg:text", { class: "rotulo tras-trazo", x: info.x + (izq ? -11 : 11), y: info.y + 4, "text-anchor": izq ? "end" : "start" }, nombrePlanta(p)));
+    }
+    const hit = el("svg:circle", { cx: info.x, cy: info.y, r: 9, fill: "transparent", style: "cursor:pointer" });
+    hit.addEventListener("pointerdown", e => mostrar(d, e, p));
+    hit.addEventListener("pointermove", e => { if (e.pointerType !== "touch") mostrar(d, e, p); });
+    hit.addEventListener("pointerleave", ocultar);
+    hit.addEventListener("click", e => elegir(d, p, e));
+    svg.append(hit);
+  }
+
+  const ley = el("div", { class: "leyenda mapa-leyenda" },
+    el("span", { class: "muted", style: "flex-basis:100%" }, `${prods.find(p => p.clave === principal).nombre}, S/ por galón`));
+  tramos.forEach((t, i) => { if (t) ley.append(el("span", {}, el("span", { class: "chip", style: `background:var(--mapa-${i})` }),
+    t.min === t.max ? fmt(t.min) : `${fmt(t.min)} – ${fmt(t.max)}`)); });
+  ley.append(el("span", {}, el("span", { class: "chip", style: "background:var(--mapa-vacio)" }), "Sin planta"),
+    el("span", {}, el("span", { class: "punto" }), "Planta"));
+  caja.append(svg, tip, ley);
 }
 
 function escala(d0, d1, r0, r1) { return v => r0 + (v - d0) / (d1 - d0 || 1) * (r1 - r0); }

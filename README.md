@@ -98,6 +98,18 @@ actualiza solo cada vez que el agente guarda una lista nueva.
 Para cargar listas antiguas: *Actions → Cargar histórico Petroperú → Run workflow*
 (o `python agente_petroperu.py --historico 2023-01-01`).
 
+### Mapa por departamento
+
+En ambas pestañas, el mapa del Perú colorea cada departamento según el precio vigente
+de sus plantas (B5 S-50 en Petroperú, B5 bajo azufre en Osinergmin; promedio si tiene
+más de una planta). Al pasar el mouse muestra el último precio y su variación; al hacer
+clic abre los datos de esa planta. Los departamentos sin planta van en gris.
+
+Los contornos están en `assets/peru-departamentos.json`, generado con
+`python herramientas/mapa_peru.py` a partir de
+[juaneladio/peru-geojson](https://github.com/juaneladio/peru-geojson) (Mozilla Public
+License 2.0). Las ubicaciones de las plantas están en ese mismo script.
+
 ## Uso local
 
 ```bash
