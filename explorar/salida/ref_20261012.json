@@ -1,0 +1,138 @@
+[
+ {
+  "texto": "Precios de Referencia de Combustibles Derivados del Petróleo\nResolución Directoral 244-2020-MINEM/DGH y RCD N° 174-2021-OS/CD y sus modificatorias\nCotizaciones desde el 28/09/26 hasta el 09/10/26\nFecha de Publicación : 12-Oct-26 TC (Sol/US$)\n3,45\nPR1 : Precio de Referencia que refleja una operación eficiente de importación desde el Mercado Relevante\nPR1 GLP G a solina Premium Gasolina Regular Gasolina 84 Turbo Diésel B5 Diésel B5 Petróleo Industrial Petróleo Industrial\n70/30 Bajo Azufre Alto Azufre 6 (3%S) 500 (3%S)\nUS$/Bl 63,01 158,54 147,80 127,73 206,04 205,19 187,50 105,39 100,72\nSoles/galón 5,17 13,01 12,13 10,48 16,90 16,83 15,38 8,65 8,26\nSoles/Kg 2,60\nPR1 : Precios de Referencia del Gasohol y Alcohol Carburante\nPrecios de Referencia del\nPrecios de Referencia del Gasohol en US$/Bl Precios de Referencia del Gasohol en Soles/Galón\nAlcohol Carburante\nAlcohol\nAlcohol Carburante\nGasohol Premium Gasohol Regular Gasohol 84 Gasohol Premium Gasohol Regular Gasohol 84 Carburante\nSol/Gln\nUS$/Bl\n154,70 144,79 126,28 12,69 11,88 10,36 109,21 8,96\nPR1 : Precios de Referencia del Diesel 2 y Biodiesel según contenido de azufre (ppm)\nPrecios de Referencia del Diésel 2 P recios de Referencia del Diésel 2 P r e c i o s d e Referencia del Biodiesel\nUS$/Bl Soles/Galón B100\nBiodiesel B100 Biodiesel B100\nBajo Azufre Alto Azufre Bajo Azufre Alto Azufre\nUS$/Bl Sol/Gln\n202,64 184,03 16,63 15,10 253,45 20,79\nFactor de Conversión\nGLP 70/30\nkg / Gln 1,985\nBls / TM 11,994\nNotas :\n(1) Los cálculos se han efectuado conforme a la Resolución Directoral N°244-2020-MEM/DGH y Resolución de Consejo Directivo N° 156-2024-OS/CD\n(2) PR1 : Son Precios Netos Ex-Planta, sin incluir Impuestos (ISC, IGV, Rodaje), ni gastos de Gestión Comercial.\n(3) El advalorem del etanol, se actualizará de acuerdo con el origen de las importaciones reales al Perú y los convenios internacionales vigentes.\n(4) Para el ajuste por octanaje de las Gasolinas se usan los índices de octano de las Gasolinas Base. Se incluye un ajuste de calidad por RVP para todas las gasolinas.\n(5) En el precio de referencia del GLP se considera la proporción de mezcla Propano/Butano = 70/30\n(6) Los precios de los marcadores del diésel y gasolinas consideran un descuento por RVO.\n(7) Las Gasolinas de alto octanaje se han formulado como una proporción de mezcla de las Gasolinas CBOB de la Costa del Golfo.\n(8) El Precio de Referencia del Diesel BX, ha sido calculado considerando los porcentajes de Diésel y Biodiesel B100 utilizados en la mezcla.\n(9) El Precio de Referencia de los Gasoholes, ha sido calculado considerando los porcentajes de Gasolina y Etanol utilizados en la mezcla.\nNota Aclaratoria:\nLos Precios de Referencia que publica OSINERGMIN no incorporan ningún efecto del \"Fondo para la Estabilización de Precios de los Combustibles Derivados del Petróleo\" (D.U.N° 010-2004).",
+  "tablas": [
+   [
+    [
+     "TC (Sol/US$)"
+    ],
+    [
+     "3,45"
+    ]
+   ],
+   [
+    [
+     "PR1",
+     "GLP\n70/30",
+     "Gasolina Premium",
+     "Gasolina Regular",
+     "Gasolina 84",
+     "Turbo",
+     "Diésel B5\nBajo Azufre",
+     "Diésel B5\nAlto Azufre",
+     "Petróleo Industrial\n6 (3%S)",
+     "Petróleo Industrial\n500 (3%S)"
+    ],
+    [
+     "US$/Bl",
+     "63,01",
+     "158,54",
+     "147,80",
+     "127,73",
+     "206,04",
+     "205,19",
+     "187,50",
+     "105,39",
+     "100,72"
+    ],
+    [
+     "Soles/galón",
+     "5,17",
+     "13,01",
+     "12,13",
+     "10,48",
+     "16,90",
+     "16,83",
+     "15,38",
+     "8,65",
+     "8,26"
+    ],
+    [
+     "Soles/Kg",
+     "2,60",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ]
+   ],
+   [
+    [
+     "Precios de Referencia del Gasohol en US$/Bl",
+     null,
+     null,
+     "Precios de Referencia del Gasohol en Soles/Galón",
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     "Gasohol Premium",
+     "Gasohol Regular",
+     "Gasohol 84",
+     "Gasohol Premium",
+     "Gasohol Regular",
+     "Gasohol 84",
+     "Alcohol\nCarburante\nUS$/Bl",
+     null
+    ],
+    [
+     "154,70",
+     "144,79",
+     "126,28",
+     "12,69",
+     "11,88",
+     "10,36",
+     "109,21",
+     "8,96"
+    ]
+   ],
+   [
+    [
+     "Precios de Referencia del Diésel 2\nUS$/Bl",
+     null,
+     "P recios de Referencia del Diésel 2\nSoles/Galón",
+     null,
+     null
+    ],
+    [
+     "Bajo Azufre",
+     "Alto Azufre",
+     "Bajo Azufre",
+     "Alto Azufre",
+     "Biodiesel B100\nUS$/Bl"
+    ],
+    [
+     "202,64",
+     "184,03",
+     "16,63",
+     "15,10",
+     "253,45"
+    ]
+   ],
+   [
+    [
+     "",
+     "GLP 70/30"
+    ],
+    [
+     "kg / Gln",
+     "1,985"
+    ],
+    [
+     "Bls / TM",
+     "11,994"
+    ]
+   ]
+  ]
+ },
+ {
+  "texto": "C o m\nN O T\n(1 ) C\n(2 ) R\np o\nA S :\no rre\ne s u\nP r e c\nR\nn e n t e L o g ís t ic o ( S o le s /g\nP la n ta s y /o T e r m in a l\nT a la r a\nP iu r a\nE te n\nS a la v e r r y\nC h im b o te\nS u p e\nC a lla o\nP is c o\nM o lle n d o\nJ u lia c a\nC u z c o\nIlo\nE l M ila g r o\nT a r a p o to\nY u r im a g u a s\nIq u ito s\nP u c a llp a\nP u e r to M a ld o n a d o\ns p o n d e a lo s v a lo re s e s ta b le\nlta n d e a d ic io n a r e l C o m p o n e\nio s\ne s o\nR e s\na ló n\nc id o s\nn te L\nd e R e f e r e n c ia d e\nlu c ió n D ir e c to r a l N ° 2 4 4\no lu c ió n D ir e c to r a l N ° 0 0\n) ( 1 )\nC o m p o n e n te\nL o g ís tic o\n0 ,0 0\n0 ,0 6\n0 ,2 5\n0 ,2 8\n0 ,1 8\n0 ,0 8\n-\n0 ,2 4\n0 ,5 2\n0 ,8 5\n0 ,8 5\n0 ,5 9\n0 ,5 7\n0 ,7 9\n1 ,4 7\n1 ,2 1\n1 ,1 0\n2 ,2 7\ne n e l A rtíc u lo 1 ° d e la R e s\no g is tic o a lo s P re c io s d e R\nl D ié s e l B X p o r P la n t a d e A b a s t e c im ie n t o y / o\n-2 0 2 0 -M IN E M -D G H , R e s o lu c ió n D ir e c to r a l N ° 4 5 1 -2 0 2 1 -M IN E\n4 -2 0 2 2 -M IN E M -D G H y R e s o lu c ió n O s in e r g m in N ° 0 2 0 -2 0 2 2 -O\nF e c h a d e P u b lic a c ió n : 1 2 /1 0 /2 6\nP r e c io s d e R e fe r e n c ia d e Im p o\nP la n ta s y /o T e r m in a l\nT a la r a\nP iu r a\nE te n\nS a la v e r r y\nC h im b o te\nS u p e\nC a lla o\nP is c o\nM o lle n d o\nJ u lia c a\nC u z c o\nIlo\nE l M ila g r o\nT a r a p o to\nY u r im a g u a s\nIq u ito s\nP u c a llp a\nP u e r to M a ld o n a d o\n* N o In c lu y e Im p u e s to s n i M á rg e n C o m e\no lu c ió n O s in e rg m in N ° 0 5 2 -2 0 2 6 -O S /C D , v ig e n te s a p a rtir d e l 3 0 .0 3 .2\ne fe re n c ia d e Im p o rta c ió n d e l D ié s e l B X e n e l C a lla o .\nT e\nM -D\nS /C\nr t a c\nB\nrc ia l\n6\nr m\nG H\nD\nió n\nD ié\na jo\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\nin a\n,\n( S o\ns e l B\nA z u\n6 ,8 3\n6 ,8 9\n7 ,0 8\n7 ,1 1\n7 ,0 1\n6 ,9 1\n6 ,8 3\n7 ,0 7\n7 ,3 5\n7 ,6 8\n7 ,6 8\n7 ,4 2\n7 ,4 0\n7 ,6 2\n8 ,3 0\n8 ,0 4\n7 ,9 3\n9 ,1 0\nl\nle\n5fr\ns\ne\n/g a ló n ) ( 2 )\nD ié\nA lto\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\ns\nA\n5\n5\n5\n5\n5\n5\n5\n5\n5\n6\n6\n5\n5\n6\n6\n6\n6\n7\ne l B\nz u\n,3 8\n,4 4\n,6 3\n,6 6\n,5 6\n,4 6\n,3 8\n,6 2\n,9 0\n,2 3\n,2 3\n,9 7\n,9 5\n,1 7\n,8 5\n,5 9\n,4 8\n,6 5\n5fr\ne",
+  "tablas": []
+ }
+]

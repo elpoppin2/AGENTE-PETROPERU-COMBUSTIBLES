@@ -1,0 +1,4 @@
+https://www.osinergmin.gob.pe/seccion/institucional/regulacion-tarifaria/precios-referencia -> 404 758
+https://www.osinergmin.gob.pe/seccion/centro_documental/gart/PreciosReferencia/ -> 401 16
+OK https://www.osinergmin.gob.pe/seccion/centro_documental/gart/PreciosReferencia/PrecioReferencia19102026.pdf 130978
+OK https://www.osinergmin.gob.pe/seccion/centro_documental/gart/PreciosReferencia/PrecioReferencia12102026.pdf 175979
