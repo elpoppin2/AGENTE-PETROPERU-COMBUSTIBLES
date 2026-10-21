@@ -72,18 +72,19 @@ New repository secret* (los secrets no se ven en el repositorio, que es público
 Para obtener su `apikey`, cada persona agrega el número de CallMeBot a sus
 contactos y le envía por WhatsApp el mensaje *I allow callmebot to send me messages*.
 
-## Comparación con Osinergmin
+## Precios de referencia de Osinergmin
 
 El agente también descarga cada semana el PDF de **precios de referencia** de
 Osinergmin (`PrecioReferenciaDDMMAAAA.pdf`, publicado los lunes) y guarda en
 `data/osinergmin.csv` el precio de referencia del Diésel B5 bajo y alto azufre
-por planta (S/ por galón, sin impuestos ni margen comercial), desde enero de 2023.
+de cada planta o terminal (18 puntos del Perú), en soles por galón sin impuestos
+ni margen comercial, desde enero de 2023. En cada ejecución revisa todas las
+semanas y solo descarga las que falten.
 
-El tablero tiene una pestaña "Petroperú frente a Osinergmin" que compara ambos en
-la misma base: a la lista de Petroperú se le quitan los impuestos
-(precio / 1.18 − ISC S/ 1.49). Las plantas de la Amazonía no se comparan por su
-régimen tributario y Conchán usa la referencia del Callao. El Excel incluye las
-hojas "Osinergmin B5 bajo azufre" y "Comparación".
+El tablero los muestra en la pestaña "Referencia Osinergmin" (precio vigente por
+planta, evolución semanal y publicaciones) y el Excel en las hojas
+"Osinergmin B5 bajo azufre" y "Osinergmin B5 alto azufre". Cinco publicaciones
+de 2023 y 2024 son imágenes escaneadas sin texto y no tienen datos.
 
 El buscador Facilito (precios de cada grifo) está protegido con reCAPTCHA y no
 publica datos abiertos, por eso no se usa.

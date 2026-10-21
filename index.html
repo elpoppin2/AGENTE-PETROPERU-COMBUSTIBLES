@@ -31,7 +31,7 @@ try { const t = localStorage.getItem("tema"); if (t === "dark" || t === "light")
   --down: #067647;
   --up-bg: #fef0e1;
   --down-bg: #e4f5eb;
-  --referencia: #5b6166;     /* Osinergmin: tinta neutra, línea punteada */
+  --alto-azufre: #5b6166;    /* Osinergmin, Diésel B5 alto azufre: tinta neutra */
   --letrero: #000000;        /* el letrero es negro en ambos temas */
   --letrero-linea: #2b2e31;
   --letrero-texto: #ffffff;
@@ -60,7 +60,7 @@ try { const t = localStorage.getItem("tema"); if (t === "dark" || t === "light")
     --up-bg: #3a2810;
     --down-bg: #14301f;
     --letrero-linea: #2f3236;
-    --referencia: #b9bec2;
+    --alto-azufre: #b9bec2;
   }
 }
 :root[data-theme="dark"] {
@@ -81,7 +81,7 @@ try { const t = localStorage.getItem("tema"); if (t === "dark" || t === "light")
   --up-bg: #3a2810;
   --down-bg: #14301f;
   --letrero-linea: #2f3236;
-  --referencia: #b9bec2;
+  --alto-azufre: #b9bec2;
 }
 * { box-sizing: border-box; }
 body {
@@ -105,9 +105,9 @@ h1 {
   text-wrap: balance;
 }
 .bajada { margin: 6px 0 0; color: var(--text-secondary); font-size: 16px; }
-.vigencia { text-align: right; font-size: 14px; color: var(--text-secondary); line-height: 1.45; }
+.vigencia { margin: 0 0 0 auto; text-align: right; font-size: 14px; color: var(--text-secondary); line-height: 1.45; }
 .vigencia strong { display: block; font: 600 20px/1.2 var(--f-titulo); color: var(--text-primary); font-variant-numeric: tabular-nums; }
-@media (max-width: 640px) { .vigencia { text-align: left; } }
+@media (max-width: 640px) { .vigencia { text-align: left; margin-left: 0; } }
 .badge-nueva {
   display: inline-block; margin-left: 8px; vertical-align: 2px; font: 600 12px/1 var(--f-texto);
   color: #fff; background: var(--series-2); border-radius: 3px; padding: 4px 7px;
@@ -151,9 +151,7 @@ button:focus-visible, select:focus-visible, rect:focus-visible, a:focus-visible,
 .vistas button[aria-selected="true"] { color: var(--text-primary); border-bottom-color: var(--regla); }
 .explicacion { margin: 10px 0 0; padding-left: 20px; color: var(--text-secondary); max-width: 78ch; }
 .explicacion li + li { margin-top: 6px; }
-td.sobre { color: var(--text-primary); }
-td.bajo { color: var(--down); }
-tr.actual td { font-weight: 600; background: var(--grid); }
+.letrero-pie { margin: 0; padding: 12px 0 10px; border-top: 1px solid var(--letrero-linea); color: var(--letrero-suave); font-size: 14px; }
 
 /* --- Letrero de precios (el elemento destacado) --- */
 .letrero {
@@ -261,8 +259,8 @@ a { color: var(--series-1); }
     <hr class="regla">
     <div class="cabecera">
       <div>
-        <h1>Precios de lista del diésel</h1>
-        <p class="bajada">Plantas de venta de Petroperú. Soles por galón, con impuestos, sin descuentos ni FISE.</p>
+        <h1 id="titulo">Precios de lista del diésel</h1>
+        <p class="bajada" id="bajada">Plantas de venta de Petroperú. Soles por galón, con impuestos, sin descuentos ni FISE.</p>
       </div>
       <p class="vigencia" id="actualizado"></p>
     </div>
@@ -270,7 +268,7 @@ a { color: var(--series-1); }
 
   <nav class="vistas" role="tablist" aria-label="Vistas del informe">
     <button role="tab" id="tab-petroperu" data-vista="petroperu" aria-selected="true">Precios Petroperú</button>
-    <button role="tab" id="tab-comparacion" data-vista="comparacion" aria-selected="false">Petroperú frente a Osinergmin</button>
+    <button role="tab" id="tab-osinergmin" data-vista="osinergmin" aria-selected="false">Referencia Osinergmin</button>
   </nav>
 
   <div class="filtros" role="group" aria-label="Filtros">
@@ -292,7 +290,7 @@ a { color: var(--series-1); }
 
   <footer class="muted">
     Fuente: <a href="https://www.petroperu.com.pe/productos/lista-de-precios-en-nuestras-plantas/">listas de precios Automotriz de Petroperú</a>
-    (Addendum N° 1). El agente revisa la web de Petroperú cada día a las 08:00 y a las 12:30 (hora de Lima); con la página abierta, los datos nuevos aparecen solos.
+    (Addendum N° 1) y <a href="https://www.osinergmin.gob.pe/seccion/centro_documental/gart/PreciosReferencia/">precios de referencia de Osinergmin</a> (publicación semanal). El agente revisa la web de Petroperú cada día a las 08:00 y a las 12:30 (hora de Lima); con la página abierta, los datos nuevos aparecen solos.
     Descarga los datos en <a href="data/precios-diesel-petroperu.xlsx" download>Excel</a> o en <a href="data/listas.csv">CSV</a>.
   </footer>
 </main>
@@ -358,7 +356,7 @@ async function cargarDatos() {
 }
 
 // Precios de referencia de Osinergmin (Diésel B5 bajo azufre por planta, publicación semanal).
-let osi = {}; // osi[planta] = [{fecha, precio}]
+let osi = {}; // osi[planta] = {bajo: [{fecha, precio}], alto: [...], logistico: [...]}
 let textoOsi = "";
 async function cargarOsinergmin() {
   let texto = null;
@@ -370,8 +368,13 @@ async function cargarOsinergmin() {
   }
   if (texto === null || texto === textoOsi) return false;
   const nuevos = {};
-  for (const f of leerCSV(texto)) (nuevos[f.planta] ??= []).push({ fecha: new Date(f.fecha + "T00:00:00Z"), precio: +f.b5_bajo_azufre });
-  for (const s of Object.values(nuevos)) s.sort((a, b) => a.fecha - b.fecha);
+  for (const f of leerCSV(texto)) {
+    const p = (nuevos[f.planta] ??= { bajo: [], alto: [], logistico: [] }), fecha = new Date(f.fecha + "T00:00:00Z");
+    p.bajo.push({ fecha, precio: +f.b5_bajo_azufre });
+    p.alto.push({ fecha, precio: +f.b5_alto_azufre });
+    p.logistico.push({ fecha, precio: +f.componente_logistico });
+  }
+  for (const p of Object.values(nuevos)) for (const s of Object.values(p)) s.sort((a, b) => a.fecha - b.fecha);
   osi = nuevos; textoOsi = texto;
   return true;
 }
@@ -387,6 +390,18 @@ async function revisar() {
 const diasDesde = f => Math.floor((Date.now() - +f) / 864e5);
 
 function actualizarEncabezado() {
+  if (estado.vista === "osinergmin" && Object.keys(osi).length) {
+    const ultima = new Date(Math.max(...Object.values(osi).map(p => +p.bajo.at(-1).fecha)));
+    const dias = diasDesde(ultima);
+    document.getElementById("titulo").textContent = "Precios de referencia del diésel";
+    document.getElementById("bajada").textContent = "Osinergmin, 18 plantas y terminales del Perú. Soles por galón, sin impuestos ni margen comercial.";
+    const fuerte = el("strong", {}, `Publicación del ${fFecha(ultima)}`);
+    if (dias <= 7) fuerte.append(el("span", { class: "badge-nueva", title: "Publicada en los últimos 7 días" }, "Nueva"));
+    document.getElementById("actualizado").replaceChildren(fuerte, "Se publica cada lunes. Fuente: Osinergmin, precios de referencia");
+    return;
+  }
+  document.getElementById("titulo").textContent = "Precios de lista del diésel";
+  document.getElementById("bajada").textContent = "Plantas de venta de Petroperú. Soles por galón, con impuestos, sin descuentos ni FISE.";
   const ultima = new Date(Math.max(...Object.values(datos).flatMap(p => Object.values(p).map(s => +s.at(-1).fecha))));
   const dias = diasDesde(ultima);
   const caja = document.getElementById("actualizado");
@@ -420,32 +435,45 @@ async function iniciar() {
     document.getElementById("contenido").innerHTML = '<p class="estado">No se pudieron cargar los datos.</p>';
     return;
   }
-  const plantas = Object.keys(datos).sort((a, b) => a.localeCompare(b, "es"));
   const sel = document.getElementById("planta");
-  for (const p of plantas) sel.append(el("option", { value: p }, nombrePlanta(p)));
   try { estado.planta = localStorage.getItem("planta") || estado.planta; } catch {}
-  if (!datos[estado.planta]) estado.planta = plantas[0];
-  sel.value = estado.planta;
+  try { if (["osinergmin", "comparacion"].includes(localStorage.getItem("vista")) && Object.keys(osi).length) estado.vista = "osinergmin"; } catch {}
+  llenarPlantas();
   sel.addEventListener("change", () => { estado.planta = sel.value; try { localStorage.setItem("planta", sel.value); } catch {} dibujar(true); });
   document.querySelectorAll("#rango button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("#rango button").forEach(x => x.setAttribute("aria-pressed", x === b));
     estado.meses = +b.dataset.meses; dibujar(true);
   }));
   const pestañas = document.querySelectorAll(".vistas [role=tab]");
-  const elegirVista = (v, animar) => {
-    estado.vista = v;
-    pestañas.forEach(t => t.setAttribute("aria-selected", t.dataset.vista === v));
-    try { localStorage.setItem("vista", v); } catch {}
-    dibujar(animar);
-  };
-  pestañas.forEach(t => t.addEventListener("click", () => elegirVista(t.dataset.vista, true)));
-  try { const v = localStorage.getItem("vista"); if (v === "comparacion") { estado.vista = v; pestañas.forEach(t => t.setAttribute("aria-selected", t.dataset.vista === v)); } } catch {}
+  pestañas.forEach(t => t.setAttribute("aria-selected", t.dataset.vista === estado.vista));
+  pestañas.forEach(t => t.addEventListener("click", () => {
+    estado.vista = t.dataset.vista;
+    pestañas.forEach(x => x.setAttribute("aria-selected", x === t));
+    try { localStorage.setItem("vista", estado.vista); } catch {}
+    llenarPlantas();
+    actualizarEncabezado();
+    dibujar(true);
+  }));
   actualizarEncabezado();
   dibujar(true);
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { pintarBotonTema(); dibujar(); });
   setInterval(revisar, 15 * 60 * 1000);
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") revisar(); });
   let t; window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(dibujar, 120); });
+}
+
+// Cada vista tiene sus plantas: Petroperú (listas) u Osinergmin (18 puntos, sin Conchán).
+function llenarPlantas() {
+  let fuente = datos;
+  if (estado.vista === "osinergmin") {  // solo plantas de la publicación más reciente
+    const ultima = Math.max(...Object.values(osi).map(p => +p.bajo.at(-1).fecha));
+    fuente = Object.fromEntries(Object.entries(osi).filter(([, p]) => +p.bajo.at(-1).fecha === ultima));
+  }
+  const plantas = Object.keys(fuente).sort((a, b) => a.localeCompare(b, "es"));
+  if (!fuente[estado.planta]) estado.planta = estado.planta === "CONCHAN" && fuente.CALLAO ? "CALLAO" : fuente.CALLAO ? "CALLAO" : plantas[0];
+  const sel = document.getElementById("planta");
+  sel.replaceChildren(...plantas.map(p => el("option", { value: p }, nombrePlanta(p))));
+  sel.value = estado.planta;
 }
 
 // Dirección de un cambio de precio: "sube", "baja" o "igual".
@@ -484,8 +512,8 @@ function dibujar(animar = false) {
   const cont = document.getElementById("contenido");
   cont.replaceChildren();
   cont.classList.toggle("animar", animar);
-  cont.setAttribute("aria-labelledby", estado.vista === "comparacion" ? "tab-comparacion" : "tab-petroperu");
-  if (estado.vista === "comparacion") return dibujarComparacion(cont);
+  cont.setAttribute("aria-labelledby", estado.vista === "osinergmin" ? "tab-osinergmin" : "tab-petroperu");
+  if (estado.vista === "osinergmin") return dibujarOsinergmin(cont, animar);
   const planta = datos[estado.planta];
   const inicio = desde();
 
@@ -556,21 +584,7 @@ function dibujar(animar = false) {
   const c3 = el("section", { class: "bloque tabla-card" });
   const det = el("details", {}, el("summary", {}, `Ver tabla de listas de ${nombrePlanta(estado.planta)}`),
     el("p", { class: "nota", style: "margin-top:6px" }, "▲ en ámbar: subió respecto a la lista anterior. ▼ en verde: bajó. = sin cambio."));
-  const fechas = [...new Set(PRODUCTOS.flatMap(p => (planta[p.clave] || []).filter(x => x.fecha >= inicio).map(x => +x.fecha)))].sort((a, b) => b - a);
-  const tabla = el("table", {}, el("thead", {}, el("tr", {}, el("th", {}, "Vigencia"), ...PRODUCTOS.map(p => el("th", {}, p.corto)))));
-  const tb = el("tbody");
-  for (const f of fechas) {
-    tb.append(el("tr", {}, el("td", {}, fFecha(new Date(f))), ...PRODUCTOS.map(p => {
-      const serie = planta[p.clave] || [];
-      const i = serie.findIndex(v => +v.fecha === f);
-      if (i < 0) return el("td", {}, "—");
-      const x = serie[i], prev = serie[i - 1];
-      const dir = prev ? direccion(x.precio - prev.precio) : "igual";
-      const attrs = dir === "igual" ? {} : { class: dir, title: `${dir === "sube" ? "Subió" : "Bajó"} S/ ${fmt4(Math.abs(x.precio - prev.precio))}` };
-      return el("td", attrs, el("span", { class: "flecha", "aria-hidden": "true" }, prev ? FLECHA[dir] : ""), fmt4(x.precio));
-    })));
-  }
-  tabla.append(tb);
+  const tabla = tablaSerie(planta, PRODUCTOS, inicio, "Vigencia", fmt4);
   det.append(el("div", { class: "tabla-scroll" }, tabla));
   const excel = el("a", { class: "boton-excel", href: "data/precios-diesel-petroperu.xlsx", download: "precios-diesel-petroperu.xlsx",
     title: "Todas las listas desde enero de 2023, por planta, en Excel" });
@@ -579,102 +593,125 @@ function dibujar(animar = false) {
   cont.append(c3);
 }
 
-// Impuestos de la lista de Petroperú para el Diésel B5 S-50 (constantes en las listas 2023-2026).
-const IGV = 0.18, ISC_B5_S50 = 1.49;
-const sinImpuestos = p => p / (1 + IGV) - ISC_B5_S50;
-const AMAZONIA = new Set(["PTO. MALDONADO", "IQUITOS", "PUCALLPA", "YURIMAGUAS"]);
-const refDe = planta => osi[planta === "CONCHAN" ? "CALLAO" : planta] || [];
-const pct = (a, b) => `${a >= b ? "+" : "−"}${fmt(Math.abs(a - b))} (${a >= b ? "+" : "−"}${(Math.abs(a - b) / b * 100).toFixed(1)}%)`;
+// Precios de referencia de Osinergmin (Diésel B5 por planta, sin impuestos ni margen comercial).
+const OSI_PRODUCTOS = [
+  { clave: "bajo", nombre: "Diésel B5 bajo azufre", corto: "Bajo azufre", color: "--series-2" },
+  { clave: "alto", nombre: "Diésel B5 alto azufre", corto: "Alto azufre", color: "--alto-azufre" },
+];
+const URL_OSINERGMIN = f => "https://www.osinergmin.gob.pe/seccion/centro_documental/gart/PreciosReferencia/PrecioReferencia" +
+  `${String(f.getUTCDate()).padStart(2, "0")}${String(f.getUTCMonth() + 1).padStart(2, "0")}${f.getUTCFullYear()}.pdf`;
 
-function dibujarComparacion(cont) {
-  const planta = datos[estado.planta], ref = refDe(estado.planta), inicio = desde();
-  const nombre = nombrePlanta(estado.planta);
-  if (!Object.keys(osi).length) {
+function dibujarOsinergmin(cont, animar) {
+  const planta = osi[estado.planta];
+  if (!planta) {
     cont.append(el("p", { class: "estado" }, "Aún no hay precios de referencia de Osinergmin. Se cargan en la próxima ejecución del agente."));
     return;
   }
-  const ultRef = ref.at(-1);
-  const letrero = el("section", { class: "letrero", "aria-label": `Comparación en ${nombre}` },
+  const inicio = desde(), nombre = nombrePlanta(estado.planta);
+  const ultima = planta.bajo.at(-1)?.fecha;
+
+  // Letrero con la referencia vigente de la planta
+  const letrero = el("section", { class: "letrero", "aria-label": `Precio de referencia en ${nombre}` },
     el("div", { class: "letrero-cab" }, el("h2", {}, nombre),
-      el("p", {}, ultRef ? `Soles por galón, sin impuestos. Osinergmin del ${fFecha(ultRef.fecha)}` : "Soles por galón, sin impuestos")));
-  const filaRef = el("div", { class: "fila-precio" },
-    el("div", { class: "prod" }, el("span", { class: "chip", style: "background:var(--referencia)" }), "Referencia Osinergmin"));
-  const numRef = el("span");
-  filaRef.append(el("div", { class: "cifra" }, el("small", {}, "S/"), numRef),
-    el("div", { class: "cambios" }, el("div", { class: "principal" }, "Diésel B5 bajo azufre"),
-      el("div", {}, estado.planta === "CONCHAN" ? "Conchán usa la referencia del Callao" : "Precio de importación eficiente, sin margen comercial")));
-  letrero.append(filaRef);
-  rodar(numRef, ultRef ? ultRef.precio : 0, ultRef ? ultRef.precio : 0, false);
-  if (!ultRef) numRef.textContent = "—";
-  for (const prod of [PRODUCTOS[1], PRODUCTOS[0]]) {
+      el("p", {}, ultima ? `Soles por galón, sin impuestos ni margen comercial. Publicación del ${fFecha(ultima)}` : "Soles por galón")));
+  for (const prod of OSI_PRODUCTOS) {
     const s = planta[prod.clave];
     const fila = el("div", { class: "fila-precio" },
-      el("div", { class: "prod" }, el("span", { class: "chip", style: `background:var(${prod.color})` }), `Petroperú ${prod.corto}`));
+      el("div", { class: "prod" }, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre));
     letrero.append(fila);
-    if (!s?.length || !ultRef) { fila.append(el("div", { class: "cifra" }, "—"), el("div", { class: "cambios" }, "Sin dato para comparar")); continue; }
-    if (AMAZONIA.has(estado.planta)) {
-      fila.append(el("div", { class: "cifra" }, "—"), el("div", { class: "cambios" }, "Régimen tributario de la Amazonía: no comparable sin impuestos"));
-      continue;
-    }
-    const neto = sinImpuestos(s.at(-1).precio), dif = neto - ultRef.precio;
+    if (!s?.length) { fila.append(el("div", { class: "cifra" }, "—"), el("div", { class: "cambios" }, "Sin dato en esta planta")); continue; }
+    const actual = s.at(-1), anterior = s.at(-2), base = precioEn(s, inicio) || s[0];
     const numero = el("span");
     fila.append(el("div", { class: "cifra" }, el("small", {}, "S/"), numero));
-    rodar(numero, ultRef.precio, neto, cont.classList.contains("animar"));
-    fila.append(el("div", { class: "cambios" },
-      el("div", { class: "principal" }, `${dif >= 0 ? "▲" : "▼"} ${pct(neto, ultRef.precio)} frente a Osinergmin`),
-      el("div", {}, `Lista con impuestos S/ ${fmt(s.at(-1).precio)}, del ${fFecha(s.at(-1).fecha)}`)));
+    rodar(numero, anterior ? anterior.precio : actual.precio, actual.precio, animar);
+    const cambios = el("div", { class: "cambios" });
+    if (anterior) {
+      const d = actual.precio - anterior.precio, dir = direccion(d);
+      cambios.append(el("div", { class: `principal ${dir}` }, dir === "igual"
+        ? "= Sin cambio frente a la semana anterior"
+        : `${FLECHA[dir]} ${dir === "sube" ? "Subió" : "Bajó"} S/ ${fmt(Math.abs(d))} frente a la semana anterior`));
+    }
+    const dBase = actual.precio - base.precio, p100 = dBase / base.precio * 100, dirBase = direccion(dBase);
+    cambios.append(el("div", {}, el("span", { class: dirBase },
+      `${FLECHA[dirBase]} ${dBase >= 0 ? "+" : "−"}${fmt(Math.abs(dBase))} (${p100 >= 0 ? "+" : "−"}${Math.abs(p100).toFixed(1)}%)`),
+      estado.meses ? ` en ${estado.meses === 12 ? "el último año" : `los últimos ${estado.meses} meses`}` : " desde enero de 2023"));
+    fila.append(cambios);
   }
+  const logistico = planta.logistico.at(-1)?.precio;
+  if (logistico != null) letrero.append(el("p", { class: "letrero-pie" }, logistico > 0
+    ? `Incluye un componente logístico de S/ ${fmt(logistico)} por galón sobre el precio del Callao.`
+    : "Planta de referencia: sin componente logístico."));
   cont.append(letrero);
 
-  // Evolución: referencia de Osinergmin frente a Petroperú sin impuestos
+  // Evolución semanal
   const c1 = el("section", { class: "bloque" });
-  c1.append(el("h2", {}, `Petroperú y la referencia de Osinergmin en ${nombre}`),
-    el("p", { class: "nota" }, "Ambos en soles por galón sin impuestos. La línea punteada es la referencia semanal de Osinergmin."));
+  c1.append(el("h2", {}, `Evolución del precio de referencia en ${nombre}`),
+    el("p", { class: "nota" }, "Cada escalón es una publicación semanal de Osinergmin; los triángulos marcan cuánto cambió."));
   const g1 = el("div", { class: "grafico" });
   c1.append(g1);
   cont.append(c1);
-  const defs = [{ corto: "Osinergmin", nombre: "Referencia Osinergmin", color: "--referencia", serie: ref, punteada: true }];
-  if (!AMAZONIA.has(estado.planta)) for (const prod of [PRODUCTOS[1], PRODUCTOS[0]])
-    defs.push({ ...prod, serie: (planta[prod.clave] || []).map(p => ({ fecha: p.fecha, precio: sinImpuestos(p.precio) })) });
-  graficoLineas(g1, planta, inicio, defs);
+  graficoLineas(g1, planta, inicio, OSI_PRODUCTOS.map(p => ({ ...p, serie: planta[p.clave] })), true);
   const ley = el("div", { class: "leyenda" });
-  for (const d of defs) ley.append(el("span", {}, el("span", { class: "chip", style: `background:var(${d.color})` }),
-    d.punteada ? "Referencia Osinergmin (B5 bajo azufre)" : `Petroperú ${d.corto} sin impuestos`));
+  for (const p of OSI_PRODUCTOS) ley.append(el("span", {}, el("span", { class: "chip", style: `background:var(${p.color})` }), p.nombre));
+  ley.append(g1.dataset.marcas === "si"
+    ? el("span", {}, el("span", { style: "color:var(--up)" }, "▲"), "subió", el("span", { style: "color:var(--down);margin-left:6px" }, "▼"), "bajó")
+    : el("span", { class: "muted" }, "Elige 3 meses, 6 meses o 1 año para ver cada cambio marcado"));
   c1.append(ley);
 
-  // Tabla de todas las plantas
+  // Referencia vigente en todos los puntos del Perú
   const c2 = el("section", { class: "bloque" });
-  c2.append(el("h2", {}, "Diferencia por planta"),
-    el("p", { class: "nota" }, `Última lista de Petroperú frente a la última publicación de Osinergmin${ultRef ? ` (${fFecha(ultRef.fecha)})` : ""}. ` +
-      "Un valor positivo indica que Petroperú está por encima de la referencia."));
-  const tabla = el("table", {}, el("thead", {}, el("tr", {}, ...["Planta", "Osinergmin", "B5 S-50", "Diferencia", "B5 S-50 UV", "Diferencia"].map(t => el("th", {}, t)))));
+  c2.append(el("h2", {}, "Precio de referencia por planta"),
+    el("p", { class: "nota" }, `Publicación más reciente, de menor a mayor precio. Toca una planta para verla arriba.`));
+  const g2 = el("div", { class: "grafico" });
+  c2.append(g2);
+  const ley2 = el("div", { class: "leyenda" });
+  for (const p of OSI_PRODUCTOS) ley2.append(el("span", {}, el("span", { class: "chip", style: `background:var(${p.color})` }), p.nombre));
+  c2.append(ley2);
+  cont.append(c2);
+  const vigentes = Object.fromEntries(Object.entries(osi).filter(([, p]) => +p.bajo.at(-1)?.fecha === +ultima));
+  graficoBarras(g2, vigentes, OSI_PRODUCTOS);
+
+  // Publicaciones semanales
+  const c3 = el("section", { class: "bloque tabla-card" });
+  const det = el("details", {}, el("summary", {}, `Ver publicaciones semanales de ${nombre}`),
+    el("p", { class: "nota", style: "margin-top:6px" }, "▲ en ámbar: subió respecto a la semana anterior. ▼ en verde: bajó. = sin cambio."),
+    el("div", { class: "tabla-scroll" }, tablaSerie(planta, OSI_PRODUCTOS, inicio, "Publicación", fmt)));
+  const excel = el("a", { class: "boton-excel", href: "data/precios-diesel-petroperu.xlsx", download: "precios-diesel-petroperu.xlsx",
+    title: "Incluye las hojas de Osinergmin desde enero de 2023" });
+  excel.innerHTML = ICONO_EXCEL + "<span>Descargar Excel</span>";
+  c3.append(excel, det);
+  cont.append(c3);
+
+  // Qué es este dato
+  const c4 = el("section", { class: "bloque" });
+  c4.append(el("h2", {}, "Sobre estos precios"),
+    el("ul", { class: "explicacion" },
+      el("li", {}, "Osinergmin publica cada lunes el precio de referencia del Diésel B5 en cada planta: lo que costaría importarlo de forma eficiente, según las cotizaciones internacionales de las dos semanas previas."),
+      el("li", {}, "No incluye impuestos (ISC, IGV), margen comercial ni el efecto del Fondo de Estabilización de Precios. No es un precio regulado: es un indicador de mercado."),
+      el("li", {}, "El precio de cada planta es el del Callao más su componente logístico."),
+      el("li", {}, "Cinco publicaciones de 2023 y 2024 son imágenes escaneadas y no tienen datos; en el gráfico se mantiene el valor de la semana anterior.")),
+    el("p", { class: "nota" }, el("a", { href: ultima ? URL_OSINERGMIN(ultima) : "https://www.osinergmin.gob.pe" }, "Ver la publicación de Osinergmin")));
+  cont.append(c4);
+}
+
+// Tabla de una planta: una fila por fecha, una columna por serie, con ▲/▼ frente a la fila anterior.
+function tablaSerie(planta, prods, inicio, titulo, formato) {
+  const fechas = [...new Set(prods.flatMap(p => (planta[p.clave] || []).filter(x => x.fecha >= inicio).map(x => +x.fecha)))].sort((a, b) => b - a);
+  const tabla = el("table", {}, el("thead", {}, el("tr", {}, el("th", {}, titulo), ...prods.map(p => el("th", {}, p.corto)))));
   const tb = el("tbody");
-  for (const p of Object.keys(datos).sort((a, b) => a.localeCompare(b, "es"))) {
-    const r = refDe(p).at(-1);
-    const celdas = [el("td", {}, nombrePlanta(p)), el("td", {}, r ? fmt(r.precio) : "—")];
-    for (const prod of [PRODUCTOS[1], PRODUCTOS[0]]) {
-      const v = datos[p][prod.clave]?.at(-1);
-      if (!r || !v || AMAZONIA.has(p)) { celdas.push(el("td", {}, AMAZONIA.has(p) ? "Amazonía" : "—"), el("td", {}, "")); continue; }
-      const n = sinImpuestos(v.precio), d = n - r.precio;
-      celdas.push(el("td", {}, fmt(n)), el("td", { class: d >= 0 ? "sobre" : "bajo" }, pct(n, r.precio)));
-    }
-    const fila = el("tr", { class: p === estado.planta ? "actual" : "" }, ...celdas);
-    tb.append(fila);
+  for (const f of fechas) {
+    tb.append(el("tr", {}, el("td", {}, fFecha(new Date(f))), ...prods.map(p => {
+      const serie = planta[p.clave] || [];
+      const i = serie.findIndex(v => +v.fecha === f);
+      if (i < 0) return el("td", {}, "—");
+      const x = serie[i], prev = serie[i - 1];
+      const dir = prev ? direccion(x.precio - prev.precio) : "igual";
+      const attrs = dir === "igual" ? {} : { class: dir, title: `${dir === "sube" ? "Subió" : "Bajó"} S/ ${formato(Math.abs(x.precio - prev.precio))}` };
+      return el("td", attrs, el("span", { class: "flecha", "aria-hidden": "true" }, prev ? FLECHA[dir] : ""), formato(x.precio));
+    })));
   }
   tabla.append(tb);
-  c2.append(el("div", { class: "tabla-scroll", style: "max-height:none" }, tabla));
-  cont.append(c2);
-
-  // Cómo leer la comparación
-  const c3 = el("section", { class: "bloque" });
-  c3.append(el("h2", {}, "Cómo se comparan"),
-    el("ul", { class: "explicacion" },
-      el("li", {}, "Osinergmin publica cada lunes un precio de referencia por planta: lo que costaría importar el diésel de forma eficiente, sin impuestos, sin margen comercial y sin el efecto del Fondo de Estabilización."),
-      el("li", {}, `A la lista de Petroperú se le quitan los impuestos para compararla: precio / ${(1 + IGV).toFixed(2)} − ISC S/ ${fmt(ISC_B5_S50)} por galón.`),
-      el("li", {}, "El B5 S-50 UV (uso vehicular) está dentro del Fondo de Estabilización, por eso puede quedar más cerca o por debajo de la referencia que el B5 S-50."),
-      el("li", {}, "Las plantas de la Amazonía tienen otro régimen de impuestos y no se comparan. Conchán usa la referencia del Callao.")),
-    el("p", { class: "nota" }, el("a", { href: "https://www.osinergmin.gob.pe/seccion/centro_documental/gart/PreciosReferencia/" + (ultRef ? `PrecioReferencia${String(ultRef.fecha.getUTCDate()).padStart(2, "0")}${String(ultRef.fecha.getUTCMonth() + 1).padStart(2, "0")}${ultRef.fecha.getUTCFullYear()}.pdf` : "") }, "Ver la publicación de Osinergmin")));
-  cont.append(c3);
+  return tabla;
 }
 
 function escala(d0, d1, r0, r1) { return v => r0 + (v - d0) / (d1 - d0 || 1) * (r1 - r0); }
@@ -690,7 +727,7 @@ function ticksBonitos(min, max, n = 5) {
 
 // defs (opcional): series propias [{corto, color, serie, punteada}] en lugar de los dos diésel;
 // en ese caso no se dibujan las marcas de cambio.
-function graficoLineas(caja, planta, inicio, defs = null) {
+function graficoLineas(caja, planta, inicio, defs = null, conCambios = false) {
   const ancho = caja.clientWidth, alto = ancho < 560 ? 260 : 320;
   const m = { t: 12, r: ancho < 560 ? 12 : 104, b: 28, l: 44 };
   const hoy = new Date();
@@ -740,7 +777,7 @@ function graficoLineas(caja, planta, inicio, defs = null) {
   }
   // Marcas de cambio de precio: triángulo hacia arriba (subió) o hacia abajo (bajó).
   const totalCambios = series.reduce((n, s) => n + s.cambios.length, 0);
-  const conMarcas = !defs && totalCambios <= 160;
+  const conMarcas = (!defs || conCambios) && totalCambios <= 160;
   if (conMarcas) for (const s of series) for (const { p, dir } of s.cambios) {
     const cx = x(+p.fecha), cy = y(p.precio), k = dir === "sube" ? -1 : 1;
     svg.append(el("svg:path", { class: "tras-trazo", d: `M${cx},${cy + 6 * k}L${cx + 5},${cy - 3 * k}L${cx - 5},${cy - 3 * k}Z`,
@@ -826,11 +863,13 @@ function graficoLineas(caja, planta, inicio, defs = null) {
   });
 }
 
-function graficoBarras(caja) {
-  const filas = Object.keys(datos).map(p => ({
+function graficoBarras(caja, fuente = datos, prods = PRODUCTOS) {
+  const [k0, k1] = prods.map(p => p.clave);
+  const filas = Object.keys(fuente).map(p => ({
     planta: p,
-    v: Object.fromEntries(PRODUCTOS.map(pr => [pr.clave, datos[p][pr.clave]?.at(-1)?.precio])),
-  })).sort((a, b) => (a.v.DIESEL_B5_S50_UV ?? a.v.DIESEL_B5_S50) - (b.v.DIESEL_B5_S50_UV ?? b.v.DIESEL_B5_S50));
+    v: Object.fromEntries(prods.map(pr => [pr.clave, fuente[p][pr.clave]?.at(-1)?.precio])),
+  })).filter(f => Object.values(f.v).some(v => v != null))
+    .sort((a, b) => (a.v[k0] ?? a.v[k1]) - (b.v[k0] ?? b.v[k1]));
   const ancho = caja.clientWidth, alturaBarra = 9, gap = 2, grupo = alturaBarra * 2 + gap + 12;
   const m = { t: 4, r: 64, b: 24, l: ancho < 560 ? 104 : 124 };
   const alto = m.t + m.b + filas.length * grupo;
@@ -848,7 +887,7 @@ function graficoBarras(caja) {
     const sel = f.planta === estado.planta;
     svg.append(el("svg:text", { x: m.l - 10, y: y0 + alturaBarra + 4, "text-anchor": "end",
       style: sel ? "fill:var(--text-primary);font-weight:600;font-size:13px" : "font-size:13px" }, nombrePlanta(f.planta)));
-    PRODUCTOS.forEach((pr, j) => {
+    prods.forEach((pr, j) => {
       const v = f.v[pr.clave]; if (v == null) return;
       const yy = y0 + j * (alturaBarra + gap), w = x(v) - m.l;
       const r = Math.min(4, w / 2);

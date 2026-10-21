@@ -255,16 +255,16 @@ def test_osinergmin_lectura_y_comparacion(agente, monkeypatch):
     assert tabla["CUSCO"]["b5_bajo_azufre"] == 17.99 and tabla["PTO. MALDONADO"]["b5_alto_azufre"] == 17.96
     assert agente.guardar_osinergmin(filas) == 18 and agente.guardar_osinergmin(filas) == 0
 
-    # Petroperú sin impuestos: 24.8272 / 1.18 - 1.49 = 19.55
-    assert round(agente.sin_impuestos(24.8272), 4) == 19.55
-    P = agente.Precio
-    agente.guardar_listas([P("DIESEL_B5_S50", "CALLAO", 24.8272, "a", "2026-10-17"),
-                           P("DIESEL_B5_S50_UV", "CALLAO", 23.2578, "a", "2026-10-17"),
-                           P("DIESEL_B5_S50", "PTO. MALDONADO", 23.9483, "a", "2026-10-17")])
-    c = load_workbook(agente.generar_excel())["Comparación"]
-    filas_c = {c.cell(row=i, column=1).value: [c.cell(row=i, column=j).value for j in range(2, 9)] for i in range(5, c.max_row + 1)}
-    assert filas_c["Callao"][:3] == [17.14, 19.55, 2.41]
-    assert "Amazonía" in filas_c["Pto. Maldonado"][1]
+    wb = load_workbook(agente.generar_excel() or _excel_minimo(agente))
+    assert "Osinergmin B5 bajo azufre" in wb.sheetnames and "Osinergmin B5 alto azufre" in wb.sheetnames
+    alto = wb["Osinergmin B5 alto azufre"]
+    cab = [alto.cell(row=3, column=k).value for k in range(1, alto.max_column + 1)]
+    assert alto.cell(row=4, column=cab.index("Callao") + 1).value == 15.69
+
+
+def _excel_minimo(agente):
+    agente.guardar_listas([agente.Precio("DIESEL_B5_S50", "CALLAO", 24.8272, "a", "2026-10-17")])
+    return agente.generar_excel()
 
 
 def test_actualizar_osinergmin_busca_cada_semana(agente, monkeypatch):

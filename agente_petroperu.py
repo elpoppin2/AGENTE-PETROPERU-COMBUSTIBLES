@@ -758,43 +758,19 @@ def generar_excel() -> Path | None:
     if osi:
         fechas_osi = sorted({r["fecha"] for r in osi}, reverse=True)
         plantas_osi = sorted({r["planta"] for r in osi})
-        ref = {(r["fecha"], r["planta"]): float(r["b5_bajo_azufre"]) for r in osi}
-        o = wb.create_sheet("Osinergmin B5 bajo azufre")
-        o["A1"] = "Precio de referencia de Osinergmin, Diésel B5 bajo azufre (S/ por galón, sin impuestos ni margen comercial)"
-        o["A1"].font = Font(bold=True)
-        encabezar(o, 3, ["Publicación", *(p.title() for p in plantas_osi)], [13, *([13] * len(plantas_osi))])
-        for i, fch in enumerate(fechas_osi, start=4):
-            o.cell(row=i, column=1, value=fecha(fch)).number_format = fmt_fecha
-            for j, planta in enumerate(plantas_osi, start=2):
-                if (fch, planta) in ref:
-                    o.cell(row=i, column=j, value=ref[(fch, planta)]).number_format = "0.00"
-        o.freeze_panes = "B4"
-
-        c = wb.create_sheet("Comparación")
-        ultima_osi = fechas_osi[0]
-        c["A1"] = (f"Petroperú (lista del {fecha(vigencias[-1]).strftime('%d/%m/%Y')}) frente a Osinergmin "
-                   f"(publicación del {fecha(ultima_osi).strftime('%d/%m/%Y')}), en soles por galón sin impuestos")
-        c["A1"].font = Font(bold=True)
-        c["A2"] = (f"Petroperú sin impuestos = precio de lista / {1 + IGV:.2f} - ISC S/ {ISC_B5_S50:.2f}. "
-                   "Osinergmin no incluye margen comercial ni el efecto del Fondo de Estabilización.")
-        encabezar(c, 4, ["Planta", "Osinergmin referencia", "Petroperú B5 S-50 sin impuestos", "Diferencia S/", "Diferencia %",
-                         "Petroperú B5 S-50 UV sin impuestos", "Diferencia S/", "Diferencia %"], [18, 14, 16, 12, 12, 16, 12, 12])
-        for i, planta in enumerate(plantas, start=5):
-            c.cell(row=i, column=1, value=planta.title())
-            r = ref.get((ultima_osi, "CALLAO" if planta == "CONCHAN" else planta))
-            if r is None:
-                continue
-            c.cell(row=i, column=2, value=r).number_format = "0.00"
-            if planta in PLANTAS_AMAZONIA:
-                c.cell(row=i, column=3, value="Régimen tributario de la Amazonía: no comparable")
-                continue
-            for k, comb in enumerate(("DIESEL_B5_S50", "DIESEL_B5_S50_UV")):
-                if (comb, planta) in ultimo:
-                    neto = sin_impuestos(ultimo[(comb, planta)][1])
-                    c.cell(row=i, column=3 + 3 * k, value=round(neto, 4)).number_format = "0.00"
-                    c.cell(row=i, column=4 + 3 * k, value=round(neto - r, 4)).number_format = "+0.00;-0.00"
-                    c.cell(row=i, column=5 + 3 * k, value=(neto - r) / r).number_format = "+0.0%;-0.0%"
-        c.freeze_panes = "B5"
+        for campo, nombre in (("b5_bajo_azufre", "bajo azufre"), ("b5_alto_azufre", "alto azufre")):
+            ref = {(r["fecha"], r["planta"]): float(r[campo]) for r in osi}
+            o = wb.create_sheet(f"Osinergmin B5 {nombre}")
+            o["A1"] = (f"Precio de referencia de Osinergmin, Diésel B5 {nombre} "
+                       "(S/ por galón, sin impuestos ni margen comercial)")
+            o["A1"].font = Font(bold=True)
+            encabezar(o, 3, ["Publicación", *(p.title() for p in plantas_osi)], [13, *([13] * len(plantas_osi))])
+            for i, fch in enumerate(fechas_osi, start=4):
+                o.cell(row=i, column=1, value=fecha(fch)).number_format = fmt_fecha
+                for j, planta in enumerate(plantas_osi, start=2):
+                    if (fch, planta) in ref:
+                        o.cell(row=i, column=j, value=ref[(fch, planta)]).number_format = "0.00"
+            o.freeze_panes = "B4"
 
     DIR_DATOS.mkdir(parents=True, exist_ok=True)
     wb.save(EXCEL)
@@ -817,18 +793,6 @@ _FILA_OSI = re.compile(r"^(?P<p>[^\d]+?) (?P<log>-|\d+[.,]\d+) (?P=p) (?P<bajo>\
 _FECHA_OSI = re.compile(r"Fecha de Publicaci[oó]n\s*:\s*(\d{2})[/-](\d{2})[/-](\d{2,4})")
 # Mismos nombres que en las listas de Petroperú
 _PLANTAS_OSI = {"CUZCO": "CUSCO", "PUERTO MALDONADO": "PTO. MALDONADO"}
-# Impuestos de la lista de Petroperú para el Diésel B5 S-50 (constantes en las listas 2023-2026)
-IGV = 0.18
-ISC_B5_S50 = 1.49  # soles por galón
-# Plantas con régimen tributario de la Amazonía: su precio de lista no es comparable sin impuestos
-PLANTAS_AMAZONIA = {"PTO. MALDONADO", "IQUITOS", "PUCALLPA", "YURIMAGUAS"}
-
-
-def sin_impuestos(precio: float) -> float:
-    """Precio de lista de Petroperú sin IGV ni ISC, comparable con la referencia de Osinergmin."""
-    return precio / (1 + IGV) - ISC_B5_S50
-
-
 def _renglones(pagina) -> str:
     """Reconstruye los renglones a partir de la posición de cada letra.
 
