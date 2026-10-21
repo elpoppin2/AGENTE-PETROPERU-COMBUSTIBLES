@@ -754,10 +754,166 @@ def generar_excel() -> Path | None:
     d.freeze_panes = "A2"
     d.auto_filter.ref = f"A1:E{len(filas) + 1}"
 
+    osi = leer_osinergmin()
+    if osi:
+        fechas_osi = sorted({r["fecha"] for r in osi}, reverse=True)
+        plantas_osi = sorted({r["planta"] for r in osi})
+        ref = {(r["fecha"], r["planta"]): float(r["b5_bajo_azufre"]) for r in osi}
+        o = wb.create_sheet("Osinergmin B5 bajo azufre")
+        o["A1"] = "Precio de referencia de Osinergmin, Diésel B5 bajo azufre (S/ por galón, sin impuestos ni margen comercial)"
+        o["A1"].font = Font(bold=True)
+        encabezar(o, 3, ["Publicación", *(p.title() for p in plantas_osi)], [13, *([13] * len(plantas_osi))])
+        for i, fch in enumerate(fechas_osi, start=4):
+            o.cell(row=i, column=1, value=fecha(fch)).number_format = fmt_fecha
+            for j, planta in enumerate(plantas_osi, start=2):
+                if (fch, planta) in ref:
+                    o.cell(row=i, column=j, value=ref[(fch, planta)]).number_format = "0.00"
+        o.freeze_panes = "B4"
+
+        c = wb.create_sheet("Comparación")
+        ultima_osi = fechas_osi[0]
+        c["A1"] = (f"Petroperú (lista del {fecha(vigencias[-1]).strftime('%d/%m/%Y')}) frente a Osinergmin "
+                   f"(publicación del {fecha(ultima_osi).strftime('%d/%m/%Y')}), en soles por galón sin impuestos")
+        c["A1"].font = Font(bold=True)
+        c["A2"] = (f"Petroperú sin impuestos = precio de lista / {1 + IGV:.2f} - ISC S/ {ISC_B5_S50:.2f}. "
+                   "Osinergmin no incluye margen comercial ni el efecto del Fondo de Estabilización.")
+        encabezar(c, 4, ["Planta", "Osinergmin referencia", "Petroperú B5 S-50 sin impuestos", "Diferencia S/", "Diferencia %",
+                         "Petroperú B5 S-50 UV sin impuestos", "Diferencia S/", "Diferencia %"], [18, 14, 16, 12, 12, 16, 12, 12])
+        for i, planta in enumerate(plantas, start=5):
+            c.cell(row=i, column=1, value=planta.title())
+            r = ref.get((ultima_osi, "CALLAO" if planta == "CONCHAN" else planta))
+            if r is None:
+                continue
+            c.cell(row=i, column=2, value=r).number_format = "0.00"
+            if planta in PLANTAS_AMAZONIA:
+                c.cell(row=i, column=3, value="Régimen tributario de la Amazonía: no comparable")
+                continue
+            for k, comb in enumerate(("DIESEL_B5_S50", "DIESEL_B5_S50_UV")):
+                if (comb, planta) in ultimo:
+                    neto = sin_impuestos(ultimo[(comb, planta)][1])
+                    c.cell(row=i, column=3 + 3 * k, value=round(neto, 4)).number_format = "0.00"
+                    c.cell(row=i, column=4 + 3 * k, value=round(neto - r, 4)).number_format = "+0.00;-0.00"
+                    c.cell(row=i, column=5 + 3 * k, value=(neto - r) / r).number_format = "+0.0%;-0.0%"
+        c.freeze_panes = "B5"
+
     DIR_DATOS.mkdir(parents=True, exist_ok=True)
     wb.save(EXCEL)
     log.info("Excel actualizado: %s (%d precios)", EXCEL, len(filas))
     return EXCEL
+
+
+# --------------------------------------------------------------------------
+# Osinergmin: precios de referencia del Diésel B5 por planta (publicación semanal)
+# --------------------------------------------------------------------------
+
+OSINERGMIN = DIR_DATOS / "osinergmin.csv"
+COLUMNAS_OSINERGMIN = ["fecha", "planta", "b5_bajo_azufre", "b5_alto_azufre", "componente_logistico", "fuente"]
+URL_OSINERGMIN = ("https://www.osinergmin.gob.pe/seccion/centro_documental/gart/PreciosReferencia/"
+                  "PrecioReferencia{:%d%m%Y}.pdf")
+OSINERGMIN_DESDE = "2023-01-01"
+# Fila de la tabla "Precios de Referencia del Diésel BX por Planta": la planta aparece dos
+# veces (componente logístico y precio), p. ej. "Cuzco 0,85 Cuzco 17,99 16,54".
+_FILA_OSI = re.compile(r"^(?P<p>[^\d]+?) (?P<log>-|\d+[.,]\d+) (?P=p) (?P<bajo>\d+[.,]\d+) (?P<alto>\d+[.,]\d+)$")
+_FECHA_OSI = re.compile(r"Fecha de Publicaci[oó]n\s*:\s*(\d{2})[/-](\d{2})[/-](\d{2,4})")
+# Mismos nombres que en las listas de Petroperú
+_PLANTAS_OSI = {"CUZCO": "CUSCO", "PUERTO MALDONADO": "PTO. MALDONADO"}
+# Impuestos de la lista de Petroperú para el Diésel B5 S-50 (constantes en las listas 2023-2026)
+IGV = 0.18
+ISC_B5_S50 = 1.49  # soles por galón
+# Plantas con régimen tributario de la Amazonía: su precio de lista no es comparable sin impuestos
+PLANTAS_AMAZONIA = {"PTO. MALDONADO", "IQUITOS", "PUCALLPA", "YURIMAGUAS"}
+
+
+def sin_impuestos(precio: float) -> float:
+    """Precio de lista de Petroperú sin IGV ni ISC, comparable con la referencia de Osinergmin."""
+    return precio / (1 + IGV) - ISC_B5_S50
+
+
+def extraer_osinergmin(contenido: bytes, fuente: str, fecha: str | None = None) -> list[dict]:
+    """Lee la tabla de precios de referencia del Diésel B5 por planta de un PDF semanal."""
+    import pdfplumber
+
+    filas = []
+    with pdfplumber.open(io.BytesIO(contenido)) as pdf:
+        for pagina in pdf.pages:
+            texto = pagina.extract_text() or ""
+            if "por Planta" not in texto:
+                continue
+            m = _FECHA_OSI.search(texto)
+            if m:
+                d, mes, a = m.groups()
+                fecha = f"{'20' + a if len(a) == 2 else a}-{mes}-{d}"
+            for linea in texto.splitlines():
+                f = _FILA_OSI.match(linea.strip())
+                if not f:
+                    continue
+                planta = normalizar(f["p"]).upper()
+                planta = _PLANTAS_OSI.get(planta, planta)
+                num = lambda t: None if t == "-" else float(t.replace(",", "."))
+                filas.append({"fecha": fecha, "planta": planta, "b5_bajo_azufre": num(f["bajo"]),
+                              "b5_alto_azufre": num(f["alto"]), "componente_logistico": num(f["log"]) or 0.0,
+                              "fuente": fuente})
+            if filas:
+                break
+    return filas
+
+
+def leer_osinergmin() -> list[dict]:
+    if not OSINERGMIN.exists():
+        return []
+    with OSINERGMIN.open(newline="", encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+
+def guardar_osinergmin(filas: list[dict]) -> int:
+    datos = {(r["fecha"], r["planta"]): r for r in leer_osinergmin()}
+    nuevos = 0
+    for r in filas:
+        clave = (r["fecha"], r["planta"])
+        nuevos += clave not in datos
+        datos[clave] = {**r, "b5_bajo_azufre": f"{float(r['b5_bajo_azufre']):.2f}",
+                        "b5_alto_azufre": f"{float(r['b5_alto_azufre']):.2f}",
+                        "componente_logistico": f"{float(r['componente_logistico']):.2f}"}
+    DIR_DATOS.mkdir(parents=True, exist_ok=True)
+    with OSINERGMIN.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=COLUMNAS_OSINERGMIN)
+        w.writeheader()
+        w.writerows(datos[k] for k in sorted(datos))
+    return nuevos
+
+
+def actualizar_osinergmin(sesion: requests.Session, hasta: str | None = None) -> int:
+    """Descarga las publicaciones semanales de Osinergmin que aún no estén en data/osinergmin.csv.
+
+    Osinergmin publica los lunes (o el siguiente día hábil); se prueba de lunes a jueves de cada
+    semana desde la última fecha guardada (o desde enero de 2023 la primera vez).
+    """
+    from datetime import date, timedelta
+
+    fechas = {r["fecha"] for r in leer_osinergmin()}
+    inicio = date.fromisoformat(max(fechas)) + timedelta(days=1) if fechas else date.fromisoformat(OSINERGMIN_DESDE)
+    fin = date.fromisoformat(hasta) if hasta else datetime.now(ZONA).date()
+    lunes = inicio - timedelta(days=inicio.weekday())
+    filas: list[dict] = []
+    while lunes <= fin:
+        for k in range(4):
+            dia = lunes + timedelta(days=k)
+            if dia < inicio or dia > fin or dia.isoformat() in fechas:
+                continue
+            url = URL_OSINERGMIN.format(dia)
+            try:
+                r = sesion.get(url, timeout=30)
+            except requests.RequestException as e:
+                log.warning("Osinergmin no respondió para %s: %s", dia, e)
+                continue
+            if r.status_code == 200 and r.content[:4] == b"%PDF":
+                halladas = extraer_osinergmin(r.content, url, dia.isoformat())
+                log.info("OSINERGMIN %s -> %d plantas", dia, len(halladas))
+                filas += halladas
+                break
+            time.sleep(0.2)
+        lunes += timedelta(days=7)
+    return guardar_osinergmin(filas) if filas else 0
 
 
 ESTADO_DIARIO = DIR_DATOS / "reporte_diario.json"  # último reporte diario enviado
@@ -870,6 +1026,8 @@ def main() -> int:
                         help="envía por correo y WhatsApp el reporte de la lista AAAA-MM-DD y termina")
     parser.add_argument("--enlace", help="enlace al aviso en GitHub para incluir en el correo")
     parser.add_argument("--excel", action="store_true", help="solo regenera el Excel del histórico y termina")
+    parser.add_argument("--osinergmin", action="store_true",
+                        help="solo descarga los precios de referencia de Osinergmin pendientes y termina")
     parser.add_argument("--reporte-diario", action="store_true",
                         help="envía el reporte diario si aún no salió hoy (desde las 07:00 de Lima) y termina")
     parser.add_argument("--forzar", action="store_true", help="con --reporte-diario, lo envía aunque ya haya salido hoy")
@@ -878,6 +1036,11 @@ def main() -> int:
 
     if args.reporte_diario:
         return 1 if enviar_reporte_diario(args.forzar) is False else 0
+
+    if args.osinergmin:
+        log.info("Osinergmin: %d precios de referencia nuevos", actualizar_osinergmin(nueva_sesion()))
+        generar_excel()
+        return 0
 
     if args.excel:
         return 0 if generar_excel() else 1
@@ -915,6 +1078,10 @@ def main() -> int:
     actuales = registrar(precios, hoy)
     conocidas = vigencias_registradas()
     guardar_listas(precios)
+    try:
+        log.info("Osinergmin: %d precios de referencia nuevos", actualizar_osinergmin(nueva_sesion()))
+    except Exception as e:  # una caída de Osinergmin no debe frenar la lectura de Petroperú
+        log.warning("No se pudo actualizar Osinergmin: %s", e)
     generar_excel()
     # Si Petroperú publicó una lista nueva, se prepara el reporte para el aviso.
     nuevas = sorted({p.vigencia for p in precios if p.vigencia} - conocidas)

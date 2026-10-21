@@ -205,7 +205,7 @@ def test_excel_con_todo_el_historico(agente):
                            P("DIESEL_B5_S50_UV", "CALLAO", 20.5, "b.pdf", "2026-10-13"),
                            P("DIESEL_B5_S50", "TALARA", 21.7, "b.pdf", "2026-10-13")])
     wb = load_workbook(agente.generar_excel())
-    assert wb.sheetnames == ["Precios vigentes", "Histórico B5 S-50 UV", "Histórico B5 S-50", "Datos"]
+    assert wb.sheetnames[:4] == ["Precios vigentes", "Histórico B5 S-50 UV", "Histórico B5 S-50", "Datos"]
     assert [c.value for c in wb["Precios vigentes"][5]][:2] == ["Callao", 20.5]
     assert wb["Histórico B5 S-50 UV"]["B2"].value == 20.5 and wb["Histórico B5 S-50 UV"]["B3"].value == 20.0
     assert wb["Datos"].max_row == 5
@@ -243,3 +243,44 @@ def test_reporte_diario_con_y_sin_cambios(agente, monkeypatch):
     assert agente.enviar_reporte_diario(forzar=True) is True
     Reloj.actual = datetime(2026, 10, 21, 7, 57)
     assert agente.enviar_reporte_diario() is True           # la prueba no consumió el envío del día
+
+
+def test_osinergmin_lectura_y_comparacion(agente, monkeypatch):
+    from openpyxl import load_workbook
+    contenido = (FIXTURES / "osinergmin_2026-10-19.pdf").read_bytes()
+    filas = agente.extraer_osinergmin(contenido, "ref.pdf")
+    tabla = {r["planta"]: r for r in filas}
+    assert len(filas) == 18 and {r["fecha"] for r in filas} == {"2026-10-19"}
+    assert tabla["CALLAO"]["b5_bajo_azufre"] == 17.14 and tabla["CALLAO"]["componente_logistico"] == 0.0
+    assert tabla["CUSCO"]["b5_bajo_azufre"] == 17.99 and tabla["PTO. MALDONADO"]["b5_alto_azufre"] == 17.96
+    assert agente.guardar_osinergmin(filas) == 18 and agente.guardar_osinergmin(filas) == 0
+
+    # Petroperú sin impuestos: 24.8272 / 1.18 - 1.49 = 19.55
+    assert round(agente.sin_impuestos(24.8272), 4) == 19.55
+    P = agente.Precio
+    agente.guardar_listas([P("DIESEL_B5_S50", "CALLAO", 24.8272, "a", "2026-10-17"),
+                           P("DIESEL_B5_S50_UV", "CALLAO", 23.2578, "a", "2026-10-17"),
+                           P("DIESEL_B5_S50", "PTO. MALDONADO", 23.9483, "a", "2026-10-17")])
+    c = load_workbook(agente.generar_excel())["Comparación"]
+    filas_c = {c.cell(row=i, column=1).value: [c.cell(row=i, column=j).value for j in range(2, 9)] for i in range(5, c.max_row + 1)}
+    assert filas_c["Callao"][:3] == [17.14, 19.55, 2.41]
+    assert "Amazonía" in filas_c["Pto. Maldonado"][1]
+
+
+def test_actualizar_osinergmin_busca_cada_semana(agente, monkeypatch):
+    contenido = (FIXTURES / "osinergmin_2026-10-19.pdf").read_bytes()
+    pedidas = []
+
+    class Resp:
+        def __init__(self, ok): self.status_code, self.content = (200, contenido) if ok else (404, b"no")
+
+    class Sesion:
+        def get(self, url, timeout): pedidas.append(url); return Resp(url.endswith("19102026.pdf"))
+
+    monkeypatch.setattr(agente.time, "sleep", lambda s: None)
+    monkeypatch.setattr(agente, "OSINERGMIN_DESDE", "2026-10-12")
+    assert agente.actualizar_osinergmin(Sesion(), hasta="2026-10-21") == 18
+    assert any(u.endswith("12102026.pdf") for u in pedidas) and pedidas[-1].endswith("19102026.pdf")
+    pedidas.clear()
+    assert agente.actualizar_osinergmin(Sesion(), hasta="2026-10-21") == 0  # ya estaba
+    assert not any(u.endswith("19102026.pdf") for u in pedidas)
