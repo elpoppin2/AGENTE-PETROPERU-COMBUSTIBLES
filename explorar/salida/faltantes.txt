@@ -1,0 +1,36 @@
+===== 03062024 200 1594343
+--- pag 0 (texto normal, 15 renglones)
+--- pag 0 (por posición, 30 renglones)
+--- pag 1 (texto normal, 15 renglones)
+--- pag 1 (por posición, 30 renglones)
+--- pag 2 (texto normal, 15 renglones)
+--- pag 2 (por posición, 30 renglones)
+
+
+===== 14102024 200 1116685
+--- pag 0 (texto normal, 15 renglones)
+--- pag 0 (por posición, 30 renglones)
+--- pag 1 (texto normal, 15 renglones)
+--- pag 1 (por posición, 30 renglones)
+===== 18112024 200 1084509
+--- pag 0 (texto normal, 15 renglones)
+--- pag 0 (por posición, 30 renglones)
+--- pag 1 (texto normal, 15 renglones)
+--- pag 1 (por posición, 30 renglones)
+===== 09122024 200 1174695
+--- pag 0 (texto normal, 15 renglones)
+--- pag 0 (por posición, 30 renglones)
+--- pag 1 (texto normal, 15 renglones)
+--- pag 1 (por posición, 30 renglones)
+===== 30012023 200 2578151
+--- pag 0 (texto normal, 15 renglones)
+--- pag 0 (por posición, 30 renglones)
+--- pag 1 (texto normal, 15 renglones)
+--- pag 1 (por posición, 30 renglones)
+--- pag 2 (texto normal, 15 renglones)
+--- pag 2 (por posición, 30 renglones)
+
+
+
+
+
