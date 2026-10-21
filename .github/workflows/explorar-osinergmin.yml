@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: pip install playwright && python -m playwright install --with-deps chromium
-      - run: python explorar/facilito.py
+      - run: pip install requests pdfplumber && python explorar/referencia.py
       - run: |
           git config user.name agente-petroperu
           git config user.email agente-petroperu@users.noreply.github.com
