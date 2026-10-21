@@ -10,8 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install playwright && python -m playwright install --with-deps chromium
-      - run: pip install requests pdfplumber && python explorar/faltantes.py
+      - run: pip install requests pdfplumber beautifulsoup4 && python explorar/faltantes.py
       - run: |
           git config user.name agente-petroperu
           git config user.email agente-petroperu@users.noreply.github.com
