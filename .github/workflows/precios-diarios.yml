@@ -11,6 +11,10 @@ on:
         description: "Enviar otra vez el aviso de la última lista (para probar las alertas)"
         type: boolean
         default: false
+      enviar_promedio:
+        description: "Enviar otra vez el promedio ponderado del último mes cerrado (para probar el aviso mensual)"
+        type: boolean
+        default: false
 
 # Si dos ejecuciones coinciden, la segunda espera a la primera.
 concurrency:
@@ -40,6 +44,12 @@ jobs:
         id: prueba
         if: inputs.reenviar_aviso
         run: python agente_petroperu.py --reporte ultima
+      - name: Preparar el promedio ponderado del mes cerrado
+        # El día 1 de cada mes (o la siguiente ejecución, si esa falla) arma el
+        # promedio del mes anterior en Conchán y su Excel; luego se avisa y se envía.
+        id: promedio
+        if: ${{ !cancelled() }}
+        run: python agente_petroperu.py --promedio ${{ inputs.enviar_promedio && '--forzar' || '' }}
       - name: Guardar historial en el repositorio
         if: always()
         run: |
@@ -72,3 +82,25 @@ jobs:
           AVISO_CORREOS: ${{ secrets.AVISO_CORREOS }}
           AVISO_WHATSAPP: ${{ secrets.AVISO_WHATSAPP }}
         run: python agente_petroperu.py --enviar "$(basename "$REPORTE" .md)" --enlace "${{ steps.aviso.outputs.url }}"
+      - name: Avisar del promedio ponderado mensual
+        id: aviso_promedio
+        if: ${{ !cancelled() && steps.promedio.outputs.reporte != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORTE: ${{ steps.promedio.outputs.reporte }}
+          TITULO: ${{ steps.promedio.outputs.titulo }}
+        run: |
+          gh label create "promedio mensual" --color 0e8a16 --description "Promedio ponderado del mes cerrado" 2>/dev/null || true
+          tail -n +3 "$REPORTE" > cuerpo_promedio.md
+          URL=$(gh issue create --title "$TITULO" --body-file cuerpo_promedio.md --label "promedio mensual")
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+      - name: Enviar el promedio ponderado por correo
+        if: steps.aviso_promedio.outcome == 'success'
+        env:
+          REPORTE: ${{ steps.promedio.outputs.reporte }}
+          AVISO_CORREO_USUARIO: ${{ secrets.AVISO_CORREO_USUARIO }}
+          AVISO_CORREO_CLAVE: ${{ secrets.AVISO_CORREO_CLAVE }}
+          AVISO_CORREOS: ${{ secrets.AVISO_CORREOS }}
+        run: |
+          MES=$(basename "$REPORTE" .md); MES=${MES#promedio-}
+          python agente_petroperu.py --enviar-promedio "$MES" --enlace "${{ steps.aviso_promedio.outputs.url }}"

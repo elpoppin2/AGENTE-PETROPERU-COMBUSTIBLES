@@ -629,10 +629,11 @@ def enviar_avisos(vigencia: str, enlace: str | None = None) -> bool:
     return enviar(titulo, cuerpo, mensaje)
 
 
-def enviar(titulo: str, cuerpo: str, mensaje: str, copia_remitente: bool = False) -> bool:
+def enviar(titulo: str, cuerpo: str, mensaje: str, copia_remitente: bool = False, adjuntos: list[Path] = ()) -> bool:
     """Envía un reporte (Markdown) por correo y su resumen corto por WhatsApp.
 
     Con copia_remitente=True el correo también llega a la cuenta que lo envía.
+    adjuntos: archivos que van adjuntos al correo (no por WhatsApp).
     """
     import smtplib
     from email.message import EmailMessage
@@ -647,6 +648,9 @@ def enviar(titulo: str, cuerpo: str, mensaje: str, copia_remitente: bool = False
         correo["Subject"], correo["From"], correo["To"] = titulo, usuario, ", ".join(destinos)
         correo.set_content(cuerpo)
         correo.add_alternative(markdown_a_html(cuerpo), subtype="html")
+        for ruta in adjuntos:
+            correo.add_attachment(Path(ruta).read_bytes(), maintype="application",
+                                  subtype="vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename=Path(ruta).name)
         try:
             with smtplib.SMTP_SSL(os.environ.get("AVISO_CORREO_SERVIDOR", "smtp.gmail.com"), 465, timeout=30) as smtp:
                 smtp.login(usuario, clave)
@@ -988,6 +992,296 @@ def enviar_reporte_diario(forzar: bool = False) -> bool | None:
     return True
 
 
+# --- Promedio ponderado mensual (aviso el día 1 de cada mes) ---
+PLANTA_PROMEDIO = os.environ.get("PETROPERU_PLANTA_PROMEDIO", "CONCHAN")
+PROMEDIO_DESDE = "2026-08"  # primer mes del Excel acumulado
+NOMBRES_MES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
+               "Setiembre", "Octubre", "Noviembre", "Diciembre"]
+URL_REPO = "https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES"
+
+
+def _nombre_mes(mes: str) -> str:
+    a, m = mes.split("-")
+    return f"{NOMBRES_MES[int(m) - 1]} {a}"
+
+
+def _meses(desde: str, hasta: str) -> list[str]:
+    a, m = map(int, desde.split("-"))
+    salida = []
+    while f"{a:04d}-{m:02d}" <= hasta:
+        salida.append(f"{a:04d}-{m:02d}")
+        a, m = (a + 1, 1) if m == 12 else (a, m + 1)
+    return salida
+
+
+def _listas_planta(planta: str) -> dict:
+    """{fecha de vigencia: {combustible: precio}} de una planta."""
+    from datetime import date
+    listas: dict = {}
+    with LISTAS.open(newline="", encoding="utf-8") as f:
+        for fila in csv.DictReader(f):
+            if fila["ubicacion"] == planta:
+                listas.setdefault(date.fromisoformat(fila["vigencia"]), {})[fila["combustible"]] = float(fila["precio"])
+    return listas
+
+
+def tramos_mes(listas: dict, mes: str) -> list[dict]:
+    """Tramos de vigencia del mes: cada lista con los días que estuvo vigente.
+
+    Si no hubo lista el día 1, el primer tramo usa la última lista registrada antes.
+    """
+    from datetime import date, timedelta
+    a, m = map(int, mes.split("-"))
+    ini = date(a, m, 1)
+    fin = (date(a + (m == 12), m % 12 + 1, 1) - timedelta(days=1))
+    previas = [d for d in listas if d <= ini]
+    if not previas:
+        raise ValueError(f"No hay lista vigente al {ini} para calcular {mes}")
+    cortes = [ini] + sorted(d for d in listas if ini < d <= fin)
+    tramos = []
+    for i, d in enumerate(cortes):
+        hasta = cortes[i + 1] - timedelta(days=1) if i + 1 < len(cortes) else fin
+        lista = max(x for x in listas if x <= d)
+        tramos.append({"desde": d, "hasta": hasta, "dias": (hasta - d).days + 1, "lista": lista, "precios": listas[lista]})
+    return tramos
+
+
+def promedio_ponderado(tramos: list[dict], combustible: str) -> float:
+    dias = sum(t["dias"] for t in tramos)
+    return sum(t["precios"][combustible] * t["dias"] for t in tramos) / dias
+
+
+def excel_promedio(planta: str, meses: list[str], salida: Path) -> Path:
+    """Excel del promedio ponderado mensual, con fórmulas para revisarlo.
+
+    Hojas: Resumen (promedio por mes y comprobación), Listas (datos de origen),
+    Tramos (precio × días vigente) y Diario (precio de cada día).
+    """
+    from datetime import timedelta
+    from openpyxl import Workbook
+    from openpyxl.comments import Comment
+    from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+
+    listas = _listas_planta(planta)
+    por_mes = {m: tramos_mes(listas, m) for m in meses}
+    inicio, fin = por_mes[meses[0]][0]["desde"], por_mes[meses[-1]][-1]["hasta"]
+    usadas = sorted(d for d in listas if max(x for x in listas if x <= inicio) <= d <= fin)
+    nombre_planta = planta.title().replace("Conchan", "Conchán")
+    hoja_listas = f"Listas {planta.title()}"
+
+    A = "Arial"
+    normal, negrita, azul = Font(name=A, size=10), Font(name=A, size=10, bold=True), Font(name=A, size=10, color="0000FF")
+    nota = Font(name=A, size=9, italic=True)
+    cab_font, rojo, gris = Font(name=A, size=10, bold=True, color="FFFFFF"), PatternFill("solid", fgColor="E60000"), PatternFill("solid", fgColor="F2F2F2")
+    borde = Border(bottom=Side(style="thin", color="BFBFBF"))
+    P4, FD = "#,##0.0000", "dd/mm/yyyy"
+
+    def cabecera(ws, fila, textos):
+        for i, t in enumerate(textos, 1):
+            c = ws.cell(fila, i, t)
+            c.font, c.fill = cab_font, rojo
+            c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        ws.row_dimensions[fila].height = 30
+
+    def anchos(ws, valores):
+        for col, w in zip("ABCDEFGHI", valores):
+            ws.column_dimensions[col].width = w
+
+    wb = Workbook()
+    res = wb.active
+    res.title = "Resumen"
+
+    ls = wb.create_sheet(hoja_listas)
+    ls["A1"] = f"Listas de precios Petroperú, planta {nombre_planta} (soles por galón, con impuestos)"
+    ls["A1"].font = negrita
+    ls["A2"] = "Fuente: Petroperú, listas Automotriz (Addendum N.° 1), registradas por el agente en data/listas.csv. En azul: datos de origen."
+    ls["A2"].font = nota
+    cabecera(ls, 4, ["Vigencia", "Diésel B5 S-50 UV", "Diésel B5 S-50"])
+    for i, d in enumerate(usadas, 5):
+        ls.cell(i, 1, d).number_format = FD
+        ls.cell(i, 2, listas[d]["DIESEL_B5_S50_UV"]).number_format = P4
+        ls.cell(i, 3, listas[d]["DIESEL_B5_S50"]).number_format = P4
+        for c in range(1, 4):
+            ls.cell(i, c).font, ls.cell(i, c).border = (azul if c > 1 else normal), borde
+    l0, l1 = 5, 4 + len(usadas)
+    rv, ruv, rs = (f"'{hoja_listas}'!${c}${l0}:${c}${l1}" for c in "ABC")
+    anchos(ls, [14, 18, 18])
+    ls.freeze_panes = "A5"
+
+    tr = wb.create_sheet("Tramos")
+    tr["A1"] = "Tramos de vigencia por mes: cada precio pondera por los días que estuvo vigente"
+    tr["A1"].font = negrita
+    tr["A2"] = "Si no hay lista el día 1, el tramo inicial usa la última lista registrada antes. Precio: lista vigente en la fecha 'Desde'."
+    tr["A2"].font = nota
+    cabecera(tr, 4, ["Mes", "Desde", "Hasta", "Días", "Lista aplicada", "B5 S-50 UV", "B5 S-50", "UV × días", "S-50 × días"])
+    fila, rangos = 5, {}
+    for mes in meses:
+        nombre, r0 = _nombre_mes(mes), fila
+        for j, t in enumerate(por_mes[mes]):
+            tr.cell(fila, 1, nombre)
+            tr.cell(fila, 2, t["desde"]).number_format = FD
+            tr.cell(fila, 3, t["hasta"]).number_format = FD
+            tr.cell(fila, 4, f"=C{fila}-B{fila}+1").number_format = "0"
+            tr.cell(fila, 5, f"=INDEX({rv},MATCH(B{fila},{rv},1))").number_format = FD
+            tr.cell(fila, 6, f"=INDEX({ruv},MATCH(B{fila},{rv},1))").number_format = P4
+            tr.cell(fila, 7, f"=INDEX({rs},MATCH(B{fila},{rv},1))").number_format = P4
+            tr.cell(fila, 8, f"=F{fila}*D{fila}").number_format = P4
+            tr.cell(fila, 9, f"=G{fila}*D{fila}").number_format = P4
+            for c in range(1, 10):
+                tr.cell(fila, c).font, tr.cell(fila, c).border = normal, borde
+            if j == 0 and t["lista"] != t["desde"]:
+                tr.cell(fila, 5).comment = Comment("No hubo lista el día 1: se usa la última lista registrada antes de esa fecha.", "Agente")
+            fila += 1
+        tr.cell(fila, 1, f"Total {nombre}")
+        tr.cell(fila, 4, f"=SUM(D{r0}:D{fila - 1})").number_format = "0"
+        tr.cell(fila, 8, f"=SUM(H{r0}:H{fila - 1})").number_format = P4
+        tr.cell(fila, 9, f"=SUM(I{r0}:I{fila - 1})").number_format = P4
+        for c in range(1, 10):
+            tr.cell(fila, c).fill, tr.cell(fila, c).font = gris, negrita
+        rangos[mes] = (r0, fila - 1, fila)
+        fila += 2
+    anchos(tr, [16, 12, 12, 7, 14, 13, 13, 14, 14])
+    tr.freeze_panes = "A5"
+
+    di = wb.create_sheet("Diario")
+    di["A1"] = f"Precio vigente cada día en {nombre_planta} (comprobación del promedio ponderado)"
+    di["A1"].font = negrita
+    cabecera(di, 3, ["Fecha", "Mes", "Lista aplicada", "B5 S-50 UV", "B5 S-50"])
+    d, fila = inicio, 4
+    while d <= fin:
+        di.cell(fila, 1, d).number_format = FD
+        di.cell(fila, 2, _nombre_mes(f"{d:%Y-%m}"))
+        di.cell(fila, 3, f"=INDEX({rv},MATCH(A{fila},{rv},1))").number_format = FD
+        di.cell(fila, 4, f"=INDEX({ruv},MATCH(A{fila},{rv},1))").number_format = P4
+        di.cell(fila, 5, f"=INDEX({rs},MATCH(A{fila},{rv},1))").number_format = P4
+        for c in range(1, 6):
+            di.cell(fila, c).font, di.cell(fila, c).border = normal, borde
+        d += timedelta(days=1)
+        fila += 1
+    d1 = fila - 1
+    anchos(di, [12, 16, 14, 13, 13])
+    di.freeze_panes = "A4"
+
+    res["A1"] = f"Promedio ponderado mensual del diésel, planta {nombre_planta} (Petroperú)"
+    res["A1"].font = Font(name=A, size=13, bold=True)
+    res["A2"] = "Soles por galón, con impuestos. Cada precio pondera por los días que estuvo vigente en el mes."
+    res["A2"].font = Font(name=A, size=10, italic=True)
+    cabecera(res, 4, ["Mes", "Días", "B5 S-50 UV\nPromedio ponderado", "B5 S-50\nPromedio ponderado",
+                      "Comprobación UV\n(promedio diario)", "Comprobación S-50\n(promedio diario)"])
+    for i, mes in enumerate(meses, 5):
+        r0, r1, rt = rangos[mes]
+        res.cell(i, 1, _nombre_mes(mes))
+        res.cell(i, 2, f"=Tramos!D{rt}").number_format = "0"
+        res.cell(i, 3, f"=SUMPRODUCT(Tramos!F{r0}:F{r1},Tramos!D{r0}:D{r1})/Tramos!D{rt}").number_format = P4
+        res.cell(i, 4, f"=SUMPRODUCT(Tramos!G{r0}:G{r1},Tramos!D{r0}:D{r1})/Tramos!D{rt}").number_format = P4
+        res.cell(i, 5, f"=AVERAGEIFS(Diario!$D$4:$D${d1},Diario!$B$4:$B${d1},A{i})").number_format = P4
+        res.cell(i, 6, f"=AVERAGEIFS(Diario!$E$4:$E${d1},Diario!$B$4:$B${d1},A{i})").number_format = P4
+        for c in range(1, 7):
+            res.cell(i, c).font, res.cell(i, c).border = (negrita if c in (1, 3, 4) else normal), borde
+    sin_dia_1 = [f"{_nombre_mes(m).split()[0].lower()} arranca con la lista del {por_mes[m][0]['lista']:%d/%m/%Y}"
+                 for m in meses if por_mes[m][0]["lista"] != por_mes[m][0]["desde"]]
+    notas = [
+        "Criterio:",
+        "• El precio de cada día es el de la última lista de Petroperú vigente en esa fecha.",
+        "• Si no hay lista el día 1 del mes, se toma la última registrada antes" + (": " + "; ".join(sin_dia_1) if sin_dia_1 else "") + ".",
+        "• Promedio ponderado = Σ(precio × días vigente en el mes) ÷ días del mes (hoja Tramos).",
+        "• Las columnas de comprobación promedian el precio de cada día (hoja Diario) y deben coincidir.",
+        f"Fuente: Petroperú, listas de precios Automotriz, Addendum N.° 1, planta {nombre_planta} (hoja {hoja_listas}).",
+    ]
+    n = 5 + len(meses) + 1
+    for k, t in enumerate(notas):
+        res.cell(n + k, 1, t).font = negrita if k == 0 else normal
+    anchos(res, [18, 7, 20, 20, 19, 19])
+    wb.calculation.fullCalcOnLoad = True  # Excel calcula las fórmulas al abrir el archivo
+    salida.parent.mkdir(parents=True, exist_ok=True)
+    wb.save(salida)
+    return salida
+
+
+def reporte_promedio(mes: str, planta: str = PLANTA_PROMEDIO) -> tuple[str, str, str, Path]:
+    """Reporte del promedio ponderado de un mes cerrado y su Excel acumulado.
+
+    Devuelve (título, cuerpo en Markdown, mensaje corto, ruta del Excel).
+    """
+    listas = _listas_planta(planta)
+    meses = _meses(min(PROMEDIO_DESDE, mes), mes)
+    excel = excel_promedio(planta, meses, DIR_REPORTES / f"promedio-ponderado-{planta.lower()}-{mes}.xlsx")
+    tramos = tramos_mes(listas, mes)
+    anterior = meses[-2] if len(meses) > 1 else None
+    tramos_ant = tramos_mes(listas, anterior) if anterior else None
+    nombre, nombre_planta = _nombre_mes(mes), planta.title().replace("Conchan", "Conchán")
+    prom = {c: promedio_ponderado(tramos, c) for c, _ in COMBUSTIBLES}
+    filas = []
+    for c in ("DIESEL_B5_S50_UV", "DIESEL_B5_S50"):
+        fila = f"| {NOMBRES[c]} | **S/ {prom[c]:.4f}** |"
+        if tramos_ant:
+            ant = promedio_ponderado(tramos_ant, c)
+            d = prom[c] - ant
+            var = "= sin cambio" if abs(d) < 0.00005 else f"{'▲ +' if d > 0 else '▼ −'}{abs(d):.4f} ({'+' if d > 0 else '−'}{abs(d) / ant * 100:.1f}%)"
+            fila += f" S/ {ant:.4f} | {var} |"
+        filas.append(fila)
+    cab = f"| Producto | {nombre} |" + (f" {_nombre_mes(anterior)} | Variación |" if tramos_ant else "")
+    sep = "|---|---:|" + ("---:|---:|" if tramos_ant else "")
+    detalle = [f"| {t['desde']:%d/%m} | {t['hasta']:%d/%m} | {t['dias']} | {t['lista']:%d/%m/%Y} | "
+               f"{t['precios']['DIESEL_B5_S50_UV']:.4f} | {t['precios']['DIESEL_B5_S50']:.4f} |" for t in tramos]
+    primero = tramos[0]
+    regla = (f"- El 1 de {nombre.split()[0].lower()} hubo lista nueva; el mes arranca con ella."
+             if primero["lista"] == primero["desde"] else
+             f"- El 1 de {nombre.split()[0].lower()} no hubo lista: se tomó la última registrada, la del {primero['lista']:%d/%m/%Y}.")
+    enlace_excel = f"{URL_REPO}/raw/main/reportes/{excel.name}"
+    cuerpo = "\n".join([
+        f"## Promedio ponderado de {nombre.lower()}, planta {nombre_planta}", "",
+        "Soles por galón, con impuestos. Cada precio pondera por los días que estuvo vigente en el mes.", "",
+        cab, sep, *filas, "",
+        f"### Listas aplicadas en {nombre.lower()}", "",
+        "| Desde | Hasta | Días | Lista | B5 S-50 UV | B5 S-50 |", "|---|---|---:|---|---:|---:|", *detalle, "",
+        regla,
+        f"- Excel adjunto con el detalle y las fórmulas (desde {_nombre_mes(meses[0]).lower()}): [descargar]({enlace_excel})",
+        f"- [Ver el tablero]({URL_TABLERO})",
+    ])
+    titulo = (f"Promedio ponderado de {nombre.lower()} en {nombre_planta}: "
+              f"B5 S-50 S/ {prom['DIESEL_B5_S50']:.4f}, B5 S-50 UV S/ {prom['DIESEL_B5_S50_UV']:.4f}")
+    mensaje = (f"📊 Promedio ponderado {nombre.lower()}, {nombre_planta}:\n"
+               f"B5 S-50 S/ {prom['DIESEL_B5_S50']:.4f}\nB5 S-50 UV S/ {prom['DIESEL_B5_S50_UV']:.4f}")
+    return titulo, cuerpo, mensaje, excel
+
+
+def mes_cerrado(hoy: str | None = None) -> str:
+    """Mes anterior a la fecha de Lima, AAAA-MM."""
+    d = datetime.fromisoformat(hoy) if hoy else datetime.now(ZONA)
+    a, m = (d.year - 1, 12) if d.month == 1 else (d.year, d.month - 1)
+    return f"{a:04d}-{m:02d}"
+
+
+def escribir_promedio(mes: str | None = None, forzar: bool = False) -> Path | None:
+    """Prepara el reporte del último mes cerrado si aún no existe (reportes/promedio-AAAA-MM.md).
+
+    Corre en cada ejecución diaria: el primer día del mes genera el del mes anterior;
+    si ese día falla, lo genera la siguiente ejecución.
+    """
+    mes = mes or mes_cerrado()
+    ruta = DIR_REPORTES / f"promedio-{mes}.md"
+    if ruta.exists() and not forzar:
+        log.info("Promedio ponderado de %s: ya reportado", mes)
+        return None
+    titulo, cuerpo, _, excel = reporte_promedio(mes)
+    ruta.write_text(f"# {titulo}\n\n{cuerpo}\n", encoding="utf-8")
+    salida = os.environ.get("GITHUB_OUTPUT")
+    if salida:
+        with open(salida, "a", encoding="utf-8") as f:
+            f.write(f"reporte={ruta}\ntitulo={titulo}\n")
+    log.info("Promedio ponderado de %s: %s y %s", mes, ruta, excel)
+    return ruta
+
+
+def enviar_promedio(mes: str, enlace: str | None = None) -> bool:
+    """Envía por correo el promedio ponderado del mes, con el Excel adjunto."""
+    titulo, cuerpo, mensaje, excel = reporte_promedio(mes)
+    if enlace:
+        cuerpo += f"\n- [Ver el aviso en GitHub]({enlace})"
+    return enviar(titulo, cuerpo, mensaje, adjuntos=[excel])
+
+
 def historico(desde: str, sesion: requests.Session) -> list[Precio]:
     """Lee todas las listas "Automotriz" publicadas desde la fecha indicada."""
     r = descargar(sesion, URLS_INICIO[0].strip())
@@ -1030,12 +1324,24 @@ def main() -> int:
                         help="solo descarga los precios de referencia de Osinergmin pendientes y termina")
     parser.add_argument("--reporte-diario", action="store_true",
                         help="envía el reporte diario si aún no salió hoy (desde las 07:00 de Lima) y termina")
-    parser.add_argument("--forzar", action="store_true", help="con --reporte-diario, lo envía aunque ya haya salido hoy")
+    parser.add_argument("--forzar", action="store_true",
+                        help="con --reporte-diario o --promedio, lo genera aunque ya se haya hecho")
+    parser.add_argument("--promedio", nargs="?", const="", metavar="AAAA-MM",
+                        help="prepara el reporte del promedio ponderado del mes (por defecto, el último cerrado) si falta y termina")
+    parser.add_argument("--enviar-promedio", metavar="AAAA-MM",
+                        help="envía por correo el promedio ponderado del mes, con el Excel adjunto, y termina")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
     if args.reporte_diario:
         return 1 if enviar_reporte_diario(args.forzar) is False else 0
+
+    if args.promedio is not None:
+        escribir_promedio(args.promedio or None, args.forzar)
+        return 0
+
+    if args.enviar_promedio:
+        return 0 if enviar_promedio(args.enviar_promedio, args.enlace) else 1
 
     if args.osinergmin:
         log.info("Osinergmin: %d precios de referencia nuevos", actualizar_osinergmin(nueva_sesion()))

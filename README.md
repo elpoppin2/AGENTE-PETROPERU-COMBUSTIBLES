@@ -72,6 +72,24 @@ New repository secret* (los secrets no se ven en el repositorio, que es público
 Para obtener su `apikey`, cada persona agrega el número de CallMeBot a sus
 contactos y le envía por WhatsApp el mensaje *I allow callmebot to send me messages*.
 
+## Promedio ponderado mensual (día 1 de cada mes)
+
+El día 1 de cada mes, después de leer los precios, el agente calcula el promedio
+ponderado del mes que cerró en la planta Conchán, para el Diésel B5 S-50 y el B5 S-50 UV:
+
+- Cada precio pondera por los días que estuvo vigente en el mes.
+- Si no hubo lista el día 1, ese primer tramo usa la última lista registrada antes.
+
+Deja `reportes/promedio-AAAA-MM.md` y un Excel con fórmulas
+(`reportes/promedio-ponderado-conchan-AAAA-MM.xlsx`, acumulado desde agosto de 2026).
+Avisa con un issue de GitHub (etiqueta "promedio mensual") y por correo a `AVISO_CORREOS`,
+con el Excel adjunto. Si la ejecución del día 1 falla, el aviso sale en la siguiente.
+
+Para probarlo: *Actions → Precios diarios Petroperú → Run workflow* y marca
+"Enviar otra vez el promedio ponderado". A mano: `python agente_petroperu.py --promedio 2026-10`
+(prepara el reporte) y `--enviar-promedio 2026-10` (lo envía).
+La planta se cambia con la variable `PETROPERU_PLANTA_PROMEDIO`.
+
 ## Precios de referencia de Osinergmin
 
 El agente también descarga cada semana el PDF de **precios de referencia** de

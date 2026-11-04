@@ -292,3 +292,47 @@ def test_osinergmin_pdf_con_letras_sueltas():
     filas = {r["planta"]: r for r in a.extraer_osinergmin((FIXTURES / "osinergmin_2026-10-12.pdf").read_bytes(), "x")}
     assert len(filas) == 18 and filas["CALLAO"]["fecha"] == "2026-10-12"
     assert filas["MOLLENDO"]["b5_bajo_azufre"] == 17.35 and filas["PTO. MALDONADO"]["b5_alto_azufre"] == 17.65
+
+
+def _listas_conchan(agente):
+    P = agente.Precio
+    # Sin lista el 1 de octubre: rige la del 29 de setiembre.
+    for v, uv in (("2026-07-29", 20.0), ("2026-08-04", 21.0), ("2026-08-25", 22.0), ("2026-09-01", 22.0),
+                  ("2026-09-29", 23.0), ("2026-10-11", 24.0), ("2026-10-31", 26.0)):
+        agente.guardar_listas([P("DIESEL_B5_S50_UV", "CONCHAN", uv, "x", v), P("DIESEL_B5_S50", "CONCHAN", uv + 1.5, "x", v),
+                               P("DIESEL_B5_S50", "CALLAO", 99.0, "x", v)])
+
+
+def test_promedio_ponderado_mensual_con_regla_del_dia_1(agente):
+    _listas_conchan(agente)
+    listas = agente._listas_planta("CONCHAN")
+    tramos = agente.tramos_mes(listas, "2026-10")
+    assert [(t["desde"].day, t["dias"], str(t["lista"])) for t in tramos] == [
+        (1, 10, "2026-09-29"), (11, 20, "2026-10-11"), (31, 1, "2026-10-31")]
+    # (23 × 10 + 24 × 20 + 26 × 1) / 31
+    assert agente.promedio_ponderado(tramos, "DIESEL_B5_S50_UV") == pytest.approx((230 + 480 + 26) / 31)
+    assert agente.promedio_ponderado(tramos, "DIESEL_B5_S50") == pytest.approx((230 + 480 + 26) / 31 + 1.5)
+    agosto = agente.tramos_mes(listas, "2026-08")
+    assert str(agosto[0]["lista"]) == "2026-07-29" and agosto[0]["dias"] == 3
+    assert agente.mes_cerrado("2026-12-01") == "2026-11" and agente.mes_cerrado("2027-01-01") == "2026-12"
+
+
+def test_reporte_promedio_una_vez_por_mes_y_correo_con_excel(agente, monkeypatch, tmp_path):
+    from openpyxl import load_workbook
+    _listas_conchan(agente)
+    monkeypatch.setattr(agente, "DIR_REPORTES", tmp_path / "reportes")
+    ruta = agente.escribir_promedio("2026-10")
+    texto = ruta.read_text(encoding="utf-8")
+    assert "S/ 23.7419" in texto and "no hubo lista: se tomó la última registrada, la del 29/09/2026" in texto
+    assert "| Setiembre 2026 | Variación |" in texto
+    assert agente.escribir_promedio("2026-10") is None  # ya reportado
+    wb = load_workbook(tmp_path / "reportes" / "promedio-ponderado-conchan-2026-10.xlsx")
+    assert wb.sheetnames == ["Resumen", "Listas Conchan", "Tramos", "Diario"]
+    assert [wb["Resumen"].cell(f, 1).value for f in (5, 6, 7)] == ["Agosto 2026", "Setiembre 2026", "Octubre 2026"]
+    assert wb["Resumen"]["C7"].value.startswith("=SUMPRODUCT(")
+    enviados = []
+    monkeypatch.setattr(agente, "enviar", lambda t, c, m, copia_remitente=False, adjuntos=(): enviados.append((t, c, adjuntos)) or True)
+    assert agente.enviar_promedio("2026-10", "https://github.com/x/issues/9")
+    titulo, cuerpo, adjuntos = enviados[0]
+    assert "octubre 2026 en Conchán" in titulo and "issues/9" in cuerpo
+    assert [p.name for p in adjuntos] == ["promedio-ponderado-conchan-2026-10.xlsx"]
