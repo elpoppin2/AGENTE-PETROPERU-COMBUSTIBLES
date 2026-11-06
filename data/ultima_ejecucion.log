@@ -1,14 +1,13 @@
-2026-11-06 12:59:14,709 INFO Lista automotriz vigente: 2026-11-06 (https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf); 1018 listas publicadas
-2026-11-06 12:59:15,795 INFO PDF  https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf -> 32 precios
-2026-11-06 12:59:15,797 INFO Páginas leídas: 2 | precios de diésel encontrados: 32
-2026-11-06 12:59:20,585 WARNING OSINERGMIN 2023-01-30 -> 0 plantas
-2026-11-06 12:59:22,554 WARNING OSINERGMIN 2024-06-03 -> 0 plantas
-2026-11-06 12:59:27,950 WARNING OSINERGMIN 2024-10-14 -> 0 plantas
-2026-11-06 12:59:29,126 WARNING OSINERGMIN 2024-11-18 -> 0 plantas
-2026-11-06 12:59:30,680 WARNING OSINERGMIN 2024-12-09 -> 0 plantas
-2026-11-06 12:59:32,081 INFO Osinergmin: 0 precios de referencia nuevos
-2026-11-06 12:59:33,376 INFO Excel actualizado: /home/runner/work/AGENTE-PETROPERU-COMBUSTIBLES/AGENTE-PETROPERU-COMBUSTIBLES/data/precios-diesel-petroperu.xlsx (9568 precios)
-2026-11-06 12:59:33,448 INFO Reporte de cambio de precios: /home/runner/work/AGENTE-PETROPERU-COMBUSTIBLES/AGENTE-PETROPERU-COMBUSTIBLES/reportes/2026-11-06.md
+2026-11-06 17:28:08,211 INFO Lista automotriz vigente: 2026-11-06 (https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf); 1018 listas publicadas
+2026-11-06 17:28:09,831 INFO PDF  https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf -> 32 precios
+2026-11-06 17:28:09,832 INFO Páginas leídas: 2 | precios de diésel encontrados: 32
+2026-11-06 17:28:15,690 WARNING OSINERGMIN 2023-01-30 -> 0 plantas
+2026-11-06 17:28:17,866 WARNING OSINERGMIN 2024-06-03 -> 0 plantas
+2026-11-06 17:28:23,731 WARNING OSINERGMIN 2024-10-14 -> 0 plantas
+2026-11-06 17:28:25,022 WARNING OSINERGMIN 2024-11-18 -> 0 plantas
+2026-11-06 17:28:26,464 WARNING OSINERGMIN 2024-12-09 -> 0 plantas
+2026-11-06 17:28:27,968 INFO Osinergmin: 0 precios de referencia nuevos
+2026-11-06 17:28:28,769 INFO Excel actualizado: /home/runner/work/AGENTE-PETROPERU-COMBUSTIBLES/AGENTE-PETROPERU-COMBUSTIBLES/data/precios-diesel-petroperu.xlsx (9568 precios)
 DIESEL_B5_S50      CALLAO                              S/ 23.8714  actualizado       (precio desde 2026-11-06)
 DIESEL_B5_S50      CHIMBOTE                            S/ 25.0396  actualizado       (precio desde 2026-11-06)
 DIESEL_B5_S50      CONCHAN                             S/ 23.8714  actualizado       (precio desde 2026-11-06)
