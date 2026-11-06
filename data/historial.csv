@@ -671,3 +671,35 @@ fecha_consulta,combustible,ubicacion,precio,estado,fecha_precio,fuente
 2026-11-05,DIESEL_B5_S50_UV,SUPE,23.1162,sin_cambio,2026-11-03,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1743-s8Nr5Cc7Kz5Gy0X.pdf
 2026-11-05,DIESEL_B5_S50_UV,TALARA,22.2312,sin_cambio,2026-11-03,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1743-s8Nr5Cc7Kz5Gy0X.pdf
 2026-11-05,DIESEL_B5_S50_UV,TARAPOTO,23.2991,sin_cambio,2026-11-03,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1743-s8Nr5Cc7Kz5Gy0X.pdf
+2026-11-06,DIESEL_B5_S50,CALLAO,23.8714,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,CHIMBOTE,25.0396,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,CONCHAN,23.8714,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,CUSCO,28.5560,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,EL MILAGRO,24.8154,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,ETEN,25.3228,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,ILO,28.2416,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,JULIACA,28.6150,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,MOLLENDO,27.9896,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,PISCO,23.7416,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,PIURA,24.0012,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,PTO. MALDONADO,24.0383,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,SALAVERRY,25.6768,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,SUPE,24.0956,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,TALARA,23.8006,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50,TARAPOTO,24.8685,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,CALLAO,22.3020,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,CHIMBOTE,23.4702,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,CONCHAN,22.3020,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,CUSCO,26.9866,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,EL MILAGRO,23.2460,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,ETEN,23.7534,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,ILO,26.6722,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,JULIACA,27.0456,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,MOLLENDO,26.4202,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,PISCO,22.1722,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,PIURA,22.4318,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,PTO. MALDONADO,22.7083,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,SALAVERRY,24.1074,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,SUPE,22.5262,actualizado,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,TALARA,22.2312,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
+2026-11-06,DIESEL_B5_S50_UV,TARAPOTO,23.2991,sin_cambio,2026-11-06,https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf
