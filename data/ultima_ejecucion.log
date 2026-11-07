@@ -1,42 +1,42 @@
-2026-11-06 22:17:53,287 INFO Lista automotriz vigente: 2026-11-06 (https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf); 1018 listas publicadas
-2026-11-06 22:17:54,315 INFO PDF  https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf -> 32 precios
-2026-11-06 22:17:54,316 INFO Páginas leídas: 2 | precios de diésel encontrados: 32
-2026-11-06 22:17:59,061 WARNING OSINERGMIN 2023-01-30 -> 0 plantas
-2026-11-06 22:18:00,809 WARNING OSINERGMIN 2024-06-03 -> 0 plantas
-2026-11-06 22:18:06,699 WARNING OSINERGMIN 2024-10-14 -> 0 plantas
-2026-11-06 22:18:07,886 WARNING OSINERGMIN 2024-11-18 -> 0 plantas
-2026-11-06 22:18:09,412 WARNING OSINERGMIN 2024-12-09 -> 0 plantas
-2026-11-06 22:18:10,836 INFO Osinergmin: 0 precios de referencia nuevos
-2026-11-06 22:18:12,114 INFO Excel actualizado: /home/runner/work/AGENTE-PETROPERU-COMBUSTIBLES/AGENTE-PETROPERU-COMBUSTIBLES/data/precios-diesel-petroperu.xlsx (9568 precios)
-DIESEL_B5_S50      CALLAO                              S/ 23.8714  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50      CHIMBOTE                            S/ 25.0396  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50      CONCHAN                             S/ 23.8714  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50      CUSCO                               S/ 28.5560  actualizado       (precio desde 2026-11-06)
+2026-11-07 12:58:07,774 INFO Lista automotriz vigente: 2026-11-06 (https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf); 1018 listas publicadas
+2026-11-07 12:58:08,783 INFO PDF  https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1744-b7Cb4Tg3Sc0Lq7I.pdf -> 32 precios
+2026-11-07 12:58:08,784 INFO Páginas leídas: 2 | precios de diésel encontrados: 32
+2026-11-07 12:58:14,782 WARNING OSINERGMIN 2023-01-30 -> 0 plantas
+2026-11-07 12:58:17,129 WARNING OSINERGMIN 2024-06-03 -> 0 plantas
+2026-11-07 12:58:22,844 WARNING OSINERGMIN 2024-10-14 -> 0 plantas
+2026-11-07 12:58:24,166 WARNING OSINERGMIN 2024-11-18 -> 0 plantas
+2026-11-07 12:58:25,850 WARNING OSINERGMIN 2024-12-09 -> 0 plantas
+2026-11-07 12:58:27,316 INFO Osinergmin: 0 precios de referencia nuevos
+2026-11-07 12:58:28,188 INFO Excel actualizado: /home/runner/work/AGENTE-PETROPERU-COMBUSTIBLES/AGENTE-PETROPERU-COMBUSTIBLES/data/precios-diesel-petroperu.xlsx (9568 precios)
+DIESEL_B5_S50      CALLAO                              S/ 23.8714  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50      CHIMBOTE                            S/ 25.0396  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50      CONCHAN                             S/ 23.8714  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50      CUSCO                               S/ 28.5560  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50      EL MILAGRO                          S/ 24.8154  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50      ETEN                                S/ 25.3228  sin_cambio        (precio desde 2026-11-06)
-DIESEL_B5_S50      ILO                                 S/ 28.2416  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50      JULIACA                             S/ 28.6150  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50      MOLLENDO                            S/ 27.9896  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50      PISCO                               S/ 23.7416  actualizado       (precio desde 2026-11-06)
+DIESEL_B5_S50      ILO                                 S/ 28.2416  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50      JULIACA                             S/ 28.6150  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50      MOLLENDO                            S/ 27.9896  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50      PISCO                               S/ 23.7416  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50      PIURA                               S/ 24.0012  sin_cambio        (precio desde 2026-11-06)
-DIESEL_B5_S50      PTO. MALDONADO                      S/ 24.0383  actualizado       (precio desde 2026-11-06)
+DIESEL_B5_S50      PTO. MALDONADO                      S/ 24.0383  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50      SALAVERRY                           S/ 25.6768  sin_cambio        (precio desde 2026-11-06)
-DIESEL_B5_S50      SUPE                                S/ 24.0956  actualizado       (precio desde 2026-11-06)
+DIESEL_B5_S50      SUPE                                S/ 24.0956  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50      TALARA                              S/ 23.8006  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50      TARAPOTO                            S/ 24.8685  sin_cambio        (precio desde 2026-11-06)
-DIESEL_B5_S50_UV   CALLAO                              S/ 22.3020  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50_UV   CHIMBOTE                            S/ 23.4702  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50_UV   CONCHAN                             S/ 22.3020  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50_UV   CUSCO                               S/ 26.9866  actualizado       (precio desde 2026-11-06)
+DIESEL_B5_S50_UV   CALLAO                              S/ 22.3020  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50_UV   CHIMBOTE                            S/ 23.4702  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50_UV   CONCHAN                             S/ 22.3020  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50_UV   CUSCO                               S/ 26.9866  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50_UV   EL MILAGRO                          S/ 23.2460  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50_UV   ETEN                                S/ 23.7534  sin_cambio        (precio desde 2026-11-06)
-DIESEL_B5_S50_UV   ILO                                 S/ 26.6722  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50_UV   JULIACA                             S/ 27.0456  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50_UV   MOLLENDO                            S/ 26.4202  actualizado       (precio desde 2026-11-06)
-DIESEL_B5_S50_UV   PISCO                               S/ 22.1722  actualizado       (precio desde 2026-11-06)
+DIESEL_B5_S50_UV   ILO                                 S/ 26.6722  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50_UV   JULIACA                             S/ 27.0456  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50_UV   MOLLENDO                            S/ 26.4202  sin_cambio        (precio desde 2026-11-06)
+DIESEL_B5_S50_UV   PISCO                               S/ 22.1722  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50_UV   PIURA                               S/ 22.4318  sin_cambio        (precio desde 2026-11-06)
-DIESEL_B5_S50_UV   PTO. MALDONADO                      S/ 22.7083  actualizado       (precio desde 2026-11-06)
+DIESEL_B5_S50_UV   PTO. MALDONADO                      S/ 22.7083  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50_UV   SALAVERRY                           S/ 24.1074  sin_cambio        (precio desde 2026-11-06)
-DIESEL_B5_S50_UV   SUPE                                S/ 22.5262  actualizado       (precio desde 2026-11-06)
+DIESEL_B5_S50_UV   SUPE                                S/ 22.5262  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50_UV   TALARA                              S/ 22.2312  sin_cambio        (precio desde 2026-11-06)
 DIESEL_B5_S50_UV   TARAPOTO                            S/ 23.2991  sin_cambio        (precio desde 2026-11-06)
