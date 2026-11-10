@@ -1,13 +1,13 @@
-2026-11-10 17:28:19,089 INFO Lista automotriz vigente: 2026-11-10 (https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1745-q6Mq1Bh7Wr9Aa3Y.pdf); 1019 listas publicadas
-2026-11-10 17:28:20,109 INFO PDF  https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1745-q6Mq1Bh7Wr9Aa3Y.pdf -> 32 precios
-2026-11-10 17:28:20,111 INFO Páginas leídas: 2 | precios de diésel encontrados: 32
-2026-11-10 17:28:26,343 WARNING OSINERGMIN 2023-01-30 -> 0 plantas
-2026-11-10 17:28:28,810 WARNING OSINERGMIN 2024-06-03 -> 0 plantas
-2026-11-10 17:28:35,382 WARNING OSINERGMIN 2024-10-14 -> 0 plantas
-2026-11-10 17:28:37,079 WARNING OSINERGMIN 2024-11-18 -> 0 plantas
-2026-11-10 17:28:39,407 WARNING OSINERGMIN 2024-12-09 -> 0 plantas
-2026-11-10 17:28:41,036 INFO Osinergmin: 0 precios de referencia nuevos
-2026-11-10 17:28:41,735 INFO Excel actualizado: /home/runner/work/AGENTE-PETROPERU-COMBUSTIBLES/AGENTE-PETROPERU-COMBUSTIBLES/data/precios-diesel-petroperu.xlsx (9600 precios)
+2026-11-10 20:21:20,248 INFO Lista automotriz vigente: 2026-11-10 (https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1745-q6Mq1Bh7Wr9Aa3Y.pdf); 1019 listas publicadas
+2026-11-10 20:21:21,001 INFO PDF  https://www.petroperu.com.pe/Storage/tbl_listas_de_precio/fld_1177_Archivo_file/1745-q6Mq1Bh7Wr9Aa3Y.pdf -> 32 precios
+2026-11-10 20:21:21,003 INFO Páginas leídas: 2 | precios de diésel encontrados: 32
+2026-11-10 20:21:27,412 WARNING OSINERGMIN 2023-01-30 -> 0 plantas
+2026-11-10 20:21:29,864 WARNING OSINERGMIN 2024-06-03 -> 0 plantas
+2026-11-10 20:21:36,065 WARNING OSINERGMIN 2024-10-14 -> 0 plantas
+2026-11-10 20:21:37,593 WARNING OSINERGMIN 2024-11-18 -> 0 plantas
+2026-11-10 20:21:39,497 WARNING OSINERGMIN 2024-12-09 -> 0 plantas
+2026-11-10 20:21:41,071 INFO Osinergmin: 0 precios de referencia nuevos
+2026-11-10 20:21:41,962 INFO Excel actualizado: /home/runner/work/AGENTE-PETROPERU-COMBUSTIBLES/AGENTE-PETROPERU-COMBUSTIBLES/data/precios-diesel-petroperu.xlsx (9600 precios)
 DIESEL_B5_S50      CALLAO                              S/ 23.0336  actualizado       (precio desde 2026-11-10)
 DIESEL_B5_S50      CHIMBOTE                            S/ 24.2018  actualizado       (precio desde 2026-11-10)
 DIESEL_B5_S50      CONCHAN                             S/ 23.0336  actualizado       (precio desde 2026-11-10)
