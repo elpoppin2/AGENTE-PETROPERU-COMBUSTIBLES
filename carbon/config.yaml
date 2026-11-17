@@ -16,7 +16,7 @@ carbon:
   origen: "Colombia (Puerto Nuevo / Santa Marta / Pto. Drummond)"
   hs: "270112"                    # Hulla bituminosa
   poder_calorifico_ref_kcal_kg: 6000   # base de los índices (NAR) — API2 y Newcastle ~6000 NAR
-  poder_calorifico_spec_kcal_kg: 6000  # spec de tu contrato (NAR)  — AJUSTAR
+  poder_calorifico_spec_kcal_kg: 7000  # requerimiento de las plantas UNACEM: el FOB se ajusta x 7000/6000
   presupuesto_cfr_usd_t: null    # referencia CFR Conchán (USD/t); vacío = sin alerta de referencia
   # Flete Colombia -> Conchán vía Canal de Panamá (Supramax/Panamax)
   flete:
