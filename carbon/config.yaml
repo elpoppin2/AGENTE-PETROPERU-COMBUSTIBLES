@@ -65,14 +65,6 @@ fuentes:
   investing: true                 # CSV de Investing en data/carbon/manual/investing
   manual: true                    # data/carbon/manual/*.csv (tus cotizaciones y fletes)
 
-# Agente analista (Claude). Requiere ANTHROPIC_API_KEY; si no está, se omite.
-agente:
-  habilitado: true
-  modelo: "claude-opus-5-5"
-  esfuerzo: "high"                # low | medium | high | xhigh | max
-  busqueda_web: true              # permite buscar noticias públicas recientes
-  max_busquedas: 6
-
 # Notificación por Telegram (opcional): TELEGRAM_BOT_TOKEN y TELEGRAM_CHAT_ID
 notificaciones:
   telegram: true

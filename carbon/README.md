@@ -1,18 +1,17 @@
-# Monitor de carbón importado — Puerto Conchán
+# Precios carbones internacionales — Puerto Conchán
 
-Bot/agente que sigue cada semana la evolución del precio del **carbón térmico
+Módulo que sigue cada semana la evolución del precio del **carbón térmico
 colombiano** (HS 2701.12) importado por **Puerto Conchán (Lima, Perú)**, un insumo
 crítico de la operación.
 
 Combina **información pública gratuita**, los **CSV que descargues de Investing.com**
 y tus **cotizaciones propias**. Con eso arma el **costo puesto en planta**
 (FOB → flete → CIF → planta, en USD, PEN y USD/GJ), calcula **ratios** de
-seguimiento y dispara **alertas**. Si configuras una API key de Claude, un
-**agente analista** redacta el comentario de mercado con noticias públicas recientes.
+seguimiento y dispara **alertas**.
 
 Es parte del proyecto **Sourcing Internacional Combustibles y Materia Prima** ([README principal](../README.md)).
 
-👉 Reporte vigente: [`reportes/carbon/ultimo_reporte.md`](../reportes/carbon/ultimo_reporte.md) · Tablero: pestaña *Carbón importado*
+👉 Reporte vigente: [`reportes/carbon/ultimo_reporte.md`](../reportes/carbon/ultimo_reporte.md) · Tablero: pestaña *Precios carbones internacionales*
 
 ---
 
@@ -101,7 +100,6 @@ pip install -r requirements.txt
 python -m carbon update        # descarga datos → data/carbon/historico/series.csv
 python -m carbon report        # calcula, grafica y escribe reportes/carbon/ultimo_reporte.md
 python -m carbon all           # todo + notificación Telegram
-python -m carbon report --sin-agente   # sin llamar a Claude
 python -m pytest -q tests/carbon   # pruebas
 ```
 
@@ -133,7 +131,6 @@ Secretos opcionales (*Settings → Secrets and variables → Actions*):
 
 | Secreto | Uso |
 |---|---|
-| `ANTHROPIC_API_KEY` | Agente analista con Claude (comentario + búsqueda de noticias) |
 | `FRED_API_KEY` | Clave gratuita de [fredaccount.stlouisfed.org](https://fredaccount.stlouisfed.org) si la descarga pública de FRED es bloqueada |
 | `COMTRADE_API_KEY` | Clave gratuita de [comtradedeveloper.un.org](https://comtradedeveloper.un.org) para más cuota |
 | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | Resumen y alertas por Telegram |
@@ -146,7 +143,6 @@ Sin ningún secreto el bot funciona igual con las fuentes públicas.
 carbon/config.yaml                 supuestos, umbrales y fuentes
 carbon/sources/                    conectores: fred, worldbank, bcrp, comtrade, investing, manual
 carbon/analytics.py                costo puesto en planta, ratios, indicadores y alertas
-carbon/agent.py                    agente analista (Claude)
 carbon/report.py                   reporte Markdown + gráficos
 data/carbon/manual/                tus cotizaciones, fletes y CSV de Investing.com
 data/carbon/historico/series.csv   histórico (generado)

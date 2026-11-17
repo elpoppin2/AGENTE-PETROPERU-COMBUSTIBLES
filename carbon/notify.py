@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 
 
 def summary_text(res: Result, report_url: str | None = None) -> str:
-    lines = [f"📊 Monitor carbón Conchán — datos a {res.meta.get('ultimo_mes', '—')}"]
+    lines = [f"📊 Precios carbones internacionales (Conchán) — datos a {res.meta.get('ultimo_mes', '—')}"]
     if not res.monthly.empty:
         last = res.monthly.iloc[-1]
         for label, col in [("Carbón puesto en planta", "carbon_landed"),

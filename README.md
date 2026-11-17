@@ -6,10 +6,10 @@ Tiene dos módulos y un solo tablero web:
 | Módulo | Qué sigue | Frecuencia | Código |
 |---|---|---|---|
 | **Diésel** | Precios de lista de Petroperú (B5 S-50 y B5 S-50 UV) y precios de referencia de Osinergmin | Diario (08:00 y 12:30 de Lima) | `agente_petroperu.py` |
-| **Carbón importado** | Costo del carbón térmico de Colombia puesto en planta Conchán, índices internacionales, flete y alertas | Semanal (lunes) | [`carbon/`](carbon/README.md) |
+| **Precios carbones internacionales** | Índices internacionales del carbón (Newcastle, API4, API2), FOB Colombia y su costo puesto en planta Conchán, con alertas | Semanal (lunes) | [`carbon/`](carbon/README.md) |
 
 - **Tablero:** https://elpoppin2.github.io/AGENTE-PETROPERU-COMBUSTIBLES/ (pestañas *Precios Petroperú*,
-  *Referencia Osinergmin* y *Carbón importado*).
+  *Referencia Osinergmin* y *Precios carbones internacionales*).
 - **Repositorio:** https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES
 - **Pruebas de todo el proyecto:** `pip install -r requirements.txt && python -m pytest -q`
 

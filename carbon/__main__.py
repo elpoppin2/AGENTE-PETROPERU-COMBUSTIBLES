@@ -1,7 +1,7 @@
 """CLI del monitor de carbón importado.
 
     python -m carbon update     # descarga fuentes públicas + manuales y actualiza el histórico
-    python -m carbon report     # calcula ratios, genera reporte (y comentario del agente)
+    python -m carbon report     # calcula ratios y genera el reporte
     python -m carbon all        # update + report + notificación
 """
 from __future__ import annotations
@@ -14,7 +14,7 @@ from datetime import date
 
 import pandas as pd
 
-from . import agent, analytics, notify, report, store
+from . import analytics, notify, report, store
 from .config import HIST_PATH, MANUAL_DIR, REPORTS_DIR, ROOT, load_config
 from .sources import bcrp, comtrade, fred, investing, manual, worldbank
 
@@ -63,12 +63,11 @@ def update(cfg: dict) -> pd.DataFrame:
     return store.upsert(HIST_PATH, new)
 
 
-def build_report(cfg: dict, use_agent: bool = True) -> analytics.Result:
+def build_report(cfg: dict) -> analytics.Result:
     res = analytics.compute(store.wide(store.load(HIST_PATH)), cfg)
-    text = agent.commentary(res, cfg) if use_agent else None
     files = report.charts(res, REPORTS_DIR / "graficos")
     status = json.loads(STATUS_PATH.read_text(encoding="utf-8")) if STATUS_PATH.exists() else None
-    md = report.render(res, cfg, text, files, status)
+    md = report.render(res, cfg, None, files, status)
     REPORTS_DIR.mkdir(exist_ok=True)
     (REPORTS_DIR / "ultimo_reporte.md").write_text(md, encoding="utf-8")
     (REPORTS_DIR / "historial").mkdir(exist_ok=True)
@@ -95,7 +94,6 @@ def main() -> None:
     p = argparse.ArgumentParser(prog="carbon", description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("comando", choices=["update", "report", "all"])
-    p.add_argument("--sin-agente", action="store_true", help="no llamar a Claude")
     p.add_argument("--config", default=None, help="ruta alternativa a config.yaml")
     args = p.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
@@ -104,7 +102,7 @@ def main() -> None:
     if args.comando in ("update", "all"):
         update(cfg)
     if args.comando in ("report", "all"):
-        res = build_report(cfg, use_agent=not args.sin_agente)
+        res = build_report(cfg)
         if args.comando == "all":
             notify.telegram(res, cfg, os.environ.get("REPORT_URL"))
 

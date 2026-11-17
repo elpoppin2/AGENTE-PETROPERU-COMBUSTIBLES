@@ -102,7 +102,7 @@ def render(res: Result, cfg: dict, commentary: str | None, chart_files: list[str
            status: list[dict] | None = None) -> str:
     today = date.today().isoformat()
     meta = res.meta
-    out = ["# Monitor de carbón importado — Puerto Conchán\n",
+    out = ["# Precios carbones internacionales — Puerto Conchán\n",
            f"_Actualizado: {today} · Último mes con índice de referencia: {meta.get('ultimo_mes', '—')}_\n"]
 
     out.append("## Alertas\n")

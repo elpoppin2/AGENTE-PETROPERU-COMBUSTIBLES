@@ -1,14 +1,9 @@
-name: Monitor carbón importado
+name: Precios carbones internacionales
 
 on:
   schedule:
     - cron: "17 12 * * 1"      # lunes 07:17 hora de Lima
   workflow_dispatch:
-    inputs:
-      sin_agente:
-        description: "Omitir el análisis con Claude"
-        type: boolean
-        default: false
   push:
     branches: [main]
     paths:
@@ -41,13 +36,12 @@ jobs:
 
       - name: Descargar datos y generar reporte
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           COMTRADE_API_KEY: ${{ secrets.COMTRADE_API_KEY }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           REPORT_URL: ${{ github.server_url }}/${{ github.repository }}/blob/main/reportes/carbon/ultimo_reporte.md
-        run: python -m carbon all ${{ inputs.sin_agente && '--sin-agente' || '' }}
+        run: python -m carbon all
 
       - name: Publicar resumen
         run: cat reportes/carbon/ultimo_reporte.md >> "$GITHUB_STEP_SUMMARY"

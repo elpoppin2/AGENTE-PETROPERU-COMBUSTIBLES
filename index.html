@@ -330,7 +330,7 @@ a { color: var(--series-1); }
   <nav class="vistas" role="tablist" aria-label="Vistas del informe">
     <button role="tab" id="tab-petroperu" data-vista="petroperu" aria-selected="true">Precios Petroperú</button>
     <button role="tab" id="tab-osinergmin" data-vista="osinergmin" aria-selected="false">Referencia Osinergmin</button>
-    <button role="tab" id="tab-carbon" data-vista="carbon" aria-selected="false">Carbón importado</button>
+    <button role="tab" id="tab-carbon" data-vista="carbon" aria-selected="false">Precios carbones internacionales</button>
   </nav>
 
   <div class="filtros" role="group" aria-label="Filtros">
@@ -497,8 +497,8 @@ const fMesLargo = d => d.toLocaleDateString("es-PE", { month: "long", year: "num
 
 function actualizarEncabezado() {
   if (estado.vista === "carbon" && carbon.carbon_landed) {
-    document.getElementById("titulo").textContent = "Costo del carbón importado";
-    document.getElementById("bajada").textContent = "Carbón térmico de Colombia puesto en planta Conchán. Dólares por tonelada, promedio mensual.";
+    document.getElementById("titulo").textContent = "Precios internacionales del carbón";
+    document.getElementById("bajada").textContent = "Índices de referencia del carbón térmico y su costo puesto en planta Conchán. Dólares por tonelada, promedio mensual.";
     const ultimo = carbon.carbon_landed.at(-1).fecha;
     const act = carbonResumen?.actualizado ? `Actualizado el ${fFecha(new Date(carbonResumen.actualizado + "T00:00:00Z"))}; se actualiza cada lunes.` : "Se actualiza cada lunes.";
     document.getElementById("actualizado").replaceChildren(el("strong", {}, `Datos a ${fMesLargo(ultimo)}`), act + " Fuentes: FRED/IMF, Banco Mundial, BCRP, UN Comtrade");
@@ -804,17 +804,23 @@ function dibujarOsinergmin(cont, animar) {
 // Carbón importado (monitor semanal): costo puesto en planta Conchán, en USD por tonelada.
 const moneda = () => estado.vista === "carbon" ? "US$" : "S/";
 const fmtDetalle = v => estado.vista === "carbon" ? fmt(v) : fmt4(v);
-const CARBON_COSTO = [
-  { clave: "carbon_landed", nombre: "Puesto en planta", corto: "Puesto en planta", color: "--series-2" },
-  { clave: "carbon_cif", nombre: "CIF Conchán", corto: "CIF Conchán", color: "--series-1" },
-  { clave: "carbon_col_fob", nombre: "FOB Colombia", corto: "FOB Colombia", color: "--alto-azufre" },
-];
+// El rojo es siempre el carbón de Colombia (el que se compra); los índices, azul y gris.
 const CARBON_INDICES = [
   { clave: "carbon_newcastle_fob", nombre: "Newcastle FOB (Australia)", corto: "Newcastle", color: "--series-1" },
-  { clave: "carbon_api2_cif_ara", nombre: "API2 CIF Rotterdam", corto: "API2", color: "--series-2" },
   { clave: "carbon_api4_fob_rb", nombre: "API4 FOB Richards Bay (Sudáfrica)", corto: "API4", color: "--alto-azufre" },
+  { clave: "carbon_api2_cif_ara", nombre: "API2 CIF Rotterdam (Europa)", corto: "API2", color: "--series-1", punteada: true },
+  { clave: "carbon_col_fob", nombre: "FOB Colombia (estimado)", corto: "FOB Colombia", color: "--series-2" },
+];
+const CARBON_COSTO = [
+  { clave: "carbon_landed", nombre: "Puesto en planta Conchán", corto: "Puesto en planta", color: "--text-primary" },
+  { clave: "carbon_cif", nombre: "CIF Conchán (FOB + flete + seguro)", corto: "CIF Conchán", color: "--series-2", punteada: true },
+  { clave: "carbon_col_fob", nombre: "FOB Colombia (estimado)", corto: "FOB Colombia", color: "--series-2" },
 ];
 const URL_REPO = "https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES";
+
+// Muestra de color de una serie; rayada si la línea es punteada.
+const chipSerie = p => el("span", { class: "chip", style: p.punteada
+  ? `background:repeating-linear-gradient(90deg,var(${p.color}) 0 4px,transparent 4px 6px)` : `background:var(${p.color})` });
 
 function dibujarCarbon(cont, animar) {
   if (!carbon.carbon_landed?.length) {
@@ -824,14 +830,15 @@ function dibujarCarbon(cont, animar) {
   const inicio = desde(), ultimo = carbon.carbon_landed.at(-1).fecha, r = carbonResumen || {};
   const periodo = estado.meses ? ` en ${estado.meses === 12 ? "el último año" : `los últimos ${estado.meses} meses`}` : " desde enero de 2023";
 
-  // Letrero: costo puesto en planta y sus componentes
-  const letrero = el("section", { class: "letrero", "aria-label": "Costo del carbón puesto en planta Conchán" },
-    el("div", { class: "letrero-cab" }, el("h2", {}, "Carbón Colombia en Conchán"),
-      el("p", {}, `Dólares por tonelada, ${r.kcal_spec ? `${r.kcal_spec.toLocaleString("es-PE")} kcal/kg NAR, ` : ""}promedio de ${fMesLargo(ultimo)}`)));
-  for (const prod of CARBON_COSTO) {
+  // Letrero: precios internacionales del último mes
+  const indices = CARBON_INDICES.filter(p => carbon[p.clave]?.length);
+  const letrero = el("section", { class: "letrero", "aria-label": "Precios internacionales del carbón" },
+    el("div", { class: "letrero-cab" }, el("h2", {}, "Precios internacionales"),
+      el("p", {}, `Dólares por tonelada, promedio de ${fMesLargo(ultimo)}`)));
+  for (const prod of indices) {
     const s = carbon[prod.clave];
     const fila = el("div", { class: "fila-precio" },
-      el("div", { class: "prod" }, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre));
+      el("div", { class: "prod" }, chipSerie(prod), prod.nombre));
     letrero.append(fila);
     if (!s?.length) { fila.append(el("div", { class: "cifra" }, "—"), el("div", { class: "cambios" }, "Sin dato")); continue; }
     const actual = s.at(-1), anterior = s.at(-2), base = precioEn(s, inicio) || s[0];
@@ -848,10 +855,7 @@ function dibujarCarbon(cont, animar) {
     const dBase = actual.precio - base.precio, p100 = dBase / base.precio * 100, dirBase = direccion(dBase);
     cambios.append(el("div", {}, el("span", { class: dirBase },
       `${FLECHA[dirBase]} ${dBase >= 0 ? "+" : "−"}${fmt(Math.abs(dBase))} (${p100 >= 0 ? "+" : "−"}${Math.abs(p100).toFixed(1)}%)`), periodo));
-    if (prod.clave === "carbon_landed" && r.presupuesto_landed_usd_t) {
-      const dp = actual.precio - r.presupuesto_landed_usd_t;
-      cambios.append(el("div", {}, `US$ ${fmt(Math.abs(dp))} ${dp > 0 ? "sobre" : "bajo"} el presupuesto (US$ ${fmt(r.presupuesto_landed_usd_t)})`));
-    }
+    if (+actual.fecha !== +ultimo) cambios.append(el("div", {}, `Último dato: ${fMesLargo(actual.fecha)}`));
     fila.append(cambios);
   }
   const ult = k => carbon[k]?.at(-1)?.precio;
@@ -859,10 +863,8 @@ function dibujarCarbon(cont, animar) {
   const origenFob = fob.startsWith("nowcast_") ? `estimado con el índice ${fob.includes("api2") ? "API2" : "Newcastle"} × ratio Colombia/índice`
     : fob ? "tomado de cotizaciones o de comercio exterior" : "";
   letrero.append(el("p", { class: "letrero-pie" }, [
-    ult("carbon_landed_pen") != null ? `Equivale a S/ ${fmt(ult("carbon_landed_pen"))} por tonelada` : "",
-    ult("carbon_usd_gj") != null ? ` y US$ ${fmt(ult("carbon_usd_gj"))} por GJ.` : ".",
-    ult("carbon_flete") != null ? ` Flete Colombia→Conchán: US$ ${fmt(ult("carbon_flete"))}/t.` : "",
-    origenFob ? ` FOB ${origenFob}.` : "",
+    "Newcastle: carbón australiano (Pacífico). API4: Sudáfrica. API2: entregado en Europa (requiere cargar el CSV de Investing).",
+    origenFob ? ` FOB Colombia ${origenFob}.` : "",
   ].join("")));
   cont.append(letrero);
 
@@ -871,36 +873,41 @@ function dibujarCarbon(cont, animar) {
   const lista = el("ul", { class: "alertas" });
   for (const a of r.alertas || []) lista.append(el("li", {}, a));
   if (!r.alertas?.length) lista.append(el("li", { class: "ok" }, "Sin alertas este mes."));
-  c0.append(el("h2", {}, "Alertas del monitor"),
+  c0.append(el("h2", {}, "Alertas"),
     el("p", { class: "nota" }, "Variaciones mensuales fuertes, valores fuera del rango de 24 meses o costo por encima del presupuesto."), lista);
   cont.append(c0);
 
-  // Evolución del costo
-  const c1 = el("section", { class: "bloque" });
-  c1.append(el("h2", {}, "Evolución del costo puesto en planta"),
-    el("p", { class: "nota" }, "Promedio mensual en dólares por tonelada: FOB Colombia, más flete y seguro (CIF), más costos de internamiento en Conchán."));
-  const g1 = el("div", { class: "grafico", "data-titulo": "Evolución del costo del carbón puesto en planta Conchán" });
-  c1.append(g1);
-  const ley1 = el("div", { class: "leyenda" });
-  for (const p of CARBON_COSTO) ley1.append(el("span", {}, el("span", { class: "chip", style: `background:var(${p.color})` }), p.nombre));
-  c1.append(ley1);
-  cont.append(c1);
-  graficoLineas(g1, carbon, inicio, CARBON_COSTO.map(p => ({ ...p, serie: carbon[p.clave] })));
-
   // Índices internacionales
-  const indices = CARBON_INDICES.filter(p => carbon[p.clave]?.length);
   if (indices.length) {
     const c2 = el("section", { class: "bloque" });
-    c2.append(el("h2", {}, "Índices internacionales del carbón"),
-      el("p", { class: "nota" }, "Referencias de mercado en dólares por tonelada, promedio mensual."));
+    c2.append(el("h2", {}, "Evolución de los precios internacionales"),
+      el("p", { class: "nota" }, "Índices de mercado y carbón colombiano, en dólares por tonelada, promedio mensual."));
     const g2 = el("div", { class: "grafico", "data-titulo": "Índices internacionales del carbón" });
     c2.append(g2);
     const ley2 = el("div", { class: "leyenda" });
-    for (const p of indices) ley2.append(el("span", {}, el("span", { class: "chip", style: `background:var(${p.color})` }), p.nombre));
+    for (const p of indices) ley2.append(el("span", {}, chipSerie(p), p.nombre));
     c2.append(ley2);
     cont.append(c2);
     graficoLineas(g2, carbon, inicio, indices.map(p => ({ ...p, serie: carbon[p.clave] })));
   }
+
+  // Evolución del costo
+  const c1 = el("section", { class: "bloque" });
+  const presupuesto = r.presupuesto_landed_usd_t, landed = ult("carbon_landed");
+  c1.append(el("h2", {}, "Costo puesto en planta Conchán"),
+    el("p", { class: "nota" }, "FOB Colombia, más flete y seguro (CIF), más costos de internamiento en Conchán. Dólares por tonelada, promedio mensual."),
+    el("p", { style: "margin:10px 0 0;font-size:16px" },
+      el("strong", {}, `US$ ${fmt(landed)} por tonelada en ${fMesLargo(ultimo)}`),
+      ult("carbon_landed_pen") != null ? ` (S/ ${fmt(ult("carbon_landed_pen"))}; US$ ${fmt(ult("carbon_usd_gj"))} por GJ)` : "",
+      presupuesto ? `, US$ ${fmt(Math.abs(landed - presupuesto))} ${landed > presupuesto ? "sobre" : "bajo"} el presupuesto de US$ ${fmt(presupuesto)}.` : ".",
+      ult("carbon_flete") != null ? ` Flete Colombia→Conchán: US$ ${fmt(ult("carbon_flete"))}/t.` : ""));
+  const g1 = el("div", { class: "grafico", "data-titulo": "Evolución del costo del carbón puesto en planta Conchán" });
+  c1.append(g1);
+  const ley1 = el("div", { class: "leyenda" });
+  for (const p of CARBON_COSTO) ley1.append(el("span", {}, chipSerie(p), p.nombre));
+  c1.append(ley1);
+  cont.append(c1);
+  graficoLineas(g1, carbon, inicio, CARBON_COSTO.map(p => ({ ...p, serie: carbon[p.clave] })));
 
   // Indicadores del modelo
   const c3 = el("section", { class: "bloque tabla-card" });
