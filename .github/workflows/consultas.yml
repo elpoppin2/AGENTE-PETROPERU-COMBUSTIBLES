@@ -5,7 +5,7 @@ on:
     types: [opened]
 
 permissions:
-  contents: read
+  contents: write   # para guardar agente/ids.json la primera vez
   issues: write
 
 jobs:
@@ -19,10 +19,26 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install anthropic requests beautifulsoup4
+
+      - name: Configurar el agente la primera vez
+        # Con la clave guardada y sin agente creado, se crea aquí (mismo paso que "Configurar agente de consultas").
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "$ANTHROPIC_API_KEY" ] && [ ! -f agente/ids.json ]; then
+            python agente/configurar.py
+            git config user.name "agente-consultas"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add agente/ids.json
+            git commit -m "Agente de consultas: identificadores"
+            git pull --rebase origin main && git push
+          fi
 
       - name: Responder con el agente
         env:
@@ -33,7 +49,7 @@ jobs:
         run: |
           export PREGUNTA="$TITULO_ISSUE"$'\n\n'"$CUERPO_ISSUE"
           if [ -z "$ANTHROPIC_API_KEY" ] || [ ! -f agente/ids.json ]; then
-            printf '%s\n' "El agente de consultas aún no está activo: falta guardar el secreto ANTHROPIC_API_KEY y correr *Actions → Configurar agente de consultas*." > respuesta.md
+            printf '%s\n' "El agente de consultas aún no está activo: falta guardar el secreto ANTHROPIC_API_KEY en *Settings → Secrets and variables → Actions*. Con la clave guardada, la próxima consulta lo activa sola." > respuesta.md
           else
             python agente/consultar.py respuesta.md
           fi

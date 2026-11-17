@@ -12,7 +12,7 @@ Tiene dos módulos y un solo tablero web:
 - **Tablero:** https://elpoppin2.github.io/AGENTE-PETROPERU-COMBUSTIBLES/ (pestañas *Precios Petroperú*,
   *Referencia Osinergmin*, *Precios carbones internacionales* y *Escoria japonesa*).
 - **Repositorio:** https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES
-- **Agente de consultas:** botón *Consultar* del tablero (o *Issues → New issue → Consulta al agente*).
+- **Agente de consultas:** botón *Consultar al agente* (abajo a la derecha del tablero) (o *Issues → New issue → Consulta al agente*).
   Un agente de Claude (Claude Managed Agents) lee los CSV del repositorio, calcula con Python y
   responde en el mismo issue y por correo. Solo atiende a quien tiene acceso al repositorio. Ver
   [Agente de consultas](#agente-de-consultas).
@@ -196,7 +196,7 @@ pip install pytest && python -m pytest -q tests
 Para preguntar en lenguaje normal sobre los datos del proyecto, por ejemplo *"¿Cuál fue el promedio
 ponderado del B5 S-50 en Conchán en junio de 2025?"* o *"¿Conviene comprar escoria este mes?"*.
 
-1. Se abre un issue con el formulario *Consulta al agente* (botón *Consultar* del tablero).
+1. Se escribe la pregunta en el botón *Consultar al agente* (abajo a la derecha del tablero), que abre el formulario *Consulta al agente* de GitHub ya completado.
 2. El workflow [`consultas.yml`](.github/workflows/consultas.yml) abre una sesión en Claude Managed
    Agents con este repositorio montado; el agente calcula sobre los CSV (sin internet).
 3. La respuesta se publica como comentario del issue y se envía a `AVISO_CORREOS`.
@@ -204,9 +204,9 @@ ponderado del B5 S-50 en Conchán en junio de 2025?"* o *"¿Conviene comprar esc
 **Activarlo (una sola vez):**
 1. Crear una clave en https://console.anthropic.com (con saldo) y guardarla como secreto
    `ANTHROPIC_API_KEY` en *Settings → Secrets and variables → Actions*.
-2. *Actions → Configurar agente de consultas → Run workflow*: crea el agente y su entorno y guarda
-   sus identificadores en `agente/ids.json`. Si cambias `agente/instrucciones.md`, el agente se
-   actualiza solo.
+2. Listo: la primera consulta crea el agente y su entorno y guarda sus identificadores en
+   `agente/ids.json` (también se puede hacer antes con *Actions → Configurar agente de consultas →
+   Run workflow*). Si cambias `agente/instrucciones.md`, el agente se actualiza solo.
 
 **Costo:** se paga por uso de la API de Claude (modelo Claude Opus 5.5), aproximadamente US$ 0.10 a
 0.50 por consulta. Cada consulta tiene un tope de US$ 1.00 (`TOPE_USD` en `agente/consultar.py`).
