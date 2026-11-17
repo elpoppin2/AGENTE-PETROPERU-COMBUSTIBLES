@@ -12,10 +12,8 @@ Tiene dos módulos y un solo tablero web:
 - **Tablero:** https://elpoppin2.github.io/AGENTE-PETROPERU-COMBUSTIBLES/ (pestañas *Precios Petroperú*,
   *Referencia Osinergmin*, *Precios carbones internacionales* y *Escoria japonesa*).
 - **Repositorio:** https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES
-- **Agente de consultas:** botón *Consultar al agente* (abajo a la derecha del tablero) (o *Issues → New issue → Consulta al agente*).
-  Un agente de Claude (Claude Managed Agents) lee los CSV del repositorio, calcula con Python y
-  responde en el mismo issue y por correo. Solo atiende a quien tiene acceso al repositorio. Ver
-  [Agente de consultas](#agente-de-consultas).
+- **Preguntar en Claude:** botón flotante abajo a la derecha del tablero. Explica cómo abrir
+  Claude Code con este repositorio para hacer consultas sobre los datos. Ver [Preguntar en Claude](#preguntar-en-claude).
 - **Interfaz del tablero:** usa librerías de código abierto de GitHub, empaquetadas en
   `assets/vendor/` (sin depender de servidores externos): [Motion](https://github.com/motiondivision/motion)
   para las animaciones, [Tom Select](https://github.com/orchidjs/tom-select) para el selector de planta
@@ -191,24 +189,16 @@ También puedes lanzarlo a mano en *Actions → Precios diarios Petroperú → R
 pip install pytest && python -m pytest -q tests
 ```
 
-## Agente de consultas
+## Preguntar en Claude
 
-Para preguntar en lenguaje normal sobre los datos del proyecto, por ejemplo *"¿Cuál fue el promedio
-ponderado del B5 S-50 en Conchán en junio de 2025?"* o *"¿Conviene comprar escoria este mes?"*.
+Las consultas sobre los datos se hacen con **Claude Code**, con la cuenta de Claude de cada persona
+(sin costo adicional al plan de Claude ni clave de API):
 
-1. Se escribe la pregunta en el botón *Consultar al agente* (abajo a la derecha del tablero), que abre el formulario *Consulta al agente* de GitHub ya completado.
-2. El workflow [`consultas.yml`](.github/workflows/consultas.yml) abre una sesión en Claude Managed
-   Agents con este repositorio montado; el agente calcula sobre los CSV (sin internet).
-3. La respuesta se publica como comentario del issue y se envía a `AVISO_CORREOS`.
+1. La dueña o el dueño del repositorio agrega a la persona en *Settings → Collaborators*.
+2. La persona conecta su GitHub a Claude en https://claude.ai/connect-github (una sola vez).
+3. En https://claude.ai/code inicia una sesión con el repositorio **AGENTE-PETROPERU-COMBUSTIBLES** y
+   pregunta en español.
 
-**Activarlo (una sola vez):**
-1. Crear una clave en https://console.anthropic.com (con saldo) y guardarla como secreto
-   `ANTHROPIC_API_KEY` en *Settings → Secrets and variables → Actions*.
-2. Listo: la primera consulta crea el agente y su entorno y guarda sus identificadores en
-   `agente/ids.json` (también se puede hacer antes con *Actions → Configurar agente de consultas →
-   Run workflow*). Si cambias `agente/instrucciones.md`, el agente se actualiza solo.
-
-**Costo:** se paga por uso de la API de Claude (modelo Claude Opus 5.5), aproximadamente US$ 0.10 a
-0.50 por consulta. Cada consulta tiene un tope de US$ 1.00 (`TOPE_USD` en `agente/consultar.py`).
-GitHub Actions no cobra en repositorios públicos. Solo responden las consultas de la dueña o dueño
-del repositorio y de sus colaboradores.
+`CLAUDE.md` le explica a Claude los datos, las unidades, las decisiones del proyecto y que no debe
+cambiar nada si solo le preguntan. Un agente de consultas pagado por API (respuestas en issues) se
+probó y se retiró; está en el historial de git si se quiere reactivar.

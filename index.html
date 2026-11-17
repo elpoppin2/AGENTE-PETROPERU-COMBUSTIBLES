@@ -357,7 +357,7 @@ svg text { fill: var(--text-muted); font: 500 12px var(--f-texto); font-variant-
 .conv-ratios dd small { display: block; font: 400 13px var(--f-texto); color: var(--text-muted); }
 
 
-/* --- Consulta al agente: botón flotante abajo a la derecha --- */
+/* --- Preguntar en Claude: botón flotante abajo a la derecha --- */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 main { padding-bottom: 96px; }
 .consulta { position: fixed; z-index: 30; right: max(20px, env(safe-area-inset-right, 0px)); bottom: max(20px, env(safe-area-inset-bottom, 0px));
@@ -372,7 +372,7 @@ main { padding-bottom: 96px; }
 .consulta-boton svg { width: 22px; height: 22px; }
 .consulta-boton[aria-expanded="true"] { background: #c40000; }
 .consulta-panel {
-  width: min(380px, calc(100vw - 32px)); max-height: min(72vh, 620px); overflow: auto; transform-origin: bottom right;
+  width: min(380px, calc(100vw - 32px)); max-height: min(78vh, 640px); overflow: auto; transform-origin: bottom right;
   background: var(--surface-1); color: var(--text-primary); border: 1px solid var(--border); border-radius: 12px;
   box-shadow: 0 22px 48px rgb(0 0 0 / 0.24); padding: 16px 16px 14px;
 }
@@ -382,12 +382,7 @@ main { padding-bottom: 96px; }
 .consulta-cerrar:hover { background: var(--grid); color: var(--text-primary); }
 .consulta-cerrar svg { width: 18px; height: 18px; }
 .consulta-nota { margin: 6px 0 12px; font-size: 14px; color: var(--text-secondary); }
-.consulta textarea {
-  width: 100%; resize: vertical; min-height: 84px; font: 400 15px/1.45 var(--f-texto); color: var(--text-primary);
-  background: var(--papel); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;
-}
-.consulta textarea:focus { outline: 2px solid var(--series-1); outline-offset: 0; border-color: transparent; }
-.consulta-ejemplos { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 12px; }
+.consulta-ejemplos { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 6px; }
 .consulta-ejemplos button {
   font: 500 13px var(--f-texto); color: var(--text-secondary); background: var(--grid); border: 0; border-radius: 14px;
   padding: 6px 10px; cursor: pointer; text-align: left;
@@ -398,13 +393,11 @@ main { padding-bottom: 96px; }
   font: 600 15px var(--f-texto); color: #fff; background: var(--series-2);
 }
 .consulta-enviar:hover { background: #c40000; }
-.consulta-recientes { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
-.consulta-recientes h3 { margin: 0 0 6px; font: 600 15px var(--f-titulo); color: var(--text-secondary); }
-.consulta-recientes ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
-.consulta-recientes li a { display: grid; gap: 1px; padding: 7px 8px; margin: 0 -8px; border-radius: 6px; color: var(--text-primary); text-decoration: none; font-size: 14px; }
-.consulta-recientes li a:hover { background: var(--grid); }
-.consulta-recientes small { color: var(--text-muted); font-size: 12px; }
-.consulta-recientes .respondida { color: var(--down); }
+.consulta-pasos { margin: 0 0 12px; padding-left: 20px; font-size: 14px; color: var(--text-secondary); display: grid; gap: 6px; }
+.consulta-pasos strong { color: var(--text-primary); font-weight: 600; }
+.consulta-sub { margin: 0 0 6px; font-size: 13px; color: var(--text-muted); }
+.consulta-copiado { min-height: 18px; margin: 0 0 8px; font-size: 13px; color: var(--down); }
+a.consulta-enviar { display: grid; place-items: center; text-decoration: none; }
 @media (max-width: 560px) {
   .consulta-boton { padding: 0 15px; }
   .consulta-boton span { display: none; }
@@ -528,33 +521,32 @@ a { color: var(--series-1); }
   </footer>
 </main>
 
-<!-- Consulta al agente: botón flotante abajo a la derecha -->
+<!-- Preguntar en Claude: botón flotante abajo a la derecha -->
 <div class="consulta">
   <section class="consulta-panel" id="consulta-panel" role="dialog" aria-labelledby="consulta-titulo" hidden>
     <div class="consulta-cab">
-      <h2 id="consulta-titulo">Consulta al agente</h2>
-      <button type="button" class="consulta-cerrar" id="consulta-cerrar" aria-label="Cerrar la consulta">
+      <h2 id="consulta-titulo">Preguntar en Claude</h2>
+      <button type="button" class="consulta-cerrar" id="consulta-cerrar" aria-label="Cerrar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
     </div>
-    <p class="consulta-nota">Pregunta sobre el diésel, el carbón o la escoria. Se abre GitHub con tu consulta lista; al enviarla, el agente responde ahí y por correo en 1 a 3 minutos.</p>
-    <form id="consulta-form">
-      <label class="sr-only" for="consulta-texto">Tu pregunta</label>
-      <textarea id="consulta-texto" rows="3" required placeholder="Ej.: ¿Cuál fue el promedio ponderado del B5 S-50 en Conchán en junio de 2025?"></textarea>
-      <div class="consulta-ejemplos" aria-label="Ejemplos de preguntas">
-        <button type="button">¿Qué planta tiene hoy el B5 S-50 más caro?</button>
-        <button type="button">¿Conviene comprar carbón este mes?</button>
-        <button type="button">¿Cómo varió el CFR de la escoria en 2026?</button>
-      </div>
-      <button type="submit" class="consulta-enviar">Abrir en GitHub y enviar</button>
-    </form>
-    <div class="consulta-recientes">
-      <h3>Consultas recientes</h3>
-      <ul id="consulta-lista"><li class="muted">Cargando…</li></ul>
+    <p class="consulta-nota">Claude responde con los datos de este tablero. Necesitas una cuenta de Claude y acceso a este repositorio en GitHub.</p>
+    <ol class="consulta-pasos">
+      <li>Conecta tu GitHub a Claude (solo la primera vez): <a href="https://claude.ai/connect-github" target="_blank" rel="noopener">claude.ai/connect-github</a></li>
+      <li>Abre Claude Code, inicia una sesión y elige el repositorio <strong>AGENTE-PETROPERU-COMBUSTIBLES</strong>.</li>
+      <li>Escribe o pega tu pregunta.</li>
+    </ol>
+    <p class="consulta-sub">Preguntas de ejemplo (toca para copiar):</p>
+    <div class="consulta-ejemplos">
+      <button type="button">¿Cuál fue el promedio ponderado del B5 S-50 en Conchán el mes pasado?</button>
+      <button type="button">¿Conviene comprar carbón este mes? Explícame el índice.</button>
+      <button type="button">¿Cómo varió el CFR de la escoria en los últimos 12 meses?</button>
     </div>
+    <p class="consulta-copiado" id="consulta-copiado" role="status"></p>
+    <a class="consulta-enviar" href="https://claude.ai/code" target="_blank" rel="noopener">Abrir Claude Code</a>
   </section>
   <button type="button" class="consulta-boton" id="consulta-boton" aria-expanded="false" aria-controls="consulta-panel">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.8.9c0 1.6-2.3 2.1-2.3 3.1M12 16.5h.01"/></svg><span>Consultar al agente</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.8.9c0 1.6-2.3 2.1-2.3 3.1M12 16.5h.01"/></svg><span>Preguntar en Claude</span>
   </button>
 </div>
 
@@ -1918,56 +1910,30 @@ function graficoBarras(caja, fuente = datos, prods = PRODUCTOS) {
   caja.append(svg, tip);
 }
 
-// Consulta al agente: arma el issue de GitHub con la pregunta (formulario "consulta.yml").
-function consultaAgente() {
-  const REPO = "elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES";
+// Preguntar en Claude: pasos para abrir Claude Code con este repositorio y preguntas para copiar.
+function preguntarEnClaude() {
   const boton = document.getElementById("consulta-boton"), panel = document.getElementById("consulta-panel");
-  const texto = document.getElementById("consulta-texto"), lista = document.getElementById("consulta-lista");
-  let cargadas = false;
+  const aviso = document.getElementById("consulta-copiado");
   const abrir = abierto => {
     if (abierto === !panel.hidden) return;
     boton.setAttribute("aria-expanded", abierto);
+    panel.hidden = !abierto;
     if (abierto) {
-      panel.hidden = false;
       if (window.Motion && !sinMovimiento.matches) Motion.animate(panel, { opacity: [0, 1], transform: ["translateY(10px) scale(.97)", "none"] }, { duration: 0.2 });
-      texto.focus();
-      if (!cargadas) { cargadas = true; recientes(); }
-    } else {
-      panel.hidden = true;
-      boton.focus();
-    }
+      panel.querySelector("a, button:not(.consulta-cerrar)").focus();
+    } else boton.focus();
   };
-  async function recientes() {
-    try {
-      const r = await fetch(`https://api.github.com/repos/${REPO}/issues?labels=consulta&state=all&per_page=5`, { headers: { Accept: "application/vnd.github+json" } });
-      if (!r.ok) throw new Error(r.status);
-      const issues = await r.json();
-      lista.replaceChildren(...(issues.length ? issues.map(i => {
-        const a = el("a", { href: i.html_url, target: "_blank", rel: "noopener" }, i.title.replace(/^Consulta:\s*/i, ""),
-          el("small", {}, el("span", { class: i.comments ? "respondida" : "" }, i.comments ? "Respondida" : "Esperando respuesta"),
-            ` · ${fFecha(new Date(i.created_at))}`));
-        return el("li", {}, a);
-      }) : [el("li", { class: "muted" }, "Aún no hay consultas.")]));
-    } catch {
-      lista.replaceChildren(el("li", { class: "muted" }, "No se pudieron cargar las consultas recientes."));
-    }
-  }
   boton.addEventListener("click", () => abrir(panel.hidden));
   document.getElementById("consulta-cerrar").addEventListener("click", () => abrir(false));
   panel.addEventListener("keydown", e => { if (e.key === "Escape") abrir(false); });
-  panel.querySelectorAll(".consulta-ejemplos button").forEach(b => b.addEventListener("click", () => { texto.value = b.textContent; texto.focus(); }));
-  document.getElementById("consulta-form").addEventListener("submit", e => {
-    e.preventDefault();
-    const pregunta = texto.value.trim();
-    if (!pregunta) return texto.focus();
-    const titulo = "Consulta: " + (pregunta.length > 90 ? pregunta.slice(0, 87) + "…" : pregunta);
-    const url = `https://github.com/${REPO}/issues/new?template=consulta.yml&title=${encodeURIComponent(titulo)}&pregunta=${encodeURIComponent(pregunta)}`;
-    window.open(url, "_blank", "noopener");
-  });
+  panel.querySelectorAll(".consulta-ejemplos button").forEach(b => b.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(b.textContent); aviso.textContent = "Pregunta copiada: pégala en Claude."; }
+    catch { aviso.textContent = "No se pudo copiar; selecciona el texto de la pregunta."; }
+  }));
 }
 
 // Las librerías (defer) se cargan antes de DOMContentLoaded; si fallan, el tablero funciona sin ellas.
-document.addEventListener("DOMContentLoaded", () => { consultaAgente(); iniciar(); });
+document.addEventListener("DOMContentLoaded", () => { preguntarEnClaude(); iniciar(); });
 </script>
 </body>
 </html>

@@ -36,6 +36,27 @@ bituminoso de Colombia y escoria granulada de Japón. Tablero: https://elpoppin2
 - `agente_petroperu.py`: diésel (lectura de Petroperú y Osinergmin, Excel, avisos por correo, promedio ponderado).
 - `carbon/`: carbón y escoria (fuentes públicas, modelo FOB/CFR, alertas, `simulacion.py`).
 - `index.html`: tablero (GitHub Pages). Librerías en `assets/vendor/` (se reconstruyen con `herramientas/librerias`).
-- `agente/`: agente de consultas por issues (Claude Managed Agents).
 - Pruebas: `pip install -r requirements.txt && python -m pytest -q`.
 - Los workflows de `.github/workflows/` actualizan los datos solos (diésel cada día, carbón y escoria cada lunes).
+
+## Decisiones del proyecto (contexto de lo avanzado)
+
+- **Diésel:** solo Diésel B5 S-50 y B5 S-50 UV de las listas Automotriz de Petroperú (Addendum N.° 1),
+  todas las plantas, desde 2023. Si un día no hay lista nueva, rige la última registrada.
+- **Promedio ponderado mensual (Conchán):** se calcula el día 1 de cada mes para el mes cerrado y se
+  envía por correo con un Excel con fórmulas (`reportes/promedio-ponderado-conchan-AAAA-MM.xlsx`).
+- **Carbón y escoria:** solo precio **FOB** y **CFR Muelle Conchán** (FOB + flete marítimo). No se
+  calcula el costo puesto en planta. Datos públicos (FRED/IMF, Banco Mundial, BCRP, UN Comtrade) desde
+  2018; poder calorífico de referencia 6,000 kcal/kg. Sin referencia de presupuesto por defecto.
+- **Conveniencia de compra:** índice 0-100 (40% posición en 36 meses, 30% frente al promedio de
+  12 meses, 30% cambio esperado por la simulación); desde 65 es "Compra conveniente" y se avisa.
+- **Avisos por correo** (cuenta Gmail del proyecto a `AVISO_CORREOS`, secretos `AVISO_*` en GitHub):
+  cambio de precio del diésel, promedio ponderado mensual y alertas nuevas de carbón y escoria.
+  No hay reporte diario sin cambios ni WhatsApp.
+- **Horarios:** diésel a las 08:00 y 12:30 (hora de Lima), con tareas programadas que lanzan el
+  workflow; carbón y escoria cada lunes.
+- **Tablero:** en español, identidad UNACEM (rojo #E60000, tipografías Barlow), modo claro y oscuro,
+  pestañas Precios Petroperú, Referencia Osinergmin, Precios carbones internacionales y Escoria
+  japonesa; botón "Preguntar en Claude" abajo a la derecha.
+- **Sin IA de pago:** no hay agente por API; las consultas se hacen en Claude Code con la cuenta de cada persona.
+
