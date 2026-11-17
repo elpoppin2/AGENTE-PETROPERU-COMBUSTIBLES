@@ -192,12 +192,13 @@ pip install pytest && python -m pytest -q tests
 ## Preguntar en Claude
 
 Las consultas sobre los datos se hacen con **Claude Code**, con la cuenta de Claude de cada persona
-(sin costo adicional al plan de Claude ni clave de API):
+(sin costo adicional al plan de Claude ni clave de API). El equipo usa el repositorio en **solo
+lectura**: no necesita ser colaborador, y solo el dueño (`elpoppin2`) cambia el proyecto.
 
-1. La dueña o el dueño del repositorio agrega a la persona en *Settings → Collaborators*.
-2. La persona conecta su GitHub a Claude en https://claude.ai/connect-github (una sola vez).
-3. En https://claude.ai/code inicia una sesión con el repositorio **AGENTE-PETROPERU-COMBUSTIBLES** y
-   pregunta en español.
+1. Abrir https://claude.ai/code e iniciar una sesión (si lo pide, conectar GitHub en https://claude.ai/connect-github).
+2. Escribir en el primer mensaje: *"Usa el repositorio público github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES (lee su CLAUDE.md) y respóndeme: "* seguido de la pregunta. El botón **Preguntar en Claude**
+   del tablero (abajo a la derecha) copia este mensaje con un toque.
+3. Claude descarga el repositorio público en modo lectura y responde con los datos actualizados.
 
 `CLAUDE.md` le explica a Claude los datos, las unidades, las decisiones del proyecto y que no debe
 cambiar nada si solo le preguntan. Un agente de consultas pagado por API (respuestas en issues) se

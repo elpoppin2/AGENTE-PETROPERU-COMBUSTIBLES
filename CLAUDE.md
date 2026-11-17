@@ -8,6 +8,10 @@ bituminoso de Colombia y escoria granulada de Japón. Tablero: https://elpoppin2
 - Responde en español, claro y directo, con las cifras y su unidad.
 - Si la persona solo hace una consulta, **no modifiques archivos ni hagas commit o push**. Cambia el
   proyecto únicamente cuando lo pida de forma explícita.
+- **Los cambios al proyecto (datos, visualización, código, funciones nuevas) los decide y hace solo el
+  dueño del repositorio, `elpoppin2`.** El equipo usa el repositorio en modo solo lectura para consultar.
+  Si quien pide un cambio no es el dueño, o la sesión no tiene permiso para subir cambios, no lo hagas:
+  explica que el proyecto es de solo consulta para el equipo y sugiere pedírselo al dueño.
 - No inventes cifras: calcula con Python (pandas) sobre los archivos y di qué archivo y qué cálculo usaste.
   Distingue los datos observados de las estimaciones del modelo y de la simulación (que no es un pronóstico).
 - **El repositorio es público.** Nunca subas datos internos de la empresa (cotizaciones, ofertas de
@@ -58,5 +62,7 @@ bituminoso de Colombia y escoria granulada de Japón. Tablero: https://elpoppin2
 - **Tablero:** en español, identidad UNACEM (rojo #E60000, tipografías Barlow), modo claro y oscuro,
   pestañas Precios Petroperú, Referencia Osinergmin, Precios carbones internacionales y Escoria
   japonesa; botón "Preguntar en Claude" abajo a la derecha.
+- **Equipo:** consulta en Claude Code con el repositorio público en solo lectura (no son colaboradores);
+  solo el dueño cambia el proyecto.
 - **Sin IA de pago:** no hay agente por API; las consultas se hacen en Claude Code con la cuenta de cada persona.
 

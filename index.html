@@ -372,7 +372,7 @@ main { padding-bottom: 96px; }
 .consulta-boton svg { width: 22px; height: 22px; }
 .consulta-boton[aria-expanded="true"] { background: #c40000; }
 .consulta-panel {
-  width: min(380px, calc(100vw - 32px)); max-height: min(78vh, 640px); overflow: auto; transform-origin: bottom right;
+  width: min(380px, calc(100vw - 32px)); max-height: min(86vh, 700px); overflow: auto; transform-origin: bottom right;
   background: var(--surface-1); color: var(--text-primary); border: 1px solid var(--border); border-radius: 12px;
   box-shadow: 0 22px 48px rgb(0 0 0 / 0.24); padding: 16px 16px 14px;
 }
@@ -396,6 +396,11 @@ main { padding-bottom: 96px; }
 .consulta-pasos { margin: 0 0 12px; padding-left: 20px; font-size: 14px; color: var(--text-secondary); display: grid; gap: 6px; }
 .consulta-pasos strong { color: var(--text-primary); font-weight: 600; }
 .consulta-sub { margin: 0 0 6px; font-size: 13px; color: var(--text-muted); }
+.consulta-inicio { margin: 0 0 12px; padding: 10px 12px; border-radius: 8px; background: var(--papel); border: 1px solid var(--border); }
+.consulta-inicio p { margin: 0 0 6px; font-size: 13px; color: var(--text-secondary); overflow-wrap: anywhere; }
+.consulta-inicio em { color: var(--text-muted); }
+.consulta-inicio button { font: 600 13px var(--f-texto); color: var(--text-primary); background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+.consulta-inicio button:hover { border-color: var(--text-primary); }
 .consulta-copiado { min-height: 18px; margin: 0 0 8px; font-size: 13px; color: var(--down); }
 a.consulta-enviar { display: grid; place-items: center; text-decoration: none; }
 @media (max-width: 560px) {
@@ -530,13 +535,16 @@ a { color: var(--series-1); }
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
     </div>
-    <p class="consulta-nota">Claude responde con los datos de este tablero. Necesitas una cuenta de Claude y acceso a este repositorio en GitHub.</p>
+    <p class="consulta-nota">Consultas en solo lectura con tu cuenta de Claude; los cambios al proyecto los hace su dueño.</p>
     <ol class="consulta-pasos">
-      <li>Conecta tu GitHub a Claude (solo la primera vez): <a href="https://claude.ai/connect-github" target="_blank" rel="noopener">claude.ai/connect-github</a></li>
-      <li>Abre Claude Code, inicia una sesión y elige el repositorio <strong>AGENTE-PETROPERU-COMBUSTIBLES</strong>.</li>
-      <li>Escribe o pega tu pregunta.</li>
+      <li>Copia una pregunta de ejemplo, o el mensaje inicial y agrégale la tuya.</li>
+      <li>Abre Claude Code, inicia una sesión y pégala. Si te lo pide, conecta tu GitHub en <a href="https://claude.ai/connect-github" target="_blank" rel="noopener">claude.ai/connect-github</a>.</li>
     </ol>
-    <p class="consulta-sub">Preguntas de ejemplo (toca para copiar):</p>
+    <div class="consulta-inicio">
+      <p id="consulta-inicio-texto">Usa el repositorio público github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES (lee su CLAUDE.md) y respóndeme: <em>tu pregunta</em></p>
+      <button type="button" id="consulta-copiar-inicio">Copiar mensaje inicial</button>
+    </div>
+    <p class="consulta-sub">Ejemplos (se copian con el mensaje inicial):</p>
     <div class="consulta-ejemplos">
       <button type="button">¿Cuál fue el promedio ponderado del B5 S-50 en Conchán el mes pasado?</button>
       <button type="button">¿Conviene comprar carbón este mes? Explícame el índice.</button>
@@ -1910,7 +1918,8 @@ function graficoBarras(caja, fuente = datos, prods = PRODUCTOS) {
   caja.append(svg, tip);
 }
 
-// Preguntar en Claude: pasos para abrir Claude Code con este repositorio y preguntas para copiar.
+// Preguntar en Claude: pasos para abrir Claude Code con este repositorio (solo lectura) y preguntas para copiar.
+const MENSAJE_INICIAL = "Usa el repositorio público github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES (lee su CLAUDE.md) y respóndeme: ";
 function preguntarEnClaude() {
   const boton = document.getElementById("consulta-boton"), panel = document.getElementById("consulta-panel");
   const aviso = document.getElementById("consulta-copiado");
@@ -1926,10 +1935,14 @@ function preguntarEnClaude() {
   boton.addEventListener("click", () => abrir(panel.hidden));
   document.getElementById("consulta-cerrar").addEventListener("click", () => abrir(false));
   panel.addEventListener("keydown", e => { if (e.key === "Escape") abrir(false); });
-  panel.querySelectorAll(".consulta-ejemplos button").forEach(b => b.addEventListener("click", async () => {
-    try { await navigator.clipboard.writeText(b.textContent); aviso.textContent = "Pregunta copiada: pégala en Claude."; }
-    catch { aviso.textContent = "No se pudo copiar; selecciona el texto de la pregunta."; }
-  }));
+  const copiar = async (texto, ok) => {
+    try { await navigator.clipboard.writeText(texto); aviso.textContent = ok; }
+    catch { aviso.textContent = "No se pudo copiar; selecciona el texto y cópialo a mano."; }
+  };
+  document.getElementById("consulta-copiar-inicio").addEventListener("click", () =>
+    copiar(MENSAJE_INICIAL, "Mensaje inicial copiado: pégalo en Claude y agrega tu pregunta."));
+  panel.querySelectorAll(".consulta-ejemplos button").forEach(b => b.addEventListener("click", () =>
+    copiar(MENSAJE_INICIAL + b.textContent, "Pregunta copiada: pégala en Claude y envíala.")));
 }
 
 // Las librerías (defer) se cargan antes de DOMContentLoaded; si fallan, el tablero funciona sin ellas.
