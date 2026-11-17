@@ -85,7 +85,7 @@ Spec 6000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 | fred | 317 | ✅ OK |
 | banco_mundial | 318 | ✅ OK |
 | bcrp | 107 | ✅ OK |
-| comtrade | 24 | ⚠ Comtrade pe_imp_carbon_col_cif: sin registros (HTTP 200) {"elapsedTime":"0.18 secs","count":0,"data":[],"error":""}<br>Comtrade co_exp_carbon_pe_fob: sin registros (HTTP 200) {"elapsedTime":"0.04 secs","count":0,"data":[],"error":""}<br>Comtrade co_exp_carbon_mundo_fob: sin registros (HTTP 200) {"elapsedTime":"0.97 secs","count":0,"data":[],"error":""} |
+| comtrade | 24 | ⚠ Comtrade pe_imp_carbon_col_cif: sin registros (HTTP 200) {"elapsedTime":"0.04 secs","count":0,"data":[],"error":""}<br>Comtrade co_exp_carbon_pe_fob: sin registros (HTTP 200) {"elapsedTime":"0.03 secs","count":0,"data":[],"error":""}<br>Comtrade co_exp_carbon_mundo_fob: sin registros (HTTP 200) {"elapsedTime":"0.03 secs","count":0,"data":[],"error":""} |
 | investing | 0 | — sin archivos |
 | manual | 0 | — sin archivos |
 

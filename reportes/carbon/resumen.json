@@ -47,9 +47,9 @@
    "promedio_12m": 35.35466303142666,
    "frente_promedio_12m_pct": 11.26,
    "cambio_esperado_12m_pct": -2.85,
-   "cfr_12m_p10": 32.33072255599032,
-   "cfr_12m_p50": 38.214084470346165,
-   "cfr_12m_p90": 45.96802727327368,
+   "cfr_12m_p10": 32.33072255599031,
+   "cfr_12m_p50": 38.21408447034615,
+   "cfr_12m_p90": 45.96802727327363,
    "flete_en_cfr_pct": 84.7,
    "flete_en_cfr_mediana_36m_pct": 81.5,
    "componentes": {
