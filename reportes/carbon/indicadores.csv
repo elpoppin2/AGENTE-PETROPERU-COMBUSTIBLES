@@ -11,7 +11,7 @@ carbon_cif_comtrade,CIF Perú desde Colombia — Comtrade (USD/t),2025-03,140.94
 pe_imp_carbon_mundo_cif,CIF Perú desde todo origen — Comtrade (USD/t),2025-03,140.9422,4.3672,,138.1052,137.0525,135.0445,140.9422,
 brent,Brent (USD/bbl),2026-10,123.9300,8.5582,92.0205,109.7233,90.8100,62.5400,123.9300,2.3166
 fx_pen_usd,Tipo de cambio (PEN/USD),2026-10,3.4428,1.8670,0.8229,3.3954,3.3981,3.3568,3.7800,-0.5038
-fx_cop_usd,Tipo de cambio (COP/USD),2026-10,3185.2477,0.0000,-17.9117,3167.1391,3520.4124,3130.9219,4412.0563,-1.6830
+fx_cop_usd,Tipo de cambio (COP/USD),2026-10,3195.1986,0.3124,-17.6553,3170.4561,3521.2417,3130.9219,4412.0563,-1.6615
 ratio_col_newcastle,Colombia FOB / Newcastle,2026-10,0.6997,0.0000,-2.5966,0.6997,0.6801,0.6106,1.1159,-0.4757
 paridad_carbon_brent,Carbón vs Brent (USD/GJ ÷ USD/GJ),2026-10,0.2095,-8.8056,-30.7119,0.2341,0.2567,0.1882,0.4389,-1.4306
 flete_share_carbon,Flete / CIF,2026-10,0.2406,3.6536,0.6142,0.2343,0.2403,0.1781,0.2666,0.5763

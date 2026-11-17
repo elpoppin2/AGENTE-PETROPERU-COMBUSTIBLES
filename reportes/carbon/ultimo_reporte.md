@@ -42,7 +42,7 @@ Spec 6000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 | CIF Perú desde todo origen — Comtrade (USD/t) | 2025-03 | **140.94** | +4.4% | — | 138.11 | 137.05 | 135.04 – 140.94 | — |
 | Brent (USD/bbl) | 2026-10 | **123.93** | +8.6% | +92.0% | 109.72 | 90.81 | 62.54 – 123.93 | 2.3 |
 | Tipo de cambio (PEN/USD) | 2026-10 | **3.443** | +1.9% | +0.8% | 3.395 | 3.398 | 3.357 – 3.780 | -0.5 |
-| Tipo de cambio (COP/USD) | 2026-10 | **3,185.25** | +0.0% | -17.9% | 3,167.14 | 3,520.41 | 3,130.92 – 4,412.06 | -1.7 |
+| Tipo de cambio (COP/USD) | 2026-10 | **3,195.20** | +0.3% | -17.7% | 3,170.46 | 3,521.24 | 3,130.92 – 4,412.06 | -1.7 |
 
 ## Ratios
 
@@ -68,7 +68,7 @@ Spec 6000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 
 | Fuente | Observaciones | Estado |
 |---|---:|---|
-| fred | 280 | ✅ OK |
+| fred | 281 | ✅ OK |
 | banco_mundial | 282 | ✅ OK |
 | bcrp | 95 | ✅ OK |
 | comtrade | 62 | ✅ OK |
@@ -88,7 +88,7 @@ Spec 6000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 | `co_exp_carbon_mundo_fob_vol_t` | 2026-04 |
 | `co_exp_carbon_pe_fob_usd_t` | 2025-09 |
 | `co_exp_carbon_pe_fob_vol_t` | 2025-09 |
-| `fx_cop_usd` | 2026-09 |
+| `fx_cop_usd` | 2026-10 |
 | `fx_pen_usd` | 2026-11 |
 | `pe_imp_carbon_col_cif_usd_t` | 2025-03 |
 | `pe_imp_carbon_col_cif_vol_t` | 2025-03 |
