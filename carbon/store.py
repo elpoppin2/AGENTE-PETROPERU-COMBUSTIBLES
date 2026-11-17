@@ -42,6 +42,14 @@ def upsert(path: Path, new: pd.DataFrame) -> pd.DataFrame:
     return merged
 
 
+def quitar_series(path: Path, prefijo: str) -> None:
+    """Borra del histórico las series cuyo nombre empieza con `prefijo`."""
+    old = load(path)
+    if old.empty:
+        return
+    old[~old["serie"].str.startswith(prefijo)].to_csv(path, index=False, date_format="%Y-%m-%d", float_format="%.4f")
+
+
 def wide(hist: pd.DataFrame) -> pd.DataFrame:
     """Pivot mensual: índice = fecha, columnas = series."""
     if hist.empty:

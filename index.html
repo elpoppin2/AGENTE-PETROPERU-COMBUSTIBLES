@@ -11,6 +11,10 @@ try { const t = localStorage.getItem("tema"); if (t === "dark" || t === "light")
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap">
+<!-- Librerías de GitHub empaquetadas en el proyecto (ver herramientas/librerias y assets/vendor/LICENCIAS.txt):
+     Motion (animaciones), Tom Select (selector con búsqueda), Tippy.js (ayudas y menú) y NumberFlow (cifras que ruedan). -->
+<link rel="stylesheet" href="assets/vendor/librerias.min.css">
+<script src="assets/vendor/librerias.min.js" defer></script>
 <style>
 /* Informe operativo UNACEM: papel gris cemento, tinta negra, rojo UNACEM.
    Secciones separadas por filetes; el único bloque destacado es el letrero de precios. */
@@ -112,17 +116,22 @@ main {
   padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px));
 }
 
-/* --- Membrete --- */
-.membrete { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-.logo { display: block; height: 40px; width: auto; max-width: 60vw; }
-.regla { height: 3px; background: var(--regla); margin: 16px 0 22px; border: 0; }
-.cabecera { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px 32px; flex-wrap: wrap; }
+/* --- Membrete: logo y nombre del proyecto --- */
+.barra { display: flex; justify-content: space-between; align-items: center; gap: 12px 20px; flex-wrap: wrap; }
+.marca { display: flex; align-items: center; gap: 16px; color: inherit; text-decoration: none; min-width: 0; }
+.logo { display: block; height: 40px; width: auto; max-width: 46vw; }
+.proyecto { display: grid; padding-left: 16px; border-left: 1px solid var(--border); line-height: 1.15; }
+.proyecto-nombre { font: 700 19px/1.1 var(--f-titulo); letter-spacing: -0.005em; }
+.proyecto-sub { font: 500 14px/1.3 var(--f-texto); color: var(--text-muted); }
+@media (max-width: 560px) { .proyecto { display: none; } }
+.regla { height: 3px; background: var(--regla); margin: 16px 0 0; border: 0; }
+.cabecera { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px 32px; flex-wrap: wrap; margin-top: 26px; }
 .cabecera > div { min-width: 0; }
 h1 {
   font: 700 clamp(30px, 4.6vw, 44px)/1.02 var(--f-titulo); letter-spacing: -0.01em; margin: 0;
   text-wrap: balance;
 }
-.bajada { margin: 6px 0 0; color: var(--text-secondary); font-size: 16px; }
+.bajada { margin: 6px 0 0; color: var(--text-secondary); font-size: 16px; max-width: 70ch; }
 .vigencia { margin: 0 0 0 auto; text-align: right; font-size: 14px; color: var(--text-secondary); line-height: 1.45; }
 .vigencia strong { display: block; font: 600 20px/1.2 var(--f-titulo); color: var(--text-primary); font-variant-numeric: tabular-nums; }
 @media (max-width: 640px) { .vigencia { text-align: left; margin-left: 0; } }
@@ -133,54 +142,125 @@ h1 {
 .tema {
   flex: none; display: inline-flex; align-items: center; gap: 8px; font: 500 14px var(--f-texto);
   color: var(--text-primary); background: transparent; border: 1px solid var(--border);
-  border-radius: 6px; padding: 7px 12px; min-height: 36px; cursor: pointer;
+  border-radius: 6px; padding: 7px 12px; min-height: 38px; cursor: pointer; transition: border-color .15s, background-color .15s;
 }
-.tema:hover { border-color: var(--text-primary); }
+.tema:hover, .tema[aria-expanded="true"] { border-color: var(--text-primary); }
+.tema[aria-expanded="true"] { background: var(--surface-1); }
+.tema .flechita { transition: transform .2s ease; }
+.tema[aria-expanded="true"] .flechita { transform: rotate(180deg); }
 a.tema { text-decoration: none; }
 .acciones { display: flex; gap: 8px; flex: none; }
-@media (max-width: 420px) { .acciones .tema span { display: none; } .acciones .tema { padding: 7px 10px; } }
-.proyecto { margin: 0 0 6px; font: 600 13px/1.3 var(--f-texto); letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+@media (max-width: 480px) {
+  .barra { flex-wrap: nowrap; }
+  .logo { height: 30px; }
+  .acciones { gap: 6px; }
+  .acciones .tema span, .acciones .tema .flechita { display: none; }
+  .acciones .tema { padding: 7px 10px; }
+}
 [hidden] { display: none !important; }
 .alertas { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; }
 .alertas li { padding: 8px 12px; border-left: 3px solid var(--up); background: var(--up-bg); color: var(--text-primary); border-radius: 0 4px 4px 0; }
 .alertas li.ok { border-left-color: var(--down); background: var(--down-bg); }
 .enlaces { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 12px; font-size: 14px; }
-.tema svg { width: 16px; height: 16px; }
+.tema svg { width: 16px; height: 16px; flex: none; }
+.subtitulo { font: 600 19px/1.2 var(--f-titulo); margin: 24px 0 0; }
+tr.total td { font-weight: 600; border-top: 2px solid var(--text-primary); }
 
-/* --- Barra de filtros --- */
+/* --- Módulos: las tres pestañas con una barra roja que se desliza --- */
+.modulos { position: relative; display: flex; gap: 0 36px; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
+.modulos::-webkit-scrollbar { display: none; }
+.modulos button {
+  flex: none; display: grid; justify-items: start; gap: 1px; text-align: left; background: none; border: 0; cursor: pointer;
+  padding: 16px 0 13px; color: var(--text-muted); transition: color .15s;
+}
+.modulos button:hover, .modulos button[aria-selected="true"] { color: var(--text-primary); }
+.modulo-nombre { font: 600 20px/1.15 var(--f-titulo); white-space: nowrap; }
+.modulo-frecuencia { font: 500 13px/1.3 var(--f-texto); color: var(--text-muted); white-space: nowrap; }
+.indicador { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--series-2); border-radius: 2px 2px 0 0; pointer-events: none; }
+@media (max-width: 640px) { .modulos { gap: 0 24px; } .modulo-nombre { font-size: 17px; } }
+
+/* --- Filtros: planta (con búsqueda) y periodo --- */
 .filtros {
   display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: end;
-  margin: 16px 0 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border);
+  margin: 20px 0 18px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
 }
-.filtros label, .filtros .etiqueta { display: grid; gap: 4px; font-size: 13px; color: var(--text-muted); }
+.filtros label, .filtros .etiqueta { display: grid; gap: 5px; font-size: 13px; color: var(--text-muted); }
 select {
   font: 500 15px var(--f-texto); color: var(--text-primary); background: var(--surface-1);
-  border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; min-height: 42px; min-width: 170px;
+  border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; min-height: 42px; min-width: 230px;
 }
-.seg { display: inline-flex; gap: 2px; }
+.seg { position: relative; display: inline-flex; gap: 2px; padding: 3px; background: var(--grid); border-radius: 8px; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.seg::-webkit-scrollbar { display: none; }
+.filtros .etiqueta { min-width: 0; max-width: 100%; }
+.seg-thumb { position: absolute; top: 3px; left: 0; height: calc(100% - 6px); width: 0; border-radius: 6px; background: var(--surface-1);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), inset 0 -2px 0 var(--series-2); pointer-events: none; }
 .seg button {
-  font: 500 15px var(--f-texto); color: var(--text-muted); background: none; border: 0; cursor: pointer;
-  min-height: 42px; padding: 0 12px; border-top: 3px solid transparent; border-bottom: 3px solid transparent; transition: color .15s, border-color .2s;
+  position: relative; font: 500 15px var(--f-texto); color: var(--text-muted); background: none; border: 0; cursor: pointer;
+  min-height: 36px; padding: 0 13px; border-radius: 6px; transition: color .15s; flex: none; white-space: nowrap;
 }
+@media (max-width: 480px) { .seg button { font-size: 14px; padding: 0 10px; } .ts-wrapper { min-width: 0; width: 100%; } #filtro-planta { width: 100%; } }
 .seg button:hover { color: var(--text-primary); }
-.seg button[aria-pressed="true"] { color: var(--text-primary); font-weight: 600; border-bottom-color: var(--series-2); }
-button:focus-visible, select:focus-visible, rect:focus-visible, a:focus-visible, summary:focus-visible {
+.seg button[aria-pressed="true"] { color: var(--text-primary); font-weight: 600; }
+button:focus-visible, select:focus-visible, rect:focus-visible, a:focus-visible, summary:focus-visible, path:focus-visible {
   outline: 2px solid var(--series-1); outline-offset: 2px;
 }
 
-/* --- Pestañas del informe --- */
-.vistas { display: flex; gap: 4px 28px; flex-wrap: wrap; margin-top: 26px; border-bottom: 1px solid var(--border); }
-.vistas button {
-  font: 600 19px/1.2 var(--f-titulo); color: var(--text-muted); background: none; border: 0; cursor: pointer;
-  padding: 10px 0 9px; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .15s, border-color .2s;
+/* Selector de planta (Tom Select) con el tema del tablero */
+.ts-wrapper { min-width: 250px; }
+.ts-wrapper.single .ts-control, .ts-wrapper.single.input-active .ts-control {
+  font: 500 15px var(--f-texto); color: var(--text-primary); background: var(--surface-1); cursor: pointer;
+  border: 1px solid var(--border); border-radius: 6px; padding: 8px 36px 8px 12px; min-height: 42px; box-shadow: none;
+  display: flex; align-items: center;
 }
-.vistas button:hover { color: var(--text-primary); }
-@media (max-width: 640px) {  /* las tres pestañas en una fila que se desliza */
-  .vistas { flex-wrap: nowrap; overflow-x: auto; gap: 22px; scrollbar-width: none; }
-  .vistas::-webkit-scrollbar { display: none; }
-  .vistas button { flex: none; white-space: nowrap; font-size: 17px; }
+.ts-wrapper.single .ts-control::after { border-color: var(--text-muted) transparent transparent; right: 14px; }
+.ts-wrapper.single.dropdown-active .ts-control::after { border-color: transparent transparent var(--text-muted); }
+.ts-wrapper.focus .ts-control { border-color: var(--text-primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--series-1) 25%, transparent); }
+.ts-dropdown {
+  background: var(--surface-1); color: var(--text-primary); border: 1px solid var(--border); border-radius: 8px;
+  margin-top: 6px; box-shadow: 0 14px 34px rgb(0 0 0 / 0.18); overflow: hidden; font: 400 15px var(--f-texto); z-index: 20;
 }
-.vistas button[aria-selected="true"] { color: var(--text-primary); border-bottom-color: var(--regla); }
+.ts-dropdown .ts-dropdown-content { max-height: 340px; padding: 4px 0 6px; }
+.ts-dropdown .dropdown-input-wrap { padding: 8px; border-bottom: 1px solid var(--border); }
+.ts-dropdown .dropdown-input { font: 400 15px var(--f-texto); color: var(--text-primary); background: var(--papel);
+  border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; box-shadow: none; width: 100%; }
+.ts-dropdown .optgroup-header { font: 600 13px var(--f-titulo); color: var(--text-muted); background: none; padding: 10px 14px 4px; letter-spacing: .01em; cursor: default; }
+.ts-dropdown .option { padding: 7px 14px; }
+.ts-dropdown .active { background: var(--grid); color: var(--text-primary); }
+.ts-dropdown .option.selected { box-shadow: inset 3px 0 0 var(--series-2); font-weight: 600; }
+.ts-dropdown .no-results { padding: 10px 14px; color: var(--text-muted); }
+.ts-dropdown .highlight { background: color-mix(in srgb, var(--series-2) 18%, transparent); color: inherit; border-radius: 2px; }
+.ts-dropdown .dropdown-input:focus { outline: 2px solid var(--series-1); outline-offset: 0; }
+.opcion { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.opcion-precio { font: 500 14px var(--f-texto); color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.opcion-precio .sube { color: var(--up); } .opcion-precio .baja { color: var(--down); }
+
+/* Ayudas y menú desplegable (Tippy) */
+.tippy-box[data-theme~="unacem"] {
+  background: var(--surface-1); color: var(--text-primary); border: 1px solid var(--border); border-radius: 8px;
+  box-shadow: 0 14px 34px rgb(0 0 0 / 0.18); font: 400 14px/1.45 var(--f-texto);
+}
+.tippy-box[data-theme~="unacem"] > .tippy-content { padding: 9px 12px; }
+.tippy-box[data-theme~="unacem"][data-placement^="top"] > .tippy-arrow::before { border-top-color: var(--surface-1); }
+.tippy-box[data-theme~="unacem"][data-placement^="bottom"] > .tippy-arrow::before { border-bottom-color: var(--surface-1); }
+.tippy-box[data-theme~="menu"] > .tippy-content { padding: 6px; }
+.menu { display: grid; min-width: 290px; }
+.menu a {
+  display: grid; grid-template-columns: 20px 1fr; gap: 2px 12px; align-items: start; padding: 9px 10px; border-radius: 6px;
+  color: var(--text-primary); text-decoration: none;
+}
+.menu a:hover, .menu a:focus-visible { background: var(--grid); outline: none; }
+.menu a svg { width: 18px; height: 18px; margin-top: 2px; color: var(--series-2); grid-row: span 2; }
+.menu a strong { font: 600 15px/1.25 var(--f-titulo); }
+.menu a small { color: var(--text-muted); font-size: 13px; }
+.menu hr { border: 0; border-top: 1px solid var(--border); margin: 4px 6px; }
+.ayuda {
+  display: inline-grid; place-items: center; width: 18px; height: 18px; margin-left: 8px; padding: 0; vertical-align: 1px;
+  border: 1px solid currentColor; border-radius: 50%; background: none; color: inherit; opacity: .65;
+  font: 600 11px/1 var(--f-texto); cursor: help;
+}
+.ayuda:hover, .ayuda:focus-visible { opacity: 1; }
+.letrero .ayuda { color: var(--letrero-suave); }
+number-flow { font-variant-numeric: tabular-nums; }
 .explicacion { margin: 10px 0 0; padding-left: 20px; color: var(--text-secondary); max-width: 78ch; }
 .explicacion li + li { margin-top: 6px; }
 .letrero-pie { margin: 0; padding: 12px 0 10px; border-top: 1px solid var(--letrero-linea); color: var(--letrero-suave); font-size: 14px; }
@@ -256,6 +336,26 @@ svg text { fill: var(--text-muted); font: 500 12px var(--f-texto); font-variant-
 .tooltip .fila strong { margin-left: 10px; }
 .tooltip .fila .pill { margin-left: 6px; }
 
+
+/* --- Conveniencia de compra y simulación --- */
+.conv { display: grid; grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.6fr); gap: 18px 40px; align-items: start; margin-top: 14px; }
+@media (max-width: 760px) { .conv { grid-template-columns: 1fr; } }
+.conv-etiqueta { display: inline-flex; align-items: center; gap: 6px; font: 600 15px var(--f-titulo); padding: 3px 10px; border-radius: 4px; }
+.conv-etiqueta.conveniente { color: var(--down); background: var(--down-bg); }
+.conv-etiqueta.esperar { color: var(--up); background: var(--up-bg); }
+.conv-etiqueta.neutral { color: var(--text-secondary); background: var(--grid); }
+.conv-numero { display: block; margin-top: 8px; font: 700 64px/1 var(--f-titulo); font-variant-numeric: tabular-nums; }
+.conv-numero small { font-size: 0.32em; font-weight: 500; color: var(--text-muted); margin-left: 4px; }
+.medidor { position: relative; height: 10px; margin: 14px 0 6px; border-radius: 5px; overflow: visible;
+  background: linear-gradient(90deg, var(--up-bg) 0 35%, var(--grid) 35% 65%, var(--down-bg) 65% 100%); }
+.medidor-marca { position: absolute; top: -5px; width: 4px; height: 20px; margin-left: -2px; border-radius: 2px; background: var(--text-primary); box-shadow: 0 0 0 2px var(--papel); }
+.medidor-escala { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+.conv-ratios { margin: 0; display: grid; gap: 0; }
+.conv-ratios > div { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.conv-ratios dt { color: var(--text-secondary); }
+.conv-ratios dd { margin: 0; font: 600 18px/1.3 var(--f-titulo); text-align: right; font-variant-numeric: tabular-nums; }
+.conv-ratios dd small { display: block; font: 400 13px var(--f-texto); color: var(--text-muted); }
+
 /* --- Tabla y descarga --- */
 table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
 th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--border); }
@@ -297,6 +397,8 @@ a { color: var(--series-1); }
 .animar .tras-trazo { animation: aparecer .45s ease-out 1s both; }
 .animar .barra { transform-box: fill-box; transform-origin: left center; animation: crecer .7s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i) * 30ms); }
 .animar .depto { animation: aparecer .5s ease-out both; animation-delay: calc(var(--i) * 18ms); }
+.animar .barra-v { transform-box: fill-box; transform-origin: center bottom; animation: crecerV .6s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(min(var(--i), 40) * 12ms); }
+@keyframes crecerV { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 .animar .cambios { animation: aparecer .5s ease-out 1.05s both; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -306,9 +408,22 @@ a { color: var(--series-1); }
 <body>
 <main>
   <header>
-    <div class="membrete">
-      <img class="logo" src="assets/logo-unacem.svg" alt="UNACEM" width="176" height="40">
+    <div class="barra">
+      <a class="marca" href="./">
+        <img class="logo" src="assets/logo-unacem.svg" alt="UNACEM" width="176" height="40">
+        <span class="proyecto"><span class="proyecto-nombre">Sourcing Internacional</span><span class="proyecto-sub">Combustibles y materia prima</span></span>
+      </a>
       <div class="acciones">
+        <a class="tema" id="consultar" href="https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES/issues/new?template=consulta.yml" target="_blank" rel="noopener"
+          title="Pregúntale al agente sobre los precios; la respuesta llega en GitHub y por correo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.8.9c0 1.6-2.3 2.1-2.3 3.1M12 16.5h.01"/></svg>
+          <span>Consultar</span>
+        </a>
+        <button type="button" class="tema" id="descargas" aria-haspopup="true" aria-expanded="false" aria-controls="menu-descargas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></svg>
+          <span>Descargas</span>
+          <svg class="flechita" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
         <a class="tema" id="github" href="https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES" target="_blank" rel="noopener" title="Código, datos y avisos del proyecto en GitHub">
           <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           <span>GitHub</span>
@@ -317,9 +432,15 @@ a { color: var(--series-1); }
       </div>
     </div>
     <hr class="regla">
+    <nav class="modulos" role="tablist" aria-label="Módulos del informe">
+      <button role="tab" id="tab-petroperu" data-vista="petroperu" aria-selected="true"><span class="modulo-nombre">Precios Petroperú</span><span class="modulo-frecuencia">Diésel, se revisa cada día</span></button>
+      <button role="tab" id="tab-osinergmin" data-vista="osinergmin" aria-selected="false"><span class="modulo-nombre">Referencia Osinergmin</span><span class="modulo-frecuencia">Diésel, sale cada lunes</span></button>
+      <button role="tab" id="tab-carbon" data-vista="carbon" aria-selected="false"><span class="modulo-nombre">Precios carbones internacionales</span><span class="modulo-frecuencia">Carbón, promedio mensual</span></button>
+      <button role="tab" id="tab-escoria" data-vista="escoria" aria-selected="false"><span class="modulo-nombre">Escoria japonesa</span><span class="modulo-frecuencia">Escoria, promedio mensual</span></button>
+      <span class="indicador" aria-hidden="true"></span>
+    </nav>
     <div class="cabecera">
       <div>
-        <p class="proyecto">Sourcing Internacional · Combustibles y Materia Prima</p>
         <h1 id="titulo">Precios de lista del diésel</h1>
         <p class="bajada" id="bajada">Plantas de venta de Petroperú. Soles por galón, con impuestos, sin descuentos ni FISE.</p>
       </div>
@@ -327,23 +448,19 @@ a { color: var(--series-1); }
     </div>
   </header>
 
-  <nav class="vistas" role="tablist" aria-label="Vistas del informe">
-    <button role="tab" id="tab-petroperu" data-vista="petroperu" aria-selected="true">Precios Petroperú</button>
-    <button role="tab" id="tab-osinergmin" data-vista="osinergmin" aria-selected="false">Referencia Osinergmin</button>
-    <button role="tab" id="tab-carbon" data-vista="carbon" aria-selected="false">Precios carbones internacionales</button>
-  </nav>
-
   <div class="filtros" role="group" aria-label="Filtros">
     <label id="filtro-planta">Planta
-      <select id="planta"></select>
+      <select id="planta" aria-label="Planta"></select>
     </label>
     <div class="etiqueta">
       <span id="rango-label">Periodo</span>
       <div class="seg" id="rango" aria-labelledby="rango-label">
+        <span class="seg-thumb" aria-hidden="true"></span>
         <button data-meses="3" aria-pressed="true">3 meses</button>
         <button data-meses="6">6 meses</button>
         <button data-meses="12">1 año</button>
         <button data-meses="0">Desde 2023</button>
+        <button data-meses="-1" id="rango-2018" hidden>Desde 2018</button>
       </div>
     </div>
   </div>
@@ -353,10 +470,12 @@ a { color: var(--series-1); }
   <footer class="muted">
     Fuente: <a href="https://www.petroperu.com.pe/productos/lista-de-precios-en-nuestras-plantas/">listas de precios Automotriz de Petroperú</a>
     (Addendum N° 1) y <a href="https://www.osinergmin.gob.pe/seccion/centro_documental/gart/PreciosReferencia/">precios de referencia de Osinergmin</a> (publicación semanal). El agente revisa la web de Petroperú cada día a las 08:00 y a las 12:30 (hora de Lima); con la página abierta, los datos nuevos aparecen solos.
-    Carbón: modelo mensual con datos de FRED/IMF, Banco Mundial, BCRP y UN Comtrade, actualizado cada lunes.
+    Carbón y escoria: modelo mensual con datos de FRED/IMF, Banco Mundial, BCRP y UN Comtrade, actualizado cada lunes.
     Mapa: <a href="https://github.com/juaneladio/peru-geojson">peru-geojson</a> (MPL 2.0).
     Descarga los datos en <a href="data/precios-diesel-petroperu.xlsx" download>Excel</a> o en <a href="data/listas.csv">CSV</a>.
     <br>Proyecto Sourcing Internacional Combustibles y Materia Prima: código, datos y avisos en <a href="https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES">GitHub</a>.
+    Interfaz con <a href="https://github.com/motiondivision/motion">Motion</a>, <a href="https://github.com/orchidjs/tom-select">Tom Select</a>,
+    <a href="https://github.com/atomiks/tippyjs">Tippy.js</a> y <a href="https://github.com/barvian/number-flow">NumberFlow</a> (código abierto).
   </footer>
 </main>
 
@@ -458,6 +577,7 @@ async function cargarOsinergmin() {
 
 // Carbón importado: modelo mensual del monitor (reportes/carbon/), en USD por tonelada.
 let carbon = {}, carbonInd = [], carbonResumen = null; // carbon[serie] = [{fecha, precio}]
+let carbonSim = [];  // simulación a 12 meses: [{material, serie, fecha, p10, p25, p50, p75, p90}]
 let textoCarbon = "";
 async function leerRepo(ruta) {
   for (const url of FUENTES.map(u => u.replace("data/listas.csv", ruta))) {
@@ -469,8 +589,8 @@ async function leerRepo(ruta) {
   return null;
 }
 async function cargarCarbon() {
-  const [modelo, ind, res] = await Promise.all(["modelo_mensual.csv", "indicadores.csv", "resumen.json"].map(f => leerRepo("reportes/carbon/" + f)));
-  if (modelo === null || modelo + ind + res === textoCarbon) return false;
+  const [modelo, ind, res, sim] = await Promise.all(["modelo_mensual.csv", "indicadores.csv", "resumen.json", "simulacion.csv"].map(f => leerRepo("reportes/carbon/" + f)));
+  if (modelo === null || modelo + ind + res + sim === textoCarbon) return false;
   const nuevos = {};
   for (const f of leerCSV(modelo)) {
     const fecha = new Date(f.fecha + "-01T00:00:00Z");
@@ -479,7 +599,9 @@ async function cargarCarbon() {
   carbon = nuevos;
   carbonInd = ind ? leerCSV(ind) : [];
   try { carbonResumen = res ? JSON.parse(res) : null; } catch { carbonResumen = null; }
-  textoCarbon = modelo + ind + res;
+  carbonSim = sim ? leerCSV(sim).map(f => ({ ...f, fecha: new Date(f.fecha + "-01T00:00:00Z"),
+    p10: +f.p10, p25: +f.p25, p50: +f.p50, p75: +f.p75, p90: +f.p90 })) : [];
+  textoCarbon = modelo + ind + res + sim;
   return true;
 }
 
@@ -496,10 +618,11 @@ const diasDesde = f => Math.floor((Date.now() - +f) / 864e5);
 const fMesLargo = d => d.toLocaleDateString("es-PE", { month: "long", year: "numeric", timeZone: "UTC" });
 
 function actualizarEncabezado() {
-  if (estado.vista === "carbon" && carbon.carbon_landed) {
-    document.getElementById("titulo").textContent = "Precios internacionales del carbón";
-    document.getElementById("bajada").textContent = "Índices de referencia del carbón térmico y su costo puesto en planta Conchán. Dólares por tonelada, promedio mensual.";
-    const ultimo = carbon.carbon_landed.at(-1).fecha;
+  const M = MATERIAS[estado.vista];
+  if (M && carbon[M.cfr]) {
+    document.getElementById("titulo").textContent = M.titulo;
+    document.getElementById("bajada").textContent = M.bajada;
+    const ultimo = carbon[M.cfr].at(-1).fecha;
     const act = carbonResumen?.actualizado ? `Actualizado el ${fFecha(new Date(carbonResumen.actualizado + "T00:00:00Z"))}; se actualiza cada lunes.` : "Se actualiza cada lunes.";
     document.getElementById("actualizado").replaceChildren(el("strong", {}, `Datos a ${fMesLargo(ultimo)}`), act + " Fuentes: FRED/IMF, Banco Mundial, BCRP, UN Comtrade");
     return;
@@ -554,35 +677,155 @@ async function iniciar() {
   try {
     const v = localStorage.getItem("vista");
     if (["osinergmin", "comparacion"].includes(v) && Object.keys(osi).length) estado.vista = "osinergmin";
-    if (v === "carbon" && carbon.carbon_landed) estado.vista = "carbon";
+    if (MATERIAS[v] && carbon[MATERIAS[v].cfr]) estado.vista = v;
   } catch {}
   llenarPlantas();
-  sel.addEventListener("change", () => { estado.planta = sel.value; try { localStorage.setItem("planta", sel.value); } catch {} dibujar(true); });
+  if (!selectorPlanta) sel.addEventListener("change", () => { estado.planta = sel.value; try { localStorage.setItem("planta", sel.value); } catch {} dibujar(true); });
   document.querySelectorAll("#rango button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("#rango button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    estado.meses = +b.dataset.meses; dibujar(true);
+    estado.meses = +b.dataset.meses;
+    deslizar(document.querySelector("#rango .seg-thumb"), b, true);
+    dibujar(true);
   }));
-  const pestañas = document.querySelectorAll(".vistas [role=tab]");
+  const pestañas = document.querySelectorAll(".modulos [role=tab]");
   pestañas.forEach(t => t.setAttribute("aria-selected", t.dataset.vista === estado.vista));
   pestañas.forEach(t => t.addEventListener("click", () => {
+    if (t.dataset.vista === estado.vista) return;
     estado.vista = t.dataset.vista;
     pestañas.forEach(x => x.setAttribute("aria-selected", x === t));
     try { localStorage.setItem("vista", estado.vista); } catch {}
-    if (estado.vista !== "carbon") llenarPlantas();
-    document.getElementById("filtro-planta").hidden = estado.vista === "carbon";
+    if (!esMateria()) llenarPlantas();
+    document.getElementById("filtro-planta").hidden = esMateria();
+    mostrarRango2018();
+    moverMarcas(true);
     actualizarEncabezado();
     dibujar(true);
+    const cont = document.getElementById("contenido");
+    if (window.Motion && !sinMovimiento.matches) Motion.animate(cont, { opacity: [0, 1], transform: ["translateY(10px)", "none"] }, { duration: 0.32, ease: [0.2, 0.7, 0.2, 1] });
   }));
-  document.getElementById("filtro-planta").hidden = estado.vista === "carbon";
+  // Flechas izquierda/derecha entre pestañas
+  document.querySelector(".modulos").addEventListener("keydown", e => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    const lista = [...pestañas], i = lista.indexOf(document.activeElement);
+    if (i < 0) return;
+    const sig = lista[(i + (e.key === "ArrowRight" ? 1 : lista.length - 1)) % lista.length];
+    sig.focus(); sig.click(); e.preventDefault();
+  });
+  menuDescargas();
+  document.getElementById("filtro-planta").hidden = esMateria();
+  mostrarRango2018();
   actualizarEncabezado();
   dibujar(true);
+  moverMarcas(false);
+  document.fonts?.ready.then(() => moverMarcas(false));
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { pintarBotonTema(); dibujar(); });
   setInterval(revisar, 15 * 60 * 1000);
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") revisar(); });
-  let t; window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(dibujar, 120); });
+  let t; window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(() => { dibujar(); moverMarcas(false); }, 120); });
+}
+
+// Desliza una marca (barra de la pestaña o fondo del periodo) hasta el botón activo.
+function deslizar(marca, boton, animar) {
+  if (!marca || !boton || boton.hidden) return;
+  const x = boton.offsetLeft, w = boton.offsetWidth;
+  const antes = { x: +(marca.dataset.x ?? x), w: +(marca.dataset.w ?? 0) };
+  Object.assign(marca.style, { transform: `translateX(${x}px)`, width: `${w}px` });
+  marca.dataset.x = x; marca.dataset.w = w;
+  if (animar && antes.w && window.Motion && !sinMovimiento.matches && (antes.x !== x || antes.w !== w))
+    Motion.animate(marca, { transform: [`translateX(${antes.x}px)`, `translateX(${x}px)`], width: [`${antes.w}px`, `${w}px`] },
+      { duration: 0.38, ease: [0.2, 0.7, 0.2, 1] });
+}
+function moverMarcas(animar) {
+  deslizar(document.querySelector(".modulos .indicador"), document.querySelector('.modulos [aria-selected="true"]'), animar);
+  deslizar(document.querySelector("#rango .seg-thumb"), document.querySelector('#rango [aria-pressed="true"]'), animar);
+}
+
+// Menú "Descargas" (Tippy): todos los archivos del proyecto en un solo lugar.
+const ICONO_BAJAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></svg>';
+const ICONO_EXTERNO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
+function menuDescargas() {
+  const boton = document.getElementById("descargas");
+  const repo = "https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES";
+  const items = [
+    ["data/precios-diesel-petroperu.xlsx", "Excel del diésel", "Listas de Petroperú y referencia de Osinergmin desde 2023"],
+    ["data/listas.csv", "Listas de Petroperú (CSV)", "Un precio por lista, planta y producto"],
+    ["data/osinergmin.csv", "Referencia Osinergmin (CSV)", "Publicaciones semanales por planta"],
+    ["reportes/carbon/modelo_mensual.csv", "Carbón y escoria mes a mes (CSV)", "FOB, flete y CFR Conchán desde 2018"],
+    null,
+    [`${repo}/tree/main/reportes`, "Reportes en GitHub", "Promedios ponderados, avisos de precios y reporte del carbón"],
+  ];
+  const menu = el("div", { class: "menu", role: "menu", id: "menu-descargas", "aria-label": "Descargas" });
+  for (const it of items) {
+    if (!it) { menu.append(el("hr")); continue; }
+    const [href, titulo, detalle] = it, externo = href.startsWith("http");
+    const a = el("a", { role: "menuitem", href, ...(externo ? { target: "_blank", rel: "noopener" } : { download: "" }) });
+    a.innerHTML = (externo ? ICONO_EXTERNO : ICONO_BAJAR);
+    a.append(el("strong", {}, titulo), el("small", {}, detalle));
+    menu.append(a);
+  }
+  const enlaces = () => [...menu.querySelectorAll("a")];
+  menu.addEventListener("keydown", e => {
+    const l = enlaces(), i = l.indexOf(document.activeElement);
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") { l[(i + (e.key === "ArrowDown" ? 1 : l.length - 1)) % l.length].focus(); e.preventDefault(); }
+    if (e.key === "Escape") { boton._tippy?.hide(); boton.focus(); }
+  });
+  if (!window.tippy) {  // sin la librería: el botón lleva a la carpeta de reportes
+    boton.addEventListener("click", () => window.open(`${repo}/tree/main/reportes`, "_blank", "noopener"));
+    return;
+  }
+  tippy(boton, {
+    content: menu, interactive: true, trigger: "click", placement: "bottom-end", arrow: false, offset: [0, 8],
+    theme: "unacem menu", maxWidth: 360, appendTo: () => document.body,
+    onShow: () => boton.setAttribute("aria-expanded", "true"),
+    onShown: () => enlaces()[0]?.focus(),
+    onHide: () => boton.setAttribute("aria-expanded", "false"),
+    onMount: inst => { if (window.Motion && !sinMovimiento.matches) Motion.animate(inst.popper.firstElementChild, { opacity: [0, 1], transform: ["translateY(-6px) scale(.98)", "none"] }, { duration: 0.18 }); },
+  });
+  boton.addEventListener("keydown", e => { if (e.key === "ArrowDown") { boton._tippy.show(); e.preventDefault(); } });
+}
+
+// "Desde 2018" solo existe para el carbón; al salir de esa vista se pasa a "Desde 2023".
+function mostrarRango2018() {
+  const b = document.getElementById("rango-2018"), carbonVista = esMateria();
+  b.hidden = !carbonVista;
+  if (!carbonVista && estado.meses === -1) {
+    estado.meses = 0;
+    document.querySelectorAll("#rango button").forEach(x => x.setAttribute("aria-pressed", x.dataset.meses === "0"));
+  }
 }
 
 // Cada vista tiene sus plantas: Petroperú (listas) u Osinergmin (18 puntos, sin Conchán).
+const AYUDAS = {
+  DIESEL_B5_S50_UV: "B5: diésel con 5% de biodiésel. S-50: hasta 50 ppm de azufre. UV: uso vehicular.",
+  DIESEL_B5_S50: "B5: diésel con 5% de biodiésel. S-50: hasta 50 ppm de azufre.",
+  bajo: "Precio de referencia del Diésel B5 con hasta 50 ppm de azufre: lo que costaría importarlo de forma eficiente, sin impuestos ni margen.",
+  alto: "Precio de referencia del Diésel B5 con más de 50 ppm de azufre, sin impuestos ni margen.",
+};
+
+// Botón "?" con una explicación (Tippy); sin la librería, la explicación queda en el title.
+const ayuda = texto => texto ? el("button", { type: "button", class: "ayuda", "aria-label": texto, "data-tippy-content": texto }, "?") : "";
+function activarAyudas(raiz) {
+  const botones = [...raiz.querySelectorAll(".ayuda:not([data-lista])")];
+  botones.forEach(b => b.dataset.lista = "1");
+  if (window.tippy) tippy(botones, { theme: "unacem", maxWidth: 300, placement: "top", appendTo: () => document.body });
+  else botones.forEach(b => b.title = b.dataset.tippyContent);
+}
+
+const ZONAS = [
+  ["Norte", ["TALARA", "PIURA", "ETEN", "EL MILAGRO", "SALAVERRY", "CHIMBOTE"]],
+  ["Lima y centro", ["SUPE", "CALLAO", "CONCHAN", "PISCO", "CERRO DE PASCO"]],
+  ["Sur", ["MOLLENDO", "ILO", "CUSCO", "JULIACA"]],
+  ["Oriente", ["TARAPOTO", "YURIMAGUAS", "IQUITOS", "PUCALLPA", "PTO. MALDONADO"]],
+];
+const zonaDe = p => ZONAS.find(([, l]) => l.includes(p))?.[0] || "Otras";
+let selectorPlanta = null;
+
+// Elige una planta en el filtro sin volver a disparar el cambio.
+function ponerPlanta(planta) {
+  if (selectorPlanta) selectorPlanta.setValue(planta, true);
+  else document.getElementById("planta").value = planta;
+}
+
 function llenarPlantas() {
   let fuente = datos;
   if (estado.vista === "osinergmin") {  // solo plantas de la publicación más reciente
@@ -592,8 +835,43 @@ function llenarPlantas() {
   const plantas = Object.keys(fuente).sort((a, b) => a.localeCompare(b, "es"));
   if (!fuente[estado.planta]) estado.planta = estado.planta === "CONCHAN" && fuente.CALLAO ? "CALLAO" : fuente.CALLAO ? "CALLAO" : plantas[0];
   const sel = document.getElementById("planta");
-  sel.replaceChildren(...plantas.map(p => el("option", { value: p }, nombrePlanta(p))));
-  sel.value = estado.planta;
+  // Precio vigente de cada planta (B5 S-50 en Petroperú, B5 bajo azufre en Osinergmin) y su último cambio
+  const clave = estado.vista === "osinergmin" ? "bajo" : "DIESEL_B5_S50";
+  const opciones = plantas.map(p => {
+    const serie = fuente[p][clave] || [], a = serie.at(-1), b = serie.at(-2);
+    return { value: p, text: nombrePlanta(p), zona: zonaDe(p), precio: a?.precio, dir: a && b ? direccion(a.precio - b.precio) : "igual" };
+  }).sort((x, y) => ZONAS.findIndex(z => z[0] === x.zona) - ZONAS.findIndex(z => z[0] === y.zona) || x.text.localeCompare(y.text, "es"));
+  if (!window.TomSelect) {
+    sel.replaceChildren(...ZONAS.map(([z]) => z).concat("Otras").map(z => {
+      const grupo = opciones.filter(o => o.zona === z);
+      return grupo.length ? el("optgroup", { label: z }, ...grupo.map(o => el("option", { value: o.value }, o.text))) : "";
+    }));
+    sel.value = estado.planta;
+    return;
+  }
+  selectorPlanta?.destroy();
+  sel.replaceChildren();
+  const producto = estado.vista === "osinergmin" ? "B5 bajo azufre" : "B5 S-50";
+  selectorPlanta = new TomSelect(sel, {
+    options: opciones, items: [estado.planta], optgroupField: "zona", lockOptgroupOrder: true,
+    optgroups: ZONAS.map(([z]) => ({ value: z, label: z })).concat({ value: "Otras", label: "Otras" }),
+    searchField: ["text", "zona"], sortField: [{ field: "$order" }], maxOptions: null,
+    plugins: ["dropdown_input"], placeholder: "Buscar planta",
+    render: {
+      option: (d, esc) => `<div class="opcion"><span>${esc(d.text)}</span>${d.precio == null ? "" :
+        `<span class="opcion-precio" title="${producto}"><span class="${d.dir}">${d.dir === "igual" ? "" : FLECHA[d.dir] + " "}</span>S/ ${fmt(d.precio)}</span>`}</div>`,
+      item: (d, esc) => `<div>${esc(d.text)}</div>`,
+      optgroup_header: (d, esc) => `<div class="optgroup-header">${esc(d.label)}</div>`,
+      no_results: () => '<div class="no-results">Ninguna planta coincide con la búsqueda</div>',
+    },
+    onChange: v => {
+      if (!v || v === estado.planta) return;
+      estado.planta = v;
+      try { localStorage.setItem("planta", v); } catch {}
+      dibujar(true);
+    },
+    onDropdownOpen: dd => { if (window.Motion && !sinMovimiento.matches) Motion.animate(dd, { opacity: [0, 1], transform: ["translateY(-6px)", "none"] }, { duration: 0.18 }); },
+  });
 }
 
 // Dirección de un cambio de precio: "sube", "baja" o "igual".
@@ -602,7 +880,11 @@ const FLECHA = { sube: "▲", baja: "▼", igual: "=" };
 
 const nombrePlanta = p => p.toLowerCase().replace(/(^|[\s.])\S/g, s => s.toUpperCase());
 
+const textoPeriodo = () => estado.meses === -1 ? " desde enero de 2018" : !estado.meses ? " desde enero de 2023"
+  : ` en ${estado.meses === 12 ? "el último año" : `los últimos ${estado.meses} meses`}`;
+
 function desde() {
+  if (estado.meses === -1) return new Date("2018-01-01T00:00:00Z");  // solo en la vista de carbón
   if (!estado.meses) return new Date("2023-01-01T00:00:00Z");
   const d = new Date(); d.setUTCMonth(d.getUTCMonth() - estado.meses); return d;
 }
@@ -615,13 +897,23 @@ function precioEn(serie, fecha) {
 }
 
 // Hace rodar una cifra desde el precio anterior hasta el actual.
-function rodar(nodo, desde, hasta, animar) {
-  nodo.textContent = fmt(animar ? desde : hasta);
+function rodar(nodo, desde, hasta, animar, decimales = 2) {
+  const f = v => v.toLocaleString("es-PE", { minimumFractionDigits: decimales, maximumFractionDigits: decimales });
+  if (customElements.get("number-flow")) {
+    const nf = document.createElement("number-flow");
+    nf.locales = "es-PE";
+    nf.format = { minimumFractionDigits: decimales, maximumFractionDigits: decimales };
+    nodo.replaceChildren(nf);
+    nf.update(animar ? desde : hasta);
+    if (animar && desde !== hasta) setTimeout(() => nf.update(hasta), 420);
+    return;
+  }
+  nodo.textContent = f(animar ? desde : hasta);
   if (!animar || desde === hasta) return;
   const t0 = performance.now(), dur = 1100;
   const paso = t => {
     const k = Math.min(1, (t - t0) / dur), e = 1 - (1 - k) ** 3;
-    nodo.textContent = fmt(desde + (hasta - desde) * e);
+    nodo.textContent = f(desde + (hasta - desde) * e);
     if (k < 1) requestAnimationFrame(paso);
   };
   requestAnimationFrame(paso);
@@ -632,9 +924,14 @@ function dibujar(animar = false) {
   const cont = document.getElementById("contenido");
   cont.replaceChildren();
   cont.classList.toggle("animar", animar);
-  cont.setAttribute("aria-labelledby", estado.vista === "osinergmin" ? "tab-osinergmin" : "tab-petroperu");
-  if (estado.vista === "osinergmin") return dibujarOsinergmin(cont, animar);
-  if (estado.vista === "carbon") return dibujarCarbon(cont, animar);
+  cont.setAttribute("aria-labelledby", `tab-${estado.vista}`);
+  if (estado.vista === "osinergmin") dibujarOsinergmin(cont, animar);
+  else if (esMateria()) dibujarMateria(cont, animar, MATERIAS[estado.vista]);
+  else dibujarPetroperu(cont, animar);
+  activarAyudas(cont);
+}
+
+function dibujarPetroperu(cont, animar) {
   const planta = datos[estado.planta];
   const inicio = desde();
 
@@ -646,7 +943,7 @@ function dibujar(animar = false) {
   for (const prod of PRODUCTOS) {
     const s = planta[prod.clave];
     const fila = el("div", { class: "fila-precio" },
-      el("div", { class: "prod" }, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre));
+      el("div", { class: "prod" }, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre, ayuda(AYUDAS[prod.clave])));
     letrero.append(fila);
     if (!s?.length) { fila.append(el("div", { class: "cifra" }, "—"), el("div", { class: "cambios" }, "Sin precio en esta planta")); continue; }
     const actual = s.at(-1), anterior = s.at(-2), base = precioEn(s, inicio) || s[0];
@@ -663,7 +960,7 @@ function dibujar(animar = false) {
     const dBase = actual.precio - base.precio, pct = dBase / base.precio * 100, dirBase = direccion(dBase);
     cambios.append(el("div", {}, el("span", { class: dirBase },
       `${FLECHA[dirBase]} ${dBase >= 0 ? "+" : "−"}${fmt(Math.abs(dBase))} (${pct >= 0 ? "+" : "−"}${Math.abs(pct).toFixed(1)}%)`),
-      estado.meses ? ` en ${estado.meses === 12 ? "el último año" : `los últimos ${estado.meses} meses`}` : " desde enero de 2023"));
+      textoPeriodo()));
     let ultimoCambio = null;
     for (let i = s.length - 1; i > 0; i--) if (direccion(s[i].precio - s[i - 1].precio) !== "igual") { ultimoCambio = s[i].fecha; break; }
     if (ultimoCambio && +ultimoCambio !== +actual.fecha) cambios.append(el("div", {}, `Último cambio: ${fFecha(ultimoCambio)}`));
@@ -731,7 +1028,7 @@ function dibujarOsinergmin(cont, animar) {
   for (const prod of OSI_PRODUCTOS) {
     const s = planta[prod.clave];
     const fila = el("div", { class: "fila-precio" },
-      el("div", { class: "prod" }, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre));
+      el("div", { class: "prod" }, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre, ayuda(AYUDAS[prod.clave])));
     letrero.append(fila);
     if (!s?.length) { fila.append(el("div", { class: "cifra" }, "—"), el("div", { class: "cambios" }, "Sin dato en esta planta")); continue; }
     const actual = s.at(-1), anterior = s.at(-2), base = precioEn(s, inicio) || s[0];
@@ -748,7 +1045,7 @@ function dibujarOsinergmin(cont, animar) {
     const dBase = actual.precio - base.precio, p100 = dBase / base.precio * 100, dirBase = direccion(dBase);
     cambios.append(el("div", {}, el("span", { class: dirBase },
       `${FLECHA[dirBase]} ${dBase >= 0 ? "+" : "−"}${fmt(Math.abs(dBase))} (${p100 >= 0 ? "+" : "−"}${Math.abs(p100).toFixed(1)}%)`),
-      estado.meses ? ` en ${estado.meses === 12 ? "el último año" : `los últimos ${estado.meses} meses`}` : " desde enero de 2023"));
+      textoPeriodo()));
     fila.append(cambios);
   }
   const logistico = planta.logistico.at(-1)?.precio;
@@ -801,44 +1098,95 @@ function dibujarOsinergmin(cont, animar) {
   cont.append(c4);
 }
 
-// Carbón importado (monitor semanal): costo puesto en planta Conchán, en USD por tonelada.
-const moneda = () => estado.vista === "carbon" ? "US$" : "S/";
-const fmtDetalle = v => estado.vista === "carbon" ? fmt(v) : fmt4(v);
-// El rojo es siempre el carbón de Colombia (el que se compra); los índices, azul y gris.
+// Carbón bituminoso (monitor semanal): precio FOB Colombia y CFR Muelle Conchán, en USD por tonelada.
+const esMateria = () => estado.vista in MATERIAS;
+const moneda = () => esMateria() ? "US$" : "S/";
+const fmtDetalle = v => esMateria() ? fmt(v) : fmt4(v);
+// Rojo: el material que se compra (FOB); tinta: CFR Conchán; azul y gris: referencias de mercado.
 const CARBON_INDICES = [
   { clave: "carbon_newcastle_fob", nombre: "Newcastle FOB (Australia)", corto: "Newcastle", color: "--series-1" },
   { clave: "carbon_api4_fob_rb", nombre: "API4 FOB Richards Bay (Sudáfrica)", corto: "API4", color: "--alto-azufre" },
   { clave: "carbon_api2_cif_ara", nombre: "API2 CIF Rotterdam (Europa)", corto: "API2", color: "--series-1", punteada: true },
-  { clave: "carbon_col_fob", nombre: "FOB Colombia (estimado)", corto: "FOB Colombia", color: "--series-2" },
-];
-const CARBON_COSTO = [
-  { clave: "carbon_landed", nombre: "Puesto en planta Conchán", corto: "Puesto en planta", color: "--text-primary" },
-  { clave: "carbon_cif", nombre: "CIF Conchán (FOB + flete + seguro)", corto: "CIF Conchán", color: "--series-2", punteada: true },
-  { clave: "carbon_col_fob", nombre: "FOB Colombia (estimado)", corto: "FOB Colombia", color: "--series-2" },
+  { clave: "carbon_col_fob", nombre: "FOB Colombia", corto: "FOB Colombia", color: "--series-2" },
 ];
 const URL_REPO = "https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES";
+const ORIGEN_ESCORIA = {
+  jp_exp_escoria_pe_fob_usd_t: "Exportaciones de Japón a Perú (UN Comtrade)",
+  jp_exp_escoria_mundo_fob_usd_t: "Exportaciones de Japón al mundo (UN Comtrade)",
+  comtrade_anual: "Exportaciones de Japón a Perú del año (UN Comtrade)",
+  ultimo_dato: "Último dato de UN Comtrade",
+  supuesto: "Valor de referencia: aún sin datos de UN Comtrade",
+};
+const MATERIAS = {
+  carbon: {
+    clave: "carbon", fob: "carbon_col_fob", flete: "carbon_flete", cfr: "carbon_cfr", kcal: true,
+    nombreCorto: "carbón", del: "del carbón", origen: "Colombia", fobNombre: "FOB Colombia",
+    titulo: "Precios internacionales del carbón",
+    bajada: "Carbón bituminoso de Colombia: precio FOB y CFR Muelle Conchán, con los índices internacionales. Dólares por tonelada, promedio mensual.",
+    letrero: "Carbón bituminoso de Colombia", ruta: "Colombia→Conchán (vía Panamá)",
+    resumen: r => r, fuenteFob: r => r.fuente_carbon_fob || "",
+    origenFob: () => "Estimado con el índice Newcastle",
+    referencias: { titulo: "Índices internacionales", series: CARBON_INDICES,
+      nota: "Newcastle: Australia (Pacífico). API4: Sudáfrica. API2: entregado en Europa, aparece si se carga el CSV de Investing. Promedio mensual en dólares por tonelada." },
+    indicadores: f => !f.serie.includes("escoria"),
+    notas: [
+      "No hay un precio público diario del carbón colombiano. Para los meses sin cotización, el FOB se estima con el índice Newcastle y un ratio calibrado con el comercio exterior Colombia→Perú (UN Comtrade). Una cotización cargada siempre tiene prioridad.",
+      "El flete Colombia→Conchán (vía Canal de Panamá) se estima con el precio del Brent, salvo que haya un flete cotizado.",
+      "Las fuentes públicas publican promedios mensuales con un mes de rezago; el monitor las revisa cada lunes.",
+    ],
+  },
+  escoria: {
+    clave: "escoria", fob: "escoria_fob", flete: "escoria_flete", cfr: "escoria_cfr", kcal: false,
+    nombreCorto: "la escoria", del: "de la escoria", origen: "Japón", fobNombre: "FOB Japón",
+    titulo: "Precio de la escoria granulada",
+    bajada: "Escoria granulada de alto horno (GBFS) de Japón: precio FOB y CFR Muelle Conchán, con el comercio exterior Japón→Perú. Dólares por tonelada, promedio mensual.",
+    letrero: "Escoria granulada de Japón", ruta: "Japón→Conchán (ruta de retorno desde Asia)",
+    resumen: r => r.escoria || {}, fuenteFob: r => r.fuente_fob || "",
+    origenFob: f => ORIGEN_ESCORIA[f] || "Estimado con datos de comercio exterior",
+    referencias: { titulo: "Comercio exterior Japón→Perú", series: [
+      { clave: "escoria_fob", nombre: "FOB Japón", corto: "FOB Japón", color: "--series-2" },
+      { clave: "escoria_cif_comtrade", nombre: "CIF real Perú desde Japón (UN Comtrade)", corto: "CIF Comtrade", color: "--series-1" },
+      { clave: "escoria_cfr", nombre: "CFR Conchán", corto: "CFR Conchán", color: "--text-primary" },
+    ], nota: "No hay un índice público de la escoria. El CFR se compara con lo que Perú declaró al importar escoria de Japón (UN Comtrade, CIF). Promedio mensual en dólares por tonelada." },
+    indicadores: f => f.serie.includes("escoria") || ["brent", "fx_pen_usd"].includes(f.serie),
+    notas: [
+      "No hay un índice público ni un precio diario de la escoria granulada. Para los meses sin cotización, el FOB es el valor de las exportaciones de Japón a Perú en UN Comtrade (mensual o anual); si falta, se usa el último dato.",
+      "El flete Japón→Conchán se estima con el precio del Brent y se calibra con la diferencia entre el CIF de Perú y el FOB de Japón (UN Comtrade). Es una ruta de retorno desde Asia: por eso el flete por tonelada es bajo para un viaje tan largo.",
+      "El valor de aduanas de Japón puede estar subdeclarado por precios internos de las tradings; en la escoria, el CFR total es más confiable que su desglose.",
+    ],
+  },
+};
 
 // Muestra de color de una serie; rayada si la línea es punteada.
-const chipSerie = p => el("span", { class: "chip", style: p.punteada
-  ? `background:repeating-linear-gradient(90deg,var(${p.color}) 0 4px,transparent 4px 6px)` : `background:var(${p.color})` });
+const chipSerie = (p, enLetrero = false) => el("span", { class: "chip", style: p.punteada
+  ? `background:repeating-linear-gradient(90deg,var(${p.color}) 0 4px,transparent 4px 6px)`
+  : `background:var(${enLetrero && p.chipLetrero ? p.chipLetrero : p.color})` });
 
-function dibujarCarbon(cont, animar) {
-  if (!carbon.carbon_landed?.length) {
-    cont.append(el("p", { class: "estado" }, "Aún no hay datos del carbón importado. Se cargan en la próxima ejecución del monitor (cada lunes)."));
+// Vista de una materia prima importada (carbón o escoria): FOB + flete = CFR Muelle Conchán.
+function dibujarMateria(cont, animar, M) {
+  if (!carbon[M.cfr]?.length) {
+    cont.append(el("p", { class: "estado" }, `Aún no hay precios de ${M.nombreCorto}. Se cargan en la próxima ejecución del monitor, cada lunes.`));
     return;
   }
-  const inicio = desde(), ultimo = carbon.carbon_landed.at(-1).fecha, r = carbonResumen || {};
-  const periodo = estado.meses ? ` en ${estado.meses === 12 ? "el último año" : `los últimos ${estado.meses} meses`}` : " desde enero de 2023";
+  const inicio = desde(), r = M.resumen(carbonResumen || {}), periodo = textoPeriodo();
+  const fuenteFob = M.fuenteFob(r);
+  const PRECIO = [
+    { clave: M.fob, nombre: M.fobNombre, corto: M.fobNombre, color: "--series-2" },
+    { clave: M.cfr, nombre: "CFR Muelle Conchán", corto: "CFR Conchán", color: "--text-primary", chipLetrero: "--letrero-texto" },
+  ];
+  const enMes = (k, f) => carbon[k]?.find(x => +x.fecha === +f)?.precio;
 
-  // Letrero: precios internacionales del último mes
-  const indices = CARBON_INDICES.filter(p => carbon[p.clave]?.length);
-  const letrero = el("section", { class: "letrero", "aria-label": "Precios internacionales del carbón" },
-    el("div", { class: "letrero-cab" }, el("h2", {}, "Precios internacionales"),
-      el("p", {}, `Dólares por tonelada, promedio de ${fMesLargo(ultimo)}`)));
-  for (const prod of indices) {
+  // Letrero: FOB y CFR Conchán del último mes
+  const ultimo = carbon[M.cfr].at(-1).fecha;
+  const letrero = el("section", { class: "letrero", "aria-label": `Precio de ${M.nombreCorto}` },
+    el("div", { class: "letrero-cab" }, el("h2", {}, M.letrero),
+      el("p", {}, `Dólares por tonelada${M.kcal && r.kcal_spec ? `, ${r.kcal_spec.toLocaleString("es-PE")} kcal/kg` : ""}, ${fMesLargo(ultimo)}`)));
+  for (const prod of PRECIO) {
     const s = carbon[prod.clave];
-    const fila = el("div", { class: "fila-precio" },
-      el("div", { class: "prod" }, chipSerie(prod), prod.nombre));
+    const fila = el("div", { class: "fila-precio" }, el("div", { class: "prod" }, chipSerie(prod, true), prod.nombre,
+      ayuda(prod.clave === M.cfr
+        ? `CFR (costo y flete): precio ${M.del} puesto en el Muelle Conchán. Es el FOB más el flete marítimo, sin seguro ni gastos en el puerto.`
+        : `FOB (libre a bordo): precio ${M.del} cargado en el barco en ${M.origen}, sin flete.`)));
     letrero.append(fila);
     if (!s?.length) { fila.append(el("div", { class: "cifra" }, "—"), el("div", { class: "cambios" }, "Sin dato")); continue; }
     const actual = s.at(-1), anterior = s.at(-2), base = precioEn(s, inicio) || s[0];
@@ -855,18 +1203,22 @@ function dibujarCarbon(cont, animar) {
     const dBase = actual.precio - base.precio, p100 = dBase / base.precio * 100, dirBase = direccion(dBase);
     cambios.append(el("div", {}, el("span", { class: dirBase },
       `${FLECHA[dirBase]} ${dBase >= 0 ? "+" : "−"}${fmt(Math.abs(dBase))} (${p100 >= 0 ? "+" : "−"}${Math.abs(p100).toFixed(1)}%)`), periodo));
+    if (prod.clave === M.fob) cambios.append(el("div", {}, M.origenFob(fuenteFob)));
     if (+actual.fecha !== +ultimo) cambios.append(el("div", {}, `Último dato: ${fMesLargo(actual.fecha)}`));
+    if (prod.clave === M.cfr && r.referencia_cfr_usd_t) {
+      const dr = actual.precio - r.referencia_cfr_usd_t;
+      cambios.append(el("div", {}, Math.abs(dr) < 0.005 ? `Igual a la referencia de US$ ${fmt(r.referencia_cfr_usd_t)}`
+        : `US$ ${fmt(Math.abs(dr))} ${dr > 0 ? "sobre" : "bajo"} la referencia de US$ ${fmt(r.referencia_cfr_usd_t)}`));
+    }
     fila.append(cambios);
   }
-  const ult = k => carbon[k]?.at(-1)?.precio;
-  const fob = r.fuente_carbon_fob || "";
-  const origenFob = fob.startsWith("nowcast_") ? `estimado con el índice ${fob.includes("api2") ? "API2" : "Newcastle"} × ratio Colombia/índice`
-    : fob ? "tomado de cotizaciones o de comercio exterior" : "";
-  letrero.append(el("p", { class: "letrero-pie" }, [
-    "Newcastle: carbón australiano (Pacífico). API4: Sudáfrica. API2: entregado en Europa (requiere cargar el CSV de Investing).",
-    origenFob ? ` FOB Colombia ${origenFob}.` : "",
-  ].join("")));
+  const flete = carbon[M.flete]?.at(-1);
+  if (flete) letrero.append(el("p", { class: "letrero-pie" },
+    `Flete marítimo ${M.ruta}: US$ ${fmt(flete.precio)} por tonelada, estimado con el Brent.`));
   cont.append(letrero);
+
+  // Conveniencia de compra y simulación a 12 meses
+  seccionConveniencia(cont, M, r.conveniencia, animar);
 
   // Alertas del monitor
   const c0 = el("section", { class: "bloque" });
@@ -874,48 +1226,60 @@ function dibujarCarbon(cont, animar) {
   for (const a of r.alertas || []) lista.append(el("li", {}, a));
   if (!r.alertas?.length) lista.append(el("li", { class: "ok" }, "Sin alertas este mes."));
   c0.append(el("h2", {}, "Alertas"),
-    el("p", { class: "nota" }, "Variaciones mensuales fuertes, valores fuera del rango de 24 meses o costo por encima del presupuesto."), lista);
+    el("p", { class: "nota" }, "Compra conveniente, variaciones mensuales fuertes o valores fuera del rango de 24 meses. Las nuevas llegan por correo."), lista);
   cont.append(c0);
 
-  // Índices internacionales
-  if (indices.length) {
-    const c2 = el("section", { class: "bloque" });
-    c2.append(el("h2", {}, "Evolución de los precios internacionales"),
-      el("p", { class: "nota" }, "Índices de mercado y carbón colombiano, en dólares por tonelada, promedio mensual."));
-    const g2 = el("div", { class: "grafico", "data-titulo": "Índices internacionales del carbón" });
-    c2.append(g2);
-    const ley2 = el("div", { class: "leyenda" });
-    for (const p of indices) ley2.append(el("span", {}, chipSerie(p), p.nombre));
-    c2.append(ley2);
-    cont.append(c2);
-    graficoLineas(g2, carbon, inicio, indices.map(p => ({ ...p, serie: carbon[p.clave] })));
-  }
+  // FOB y flete = CFR: tabla del último mes y columnas mes a mes
+  const PARTES = [
+    { clave: M.fob, nombre: "Precio FOB (material)", color: "--series-2" },
+    { clave: M.flete, nombre: "Flete marítimo", color: "--alto-azufre" },
+  ];
+  const fAnt = carbon[M.cfr].at(-2)?.fecha;
+  const cd = el("section", { class: "bloque" });
+  cd.append(el("h2", {}, "Del FOB al CFR Conchán"),
+    el("p", { class: "nota" }, "El CFR es el precio FOB más el flete marítimo. Dólares por tonelada."));
+  const t = el("table", {}, el("thead", {}, el("tr", {}, ...["Concepto", fMesLargo(ultimo), "% del CFR", fAnt ? fMesLargo(fAnt) : "", "Variación"].map(x => el("th", {}, x)))));
+  const tbd = el("tbody"), total = enMes(M.cfr, ultimo);
+  const filaD = (nombre, k, chip) => {
+    const v = enMes(k, ultimo), a = fAnt ? enMes(k, fAnt) : null, d = v != null && a != null ? v - a : null, dir = d == null ? "igual" : direccion(d);
+    tbd.append(el("tr", chip ? {} : { class: "total" },
+      el("td", {}, ...(chip ? [chip, " "] : []), nombre), el("td", {}, v == null ? "—" : fmt(v)),
+      el("td", {}, v == null ? "—" : `${(v / total * 100).toFixed(1)}%`), el("td", {}, a == null ? "—" : fmt(a)),
+      el("td", dir === "igual" ? {} : { class: dir }, el("span", { class: "flecha", "aria-hidden": "true" }, dir === "igual" ? "" : FLECHA[dir]),
+        d == null ? "—" : `${d >= 0 ? "+" : "−"}${fmt(Math.abs(d))}`)));
+  };
+  for (const p of PARTES) filaD(p.nombre, p.clave, chipSerie(p));
+  filaD("CFR Muelle Conchán", M.cfr);
+  t.append(tbd);
+  const gd = el("div", { class: "grafico", "data-titulo": `FOB y flete ${M.del}, mes a mes` });
+  const leyD = el("div", { class: "leyenda" });
+  for (const p of PARTES) leyD.append(el("span", {}, chipSerie(p), p.nombre));
+  leyD.append(el("span", { class: "muted" }, "Columna completa: CFR Conchán"));
+  cd.append(el("div", { class: "tabla-scroll", style: "max-height:none" }, t),
+    el("h3", { class: "subtitulo" }, "Mes a mes"), gd, leyD);
+  cont.append(cd);
+  graficoApilado(gd, carbon[M.cfr].filter(x => x.fecha >= inicio || +x.fecha === +ultimo).map(x => ({
+    fecha: x.fecha, total: x.precio, partes: PARTES.map(p => enMes(p.clave, x.fecha) ?? 0),
+  })), PARTES, "CFR Conchán");
 
-  // Evolución del costo
-  const c1 = el("section", { class: "bloque" });
-  const presupuesto = r.presupuesto_landed_usd_t, landed = ult("carbon_landed");
-  c1.append(el("h2", {}, "Costo puesto en planta Conchán"),
-    el("p", { class: "nota" }, "FOB Colombia, más flete y seguro (CIF), más costos de internamiento en Conchán. Dólares por tonelada, promedio mensual."),
-    el("p", { style: "margin:10px 0 0;font-size:16px" },
-      el("strong", {}, `US$ ${fmt(landed)} por tonelada en ${fMesLargo(ultimo)}`),
-      ult("carbon_landed_pen") != null ? ` (S/ ${fmt(ult("carbon_landed_pen"))}; US$ ${fmt(ult("carbon_usd_gj"))} por GJ)` : "",
-      presupuesto ? `, US$ ${fmt(Math.abs(landed - presupuesto))} ${landed > presupuesto ? "sobre" : "bajo"} el presupuesto de US$ ${fmt(presupuesto)}.` : ".",
-      ult("carbon_flete") != null ? ` Flete Colombia→Conchán: US$ ${fmt(ult("carbon_flete"))}/t.` : ""));
-  const g1 = el("div", { class: "grafico", "data-titulo": "Evolución del costo del carbón puesto en planta Conchán" });
-  c1.append(g1);
-  const ley1 = el("div", { class: "leyenda" });
-  for (const p of CARBON_COSTO) ley1.append(el("span", {}, chipSerie(p), p.nombre));
-  c1.append(ley1);
-  cont.append(c1);
-  graficoLineas(g1, carbon, inicio, CARBON_COSTO.map(p => ({ ...p, serie: carbon[p.clave] })));
+  // Referencias de mercado: índices internacionales (carbón) o comercio exterior (escoria)
+  const indices = M.referencias.series.filter(p => carbon[p.clave]?.length);
+  const c2 = el("section", { class: "bloque" });
+  c2.append(el("h2", {}, M.referencias.titulo), el("p", { class: "nota" }, M.referencias.nota));
+  const g2 = el("div", { class: "grafico", "data-titulo": M.referencias.titulo });
+  const ley2 = el("div", { class: "leyenda" });
+  for (const p of indices) ley2.append(el("span", {}, chipSerie(p), p.nombre));
+  c2.append(g2, ley2);
+  cont.append(c2);
+  graficoLineas(g2, carbon, inicio, indices.map(p => ({ ...p, serie: carbon[p.clave] })));
 
   // Indicadores del modelo
   const c3 = el("section", { class: "bloque tabla-card" });
   const fmtPct = v => v === "" || v == null || isNaN(+v) ? "—" : `${+v > 0 ? "+" : +v < 0 ? "−" : ""}${Math.abs(+v).toFixed(1)}%`;
-  const tabla = el("table", {}, el("thead", {}, el("tr", {}, ...["Indicador", "Mes", "Último", "Variación mensual", "Variación anual", "Promedio 12 meses"].map(t => el("th", {}, t)))));
+  const tabla = el("table", {}, el("thead", {}, el("tr", {}, ...["Indicador", "Mes", "Último", "Variación mensual", "Variación anual", "Promedio 12 meses"].map(x => el("th", {}, x)))));
   const tb = el("tbody");
-  for (const f of carbonInd) {
-    const dec = /tipo de cambio|ratio|\/|participación|vs/i.test(f.descripcion) && !/USD\/t|PEN\/t|USD\/GJ|USD\/bbl/.test(f.descripcion) ? 3 : 2;
+  for (const f of carbonInd.filter(M.indicadores)) {
+    const dec = /tipo de cambio|ratio|\/|participación|vs/i.test(f.descripcion) && !/USD\/t|PEN\/t|USD\/bbl/.test(f.descripcion) ? 3 : 2;
     const num = v => v === "" || isNaN(+v) ? "—" : (+v).toLocaleString("es-PE", { minimumFractionDigits: dec, maximumFractionDigits: dec });
     const dir = f.var_mensual_pct === "" ? "igual" : direccion(+f.var_mensual_pct / 100);
     tb.append(el("tr", {}, el("td", {}, f.descripcion), el("td", {}, fMes(new Date(f.mes + "-01T00:00:00Z"))), el("td", {}, num(f.ultimo)),
@@ -926,25 +1290,134 @@ function dibujarCarbon(cont, animar) {
   const det = el("details", {}, el("summary", {}, "Ver indicadores del modelo"),
     el("p", { class: "nota", style: "margin-top:6px" }, "▲ en ámbar: subió frente al mes anterior. ▼ en verde: bajó. Cada indicador muestra su último mes con dato."),
     el("div", { class: "tabla-scroll" }, tabla));
-  const csv = el("a", { class: "boton-excel", href: "reportes/carbon/modelo_mensual.csv", download: "carbon-modelo-mensual.csv",
-    title: "Modelo mensual completo desde 2019, en CSV (se abre en Excel)" });
+  const csv = el("a", { class: "boton-excel", href: "reportes/carbon/modelo_mensual.csv", download: "carbon-escoria-modelo-mensual.csv",
+    title: "Modelo mensual completo de carbón y escoria desde 2018, en CSV (se abre en Excel)" });
   csv.innerHTML = ICONO_EXCEL + "<span>Descargar CSV</span>";
   c3.append(csv, det);
   cont.append(c3);
 
-  // Metodología y supuestos
+  // Metodología
   const c4 = el("section", { class: "bloque" });
-  c4.append(el("h2", {}, "Sobre estos costos"),
-    el("ul", { class: "explicacion" },
-      el("li", {}, "No hay un precio público diario del carbón colombiano: el FOB se estima con un índice internacional y un ratio calibrado con datos de comercio exterior (UN Comtrade). Si cargas cotizaciones propias, se usan primero."),
-      el("li", {}, "El flete Colombia→Conchán (vía Canal de Panamá) se ajusta con el Brent. Al CIF se le suman agente de aduanas, descarga, almacenaje y transporte a planta."),
-      el("li", {}, "El IGV es crédito fiscal: no se suma al costo."),
-      el("li", {}, "Los supuestos (poder calorífico, costos portuarios, presupuesto) están en carbon/config.yaml y se pueden ajustar.")),
+  c4.append(el("h2", {}, "Sobre estos precios"),
+    el("ul", { class: "explicacion" }, ...M.notas.map(t => el("li", {}, t))),
     el("div", { class: "enlaces" },
-      el("a", { href: `${URL_REPO}/blob/main/reportes/carbon/ultimo_reporte.md` }, "Ver el reporte completo del monitor"),
+      el("a", { href: `${URL_REPO}/blob/main/reportes/carbon/ultimo_reporte.md` }, "Reporte completo del monitor"),
       el("a", { href: `${URL_REPO}/blob/main/carbon/README.md` }, "Metodología"),
       el("a", { href: `${URL_REPO}/blob/main/carbon/config.yaml` }, "Supuestos")));
   cont.append(c4);
+}
+
+// Bloque "¿Conviene comprar ahora?" y simulación de precios a 12 meses de una materia prima.
+function seccionConveniencia(cont, M, c, animar) {
+  if (!c) return;
+  const clase = c.etiqueta === "Compra conveniente" ? "conveniente" : c.etiqueta === "Conviene esperar" ? "esperar" : "neutral";
+  const icono = "●";
+  const pct = v => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(1)}%`;
+  const sec = el("section", { class: "bloque" });
+  sec.append(el("h2", {}, "¿Conviene comprar ahora?", ayuda(
+    "Índice de 0 a 100 sobre el CFR Conchán: 40% su posición en los últimos 36 meses (más barato suma), 30% su distancia al promedio de 12 meses (por debajo suma) y 30% el cambio que espera la simulación a 12 meses (si se espera que suba, conviene comprar ya). Desde 65: compra conveniente; bajo 35: conviene esperar.")),
+    el("p", { class: "nota" }, `CFR Muelle Conchán de ${fMesLargo(new Date(c.mes + "-01T00:00:00Z"))}: US$ ${fmt(c.cfr)} por tonelada. Cuando la compra es conveniente llega un aviso por correo.`));
+  const marca = el("span", { class: "medidor-marca", style: `left:${Math.max(0, Math.min(100, c.indice))}%` });
+  const numero = el("span");
+  const izq = el("div", {}, el("span", { class: `conv-etiqueta ${clase}` }, el("span", { "aria-hidden": "true" }, icono), c.etiqueta),
+    el("strong", { class: "conv-numero", "aria-label": `Índice ${Math.round(c.indice)} de 100` }, numero, el("small", {}, "/100")),
+    el("div", { class: "medidor", role: "img", "aria-label": `Índice ${Math.round(c.indice)} de 100: 0 a 35 conviene esperar, 35 a 65 neutral, 65 a 100 compra conveniente` }, marca),
+    el("div", { class: "medidor-escala", "aria-hidden": "true" }, el("span", {}, "Esperar"), el("span", {}, "Neutral"), el("span", {}, "Comprar")));
+  const fila = (t, v, d) => el("div", {}, el("dt", {}, t), el("dd", {}, v, el("small", {}, d)));
+  const ratios = el("dl", { class: "conv-ratios" },
+    fila("Frente al promedio de 12 meses", pct(c.frente_promedio_12m_pct), `US$ ${fmt(c.cfr)} frente a US$ ${fmt(c.promedio_12m)}`),
+    fila("Posición en los últimos 36 meses", `Percentil ${Math.round(c.percentil_36m)}`, "0 = el mes más barato, 100 = el más caro"),
+    fila("Cambio esperado a 12 meses", pct(c.cambio_esperado_12m_pct), c.cfr_12m_p50 != null ? `Mediana US$ ${fmt(c.cfr_12m_p50)}; 8 de cada 10 casos entre US$ ${fmt(c.cfr_12m_p10)} y ${fmt(c.cfr_12m_p90)}` : ""),
+    ...(c.flete_en_cfr_pct != null ? [fila("Peso del flete en el CFR", `${c.flete_en_cfr_pct.toFixed(1)}%`, `Mediana de 36 meses: ${c.flete_en_cfr_mediana_36m_pct.toFixed(1)}%`)] : []));
+  sec.append(el("div", { class: "conv" }, izq, ratios));
+  cont.append(sec);
+  rodar(numero, 0, c.indice, animar, 0);
+  if (window.Motion && animar) Motion.animate(marca, { left: ["0%", `${Math.max(0, Math.min(100, c.indice))}%`] }, { duration: 1.1, ease: [0.2, 0.7, 0.2, 1] });
+
+  // Simulación a 12 meses
+  const sim = carbonSim.filter(x => x.material === M.clave && x.serie === "cfr");
+  if (!sim.length) return;
+  const hist = carbon[M.cfr] || [];
+  const s2 = el("section", { class: "bloque" });
+  s2.append(el("h2", {}, "Simulación de precios a 12 meses", ayuda(
+    "5,000 trayectorias del FOB y del flete según su comportamiento mensual desde 2018 (modelo autorregresivo con choques correlacionados). El CFR de cada trayectoria es FOB + flete. Muestra rangos probables, no un pronóstico: no anticipa eventos que la historia no contiene.")),
+    el("p", { class: "nota" }, "CFR Muelle Conchán en dólares por tonelada: la historia y, a la derecha, la mediana y los rangos probables de la simulación."));
+  const g = el("div", { class: "grafico", "data-titulo": `Simulación a 12 meses del CFR ${M.del}` });
+  const ley = el("div", { class: "leyenda" },
+    el("span", {}, el("span", { class: "chip", style: "background:var(--text-primary)" }), "CFR histórico"),
+    el("span", {}, el("span", { class: "chip", style: "background:repeating-linear-gradient(90deg,var(--series-2) 0 4px,transparent 4px 6px)" }), "Mediana simulada"),
+    el("span", {}, el("span", { class: "chip", style: "background:color-mix(in srgb, var(--series-2) 30%, transparent)" }), "Rango probable (5 de cada 10 casos)"),
+    el("span", {}, el("span", { class: "chip", style: "background:color-mix(in srgb, var(--series-2) 13%, transparent)" }), "Rango amplio (8 de cada 10)"));
+  s2.append(g, ley);
+  const t = el("table", {}, el("thead", {}, el("tr", {}, ...["Horizonte", "Mes", "Bajo (P10)", "Mediana", "Alto (P90)"].map(x => el("th", {}, x)))));
+  const tb = el("tbody");
+  for (const h of [3, 6, 12]) {
+    const x = sim[h - 1]; if (!x) continue;
+    tb.append(el("tr", {}, el("td", {}, `En ${h} meses`), el("td", {}, fMes(x.fecha)), el("td", {}, fmt(x.p10)), el("td", { style: "font-weight:600" }, fmt(x.p50)), el("td", {}, fmt(x.p90))));
+  }
+  t.append(tb);
+  s2.append(el("div", { class: "tabla-scroll", style: "max-height:none" }, t));
+  cont.append(s2);
+  graficoProyeccion(g, hist.filter(x => x.fecha >= desde() || +x.fecha >= +hist.at(-1).fecha - 365 * 864e5), sim);
+}
+
+// Historia (línea) + simulación (mediana punteada y bandas P25–P75 y P10–P90).
+function graficoProyeccion(caja, hist, sim) {
+  const ancho = caja.clientWidth, alto = ancho < 560 ? 260 : 320;
+  const m = { t: 12, r: ancho < 560 ? 12 : 104, b: 28, l: 44 };
+  const x0 = +hist[0].fecha, x1 = +sim.at(-1).fecha;
+  const vals = [...hist.map(h => h.precio), ...sim.flatMap(s => [s.p10, s.p90])];
+  const yt = ticksBonitos(Math.min(...vals) * 0.97, Math.max(...vals) * 1.02);
+  const x = escala(x0, x1, m.l, ancho - m.r), y = escala(yt[0], yt.at(-1), alto - m.b, m.t);
+  const svg = el("svg:svg", { viewBox: `0 0 ${ancho} ${alto}`, height: alto, role: "img", "aria-label": caja.dataset.titulo || "Simulación" });
+  for (const v of yt) {
+    svg.append(el("svg:line", { x1: m.l, x2: ancho - m.r, y1: y(v), y2: y(v), stroke: css("--grid") }));
+    svg.append(el("svg:text", { x: m.l - 8, y: y(v) + 4, "text-anchor": "end" }, fmt(v)));
+  }
+  const pasoMeses = (x1 - x0) / 2.6e9 > 14 ? 3 : 1;
+  const d = new Date(x0); d.setUTCDate(1);
+  let ultX = -Infinity;
+  for (; +d <= x1; d.setUTCMonth(d.getUTCMonth() + pasoMeses)) {
+    const px = x(+d); if (px - ultX < (ancho < 560 ? 64 : 56)) continue; ultX = px;
+    svg.append(el("svg:text", { x: px, y: alto - 8, "text-anchor": "middle" }, fMes(d)));
+  }
+  svg.append(el("svg:line", { x1: m.l, x2: ancho - m.r, y1: alto - m.b, y2: alto - m.b, stroke: css("--axis") }));
+  // Las bandas arrancan en el último dato real, para que la simulación salga de él
+  const ult = hist.at(-1);
+  const puntos = [{ fecha: ult.fecha, p10: ult.precio, p25: ult.precio, p50: ult.precio, p75: ult.precio, p90: ult.precio }, ...sim];
+  const banda = (a, b) => "M" + puntos.map(p => `${x(+p.fecha)},${y(p[a])}`).join("L") + "L" + [...puntos].reverse().map(p => `${x(+p.fecha)},${y(p[b])}`).join("L") + "Z";
+  const rojo = css("--series-2");
+  svg.append(el("svg:path", { class: "tras-trazo", d: banda("p10", "p90"), fill: rojo, "fill-opacity": 0.13 }));
+  svg.append(el("svg:path", { class: "tras-trazo", d: banda("p25", "p75"), fill: rojo, "fill-opacity": 0.2 }));
+  svg.append(el("svg:path", { class: "tras-trazo", d: "M" + puntos.map(p => `${x(+p.fecha)},${y(p.p50)}`).join("L"), fill: "none", stroke: rojo, "stroke-width": 2, "stroke-dasharray": "6 4" }));
+  svg.append(el("svg:path", { class: "serie", pathLength: 1, d: "M" + hist.map(h => `${x(+h.fecha)},${y(h.precio)}`).join("L"), fill: "none", stroke: css("--text-primary"), "stroke-width": 2.25, "stroke-linejoin": "round" }));
+  svg.append(el("svg:circle", { cx: x(+ult.fecha), cy: y(ult.precio), r: 4.5, fill: css("--text-primary"), stroke: css("--papel"), "stroke-width": 2 }));
+  svg.append(el("svg:line", { x1: x(+ult.fecha), x2: x(+ult.fecha), y1: m.t, y2: alto - m.b, stroke: css("--axis"), "stroke-dasharray": "2 3" }));
+  if (ancho >= 560) {
+    const fin = sim.at(-1);
+    svg.append(el("svg:text", { class: "tras-trazo", x: x(x1) + 10, y: y(fin.p50) - 2, style: "fill:var(--text-secondary)" }, "Mediana"));
+    svg.append(el("svg:text", { class: "tras-trazo", x: x(x1) + 10, y: y(fin.p50) + 14, style: "fill:var(--text-primary);font:600 15px var(--f-titulo)" }, "US$ " + fmt(fin.p50)));
+  }
+  // Tooltip por mes
+  const tip = el("div", { class: "tooltip", role: "status" });
+  const guia = el("svg:line", { y1: m.t, y2: alto - m.b, stroke: css("--axis"), "stroke-dasharray": "3 3", opacity: 0 });
+  const zona = el("svg:rect", { x: m.l, y: m.t, width: ancho - m.l - m.r, height: alto - m.t - m.b, fill: "transparent" });
+  svg.append(guia, zona);
+  const todos = [...hist.map(h => ({ fecha: h.fecha, real: h.precio })), ...sim];
+  zona.addEventListener("pointermove", e => {
+    const r = svg.getBoundingClientRect(), px = (e.clientX - r.left) * ancho / r.width;
+    const f = x0 + (px - m.l) / (ancho - m.l - m.r) * (x1 - x0);
+    const p = todos.reduce((a, b) => Math.abs(+b.fecha - f) < Math.abs(+a.fecha - f) ? b : a);
+    guia.setAttribute("x1", x(+p.fecha)); guia.setAttribute("x2", x(+p.fecha)); guia.setAttribute("opacity", 1);
+    tip.replaceChildren(el("div", { class: "muted", style: "margin-bottom:4px" }, fMesLargo(p.fecha) + (p.real == null ? " (simulado)" : "")),
+      ...(p.real != null ? [el("div", { class: "fila" }, el("span", {}, "CFR"), el("strong", {}, "US$ " + fmt(p.real)))]
+        : [["Alto (P90)", p.p90], ["Mediana", p.p50], ["Bajo (P10)", p.p10]].map(([t, v]) => el("div", { class: "fila" }, el("span", {}, t), el("strong", {}, "US$ " + fmt(v))))));
+    tip.style.opacity = 1;
+    const xx = x(+p.fecha) * r.width / ancho;
+    tip.style.left = (xx + 16 + tip.offsetWidth > r.width ? xx - tip.offsetWidth - 16 : xx + 16) + "px"; tip.style.top = "12px";
+  });
+  zona.addEventListener("pointerleave", () => { tip.style.opacity = 0; guia.setAttribute("opacity", 0); });
+  caja.append(svg, tip);
 }
 
 // Tabla de una planta: una fila por fecha, una columna por serie, con ▲/▼ frente a la fila anterior.
@@ -989,7 +1462,7 @@ function bloquePanorama(cont, titulo, fuente, prods, principal, textos) {
 function irAPlanta(planta) {
   estado.planta = planta;
   try { localStorage.setItem("planta", planta); } catch {}
-  document.getElementById("planta").value = planta;
+  ponerPlanta(planta);
   dibujar(true);
   document.querySelector(".letrero")?.scrollIntoView({ behavior: sinMovimiento.matches ? "auto" : "smooth", block: "start" });
 }
@@ -1122,6 +1595,48 @@ function mapaPeru(caja, fuente, prods, principal, textos) {
   caja.append(svg, tip, ley);
 }
 
+// Columnas apiladas por mes (p. ej. FOB + gastos hasta CIF + internamiento), con tooltip.
+function graficoApilado(caja, meses, grupos, nombreTotal = "Total") {
+  if (!meses.length) return;
+  const ancho = caja.clientWidth, alto = ancho < 560 ? 240 : 300;
+  const m = { t: 12, r: 12, b: 28, l: 44 };
+  const yt = ticksBonitos(0, Math.max(...meses.map(x => x.partes.reduce((a, b) => a + b, 0))));
+  const y = escala(0, yt.at(-1), alto - m.b, m.t);
+  const paso = (ancho - m.l - m.r) / meses.length, w = Math.max(1, Math.min(36, paso * 0.72));
+  const svg = el("svg:svg", { viewBox: `0 0 ${ancho} ${alto}`, height: alto, role: "img", "aria-label": caja.dataset.titulo || "Desglose del costo" });
+  for (const v of yt) {
+    svg.append(el("svg:line", { x1: m.l, x2: ancho - m.r, y1: y(v), y2: y(v), stroke: css("--grid") }));
+    svg.append(el("svg:text", { x: m.l - 8, y: y(v) + 4, "text-anchor": "end" }, fmt(v).replace(/\.00$/, "")));
+  }
+  const cadaN = Math.max(1, Math.ceil(56 / paso));
+  const tip = el("div", { class: "tooltip", role: "status" });
+  meses.forEach((mm, i) => {
+    const cx = m.l + paso * (i + 0.5);
+    let base = 0;
+    mm.partes.forEach((v, j) => {
+      if (!v) return;
+      const y0 = y(base), y1 = y(base + v); base += v;
+      svg.append(el("svg:rect", { class: "barra-v", style: `--i:${i}`, x: cx - w / 2, y: y1, width: w, height: Math.max(0, y0 - y1 - (j < mm.partes.length - 1 ? 1 : 0)),
+        fill: css(grupos[j].color), rx: j === mm.partes.length - 1 ? Math.min(3, w / 3) : 0 }));
+    });
+    if (i % cadaN === 0) svg.append(el("svg:text", { x: cx, y: alto - 8, "text-anchor": "middle" }, fMes(mm.fecha)));
+    const hit = el("svg:rect", { x: cx - paso / 2, y: m.t, width: paso, height: alto - m.t - m.b, fill: "transparent" });
+    hit.addEventListener("pointermove", e => {
+      tip.replaceChildren(el("div", { class: "muted", style: "margin-bottom:4px" }, fMesLargo(mm.fecha)),
+        ...grupos.map((g, j) => el("div", { class: "fila" }, el("span", {}, chipSerie(g), g.nombre), el("strong", {}, "US$ " + fmt(mm.partes[j])))),
+        el("div", { class: "fila", style: "border-top:1px solid var(--border);margin-top:4px;padding-top:4px" }, el("span", {}, nombreTotal), el("strong", {}, "US$ " + fmt(mm.total))));
+      tip.style.opacity = 1;
+      const r = svg.getBoundingClientRect(), px = (e.clientX - r.left);
+      tip.style.left = (px + 16 + tip.offsetWidth > r.width ? px - tip.offsetWidth - 16 : px + 16) + "px";
+      tip.style.top = m.t + "px";
+    });
+    hit.addEventListener("pointerleave", () => tip.style.opacity = 0);
+    svg.append(hit);
+  });
+  svg.append(el("svg:line", { x1: m.l, x2: ancho - m.r, y1: alto - m.b, y2: alto - m.b, stroke: css("--axis") }));
+  caja.append(svg, tip);
+}
+
 function escala(d0, d1, r0, r1) { return v => r0 + (v - d0) / (d1 - d0 || 1) * (r1 - r0); }
 
 function ticksBonitos(min, max, n = 5) {
@@ -1243,7 +1758,7 @@ function graficoLineas(caja, planta, inicio, defs = null, conCambios = false) {
     const f = new Date(Math.max(x0, Math.min(x1, x0 + (px - m.l) / (ancho - m.l - m.r) * (x1 - x0))));
     const xx = x(+f);
     guia.setAttribute("x1", xx); guia.setAttribute("x2", xx); guia.setAttribute("opacity", 1);
-    tip.replaceChildren(el("div", { class: "muted", style: "margin-bottom:4px" }, estado.vista === "carbon" ? fMesLargo(precioEn(series[0].pts, f)?.fecha || f) : fFecha(f)));
+    tip.replaceChildren(el("div", { class: "muted", style: "margin-bottom:4px" }, esMateria() ? fMesLargo(precioEn(series[0].pts, f)?.fecha || f) : fFecha(f)));
     series.forEach((s, i) => {
       const p = precioEn(s.pts, f);
       puntos[i].setAttribute("opacity", p ? 1 : 0);
@@ -1315,7 +1830,7 @@ function graficoBarras(caja, fuente = datos, prods = PRODUCTOS) {
         tip.style.top = (yy * rc.height / alto - tip.offsetHeight - 6) + "px";
       });
       hit.addEventListener("pointerleave", () => tip.style.opacity = 0);
-      hit.addEventListener("click", () => { estado.planta = f.planta; document.getElementById("planta").value = f.planta; dibujar(true); });
+      hit.addEventListener("click", () => { estado.planta = f.planta; ponerPlanta(f.planta); dibujar(true); });
       hit.style.cursor = "pointer";
       svg.append(hit);
     });
@@ -1324,7 +1839,8 @@ function graficoBarras(caja, fuente = datos, prods = PRODUCTOS) {
   caja.append(svg, tip);
 }
 
-iniciar();
+// Las librerías (defer) se cargan antes de DOMContentLoaded; si fallan, el tablero funciona sin ellas.
+document.addEventListener("DOMContentLoaded", iniciar);
 </script>
 </body>
 </html>

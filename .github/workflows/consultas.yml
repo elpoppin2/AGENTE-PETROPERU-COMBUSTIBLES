@@ -1,0 +1,63 @@
+name: Consultas al agente
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  responder:
+    # Solo consultas con la etiqueta "consulta" y de personas con acceso al repositorio:
+    # el repositorio es público y así nadie más gasta la clave de la API.
+    if: >-
+      contains(github.event.issue.labels.*.name, 'consulta') &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.issue.author_association)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install anthropic requests beautifulsoup4
+
+      - name: Responder con el agente
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          TITULO_ISSUE: ${{ github.event.issue.title }}
+          CUERPO_ISSUE: ${{ github.event.issue.body }}
+        run: |
+          export PREGUNTA="$TITULO_ISSUE"$'\n\n'"$CUERPO_ISSUE"
+          if [ -z "$ANTHROPIC_API_KEY" ] || [ ! -f agente/ids.json ]; then
+            printf '%s\n' "El agente de consultas aún no está activo: falta guardar el secreto ANTHROPIC_API_KEY y correr *Actions → Configurar agente de consultas*." > respuesta.md
+          else
+            python agente/consultar.py respuesta.md
+          fi
+
+      - name: Publicar la respuesta
+        if: ${{ !cancelled() && hashFiles('respuesta.md') != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue comment "${{ github.event.issue.number }}" --body-file respuesta.md
+
+      - name: Enviar la respuesta por correo
+        if: ${{ !cancelled() && hashFiles('respuesta.md') != '' }}
+        env:
+          AVISO_CORREO_USUARIO: ${{ secrets.AVISO_CORREO_USUARIO }}
+          AVISO_CORREO_CLAVE: ${{ secrets.AVISO_CORREO_CLAVE }}
+          AVISO_CORREOS: ${{ secrets.AVISO_CORREOS }}
+          TITULO: ${{ github.event.issue.title }}
+          ENLACE: ${{ github.event.issue.html_url }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from agente_petroperu import enviar
+          cuerpo = Path("respuesta.md").read_text(encoding="utf-8") + f"\n\n[Ver la consulta en GitHub]({os.environ['ENLACE']})"
+          titulo = "Respuesta: " + os.environ["TITULO"].removeprefix("Consulta: ")
+          enviar(titulo, cuerpo, titulo)
+          PY

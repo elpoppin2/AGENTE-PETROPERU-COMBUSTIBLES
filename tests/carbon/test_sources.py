@@ -137,3 +137,36 @@ def test_investing_spanish_csv(tmp_path):
     v = df.set_index("fecha")["valor"]
     assert v[pd.Timestamp("2026-10-01")] == pytest.approx(1104.5)
     assert v[pd.Timestamp("2026-09-01")] == pytest.approx(98.25)
+
+
+def test_comtrade_periodo_anual():
+    df = comtrade.parse_records([{"period": "2024", "fobvalue": 66000, "netWgt": 10_000_000}], "jp_exp_escoria_pe_fob_anual", "X")
+    v = df.set_index("serie")
+    assert v.loc["jp_exp_escoria_pe_fob_anual_usd_t", "fecha"] == pd.Timestamp("2024-01-01")
+    assert v.loc["jp_exp_escoria_pe_fob_anual_usd_t", "valor"] == pytest.approx(6.6)
+
+
+def test_comtrade_incremental(tmp_path, monkeypatch):
+    """La segunda corrida solo pide los periodos recientes; los viejos ya consultados se saltan."""
+    pedidos = []
+
+    class Resp:
+        def raise_for_status(self): pass
+        def json(self): return {"data": []}
+
+    class Sesion:
+        headers = {}
+        def get(self, url, params, timeout):
+            pedidos.append((params["cmdCode"], params["period"]))
+            return Resp()
+
+    monkeypatch.setattr(comtrade, "session", lambda: Sesion())
+    monkeypatch.setattr(comtrade.time, "sleep", lambda s: None)
+    monkeypatch.delenv("COMTRADE_API_KEY", raising=False)
+    estado = tmp_path / "consultas.json"
+    comtrade.fetch(12, estado=estado)
+    primera = len(pedidos)
+    assert primera == 12 * len(comtrade.QUERIES)
+    pedidos.clear()
+    comtrade.fetch(12, estado=estado)
+    assert len(pedidos) == comtrade.RECIENTES * len(comtrade.QUERIES)

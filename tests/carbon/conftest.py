@@ -7,7 +7,10 @@ from carbon.config import load_config
 
 @pytest.fixture
 def cfg():
-    return load_config()
+    c = load_config()
+    # Las pruebas usan la base de los índices; el contrato real (7,000 kcal) se prueba aparte.
+    c["carbon"]["poder_calorifico_spec_kcal_kg"] = c["carbon"]["poder_calorifico_ref_kcal_kg"]
+    return c
 
 
 @pytest.fixture

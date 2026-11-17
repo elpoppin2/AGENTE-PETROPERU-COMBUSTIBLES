@@ -6,16 +6,10 @@
 # indique lo contrario.
 # =============================================================================
 
+# Solo se sigue el precio FOB y el CFR Conchán (FOB + flete marítimo);
+# no se calcula el costo puesto en planta.
 destino:
-  puerto: "Conchán, Lima (PE)"
-  # Costos portuarios y de internamiento en Conchán (USD/t)  — AJUSTAR
-  costos_portuarios_usd_t:
-    descarga_y_manipuleo: 6.0
-    almacenaje: 1.5
-    transporte_a_planta: 4.0
-  agente_aduanas_pct: 0.35        # % sobre valor CIF                — AJUSTAR
-  seguro_pct: 0.15                # % sobre (FOB + flete) si no viene en CIF
-  igv_pct: 18.0                   # IGV + IPM (crédito fiscal; sólo flujo de caja)
+  puerto: "Muelle Conchán, Lima (PE)"
 
 carbon:
   nombre: "Carbón térmico — origen Colombia"
@@ -23,9 +17,7 @@ carbon:
   hs: "270112"                    # Hulla bituminosa
   poder_calorifico_ref_kcal_kg: 6000   # base de los índices (NAR) — API2 y Newcastle ~6000 NAR
   poder_calorifico_spec_kcal_kg: 6000  # spec de tu contrato (NAR)  — AJUSTAR
-  arancel_pct: 0.0
-  consumo_anual_t: 250000         # para medir impacto anual                — AJUSTAR
-  presupuesto_landed_usd_t: 160   # costo puesto en planta presupuestado   — AJUSTAR
+  presupuesto_cfr_usd_t: null    # referencia CFR Conchán (USD/t); vacío = sin alerta de referencia
   # Flete Colombia -> Conchán vía Canal de Panamá (Supramax/Panamax)
   flete:
     base_usd_t: 24.0              # flete de referencia con Brent = brent_base — AJUSTAR
@@ -36,6 +28,18 @@ carbon:
   ratio_colombia_api2_default: 0.85       # API2 es CIF Rotterdam: incluye flete al ARA
   ratio_colombia_newcastle_default: 0.88
   benchmark_preferido: "api2"     # api2 | newcastle  (el carbón colombiano es del Atlántico)
+
+escoria:
+  nombre: "Escoria granulada de alto horno (GBFS), origen Japón"
+  origen: "Japón"
+  hs: "261800"                    # Escorias granuladas (arena de escorias)
+  presupuesto_cfr_usd_t: null     # referencia CFR Conchán (USD/t); vacío = sin alerta de referencia
+  fob_default_usd_t: 8.0          # FOB Japón si no hay ningún dato de UN Comtrade
+  # Flete Japón -> Conchán (Handysize/Supramax, ruta de retorno desde Asia)
+  flete:
+    base_usd_t: 38.0              # flete de referencia con Brent = brent_base — AJUSTAR
+    brent_base_usd_bbl: 80.0
+    elasticidad_bunker: 0.40
 
 # CSV descargados de Investing.com ("Datos históricos" -> Descargar) y guardados en
 # data/carbon/manual/investing/. El nombre del archivo decide la serie (palabra clave).
@@ -52,11 +56,11 @@ investing:
 alertas:
   variacion_mensual_pct: 8.0      # alerta si un precio clave se mueve más que esto (MoM)
   zscore: 2.0                     # alerta si el último dato se aleja > N desviaciones (24m)
-  margen_presupuesto_pct: 0.0     # alerta si landed > presupuesto * (1 + margen)
+  margen_presupuesto_pct: 0.0     # alerta si CFR > referencia * (1 + margen)
 
 # Fuentes públicas (todas gratuitas). Claves opcionales via variables de entorno.
 fuentes:
-  inicio: "2019-01"               # primer mes a descargar
+  inicio: "2018-01"               # primer mes a descargar
   fred: true                      # Newcastle (IMF), Brent, USD/COP
   banco_mundial: true             # Pink Sheet: carbón Australia/Sudáfrica/Colombia
   bcrp: true                      # Tipo de cambio PEN/USD (BCRP)

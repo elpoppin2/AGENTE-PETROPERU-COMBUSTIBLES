@@ -7,7 +7,56 @@
   "▲ Brent (USD/bbl): +8.6% m/m (123.93, 2026-10)",
   "⚠ Brent (USD/bbl) fuera de rango histórico: z=+2.3 vs 24 meses"
  ],
- "presupuesto_landed_usd_t": 160,
+ "referencia_cfr_usd_t": null,
  "kcal_spec": 6000,
- "puerto": "Conchán, Lima (PE)"
+ "puerto": "Muelle Conchán, Lima (PE)",
+ "conveniencia": {
+  "material": "carbon",
+  "mes": "2026-10",
+  "cfr": 140.39173143213443,
+  "indice": 10.7,
+  "etiqueta": "Conviene esperar",
+  "percentil_36m": 94.4,
+  "promedio_12m": 121.66674480250423,
+  "frente_promedio_12m_pct": 15.39,
+  "cambio_esperado_12m_pct": -4.32,
+  "cfr_12m_p10": 94.0630542660794,
+  "cfr_12m_p50": 134.32505335661767,
+  "cfr_12m_p90": 199.4239219235034,
+  "flete_en_cfr_pct": 24.1,
+  "flete_en_cfr_mediana_36m_pct": 22.7,
+  "componentes": {
+   "posicion_36m": 5.6,
+   "frente_promedio": 0.0,
+   "simulacion": 28.4
+  }
+ },
+ "escoria": {
+  "fuente_fob": "ultimo_dato",
+  "alertas": [
+   "⚠ Flete Japón→Conchán (USD/t) fuera de rango histórico: z=+2.2 vs 24 meses"
+  ],
+  "referencia_cfr_usd_t": null,
+  "conveniencia": {
+   "material": "escoria",
+   "mes": "2026-10",
+   "cfr": 39.333880640136016,
+   "indice": 13.0,
+   "etiqueta": "Conviene esperar",
+   "percentil_36m": 94.4,
+   "promedio_12m": 35.35466303142666,
+   "frente_promedio_12m_pct": 11.26,
+   "cambio_esperado_12m_pct": -2.85,
+   "cfr_12m_p10": 32.33072255599032,
+   "cfr_12m_p50": 38.214084470346165,
+   "cfr_12m_p90": 45.96802727327368,
+   "flete_en_cfr_pct": 84.7,
+   "flete_en_cfr_mediana_36m_pct": 81.5,
+   "componentes": {
+    "posicion_36m": 5.6,
+    "frente_promedio": 0.0,
+    "simulacion": 35.8
+   }
+  }
+ }
 }

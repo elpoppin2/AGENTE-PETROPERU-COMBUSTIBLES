@@ -1,0 +1,15 @@
+{
+  "name": "tablero-librerias",
+  "private": true,
+  "description": "Empaqueta las librerías de interfaz del tablero en assets/vendor/",
+  "scripts": {
+    "construir": "esbuild entrada.js --bundle --minify --format=iife --target=es2020 --legal-comments=none --outfile=../../assets/vendor/librerias.min.js && esbuild estilos.css --bundle --minify --outfile=../../assets/vendor/librerias.min.css"
+  },
+  "devDependencies": {
+    "esbuild": "0.24.2",
+    "motion": "14.14.0",
+    "number-flow": "0.6.2",
+    "tippy.js": "6.3.7",
+    "tom-select": "2.7.0"
+  }
+}

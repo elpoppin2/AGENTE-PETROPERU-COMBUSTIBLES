@@ -5,15 +5,27 @@ colombiano** (HS 2701.12) importado por **Puerto Conchán (Lima, Perú)**, un in
 crítico de la operación.
 
 Combina **información pública gratuita**, los **CSV que descargues de Investing.com**
-y tus **cotizaciones propias**. Con eso arma el **costo puesto en planta**
-(FOB → flete → CIF → planta, en USD, PEN y USD/GJ), calcula **ratios** de
-seguimiento y dispara **alertas**.
+y tus **cotizaciones propias**. Con eso arma el **precio FOB** y el **CFR Muelle Conchán**
+(FOB + flete marítimo, en USD y PEN), calcula **ratios** de seguimiento y dispara **alertas**.
+No calcula el costo puesto en planta.
 
 Es parte del proyecto **Sourcing Internacional Combustibles y Materia Prima** ([README principal](../README.md)).
 
 👉 Reporte vigente: [`reportes/carbon/ultimo_reporte.md`](../reportes/carbon/ultimo_reporte.md) · Tablero: pestaña *Precios carbones internacionales*
 
 ---
+
+## Escoria granulada de Japón (GBFS)
+
+El mismo monitor sigue la **escoria granulada de alto horno** (HS 261800) de Japón, con la misma
+estructura que el carbón: **FOB Japón + flete = CFR Muelle Conchán** (pestaña *Escoria japonesa*).
+
+- No hay índice público ni precio diario. El FOB es, en orden: la cotización cargada
+  (`material = escoria` en `data/carbon/manual/cotizaciones.csv`), el valor unitario de las
+  exportaciones de Japón a Perú en UN Comtrade (mensual; si falta, el anual) y, si no, el último dato.
+- El flete Japón→Conchán se estima con el Brent y se calibra con `CIF Perú − FOB Japón` (Comtrade).
+- Se compara con el CIF real de Perú desde Japón (Comtrade). Alerta si el CFR supera
+  `escoria.presupuesto_cfr_usd_t` (opcional; vacía por defecto).
 
 ## Fuentes
 
@@ -64,14 +76,11 @@ Se ajusta a la especificación del contrato: `FOB_spec = FOB_ref × kcal_spec / 
 Comtrade (`CIF Perú − FOB Colombia` del mismo flujo). Tu cotización de flete siempre
 tiene prioridad.
 
-**Costo puesto en planta**
+**CFR Muelle Conchán**
 ```
-CIF     = (FOB + flete) × (1 + seguro%)
-Landed  = CIF × (1 + arancel% + agente%) + descarga + almacenaje + transporte a planta
-PEN/t   = Landed × TC BCRP
-USD/GJ  = Landed / (kcal_spec × 4.1868e-3)
+CFR     = FOB + flete marítimo      (una cotización CFR cargada tiene prioridad)
+PEN/t   = CFR × TC BCRP
 ```
-El IGV (18%) es crédito fiscal: se muestra como desembolso de caja, no como costo.
 
 ### Ratios que se monitorean
 
@@ -89,9 +98,26 @@ Para cada serie se calcula: último valor, variación mensual y anual, promedios
 rango y z-score de 24 meses.
 
 ### Alertas (config → `alertas`)
-- Variación mensual mayor a `variacion_mensual_pct` (API2, Newcastle, FOB, flete, landed, TC, Brent).
+- Variación mensual mayor a `variacion_mensual_pct` (API2, Newcastle, FOB, flete, CFR, TC, Brent).
 - Valor fuera de rango histórico (|z| ≥ `zscore`).
-- Costo puesto en planta por encima de `presupuesto_landed_usd_t`.
+- CFR Conchán por encima de la referencia `presupuesto_cfr_usd_t` (opcional; vacía por defecto).
+
+Cuando aparece una alerta que no se había avisado, el workflow abre un issue en GitHub
+(etiqueta "alerta carbón") y envía un correo a los destinatarios de `AVISO_CORREOS` (los mismos
+de los avisos del diésel), con el desglose del costo. La misma alerta con otra cifra no se
+repite cada semana; si desaparece y vuelve, se avisa de nuevo. Prueba manual:
+`python -m carbon enviar` envía el último `reportes/carbon/aviso.md`.
+
+### Del FOB al CFR
+`modelo_mensual.csv` separa cada mes el **precio FOB** (material) y el **flete marítimo**, que
+suman el **CFR Muelle Conchán**. El tablero lo muestra en tabla y en columnas apiladas desde
+enero de 2018.
+
+### Frecuencia y rezago
+El workflow corre cada lunes, pero las fuentes públicas son **mensuales**: FRED/FMI y el Banco
+Mundial publican el promedio del mes con ~1 mes de rezago; UN Comtrade, con 2 a 4 meses. Por eso
+el último mes con índice suele ser el anterior. Las cotizaciones propias (`data/carbon/manual/`)
+se reflejan apenas se suben.
 
 ## Uso
 
@@ -117,9 +143,8 @@ fecha,material,flete_usd_t,tipo_buque,fuente,comentario
 ```
 
 ### Ajustar supuestos
-Todo está en [`carbon/config.yaml`](config.yaml): kcal de tu contrato, costos
-portuarios en Conchán, flete base, consumo anual, presupuesto, índice preferido y
-umbrales de alerta. Los valores marcados con **AJUSTAR** son supuestos iniciales.
+Todo está en [`carbon/config.yaml`](config.yaml): kcal de tu contrato, flete base,
+referencia CFR, índice preferido y umbrales de alerta. Los valores marcados con **AJUSTAR** son supuestos iniciales.
 
 ## Automatización (GitHub Actions)
 
@@ -142,7 +167,7 @@ Sin ningún secreto el bot funciona igual con las fuentes públicas.
 ```
 carbon/config.yaml                 supuestos, umbrales y fuentes
 carbon/sources/                    conectores: fred, worldbank, bcrp, comtrade, investing, manual
-carbon/analytics.py                costo puesto en planta, ratios, indicadores y alertas
+carbon/analytics.py                FOB, flete y CFR Conchán, ratios, indicadores y alertas
 carbon/report.py                   reporte Markdown + gráficos
 data/carbon/manual/                tus cotizaciones, fletes y CSV de Investing.com
 data/carbon/historico/series.csv   histórico (generado)

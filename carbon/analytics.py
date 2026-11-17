@@ -1,4 +1,4 @@
-"""Modelo de costo puesto en Conchán del carbón colombiano, ratios e indicadores.
+"""Precio del carbón colombiano FOB y CFR Conchán (FOB + flete), ratios e indicadores.
 
 Carbón Colombia FOB (de mayor a menor prioridad):
   1. Cotización propia FOB (data/carbon/manual)
@@ -27,12 +27,15 @@ KEY_SERIES = {
     "carbon_api4_fob_rb": "API4 FOB Richards Bay (USD/t)",
     "carbon_col_fob": "Colombia FOB, spec contrato (USD/t)",
     "carbon_flete": "Flete Colombia→Conchán (USD/t)",
-    "carbon_cif": "CIF Conchán (USD/t)",
-    "carbon_landed": "Puesto en planta (USD/t)",
-    "carbon_landed_pen": "Puesto en planta (PEN/t)",
-    "carbon_usd_gj": "Puesto en planta (USD/GJ)",
+    "carbon_cfr": "CFR Conchán (USD/t)",
+    "carbon_cfr_pen": "CFR Conchán (PEN/t)",
     "carbon_cif_comtrade": "CIF Perú desde Colombia — Comtrade (USD/t)",
     "pe_imp_carbon_mundo_cif": "CIF Perú desde todo origen — Comtrade (USD/t)",
+    "escoria_fob": "Escoria FOB Japón (USD/t)",
+    "escoria_flete": "Flete Japón→Conchán (USD/t)",
+    "escoria_cfr": "Escoria CFR Conchán (USD/t)",
+    "escoria_cfr_pen": "Escoria CFR Conchán (PEN/t)",
+    "escoria_cif_comtrade": "Escoria CIF Perú desde Japón — Comtrade (USD/t)",
     "brent": "Brent (USD/bbl)",
     "fx_pen_usd": "Tipo de cambio (PEN/USD)",
     "fx_cop_usd": "Tipo de cambio (COP/USD)",
@@ -43,10 +46,18 @@ RATIOS = {
     "ratio_col_newcastle": "Colombia FOB / Newcastle",
     "spread_api2_newcastle": "API2 − Newcastle (USD/t, Atlántico vs Pacífico)",
     "paridad_carbon_brent": "Carbón vs Brent (USD/GJ ÷ USD/GJ)",
-    "flete_share_carbon": "Flete / CIF",
-    "carbon_vs_cif_comtrade": "CIF modelo / CIF Comtrade Perú",
+    "flete_share_carbon": "Flete / CFR",
+    "carbon_vs_cif_comtrade": "CFR modelo / CIF Comtrade Perú",
     "share_colombia_import_pe": "Participación de Colombia en importaciones de Perú (t)",
+    "flete_share_escoria": "Flete / CFR escoria",
+    "escoria_vs_cif_comtrade": "Escoria CFR modelo / CIF Comtrade Perú",
 }
+
+
+def _anual(w: pd.DataFrame, name: str) -> pd.Series:
+    """Una serie anual (dato el 1 de enero) repetida en los 12 meses de su año."""
+    s = _col(w, name)
+    return s.groupby(s.index.year).transform("max")
 
 
 @dataclass
@@ -55,6 +66,7 @@ class Result:
     indicators: pd.DataFrame
     alerts: list[str] = field(default_factory=list)
     meta: dict = field(default_factory=dict)
+    simulacion: pd.DataFrame = field(default_factory=pd.DataFrame)
 
 
 def _col(w: pd.DataFrame, name: str) -> pd.Series:
@@ -92,7 +104,7 @@ def compute(w: pd.DataFrame, cfg: dict) -> Result:
         return Result(pd.DataFrame(), pd.DataFrame(), ["Sin datos todavía: ejecuta `python -m carbon update`."])
 
     w = w.sort_index()
-    dcfg, ccfg = cfg["destino"], cfg["carbon"]
+    ccfg = cfg["carbon"]
     m = pd.DataFrame(index=w.index)
 
     # --- Índices de mercado y tipos de cambio ------------------------------------
@@ -130,33 +142,55 @@ def compute(w: pd.DataFrame, cfg: dict) -> Result:
     m["ratio_col_newcastle"] = fob_ref / m["carbon_newcastle_fob"]
     m["spread_api2_newcastle"] = m["carbon_api2_cif_ara"] - m["carbon_newcastle_fob"]
 
-    # --- Flete, CIF y puesto en planta ----------------------------------------------
+    # --- Flete y CFR Conchán (FOB + flete) ------------------------------------------
     implied = _col(w, "pe_imp_carbon_col_cif_usd_t") - _col(w, "co_exp_carbon_pe_fob_usd_t")
     m["carbon_flete"], scale = _freight(m["brent"], ccfg["flete"], implied, _col(w, "manual_flete_carbon"))
-    cif_model = (m["carbon_col_fob"] + m["carbon_flete"]) * (1 + dcfg["seguro_pct"] / 100)
-    m["carbon_cif"] = _col(w, "manual_carbon_cif").combine_first(cif_model)
-    port = sum(dcfg["costos_portuarios_usd_t"].values())
-    m["carbon_landed"] = m["carbon_cif"] * (1 + ccfg["arancel_pct"] / 100 + dcfg["agente_aduanas_pct"] / 100) + port
-    m["carbon_landed_pen"] = m["carbon_landed"] * m["fx_pen_usd"]
-    m["carbon_igv_caja_usd_t"] = m["carbon_cif"] * (1 + ccfg["arancel_pct"] / 100) * dcfg["igv_pct"] / 100
+    # Una cotización CFR manda; una CIF se toma como CFR (el seguro es ~0.1%).
+    m["carbon_cfr"] = (_col(w, "manual_carbon_cfr").combine_first(_col(w, "manual_carbon_cif"))
+                       .combine_first(m["carbon_col_fob"] + m["carbon_flete"]))
+    m["carbon_cfr_pen"] = m["carbon_cfr"] * m["fx_pen_usd"]
 
     gj_per_t = ccfg["poder_calorifico_spec_kcal_kg"] * 1000 * KCAL_TO_GJ
-    m["carbon_usd_gj"] = m["carbon_landed"] / gj_per_t
-    m["carbon_usd_gcal"] = m["carbon_landed"] / (ccfg["poder_calorifico_spec_kcal_kg"] / 1000)
     m["paridad_carbon_brent"] = (m["carbon_col_fob"] / gj_per_t) / (m["brent"] / GJ_PER_BBL)
-    m["flete_share_carbon"] = m["carbon_flete"] / m["carbon_cif"]
-    m["carbon_impacto_anual_musd"] = m["carbon_landed"] * ccfg["consumo_anual_t"] / 1e6
+    m["flete_share_carbon"] = m["carbon_flete"] / m["carbon_cfr"]
 
     # --- Mercado peruano de carbón importado (Comtrade) ------------------------------
     m["carbon_cif_comtrade"] = _col(w, "pe_imp_carbon_col_cif_usd_t")
-    m["carbon_vs_cif_comtrade"] = m["carbon_cif"] / m["carbon_cif_comtrade"]
+    m["carbon_vs_cif_comtrade"] = m["carbon_cfr"] / m["carbon_cif_comtrade"]
     m["pe_imp_carbon_mundo_cif"] = _col(w, "pe_imp_carbon_mundo_cif_usd_t")
     m["pe_imp_carbon_col_vol_t"] = _col(w, "pe_imp_carbon_col_cif_vol_t")
     m["pe_imp_carbon_mundo_vol_t"] = _col(w, "pe_imp_carbon_mundo_cif_vol_t")
     m["share_colombia_import_pe"] = m["pe_imp_carbon_col_vol_t"] / m["pe_imp_carbon_mundo_vol_t"]
 
-    # Recorta meses finales sin ningún índice de referencia (aún no publicados)
-    has_index = m[["carbon_newcastle_fob", "carbon_api2_cif_ara"]].notna().any(axis=1)
+    # --- Escoria granulada de Japón (GBFS): FOB Japón + flete = CFR Conchán -------
+    # No hay índice de mercado: el FOB es la cotización, o el valor unitario de las
+    # exportaciones de Japón (Comtrade, mensual o anual); si falta, el último dato.
+    ecfg = cfg.get("escoria")
+    if ecfg:
+        obs_e, src_e = _first(w, ["manual_escoria_fob", "jp_exp_escoria_pe_fob_usd_t", "jp_exp_escoria_mundo_fob_usd_t"])
+        anual_fob = _anual(w, "jp_exp_escoria_pe_fob_anual_usd_t")
+        fob_e = obs_e.combine_first(anual_fob)
+        src_e = src_e.where(obs_e.notna(), np.where(anual_fob.notna(), "comtrade_anual", None))
+        llevado = fob_e.ffill()
+        src_e = src_e.where(fob_e.notna(), np.where(llevado.notna(), "ultimo_dato", "supuesto"))
+        m["escoria_fob"] = llevado.fillna(ecfg["fob_default_usd_t"])
+        m["escoria_fob_fuente"] = src_e
+        cif_jp = _col(w, "pe_imp_escoria_jpn_cif_usd_t").combine_first(_anual(w, "pe_imp_escoria_jpn_cif_anual_usd_t"))
+        fob_jp = _col(w, "jp_exp_escoria_pe_fob_usd_t").combine_first(anual_fob)
+        m["escoria_flete"], scale_e = _freight(m["brent"], ecfg["flete"], cif_jp - fob_jp, _col(w, "manual_flete_escoria"))
+        m["escoria_cfr"] = (_col(w, "manual_escoria_cfr").combine_first(_col(w, "manual_escoria_cif"))
+                            .combine_first(m["escoria_fob"] + m["escoria_flete"]))
+        m["escoria_cfr_pen"] = m["escoria_cfr"] * m["fx_pen_usd"]
+        m["escoria_cif_comtrade"] = cif_jp
+        m["flete_share_escoria"] = m["escoria_flete"] / m["escoria_cfr"]
+        m["escoria_vs_cif_comtrade"] = m["escoria_cfr"] / cif_jp
+        m["pe_imp_escoria_jpn_vol_t"] = _col(w, "pe_imp_escoria_jpn_cif_vol_t").combine_first(_anual(w, "pe_imp_escoria_jpn_cif_anual_vol_t"))
+
+    # Recorta meses finales sin índice de referencia (aún no publicados), salvo que
+    # haya una cotización propia de ese mes.
+    cotizado = pd.concat([_col(w, c) for c in ("manual_carbon_fob", "manual_carbon_cfr", "manual_carbon_cif",
+                                                "manual_escoria_fob", "manual_escoria_cfr", "manual_escoria_cif")], axis=1)
+    has_index = m[["carbon_newcastle_fob", "carbon_api2_cif_ara"]].notna().any(axis=1) | cotizado.notna().any(axis=1)
     if has_index.any():
         m = m.loc[:has_index[has_index].index.max()]
 
@@ -169,10 +203,20 @@ def compute(w: pd.DataFrame, cfg: dict) -> Result:
         "factor_flete": scale,
         "ultimo_mes": m.index.max().strftime("%Y-%m") if not m.empty else None,
         "fuente_carbon_fob": m["carbon_col_fob_fuente"].iloc[-1] if not m.empty else None,
+        "fuente_escoria_fob": m["escoria_fob_fuente"].iloc[-1] if ecfg and not m.empty else None,
         "ultimo_dato_por_serie": {c: w[c].last_valid_index().strftime("%Y-%m")
                                   for c in w.columns if w[c].notna().any()},
     }
-    return Result(m, indicators, build_alerts(m, indicators, cfg), meta)
+    # Simulación a 12 meses y conveniencia de compra (ver simulacion.py)
+    from . import simulacion
+    sim = simulacion.simular_todo(m)
+    conv = {mat: simulacion.conveniencia(m, sim, mat) for mat in simulacion.MATERIALES if f"{mat}_cfr" in m}
+    meta["conveniencia"] = conv
+    alertas = {"carbon": build_alerts(m, indicators, cfg) + simulacion.alerta_conveniencia(conv.get("carbon"))}
+    if ecfg:
+        alertas["escoria"] = build_alerts(m, indicators, cfg, "escoria") + simulacion.alerta_conveniencia(conv.get("escoria"))
+    meta["alertas"] = alertas
+    return Result(m, indicators, [a for lista in alertas.values() for a in lista], meta, sim)
 
 
 def build_indicators(m: pd.DataFrame) -> pd.DataFrame:
@@ -202,22 +246,23 @@ def build_indicators(m: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def build_alerts(m: pd.DataFrame, ind: pd.DataFrame, cfg: dict) -> list[str]:
+def build_alerts(m: pd.DataFrame, ind: pd.DataFrame, cfg: dict, material: str = "carbon") -> list[str]:
     acfg = cfg["alertas"]
     alerts = []
-    watched = ["carbon_api2_cif_ara", "carbon_newcastle_fob", "carbon_col_fob", "carbon_landed",
-               "carbon_flete", "fx_pen_usd", "brent"]
+    watched = (["escoria_fob", "escoria_flete", "escoria_cfr"] if material == "escoria" else
+               ["carbon_api2_cif_ara", "carbon_newcastle_fob", "carbon_col_fob", "carbon_cfr",
+                "carbon_flete", "fx_pen_usd", "brent"])
     for _, r in ind[ind["serie"].isin(watched)].iterrows():
         if r["var_mensual_pct"] is not None and abs(r["var_mensual_pct"]) >= acfg["variacion_mensual_pct"]:
             arrow = "▲" if r["var_mensual_pct"] > 0 else "▼"
             alerts.append(f"{arrow} {r['descripcion']}: {r['var_mensual_pct']:+.1f}% m/m ({r['ultimo']:,.2f}, {r['mes']})")
         if r["zscore_24m"] is not None and abs(r["zscore_24m"]) >= acfg["zscore"]:
             alerts.append(f"⚠ {r['descripcion']} fuera de rango histórico: z={r['zscore_24m']:+.1f} vs 24 meses")
-    budget = cfg["carbon"]["presupuesto_landed_usd_t"]
-    s = m["carbon_landed"].dropna()
+    budget = cfg[material].get("presupuesto_cfr_usd_t")
+    s = m[f"{material}_cfr"].dropna()
     if budget and not s.empty:
         limit = budget * (1 + acfg["margen_presupuesto_pct"] / 100)
         if s.iloc[-1] > limit:
-            alerts.append(f"💰 Carbón puesto en planta {s.iloc[-1]:,.1f} USD/t supera el presupuesto de "
+            alerts.append(f"💰 {'Escoria' if material == 'escoria' else 'Carbón'} CFR Conchán {s.iloc[-1]:,.1f} USD/t supera la referencia de "
                           f"{budget:,.1f} USD/t ({(s.iloc[-1] / budget - 1) * 100:+.1f}%)")
     return alerts

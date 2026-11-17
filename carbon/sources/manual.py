@@ -7,8 +7,9 @@ data/carbon/manual/fletes.csv
     fecha,material,flete_usd_t,tipo_buque,fuente,comentario
     2026-10-10,carbon,25,Supramax,Broker Y,Puerto Nuevo-Conchán
 
-Las cotizaciones de carbón se normalizan al poder calorífico de referencia del
-índice para que sean comparables con Newcastle.
+Las cotizaciones FOB de carbón se normalizan al poder calorífico de referencia del
+índice para que sean comparables con Newcastle. Las CFR y CIF son precios entregados
+en Conchán (incluyen flete) y se usan tal cual.
 """
 from __future__ import annotations
 
@@ -31,8 +32,8 @@ def fetch(manual_dir: Path, cfg: dict) -> pd.DataFrame:
         q = pd.read_csv(q_path, parse_dates=["fecha"])
         q["material"] = q["material"].str.strip().str.lower()
         q["base"] = q["base"].str.strip().str.upper()
-        q["valor"] = pd.to_numeric(q["precio_usd_t"], errors="coerce")
-        is_coal = q["material"] == "carbon"
+        q["valor"] = pd.to_numeric(q["precio_usd_t"], errors="coerce").astype(float)  # precios enteros: se normalizan a decimales
+        is_coal = (q["material"] == "carbon") & (q["base"] == "FOB")
         cv = pd.to_numeric(q.get("poder_calorifico_kcal_kg"), errors="coerce").fillna(cv_ref)
         q.loc[is_coal, "valor"] = q.loc[is_coal, "valor"] * cv_ref / cv[is_coal]
         for (mat, base), g in q.dropna(subset=["valor"]).groupby(["material", "base"]):

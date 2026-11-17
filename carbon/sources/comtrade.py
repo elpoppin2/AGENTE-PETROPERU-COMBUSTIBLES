@@ -11,9 +11,11 @@ comtradedeveloper.un.org) se usa el endpoint completo, 12 meses por consulta. Lo
 """
 from __future__ import annotations
 
+import json
 import logging
 import os
 import time
+from pathlib import Path
 
 import pandas as pd
 
@@ -24,7 +26,7 @@ log = logging.getLogger(__name__)
 PREVIEW_URL = "https://comtradeapi.un.org/public/v1/preview/C/M/HS"
 DATA_URL = "https://comtradeapi.un.org/data/v1/get/C/M/HS"
 
-PERU, COLOMBIA, WORLD = 604, 170, 0
+PERU, COLOMBIA, JAPAN, WORLD = 604, 170, 392, 0
 
 # serie base -> parámetros. Para cada consulta se guardan dos series:
 #   <serie>_usd_t  (valor unitario)  y  <serie>_vol_t  (toneladas)
@@ -33,6 +35,17 @@ QUERIES = {
     "co_exp_carbon_pe_fob": dict(reporter=COLOMBIA, partner=PERU, cmd="270112", flow="X"),
     "co_exp_carbon_mundo_fob": dict(reporter=COLOMBIA, partner=WORLD, cmd="270112", flow="X"),
     "pe_imp_carbon_mundo_cif": dict(reporter=PERU, partner=WORLD, cmd="270112", flow="M"),
+    # Escoria granulada de alto horno (HS 261800) de Japón
+    "pe_imp_escoria_jpn_cif": dict(reporter=PERU, partner=JAPAN, cmd="261800", flow="M"),
+    "jp_exp_escoria_pe_fob": dict(reporter=JAPAN, partner=PERU, cmd="261800", flow="X"),
+    "jp_exp_escoria_mundo_fob": dict(reporter=JAPAN, partner=WORLD, cmd="261800", flow="X"),
+}
+
+# Series anuales (fecha = 1 de enero): dan historia a la escoria, que no tiene índice
+# de mercado ni datos mensuales en todos los meses. Se guardan como <serie>_anual_*.
+ANNUAL_QUERIES = {
+    "pe_imp_escoria_jpn_cif_anual": dict(reporter=PERU, partner=JAPAN, cmd="261800", flow="M"),
+    "jp_exp_escoria_pe_fob_anual": dict(reporter=JAPAN, partner=PERU, cmd="261800", flow="X"),
 }
 
 
@@ -69,7 +82,8 @@ def parse_records(records: list[dict], serie: str, flow: str) -> pd.DataFrame:
     rows = []
     fuente = f"UN Comtrade ({'CIF' if flow == 'M' else 'FOB'})"
     for period, (value, kg) in sorted(agg.items()):
-        fecha = pd.Timestamp(year=int(period[:4]), month=int(period[4:6]), day=1)
+        mes = int(period[4:6]) if len(period) >= 6 else 1    # los periodos anuales vienen como "2024"
+        fecha = pd.Timestamp(year=int(period[:4]), month=mes, day=1)
         tons = kg / 1000
         rows.append({"fecha": fecha, "serie": f"{serie}_usd_t", "valor": value / tons,
                      "unidad": "USD/t", "fuente": fuente})
@@ -83,31 +97,61 @@ def _periods(months: int) -> list[str]:
     return [str(p).replace("-", "") for p in pd.period_range(end=end, periods=months, freq="M")]
 
 
-def fetch(months: int = 24) -> pd.DataFrame:
+RECIENTES = 6          # meses (o años, en las anuales) que se vuelven a pedir siempre: Comtrade revisa y publica con rezago
+PRESUPUESTO_S = 20 * 60  # tiempo máximo por corrida; lo que falte se pide la próxima semana
+
+
+def fetch(months: int = 24, anual_desde: int | None = None, estado: Path | None = None) -> pd.DataFrame:
+    """Descarga incremental: con `estado` (JSON de periodos ya consultados por serie) solo pide
+    los periodos nuevos y los recientes, y se detiene al agotar PRESUPUESTO_S."""
     s = session()
     key = os.environ.get("COMTRADE_API_KEY")
     url = DATA_URL if key else PREVIEW_URL
     if key:
         s.headers["Ocp-Apim-Subscription-Key"] = key
-    periods = _periods(months)
     size = 12 if key else 1          # el endpoint público "preview" acepta sólo 1 periodo por consulta
-    chunks = [periods[i:i + size] for i in range(0, len(periods), size)]
+    consultados = json.loads(estado.read_text(encoding="utf-8")) if estado and estado.exists() else {}
+    trabajos = [(QUERIES, url, _periods(months), RECIENTES)]
+    if anual_desde:
+        anios = [str(a) for a in range(anual_desde, pd.Timestamp.today().year)]
+        trabajos.append((ANNUAL_QUERIES, url.replace("/C/M/", "/C/A/"), anios, 2))
+    out, limite = [], time.monotonic() + PRESUPUESTO_S
+    try:
+        for consultas, url, periods, recientes in trabajos:
+            out += _consultar(s, url, consultas, periods, recientes, size, consultados, limite)
+    finally:
+        if estado:
+            estado.parent.mkdir(parents=True, exist_ok=True)
+            estado.write_text(json.dumps({k: sorted(v) for k, v in sorted(consultados.items())}, indent=0), encoding="utf-8")
+    return pd.concat(out, ignore_index=True) if out else frame([])
+
+
+def _consultar(s, url: str, consultas: dict, periods: list[str], recientes: int, size: int,
+               consultados: dict, limite: float) -> list[pd.DataFrame]:
     out = []
-    for serie, q in QUERIES.items():
+    for serie, q in consultas.items():
+        hechos = set(consultados.get(serie, []))
+        pendientes = [p for p in periods[:-recientes] if p not in hechos] + periods[-recientes:]
+        chunks = [pendientes[i:i + size] for i in range(0, len(pendientes), size)]
         records: list[dict] = []
         r = None
         for chunk in chunks:
+            if time.monotonic() > limite:
+                log.warning("Comtrade: se acabó el tiempo de esta corrida; %s sigue la próxima vez", serie)
+                break
             params = {
                 "reporterCode": q["reporter"], "partnerCode": q["partner"], "cmdCode": q["cmd"],
                 "flowCode": q["flow"], "period": ",".join(chunk),
                 "customsCode": "C00", "motCode": 0, "partner2Code": 0, "includeDesc": "false",
             }
             try:
-                r = s.get(url, params=params, timeout=90)
+                r = s.get(url, params=params, timeout=(10, 60))
                 r.raise_for_status()
                 payload = r.json()
                 if not payload.get("data") and payload.get("error"):
                     log.warning("Comtrade %s %s: %s", serie, chunk[0], str(payload["error"])[:200])
+                else:
+                    hechos.update(chunk)        # consultado (con o sin comercio ese periodo)
                 records += payload.get("data") or []
             except Exception as e:
                 log.warning("Comtrade %s %s falló: %s", serie, chunk[0], e)
@@ -115,5 +159,6 @@ def fetch(months: int = 24) -> pd.DataFrame:
         if not records:
             log.warning("Comtrade %s: sin registros (HTTP %s) %s", serie,
                         getattr(r, "status_code", "?"), getattr(r, "text", "")[:200].replace("\n", " "))
+        consultados[serie] = sorted(hechos)
         out.append(parse_records(records, serie, q["flow"]))
-    return pd.concat(out, ignore_index=True) if out else frame([])
+    return out

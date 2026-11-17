@@ -7,24 +7,31 @@ _Actualizado: 2026-11-17 · Último mes con índice de referencia: 2026-10_
 - ⚠ Flete Colombia→Conchán (USD/t) fuera de rango histórico: z=+2.2 vs 24 meses
 - ▲ Brent (USD/bbl): +8.6% m/m (123.93, 2026-10)
 - ⚠ Brent (USD/bbl) fuera de rango histórico: z=+2.3 vs 24 meses
+- ⚠ Flete Japón→Conchán (USD/t) fuera de rango histórico: z=+2.2 vs 24 meses
 
-## Carbón Colombia puesto en planta
+## Carbón Colombia: FOB y CFR Conchán
 
 | Concepto | Valor |
 |---|---:|
 | FOB Colombia, spec contrato (USD/t) | 106.56 |
-| Flete Colombia→Conchán (USD/t) | 33.83 |
-| CIF Conchán (USD/t) | 140.60 |
-| Puesto en planta (USD/t) | 152.59 |
-| Puesto en planta (PEN/t) | 525.35 |
-| Puesto en planta (USD/GJ) | 6.07 |
-| Puesto en planta (USD/Gcal) | 25.43 |
-| IGV a pagar en aduana, crédito fiscal (USD/t) | 25.31 |
-| Costo anual estimado (MUSD) | 38.1 |
-| Presupuesto puesto en planta (USD/t) | 160.00 |
+| Flete marítimo Colombia→Conchán (USD/t) | 33.83 |
+| CFR Conchán (USD/t) | 140.39 |
+| CFR Conchán (PEN/t) | 483.35 |
+| Referencia CFR (USD/t) | — |
 | Fuente del FOB | estimado: Newcastle × ratio Colombia/Newcastle |
 
 Spec 6000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/Newcastle: 0.700 (calibrado con Comtrade). Factor de calibración del flete: 1.16.
+
+## Escoria granulada de Japón: FOB y CFR Conchán
+
+| Concepto | Valor |
+|---|---:|
+| FOB Japón (USD/t) | 6.01 |
+| Flete marítimo Japón→Conchán (USD/t) | 33.32 |
+| CFR Conchán (USD/t) | 39.33 |
+| CFR Conchán (PEN/t) | 135.42 |
+| Referencia CFR (USD/t) | — |
+| Fuente del FOB | último dato disponible |
 
 ## Precios y costos
 
@@ -34,12 +41,15 @@ Spec 6000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 | API4 FOB Richards Bay (USD/t) | 2026-10 | **100.00** | +1.8% | +9.2% | 98.33 | 94.67 | 90.60 – 106.80 | 0.9 |
 | Colombia FOB, spec contrato (USD/t) | 2026-10 | **106.56** | -1.0% | +33.0% | 104.17 | 92.45 | 76.52 – 116.10 | 1.0 |
 | Flete Colombia→Conchán (USD/t) | 2026-10 | **33.83** | +3.8% | +34.1% | 31.96 | 29.21 | 24.87 – 33.83 | 2.2 |
-| CIF Conchán (USD/t) | 2026-10 | **140.60** | +0.1% | +33.3% | 136.34 | 121.85 | 101.54 – 141.52 | 1.4 |
-| Puesto en planta (USD/t) | 2026-10 | **152.59** | +0.1% | +30.0% | 148.31 | 133.78 | 113.40 – 153.51 | 1.4 |
-| Puesto en planta (PEN/t) | 2026-10 | **525.35** | +2.0% | +31.1% | 503.72 | 454.81 | 381.84 – 561.96 | 1.0 |
-| Puesto en planta (USD/GJ) | 2026-10 | **6.07** | +0.1% | +30.0% | 5.90 | 5.33 | 4.51 – 6.11 | 1.4 |
+| CFR Conchán (USD/t) | 2026-10 | **140.39** | +0.1% | +33.3% | 136.13 | 121.67 | 101.39 – 141.31 | 1.4 |
+| CFR Conchán (PEN/t) | 2026-10 | **483.35** | +2.0% | +34.4% | 462.36 | 413.66 | 341.41 – 517.27 | 1.0 |
 | CIF Perú desde Colombia — Comtrade (USD/t) | 2025-03 | **140.94** | +4.4% | — | 138.11 | 137.05 | 135.04 – 140.94 | — |
 | CIF Perú desde todo origen — Comtrade (USD/t) | 2025-03 | **140.94** | +4.4% | — | 138.11 | 137.05 | 135.04 – 140.94 | — |
+| Escoria FOB Japón (USD/t) | 2026-10 | **6.01** | +0.0% | +21.3% | 6.01 | 6.13 | 2.00 – 10.37 | -0.1 |
+| Flete Japón→Conchán (USD/t) | 2026-10 | **33.32** | +3.3% | +29.8% | 31.67 | 29.23 | 25.35 – 33.32 | 2.2 |
+| Escoria CFR Conchán (USD/t) | 2026-10 | **39.33** | +2.8% | +28.4% | 37.69 | 35.35 | 28.95 – 41.90 | 1.5 |
+| Escoria CFR Conchán (PEN/t) | 2026-10 | **135.42** | +4.7% | +29.5% | 128.01 | 120.23 | 102.13 – 144.30 | 1.2 |
+| Escoria CIF Perú desde Japón — Comtrade (USD/t) | 2025-12 | **30.48** | +0.0% | -23.1% | 30.48 | 31.34 | 30.48 – 39.65 | -1.1 |
 | Brent (USD/bbl) | 2026-10 | **123.93** | +8.6% | +92.0% | 109.72 | 90.81 | 62.54 – 123.93 | 2.3 |
 | Tipo de cambio (PEN/USD) | 2026-10 | **3.443** | +1.9% | +0.8% | 3.395 | 3.398 | 3.357 – 3.780 | -0.5 |
 | Tipo de cambio (COP/USD) | 2026-10 | **3,195.20** | +0.3% | -17.7% | 3,170.46 | 3,521.24 | 3,130.92 – 4,412.06 | -1.7 |
@@ -50,9 +60,11 @@ Spec 6000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 |---|---|---:|---:|---:|---:|---:|---|---:|
 | Colombia FOB / Newcastle | 2026-10 | **0.700** | +0.0% | -2.6% | 0.700 | 0.680 | 0.611 – 1.116 | -0.5 |
 | Carbón vs Brent (USD/GJ ÷ USD/GJ) | 2026-10 | **0.209** | -8.8% | -30.7% | 0.234 | 0.257 | 0.188 – 0.439 | -1.4 |
-| Flete / CIF | 2026-10 | **0.241** | +3.7% | +0.6% | 0.234 | 0.240 | 0.178 – 0.267 | 0.6 |
-| CIF modelo / CIF Comtrade Perú | 2025-03 | **0.861** | -8.2% | — | 0.907 | 0.926 | 0.861 – 1.002 | — |
+| Flete / CFR | 2026-10 | **0.241** | +3.7% | +0.6% | 0.235 | 0.241 | 0.178 – 0.267 | 0.6 |
+| CFR modelo / CIF Comtrade Perú | 2025-03 | **0.860** | -8.2% | — | 0.906 | 0.925 | 0.860 – 1.000 | — |
 | Participación de Colombia en importaciones de Perú (t) | 2025-03 | **1.000** | +0.0% | — | 1.000 | 1.000 | 1.000 – 1.000 | — |
+| Flete / CFR escoria | 2026-10 | **0.847** | +0.5% | +1.1% | 0.840 | 0.827 | 0.725 – 0.931 | 0.5 |
+| Escoria CFR modelo / CIF Comtrade Perú | 2025-12 | **1.00** | -11.4% | +35.7% | 1.04 | 1.05 | 0.73 – 1.24 | 0.3 |
 
 ## Gráficos (últimos 36 meses)
 
@@ -62,16 +74,18 @@ Spec 6000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 
 ![flete.png](graficos/flete.png)
 
+![escoria.png](graficos/escoria.png)
+
 ![ratios.png](graficos/ratios.png)
 
 ## Estado de las fuentes (última descarga)
 
 | Fuente | Observaciones | Estado |
 |---|---:|---|
-| fred | 281 | ✅ OK |
-| banco_mundial | 282 | ✅ OK |
-| bcrp | 95 | ✅ OK |
-| comtrade | 62 | ✅ OK |
+| fred | 317 | ✅ OK |
+| banco_mundial | 318 | ✅ OK |
+| bcrp | 107 | ✅ OK |
+| comtrade | 24 | ⚠ Comtrade pe_imp_carbon_col_cif: sin registros (HTTP 200) {"elapsedTime":"0.18 secs","count":0,"data":[],"error":""}<br>Comtrade co_exp_carbon_pe_fob: sin registros (HTTP 200) {"elapsedTime":"0.04 secs","count":0,"data":[],"error":""}<br>Comtrade co_exp_carbon_mundo_fob: sin registros (HTTP 200) {"elapsedTime":"0.97 secs","count":0,"data":[],"error":""} |
 | investing | 0 | — sin archivos |
 | manual | 0 | — sin archivos |
 
@@ -90,10 +104,20 @@ Spec 6000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 | `co_exp_carbon_pe_fob_vol_t` | 2025-09 |
 | `fx_cop_usd` | 2026-10 |
 | `fx_pen_usd` | 2026-11 |
+| `jp_exp_escoria_mundo_fob_usd_t` | 2026-08 |
+| `jp_exp_escoria_mundo_fob_vol_t` | 2026-08 |
+| `jp_exp_escoria_pe_fob_anual_usd_t` | 2025-01 |
+| `jp_exp_escoria_pe_fob_anual_vol_t` | 2025-01 |
+| `jp_exp_escoria_pe_fob_usd_t` | 2026-08 |
+| `jp_exp_escoria_pe_fob_vol_t` | 2026-08 |
 | `pe_imp_carbon_col_cif_usd_t` | 2025-03 |
 | `pe_imp_carbon_col_cif_vol_t` | 2025-03 |
 | `pe_imp_carbon_mundo_cif_usd_t` | 2025-03 |
 | `pe_imp_carbon_mundo_cif_vol_t` | 2025-03 |
+| `pe_imp_escoria_jpn_cif_anual_usd_t` | 2025-01 |
+| `pe_imp_escoria_jpn_cif_anual_vol_t` | 2025-01 |
+| `pe_imp_escoria_jpn_cif_usd_t` | 2025-04 |
+| `pe_imp_escoria_jpn_cif_vol_t` | 2025-04 |
 
 ---
 _Fuentes: FRED/IMF, Banco Mundial (Pink Sheet), BCRP, UN Comtrade, CSV de Investing.com y cotizaciones propias. Los valores modelados son estimaciones; ver README para la metodología._

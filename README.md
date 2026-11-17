@@ -6,11 +6,22 @@ Tiene dos módulos y un solo tablero web:
 | Módulo | Qué sigue | Frecuencia | Código |
 |---|---|---|---|
 | **Diésel** | Precios de lista de Petroperú (B5 S-50 y B5 S-50 UV) y precios de referencia de Osinergmin | Diario (08:00 y 12:30 de Lima) | `agente_petroperu.py` |
-| **Precios carbones internacionales** | Índices internacionales del carbón (Newcastle, API4, API2), FOB Colombia y su costo puesto en planta Conchán, con alertas | Semanal (lunes) | [`carbon/`](carbon/README.md) |
+| **Precios carbones internacionales** | Índices internacionales del carbón (Newcastle, API4, API2), precio FOB Colombia y CFR Muelle Conchán, con alertas por correo | Semanal (lunes) | [`carbon/`](carbon/README.md) |
+| **Escoria japonesa** | Escoria granulada de alto horno (GBFS) de Japón: precio FOB Japón y CFR Muelle Conchán, comparados con el comercio exterior Japón→Perú, con alertas por correo | Semanal (lunes) | [`carbon/`](carbon/README.md) |
 
 - **Tablero:** https://elpoppin2.github.io/AGENTE-PETROPERU-COMBUSTIBLES/ (pestañas *Precios Petroperú*,
-  *Referencia Osinergmin* y *Precios carbones internacionales*).
+  *Referencia Osinergmin*, *Precios carbones internacionales* y *Escoria japonesa*).
 - **Repositorio:** https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES
+- **Agente de consultas:** botón *Consultar* del tablero (o *Issues → New issue → Consulta al agente*).
+  Un agente de Claude (Claude Managed Agents) lee los CSV del repositorio, calcula con Python y
+  responde en el mismo issue y por correo. Solo atiende a quien tiene acceso al repositorio. Ver
+  [Agente de consultas](#agente-de-consultas).
+- **Interfaz del tablero:** usa librerías de código abierto de GitHub, empaquetadas en
+  `assets/vendor/` (sin depender de servidores externos): [Motion](https://github.com/motiondivision/motion)
+  para las animaciones, [Tom Select](https://github.com/orchidjs/tom-select) para el selector de planta
+  con búsqueda, [Tippy.js](https://github.com/atomiks/tippyjs) para el menú de descargas y las ayudas, y
+  [NumberFlow](https://github.com/barvian/number-flow) para las cifras que ruedan. Para actualizarlas:
+  `cd herramientas/librerias && npm ci && npm run construir`. Licencias en `assets/vendor/LICENCIAS.txt`.
 - **Pruebas de todo el proyecto:** `pip install -r requirements.txt && python -m pytest -q`
 
 El módulo de carbón viene del repositorio `PRECIOS-COMBUSTIBLES-CARB-N-IMPORTADO---COLOMBIA`; su
@@ -179,3 +190,25 @@ También puedes lanzarlo a mano en *Actions → Precios diarios Petroperú → R
 ```bash
 pip install pytest && python -m pytest -q tests
 ```
+
+## Agente de consultas
+
+Para preguntar en lenguaje normal sobre los datos del proyecto, por ejemplo *"¿Cuál fue el promedio
+ponderado del B5 S-50 en Conchán en junio de 2025?"* o *"¿Conviene comprar escoria este mes?"*.
+
+1. Se abre un issue con el formulario *Consulta al agente* (botón *Consultar* del tablero).
+2. El workflow [`consultas.yml`](.github/workflows/consultas.yml) abre una sesión en Claude Managed
+   Agents con este repositorio montado; el agente calcula sobre los CSV (sin internet).
+3. La respuesta se publica como comentario del issue y se envía a `AVISO_CORREOS`.
+
+**Activarlo (una sola vez):**
+1. Crear una clave en https://console.anthropic.com (con saldo) y guardarla como secreto
+   `ANTHROPIC_API_KEY` en *Settings → Secrets and variables → Actions*.
+2. *Actions → Configurar agente de consultas → Run workflow*: crea el agente y su entorno y guarda
+   sus identificadores en `agente/ids.json`. Si cambias `agente/instrucciones.md`, el agente se
+   actualiza solo.
+
+**Costo:** se paga por uso de la API de Claude (modelo Claude Opus 5.5), aproximadamente US$ 0.10 a
+0.50 por consulta. Cada consulta tiene un tope de US$ 1.00 (`TOPE_USD` en `agente/consultar.py`).
+GitHub Actions no cobra en repositorios públicos. Solo responden las consultas de la dueña o dueño
+del repositorio y de sus colaboradores.

@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  issues: write   # para publicar el aviso de alertas
 
 concurrency:
   group: monitor-carbon
@@ -20,9 +21,11 @@ concurrency:
 jobs:
   actualizar:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main   # siempre lo último de main: así dos ejecuciones seguidas no repiten el mismo aviso
 
       - uses: actions/setup-python@v5
         with:
@@ -35,6 +38,7 @@ jobs:
         run: python -m pytest -q tests/carbon
 
       - name: Descargar datos y generar reporte
+        id: reporte
         env:
           COMTRADE_API_KEY: ${{ secrets.COMTRADE_API_KEY }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
@@ -57,3 +61,26 @@ jobs:
             git commit -m "Monitor carbón $(TZ=America/Lima date +%F)"
             git pull --rebase origin main && git push
           fi
+
+      - name: Avisar alertas nuevas
+        # Solo si aparecieron alertas que no se habían avisado (GitHub también lo envía a la app).
+        id: aviso
+        if: steps.reporte.outputs.aviso != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AVISO: ${{ steps.reporte.outputs.aviso }}
+          TITULO: ${{ steps.reporte.outputs.titulo }}
+        run: |
+          gh label create "alerta carbón" --color fbca04 --description "Alertas del carbón bituminoso" 2>/dev/null || true
+          tail -n +3 "$AVISO" > cuerpo_carbon.md
+          URL=$(gh issue create --title "$TITULO" --body-file cuerpo_carbon.md --label "alerta carbón")
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Enviar alertas por correo
+        # Mismos destinatarios y cuenta que los avisos del diésel (secrets AVISO_*).
+        if: steps.aviso.outcome == 'success'
+        env:
+          AVISO_CORREO_USUARIO: ${{ secrets.AVISO_CORREO_USUARIO }}
+          AVISO_CORREO_CLAVE: ${{ secrets.AVISO_CORREO_CLAVE }}
+          AVISO_CORREOS: ${{ secrets.AVISO_CORREOS }}
+        run: python -m carbon enviar --enlace "${{ steps.aviso.outputs.url }}"

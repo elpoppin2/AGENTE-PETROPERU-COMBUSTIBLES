@@ -1,7 +1,7 @@
 [
  {
   "fuente": "fred",
-  "observaciones": 281,
+  "observaciones": 317,
   "series": [
    "brent",
    "carbon_newcastle_fob",
@@ -11,7 +11,7 @@
  },
  {
   "fuente": "banco_mundial",
-  "observaciones": 282,
+  "observaciones": 318,
   "series": [
    "brent_bm",
    "carbon_bm_australia_fob",
@@ -21,7 +21,7 @@
  },
  {
   "fuente": "bcrp",
-  "observaciones": 95,
+  "observaciones": 107,
   "series": [
    "fx_pen_usd"
   ],
@@ -29,18 +29,24 @@
  },
  {
   "fuente": "comtrade",
-  "observaciones": 62,
+  "observaciones": 24,
   "series": [
-   "co_exp_carbon_mundo_fob_usd_t",
-   "co_exp_carbon_mundo_fob_vol_t",
-   "co_exp_carbon_pe_fob_usd_t",
-   "co_exp_carbon_pe_fob_vol_t",
-   "pe_imp_carbon_col_cif_usd_t",
-   "pe_imp_carbon_col_cif_vol_t",
-   "pe_imp_carbon_mundo_cif_usd_t",
-   "pe_imp_carbon_mundo_cif_vol_t"
+   "jp_exp_escoria_mundo_fob_usd_t",
+   "jp_exp_escoria_mundo_fob_vol_t",
+   "jp_exp_escoria_pe_fob_anual_usd_t",
+   "jp_exp_escoria_pe_fob_anual_vol_t",
+   "jp_exp_escoria_pe_fob_usd_t",
+   "jp_exp_escoria_pe_fob_vol_t",
+   "pe_imp_escoria_jpn_cif_anual_usd_t",
+   "pe_imp_escoria_jpn_cif_anual_vol_t"
   ],
-  "avisos": []
+  "avisos": [
+   "Comtrade pe_imp_carbon_col_cif: sin registros (HTTP 200) {\"elapsedTime\":\"0.18 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
+   "Comtrade co_exp_carbon_pe_fob: sin registros (HTTP 200) {\"elapsedTime\":\"0.04 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
+   "Comtrade co_exp_carbon_mundo_fob: sin registros (HTTP 200) {\"elapsedTime\":\"0.97 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
+   "Comtrade pe_imp_carbon_mundo_cif: sin registros (HTTP 200) {\"elapsedTime\":\"0.03 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
+   "Comtrade pe_imp_escoria_jpn_cif: sin registros (HTTP 200) {\"elapsedTime\":\"0.03 secs\",\"count\":0,\"data\":[],\"error\":\"\"}"
+  ]
  },
  {
   "fuente": "investing",

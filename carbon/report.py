@@ -19,6 +19,12 @@ FUENTES_LEGIBLES = {
     "carbon_bm_colombia_fob": "Banco Mundial: Coal, Colombian",
     "nowcast_api2": "estimado: API2 × ratio Colombia/API2",
     "nowcast_newcastle": "estimado: Newcastle × ratio Colombia/Newcastle",
+    "manual_escoria_fob": "cotización propia",
+    "jp_exp_escoria_pe_fob_usd_t": "Comtrade: export. Japón→Perú (FOB, mensual)",
+    "jp_exp_escoria_mundo_fob_usd_t": "Comtrade: export. Japón→mundo (FOB, mensual)",
+    "comtrade_anual": "Comtrade: export. Japón→Perú (FOB, anual)",
+    "ultimo_dato": "último dato disponible",
+    "supuesto": "valor por defecto de la configuración",
 }
 THREE_DECIMALS = ("ratio", "paridad", "flete_share", "fx_pen", "carbon_vs", "share")
 
@@ -54,11 +60,13 @@ def charts(res: Result, out_dir: Path) -> list[str]:
         ("indices.png", "Índices internacionales de carbón (USD/t)",
          {"carbon_api2_cif_ara": "API2 CIF Rotterdam", "carbon_newcastle_fob": "Newcastle FOB",
           "carbon_api4_fob_rb": "API4 FOB Richards Bay", "carbon_col_fob": "Colombia FOB (spec)"}),
-        ("carbon.png", "Carbón colombiano → Conchán (USD/t)",
-         {"carbon_col_fob": "Colombia FOB (spec)", "carbon_cif": "CIF Conchán", "carbon_landed": "Puesto en planta",
+        ("carbon.png", "Carbón colombiano: FOB y CFR Conchán (USD/t)",
+         {"carbon_col_fob": "Colombia FOB (spec)", "carbon_cfr": "CFR Conchán",
           "carbon_cif_comtrade": "CIF Comtrade Perú (Colombia)", "pe_imp_carbon_mundo_cif": "CIF Comtrade Perú (todo origen)"}),
         ("flete.png", "Flete estimado Colombia→Conchán (USD/t) y Brent (USD/bbl)",
          {"carbon_flete": "Flete", "brent": "Brent"}),
+        ("escoria.png", "Escoria granulada de Japón: FOB y CFR Conchán (USD/t)",
+         {"escoria_fob": "FOB Japón", "escoria_cfr": "CFR Conchán", "escoria_cif_comtrade": "CIF Comtrade Perú (Japón)"}),
         ("ratios.png", "Ratios Colombia FOB / índice",
          {"ratio_col_api2": "Colombia/API2", "ratio_col_newcastle": "Colombia/Newcastle",
           "paridad_carbon_brent": "Carbón/Brent (energía)"}),
@@ -117,21 +125,16 @@ def render(res: Result, cfg: dict, commentary: str | None, chart_files: list[str
 
     last = res.monthly.iloc[-1]
     ccfg = cfg["carbon"]
-    out.append("## Carbón Colombia puesto en planta\n")
+    out.append("## Carbón Colombia: FOB y CFR Conchán\n")
     out.append("| Concepto | Valor |\n|---|---:|")
     for label, col, nd in [
         ("FOB Colombia, spec contrato (USD/t)", "carbon_col_fob", 2),
-        ("Flete Colombia→Conchán (USD/t)", "carbon_flete", 2),
-        ("CIF Conchán (USD/t)", "carbon_cif", 2),
-        ("Puesto en planta (USD/t)", "carbon_landed", 2),
-        ("Puesto en planta (PEN/t)", "carbon_landed_pen", 2),
-        ("Puesto en planta (USD/GJ)", "carbon_usd_gj", 2),
-        ("Puesto en planta (USD/Gcal)", "carbon_usd_gcal", 2),
-        ("IGV a pagar en aduana, crédito fiscal (USD/t)", "carbon_igv_caja_usd_t", 2),
-        ("Costo anual estimado (MUSD)", "carbon_impacto_anual_musd", 1),
+        ("Flete marítimo Colombia→Conchán (USD/t)", "carbon_flete", 2),
+        ("CFR Conchán (USD/t)", "carbon_cfr", 2),
+        ("CFR Conchán (PEN/t)", "carbon_cfr_pen", 2),
     ]:
         out.append(f"| {label} | {_fmt(last.get(col), nd)} |")
-    out.append(f"| Presupuesto puesto en planta (USD/t) | {_fmt(ccfg['presupuesto_landed_usd_t'])} |")
+    out.append(f"| Referencia CFR (USD/t) | {_fmt(ccfg.get('presupuesto_cfr_usd_t'))} |")
     fuente = meta.get("fuente_carbon_fob")
     out.append(f"| Fuente del FOB | {FUENTES_LEGIBLES.get(fuente, fuente)} |\n")
 
@@ -142,6 +145,17 @@ def render(res: Result, cfg: dict, commentary: str | None, chart_files: list[str
                f"Ratio Colombia/API2: {meta['ratio_colombia_api2']:.3f} ({calib(meta['ratio_api2_calibrado'])}); "
                f"Colombia/Newcastle: {meta['ratio_colombia_newcastle']:.3f} ({calib(meta['ratio_newcastle_calibrado'])}). "
                f"Factor de calibración del flete: {meta['factor_flete']:.2f}.\n")
+
+    if "escoria_cfr" in res.monthly:
+        ecfg = cfg.get("escoria", {})
+        out.append("## Escoria granulada de Japón: FOB y CFR Conchán\n")
+        out.append("| Concepto | Valor |\n|---|---:|")
+        for label, col in [("FOB Japón (USD/t)", "escoria_fob"), ("Flete marítimo Japón→Conchán (USD/t)", "escoria_flete"),
+                           ("CFR Conchán (USD/t)", "escoria_cfr"), ("CFR Conchán (PEN/t)", "escoria_cfr_pen")]:
+            out.append(f"| {label} | {_fmt(last.get(col))} |")
+        out.append(f"| Referencia CFR (USD/t) | {_fmt(ecfg.get('presupuesto_cfr_usd_t'))} |")
+        fuente = meta.get("fuente_escoria_fob")
+        out.append(f"| Fuente del FOB | {FUENTES_LEGIBLES.get(fuente, fuente)} |\n")
 
     out.append("## Precios y costos\n")
     out.append(_table(res.indicators, KEY_SERIES))
