@@ -1,4 +1,4 @@
-# Monitor de carbón importado — Puerto Conchán
+# Precios carbones internacionales — Puerto Conchán
 
 _Actualizado: 2026-11-17 · Último mes con índice de referencia: 2026-10_
 
