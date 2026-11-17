@@ -5,7 +5,15 @@ colombiano** (HS 2701.12) importado por **Puerto Conchán (Lima, Perú)**, un in
 crítico de la operación.
 
 Combina **información pública gratuita**, los **CSV que descargues de Investing.com**
-y tus **cotizaciones propias**. Con eso arma el **precio FOB** y el **CFR Muelle Conchán**
+y tus **cotizaciones propias**. Con eso arma el **precio FOB** y el **Calibración del FOB:** el ratio Colombia/índice se calcula con las exportaciones de Colombia **a
+Perú** (carbón de alto poder calorífico, que se asume a `poder_calorifico_comercio_pe_kcal_kg`), no con
+el promedio de sus exportaciones al mundo, que es carbón más barato. Con menos de 3 datos de comercio
+con Perú se usa el del mundo.
+
+**CFR comparable con ofertas:** CFR + `atenuantes` de la configuración (granulometría fina, calidad
+y costo financiero del plazo de pago). Sirve para comparar una oferta con el mercado.
+
+**CFR Muelle Conchán**
 (FOB + flete marítimo, en USD y PEN), calcula **ratios** de seguimiento y dispara **alertas**.
 No calcula el costo puesto en planta.
 

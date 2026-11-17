@@ -13,14 +13,14 @@ _Actualizado: 2026-11-17 · Último mes con índice de referencia: 2026-10_
 
 | Concepto | Valor |
 |---|---:|
-| FOB Colombia, spec contrato (USD/t) | 124.32 |
+| FOB Colombia, spec contrato (USD/t) | 132.74 |
 | Flete marítimo Colombia→Conchán (USD/t) | 33.83 |
-| CFR Conchán (USD/t) | 158.15 |
-| CFR Conchán (PEN/t) | 544.49 |
+| CFR Conchán (USD/t) | 166.57 |
+| CFR Conchán (PEN/t) | 573.46 |
 | Referencia CFR (USD/t) | — |
 | Fuente del FOB | estimado: Newcastle × ratio Colombia/Newcastle |
 
-Spec 7000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/Newcastle: 0.700 (calibrado con Comtrade). Factor de calibración del flete: 1.16.
+Spec 7000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/Newcastle: 0.872 (calibrado con Comtrade). Factor de calibración del flete: 1.16.
 
 ## Escoria granulada de Japón: FOB y CFR Conchán
 
@@ -39,10 +39,11 @@ Spec 7000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 |---|---|---:|---:|---:|---:|---:|---|---:|
 | Newcastle FOB (USD/t) | 2026-10 | **152.30** | -1.0% | +36.6% | 148.88 | 135.85 | 101.14 – 153.84 | 1.5 |
 | API4 FOB Richards Bay (USD/t) | 2026-10 | **100.00** | +1.8% | +9.2% | 98.33 | 94.67 | 90.60 – 106.80 | 0.9 |
-| Colombia FOB, spec contrato (USD/t) | 2026-10 | **124.32** | -1.0% | +33.0% | 121.53 | 107.86 | 89.27 – 135.45 | 1.0 |
+| Colombia FOB, spec contrato (USD/t) | 2026-10 | **132.74** | -1.0% | +36.6% | 129.76 | 118.40 | 82.06 – 134.08 | 1.6 |
 | Flete Colombia→Conchán (USD/t) | 2026-10 | **33.83** | +3.8% | +34.1% | 31.96 | 29.21 | 24.87 – 33.83 | 2.2 |
-| CFR Conchán (USD/t) | 2026-10 | **158.15** | -0.0% | +33.3% | 153.49 | 137.08 | 114.14 – 160.66 | 1.3 |
-| CFR Conchán (PEN/t) | 2026-10 | **544.49** | +1.8% | +34.4% | 521.32 | 466.05 | 384.35 – 588.10 | 1.0 |
+| CFR Conchán (USD/t) | 2026-10 | **166.57** | -0.1% | +36.1% | 161.72 | 147.61 | 107.91 – 166.68 | 1.7 |
+| CFR Conchán (PEN/t) | 2026-10 | **573.46** | +1.8% | +37.2% | 549.26 | 501.93 | 399.37 – 573.46 | 1.6 |
+| CFR comparable con ofertas, con atenuantes (USD/t) | 2026-10 | **174.84** | -0.1% | +34.4% | 169.92 | 155.63 | 115.41 – 174.95 | 1.7 |
 | CIF Perú desde Colombia — Comtrade (USD/t) | 2025-03 | **140.94** | +4.4% | — | 138.11 | 137.05 | 135.04 – 140.94 | — |
 | CIF Perú desde todo origen — Comtrade (USD/t) | 2025-03 | **140.94** | +4.4% | — | 138.11 | 137.05 | 135.04 – 140.94 | — |
 | Escoria FOB Japón (USD/t) | 2026-10 | **6.01** | +0.0% | +21.3% | 6.01 | 6.13 | 2.00 – 10.37 | -0.1 |
@@ -58,10 +59,10 @@ Spec 7000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 
 | Indicador | Mes | Último | m/m | a/a | Prom. 3m | Prom. 12m | Rango 24m | z 24m |
 |---|---|---:|---:|---:|---:|---:|---|---:|
-| Colombia FOB / Newcastle | 2026-10 | **0.700** | +0.0% | -2.6% | 0.700 | 0.680 | 0.611 – 1.116 | -0.5 |
-| Carbón vs Brent (USD/GJ ÷ USD/GJ) | 2026-10 | **0.209** | -8.8% | -30.7% | 0.234 | 0.257 | 0.188 – 0.439 | -1.4 |
-| Flete / CFR | 2026-10 | **0.214** | +3.8% | +0.6% | 0.208 | 0.214 | 0.157 – 0.238 | 0.6 |
-| CFR modelo / CIF Comtrade Perú | 2025-03 | **0.972** | -8.2% | — | 1.024 | 1.046 | 0.972 – 1.134 | — |
+| Colombia FOB / Newcastle | 2026-10 | **0.872** | +0.0% | +0.0% | 0.872 | 0.872 | 0.721 – 1.116 | -0.1 |
+| Carbón vs Brent (USD/GJ ÷ USD/GJ) | 2026-10 | **0.224** | -8.8% | -28.9% | 0.250 | 0.282 | 0.221 – 0.376 | -1.7 |
+| Flete / CFR | 2026-10 | **0.203** | +3.8% | -1.4% | 0.198 | 0.198 | 0.178 – 0.240 | 0.1 |
+| CFR modelo / CIF Comtrade Perú | 2025-03 | **0.837** | -10.1% | — | 0.919 | 0.988 | 0.837 – 1.185 | — |
 | Participación de Colombia en importaciones de Perú (t) | 2025-03 | **1.000** | +0.0% | — | 1.000 | 1.000 | 1.000 – 1.000 | — |
 | Flete / CFR escoria | 2026-10 | **0.847** | +0.5% | +1.1% | 0.840 | 0.827 | 0.725 – 0.931 | 0.5 |
 | Escoria CFR modelo / CIF Comtrade Perú | 2025-12 | **1.00** | -11.4% | +35.7% | 1.04 | 1.05 | 0.73 – 1.24 | 0.3 |

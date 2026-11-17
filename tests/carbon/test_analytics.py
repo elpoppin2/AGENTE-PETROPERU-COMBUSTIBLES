@@ -155,3 +155,26 @@ def test_alertas_separadas_por_material(synthetic_wide, cfg):
     res = analytics.compute(synthetic_wide, cfg)
     assert any("Escoria CFR Conchán" in a for a in res.meta["alertas"]["escoria"])
     assert not any("Escoria" in a for a in res.meta["alertas"]["carbon"])
+
+
+def test_ratio_calibrado_con_exportaciones_a_peru(synthetic_wide, cfg):
+    """Con datos Colombia→Perú, el ratio sale de ellos y el comercio con el mundo no se usa."""
+    w = synthetic_wide.copy()
+    w["co_exp_carbon_mundo_fob_usd_t"] = w["carbon_api2_cif_ara"] * 0.60      # más barato: no debe usarse
+    cfg["carbon"]["poder_calorifico_spec_kcal_kg"] = 7000
+    cfg["carbon"]["poder_calorifico_comercio_pe_kcal_kg"] = 7000              # el comercio ya está a 7,000
+    res = analytics.compute(w, cfg)
+    r = res.monthly.iloc[-1]
+    assert res.meta["calibracion_ratio"] == "colombia_peru"
+    assert r["carbon_col_fob"] == pytest.approx(r["carbon_api2_cif_ara"] * 0.85)  # sin escalar: misma base
+    cfg["carbon"]["poder_calorifico_comercio_pe_kcal_kg"] = 6000              # si el comercio estuviera a 6,000
+    r2 = analytics.compute(w, cfg).monthly.iloc[-1]
+    assert r2["carbon_col_fob"] == pytest.approx(r["carbon_col_fob"] * 7000 / 6000)
+
+
+def test_cfr_comparable_con_atenuantes(synthetic_wide, cfg):
+    cfg["carbon"]["atenuantes"] = {"granulometria_usd_t": 4.5, "calidad_usd_t": 1.5, "plazo_pago_dias": 60, "tasa_anual_pct": 8.0}
+    r = analytics.compute(synthetic_wide, cfg).monthly.iloc[-1]
+    base = r["carbon_cfr"] + 6.0
+    assert r["carbon_costo_credito"] == pytest.approx(base * 0.08 * 60 / 365)
+    assert r["carbon_cfr_comparable"] == pytest.approx(base + r["carbon_costo_credito"])

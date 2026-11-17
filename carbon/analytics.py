@@ -29,6 +29,7 @@ KEY_SERIES = {
     "carbon_flete": "Flete Colombia→Conchán (USD/t)",
     "carbon_cfr": "CFR Conchán (USD/t)",
     "carbon_cfr_pen": "CFR Conchán (PEN/t)",
+    "carbon_cfr_comparable": "CFR comparable con ofertas, con atenuantes (USD/t)",
     "carbon_cif_comtrade": "CIF Perú desde Colombia — Comtrade (USD/t)",
     "pe_imp_carbon_mundo_cif": "CIF Perú desde todo origen — Comtrade (USD/t)",
     "escoria_fob": "Escoria FOB Japón (USD/t)",
@@ -119,8 +120,19 @@ def compute(w: pd.DataFrame, cfg: dict) -> Result:
         m[fx] = _col(w, fx).ffill()
 
     # --- FOB Colombia -------------------------------------------------------------
-    trade_fob, _ = _first(w, ["co_exp_carbon_pe_fob_usd_t", "co_exp_carbon_mundo_fob_usd_t",
-                              "carbon_bm_colombia_fob"])
+    # El ratio Colombia/índice se calibra con lo que Colombia exporta a Perú (carbón de alto poder
+    # calorífico, más caro que el promedio de sus exportaciones); se asume que ese carbón ya está
+    # en `poder_calorifico_comercio_pe_kcal_kg`. Con menos de 3 datos se usa el comercio con el mundo,
+    # en la base de los índices.
+    cv_ref, cv_spec = ccfg["poder_calorifico_ref_kcal_kg"], ccfg["poder_calorifico_spec_kcal_kg"]
+    pe_fob = _col(w, "co_exp_carbon_pe_fob_usd_t")
+    if pe_fob.notna().sum() >= 3:
+        trade_fob, cv_trade, calibracion = pe_fob, ccfg.get("poder_calorifico_comercio_pe_kcal_kg", cv_ref), "colombia_peru"
+        fuentes_obs = ["co_exp_carbon_pe_fob_usd_t"]
+    else:
+        trade_fob, _ = _first(w, ["co_exp_carbon_pe_fob_usd_t", "co_exp_carbon_mundo_fob_usd_t", "carbon_bm_colombia_fob"])
+        cv_trade, calibracion = cv_ref, "colombia_mundo"
+        fuentes_obs = ["co_exp_carbon_pe_fob_usd_t", "co_exp_carbon_mundo_fob_usd_t", "carbon_bm_colombia_fob"]
     ratio_nc = _recent_median(trade_fob / m["carbon_newcastle_fob"]) or ccfg["ratio_colombia_newcastle_default"]
     ratio_api2 = _recent_median(trade_fob / m["carbon_api2_cif_ara"]) or ccfg["ratio_colombia_api2_default"]
     now_api2 = m["carbon_api2_cif_ara"] * ratio_api2
@@ -132,12 +144,14 @@ def compute(w: pd.DataFrame, cfg: dict) -> Result:
         nowcast = now_nc.combine_first(now_api2)
         now_src = np.where(now_nc.notna(), "nowcast_newcastle", np.where(now_api2.notna(), "nowcast_api2", None))
 
-    observed, src = _first(w, ["manual_carbon_fob", "co_exp_carbon_pe_fob_usd_t",
-                               "co_exp_carbon_mundo_fob_usd_t", "carbon_bm_colombia_fob"])
-    fob_ref = observed.combine_first(nowcast)
-    cv_adj = ccfg["poder_calorifico_spec_kcal_kg"] / ccfg["poder_calorifico_ref_kcal_kg"]
-    m["carbon_col_fob"] = fob_ref * cv_adj
-    m["carbon_col_fob_fuente"] = src.where(observed.notna(), now_src)
+    # Cada fuente se lleva al poder calorífico de las plantas: la cotización propia viene en la base de
+    # los índices (manual.py la normaliza) y el comercio y el nowcast, en la base del comercio usado.
+    manual = _col(w, "manual_carbon_fob") * cv_spec / cv_ref
+    observed, src = _first(w, fuentes_obs)
+    fob = manual.combine_first(observed * cv_spec / cv_trade).combine_first(nowcast * cv_spec / cv_trade)
+    m["carbon_col_fob"] = fob
+    m["carbon_col_fob_fuente"] = pd.Series(np.where(manual.notna(), "manual_carbon_fob", np.where(observed.notna(), src, now_src)), index=w.index)
+    fob_ref = fob * cv_trade / cv_spec     # en la base del comercio, para los ratios
     m["ratio_col_api2"] = fob_ref / m["carbon_api2_cif_ara"]
     m["ratio_col_newcastle"] = fob_ref / m["carbon_newcastle_fob"]
     m["spread_api2_newcastle"] = m["carbon_api2_cif_ara"] - m["carbon_newcastle_fob"]
@@ -149,6 +163,14 @@ def compute(w: pd.DataFrame, cfg: dict) -> Result:
     m["carbon_cfr"] = (_col(w, "manual_carbon_cfr").combine_first(_col(w, "manual_carbon_cif"))
                        .combine_first(m["carbon_col_fob"] + m["carbon_flete"]))
     m["carbon_cfr_pen"] = m["carbon_cfr"] * m["fx_pen_usd"]
+    # CFR comparable con ofertas: el CFR más los atenuantes que suelen traer las ofertas
+    # (granulometría fina, calidad, costo del crédito del plazo de pago). Supuestos en config.
+    at = ccfg.get("atenuantes") or {}
+    m["carbon_prima_granulometria"] = float(at.get("granulometria_usd_t", 0))
+    m["carbon_prima_calidad"] = float(at.get("calidad_usd_t", 0))
+    base = m["carbon_cfr"] + m["carbon_prima_granulometria"] + m["carbon_prima_calidad"]
+    m["carbon_costo_credito"] = base * float(at.get("tasa_anual_pct", 0)) / 100 * float(at.get("plazo_pago_dias", 0)) / 365
+    m["carbon_cfr_comparable"] = base + m["carbon_costo_credito"]
 
     gj_per_t = ccfg["poder_calorifico_spec_kcal_kg"] * 1000 * KCAL_TO_GJ
     m["paridad_carbon_brent"] = (m["carbon_col_fob"] / gj_per_t) / (m["brent"] / GJ_PER_BBL)
@@ -203,6 +225,7 @@ def compute(w: pd.DataFrame, cfg: dict) -> Result:
         "factor_flete": scale,
         "ultimo_mes": m.index.max().strftime("%Y-%m") if not m.empty else None,
         "fuente_carbon_fob": m["carbon_col_fob_fuente"].iloc[-1] if not m.empty else None,
+        "calibracion_ratio": calibracion,
         "fuente_escoria_fob": m["escoria_fob_fuente"].iloc[-1] if ecfg and not m.empty else None,
         "ultimo_dato_por_serie": {c: w[c].last_valid_index().strftime("%Y-%m")
                                   for c in w.columns if w[c].notna().any()},

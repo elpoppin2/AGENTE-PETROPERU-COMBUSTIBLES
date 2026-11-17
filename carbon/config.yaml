@@ -16,15 +16,22 @@ carbon:
   origen: "Colombia (Puerto Nuevo / Santa Marta / Pto. Drummond)"
   hs: "270112"                    # Hulla bituminosa
   poder_calorifico_ref_kcal_kg: 6000   # base de los índices (NAR) — API2 y Newcastle ~6000 NAR
-  poder_calorifico_spec_kcal_kg: 7000  # requerimiento de las plantas UNACEM: el FOB se ajusta x 7000/6000
+  poder_calorifico_spec_kcal_kg: 7000  # requerimiento de las plantas UNACEM
+  poder_calorifico_comercio_pe_kcal_kg: 7000  # supuesto: carbón que Colombia exporta a Perú (alto poder calorífico) — AJUSTAR
   presupuesto_cfr_usd_t: null    # referencia CFR Conchán (USD/t); vacío = sin alerta de referencia
+  # Atenuantes para comparar el CFR con ofertas (supuestos de mercado, USD/t) — AJUSTAR
+  atenuantes:
+    granulometria_usd_t: 4.5      # chancado y tamizado para granulometría fina (rango 3 a 6)
+    calidad_usd_t: 1.5            # baja ceniza y azufre
+    plazo_pago_dias: 60           # crédito del vendedor desde la fecha del B/L
+    tasa_anual_pct: 8.0           # costo financiero del crédito
   # Flete Colombia -> Conchán vía Canal de Panamá (Supramax/Panamax)
   flete:
     base_usd_t: 24.0              # flete de referencia con Brent = brent_base — AJUSTAR
     brent_base_usd_bbl: 80.0
     elasticidad_bunker: 0.45      # % de cambio del flete por % de cambio del Brent
   # Ratios FOB Colombia / índice, usados sólo si no hay datos para calibrarlos.
-  # Se recalibran automáticamente con UN Comtrade (mediana últimos 12 meses).
+  # Se recalibran con UN Comtrade: exportaciones de Colombia a Perú (mediana de los últimos 12 datos).
   ratio_colombia_api2_default: 0.85       # API2 es CIF Rotterdam: incluye flete al ARA
   ratio_colombia_newcastle_default: 0.88
   benchmark_preferido: "api2"     # api2 | newcastle  (el carbón colombiano es del Atlántico)

@@ -1199,17 +1199,21 @@ const ORIGEN_ESCORIA = {
 const MATERIAS = {
   carbon: {
     clave: "carbon", fob: "carbon_col_fob", flete: "carbon_flete", cfr: "carbon_cfr", kcal: true,
+    comparable: "carbon_cfr_comparable",
+    atenuantes: [["carbon_prima_granulometria", "Granulometría fina (chancado)"], ["carbon_prima_calidad", "Calidad (baja ceniza y azufre)"],
+      ["carbon_costo_credito", "Crédito (plazo de pago)"]],
     nombreCorto: "carbón", del: "del carbón", origen: "Colombia", fobNombre: "FOB Colombia",
     titulo: "Precios internacionales del carbón",
     bajada: "Carbón bituminoso de Colombia: precio FOB y CFR Muelle Conchán, con los índices internacionales. Dólares por tonelada, promedio mensual.",
     letrero: "Carbón bituminoso de Colombia", ruta: "Colombia→Conchán (vía Panamá)",
     resumen: r => r, fuenteFob: r => r.fuente_carbon_fob || "",
-    origenFob: () => "Estimado con el índice Newcastle",
+    origenFob: () => "Estimado con el Newcastle y lo que Colombia vende a Perú",
     referencias: { titulo: "Índices internacionales", series: CARBON_INDICES,
       nota: "Newcastle: Australia (Pacífico). API4: Sudáfrica. API2: entregado en Europa, aparece si se carga el CSV de Investing. Promedio mensual en dólares por tonelada." },
     indicadores: f => !f.serie.includes("escoria"),
     notas: [
-      "No hay un precio público diario del carbón colombiano. Para los meses sin cotización, el FOB se estima con el índice Newcastle y un ratio calibrado con el comercio exterior Colombia→Perú (UN Comtrade). Una cotización cargada siempre tiene prioridad.",
+      "No hay un precio público diario del carbón colombiano. El FOB se estima con el índice Newcastle y la relación entre él y lo que Colombia exporta a Perú (UN Comtrade), que es carbón de alto poder calorífico; se expresa a 7,000 kcal/kg.",
+      "El CFR comparable con ofertas suma supuestos de mercado que las ofertas suelen incluir: granulometría fina, calidad y el costo del plazo de pago. Sirve para comparar una oferta con el mercado.",
       "El flete Colombia→Conchán (vía Canal de Panamá) se estima con el precio del Brent, salvo que haya un flete cotizado.",
       "Las fuentes públicas publican promedios mensuales con un mes de rezago; el monitor las revisa cada lunes.",
     ],
@@ -1292,8 +1296,10 @@ function dibujarMateria(cont, animar, M) {
     fila.append(cambios);
   }
   const flete = carbon[M.flete]?.at(-1);
+  const comparable = M.comparable && carbon[M.comparable]?.at(-1);
   if (flete) letrero.append(el("p", { class: "letrero-pie" },
-    `Flete marítimo ${M.ruta}: US$ ${fmt(flete.precio)} por tonelada, estimado con el Brent.`));
+    `Flete marítimo ${M.ruta}: US$ ${fmt(flete.precio)} por tonelada, estimado con el Brent.`,
+    ...(comparable ? [el("br"), `CFR comparable con ofertas (con granulometría fina, calidad y crédito): `, el("strong", { style: "color:var(--letrero-texto)" }, `US$ ${fmt(comparable.precio)}`), "."] : [])));
   cont.append(letrero);
 
   // Conveniencia de compra y simulación a 12 meses
@@ -1320,7 +1326,7 @@ function dibujarMateria(cont, animar, M) {
   const t = el("table", {}, el("thead", {}, el("tr", {}, ...["Concepto", fMesLargo(ultimo), "% del CFR", fAnt ? fMesLargo(fAnt) : "", "Variación"].map(x => el("th", {}, x)))));
   const tbd = el("tbody"), total = enMes(M.cfr, ultimo);
   const filaD = (nombre, k, chip) => {
-    const v = enMes(k, ultimo), a = fAnt ? enMes(k, fAnt) : null, d = v != null && a != null ? v - a : null, dir = d == null ? "igual" : direccion(d);
+    const v = enMes(k, ultimo), a = fAnt ? enMes(k, fAnt) : null, d = v != null && a != null ? Math.round((v - a) * 100) / 100 : null, dir = d == null ? "igual" : direccion(d);
     tbd.append(el("tr", chip ? {} : { class: "total" },
       el("td", {}, ...(chip ? [chip, " "] : []), nombre), el("td", {}, v == null ? "—" : fmt(v)),
       el("td", {}, v == null ? "—" : `${(v / total * 100).toFixed(1)}%`), el("td", {}, a == null ? "—" : fmt(a)),
@@ -1329,17 +1335,29 @@ function dibujarMateria(cont, animar, M) {
   };
   for (const p of PARTES) filaD(p.nombre, p.clave, chipSerie(p));
   filaD("CFR Muelle Conchán", M.cfr);
+  // Atenuantes: lo que suelen sumar las ofertas sobre el CFR (supuestos en carbon/config.yaml)
+  const ATENUANTE = { nombre: "Atenuantes de las ofertas", color: "--series-1" };
+  if (M.atenuantes && carbon[M.comparable]?.length) {
+    tbd.append(el("tr", {}, el("td", { colspan: 5, style: "font:600 14px var(--f-titulo);color:var(--text-secondary);padding-top:12px" },
+      chipSerie(ATENUANTE), " Para comparar con ofertas", ayuda("Supuestos de mercado que las ofertas suelen incluir y el CFR no: chancado para granulometría fina, prima por baja ceniza y azufre, y el costo financiero del plazo de pago. Se ajustan en carbon/config.yaml."))));
+    for (const [k, n] of M.atenuantes) filaD(n, k, el("span", { style: "display:inline-block;width:10px" }));
+    filaD("CFR comparable con ofertas", M.comparable);
+  }
   t.append(tbd);
+  const conAt = M.atenuantes && carbon[M.comparable]?.length;
+  const PARTES_G = conAt ? [...PARTES, ATENUANTE] : PARTES;
   const gd = el("div", { class: "grafico", "data-titulo": `FOB y flete ${M.del}, mes a mes` });
   const leyD = el("div", { class: "leyenda" });
-  for (const p of PARTES) leyD.append(el("span", {}, chipSerie(p), p.nombre));
-  leyD.append(el("span", { class: "muted" }, "Columna completa: CFR Conchán"));
+  for (const p of PARTES_G) leyD.append(el("span", {}, chipSerie(p), p.nombre));
+  leyD.append(el("span", { class: "muted" }, conAt ? "Columna completa: CFR comparable con ofertas" : "Columna completa: CFR Conchán"));
   cd.append(el("div", { class: "tabla-scroll", style: "max-height:none" }, t),
     el("h3", { class: "subtitulo" }, "Mes a mes"), gd, leyD);
   cont.append(cd);
-  graficoApilado(gd, carbon[M.cfr].filter(x => x.fecha >= inicio || +x.fecha === +ultimo).map(x => ({
-    fecha: x.fecha, total: x.precio, partes: PARTES.map(p => enMes(p.clave, x.fecha) ?? 0),
-  })), PARTES, "CFR Conchán");
+  graficoApilado(gd, carbon[M.cfr].filter(x => x.fecha >= inicio || +x.fecha === +ultimo).map(x => {
+    const partes = PARTES.map(p => enMes(p.clave, x.fecha) ?? 0);
+    if (conAt) partes.push(M.atenuantes.reduce((a, [k]) => a + (enMes(k, x.fecha) ?? 0), 0));
+    return { fecha: x.fecha, total: conAt ? enMes(M.comparable, x.fecha) ?? x.precio : x.precio, partes };
+  }), PARTES_G, conAt ? "CFR comparable" : "CFR Conchán");
 
   // Referencias de mercado: índices internacionales (carbón) o comercio exterior (escoria)
   const indices = M.referencias.series.filter(p => carbon[p.clave]?.length);

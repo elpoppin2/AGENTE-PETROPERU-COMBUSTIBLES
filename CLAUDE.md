@@ -51,8 +51,13 @@ bituminoso de Colombia y escoria granulada de Japón. Tablero: https://elpoppin2
   envía por correo con un Excel con fórmulas (`reportes/promedio-ponderado-conchan-AAAA-MM.xlsx`).
 - **Carbón y escoria:** solo precio **FOB** y **CFR Muelle Conchán** (FOB + flete marítimo). No se
   calcula el costo puesto en planta. Datos públicos (FRED/IMF, Banco Mundial, BCRP, UN Comtrade) desde
-  2018. El carbón se expresa a **7,000 kcal/kg** (lo que requieren las plantas UNACEM): los índices
-  (base 6,000 kcal/kg) se ajustan por 7,000/6,000. Sin referencia de presupuesto por defecto.
+  2018. El carbón se expresa a **7,000 kcal/kg** (lo que requieren las plantas UNACEM). El FOB se
+  estima con el Newcastle y la relación (mediana) entre él y lo que **Colombia exporta a Perú**
+  (UN Comtrade), que se asume ya a 7,000 kcal/kg; el comercio con el mundo (más barato) solo se usa
+  si hay menos de 3 datos. Sin referencia de presupuesto por defecto.
+- **CFR comparable con ofertas:** CFR + atenuantes que suelen traer las ofertas (granulometría fina
+  US$ 4.5/t, calidad US$ 1.5/t, costo del crédito a 60 días al 8% anual; supuestos en
+  `carbon/config.yaml`). Es la cifra para comparar una oferta con el mercado.
 - **Conveniencia de compra:** índice 0-100 (40% posición en 36 meses, 30% frente al promedio de
   12 meses, 30% cambio esperado por la simulación); desde 65 es "Compra conveniente" y se avisa.
 - **Avisos por correo** (cuenta Gmail del proyecto a `AVISO_CORREOS`, secretos `AVISO_*` en GitHub):
