@@ -1,0 +1,13 @@
+{
+ "actualizado": "2026-11-17",
+ "ultimo_mes": "2026-10",
+ "fuente_carbon_fob": "nowcast_newcastle",
+ "alertas": [
+  "⚠ Flete Colombia→Conchán (USD/t) fuera de rango histórico: z=+2.2 vs 24 meses",
+  "▲ Brent (USD/bbl): +8.6% m/m (123.93, 2026-10)",
+  "⚠ Brent (USD/bbl) fuera de rango histórico: z=+2.3 vs 24 meses"
+ ],
+ "presupuesto_landed_usd_t": 160,
+ "kcal_spec": 6000,
+ "puerto": "Conchán, Lima (PE)"
+}

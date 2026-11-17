@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Precios Diésel Petroperú</title>
-<meta name="description" content="Evolución de los precios de lista del Diésel B5 S-50 y B5 S-50 UV en las plantas de Petroperú.">
+<title>Sourcing Internacional Combustibles y Materia Prima</title>
+<meta name="description" content="UNACEM, Sourcing Internacional: precios del diésel (Petroperú y Osinergmin) y costo del carbón importado puesto en Conchán.">
 <script>
 try { const t = localStorage.getItem("tema"); if (t === "dark" || t === "light") document.documentElement.dataset.theme = t; } catch {}
 </script>
@@ -136,6 +136,15 @@ h1 {
   border-radius: 6px; padding: 7px 12px; min-height: 36px; cursor: pointer;
 }
 .tema:hover { border-color: var(--text-primary); }
+a.tema { text-decoration: none; }
+.acciones { display: flex; gap: 8px; flex: none; }
+@media (max-width: 420px) { .acciones .tema span { display: none; } .acciones .tema { padding: 7px 10px; } }
+.proyecto { margin: 0 0 6px; font: 600 13px/1.3 var(--f-texto); letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+[hidden] { display: none !important; }
+.alertas { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; }
+.alertas li { padding: 8px 12px; border-left: 3px solid var(--up); background: var(--up-bg); color: var(--text-primary); border-radius: 0 4px 4px 0; }
+.alertas li.ok { border-left-color: var(--down); background: var(--down-bg); }
+.enlaces { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 12px; font-size: 14px; }
 .tema svg { width: 16px; height: 16px; }
 
 /* --- Barra de filtros --- */
@@ -166,6 +175,11 @@ button:focus-visible, select:focus-visible, rect:focus-visible, a:focus-visible,
   padding: 10px 0 9px; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .15s, border-color .2s;
 }
 .vistas button:hover { color: var(--text-primary); }
+@media (max-width: 640px) {  /* las tres pestañas en una fila que se desliza */
+  .vistas { flex-wrap: nowrap; overflow-x: auto; gap: 22px; scrollbar-width: none; }
+  .vistas::-webkit-scrollbar { display: none; }
+  .vistas button { flex: none; white-space: nowrap; font-size: 17px; }
+}
 .vistas button[aria-selected="true"] { color: var(--text-primary); border-bottom-color: var(--regla); }
 .explicacion { margin: 10px 0 0; padding-left: 20px; color: var(--text-secondary); max-width: 78ch; }
 .explicacion li + li { margin-top: 6px; }
@@ -294,11 +308,18 @@ a { color: var(--series-1); }
   <header>
     <div class="membrete">
       <img class="logo" src="assets/logo-unacem.svg" alt="UNACEM" width="176" height="40">
-      <button type="button" class="tema" id="tema" aria-label="Cambiar entre modo claro y oscuro"></button>
+      <div class="acciones">
+        <a class="tema" id="github" href="https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES" target="_blank" rel="noopener" title="Código, datos y avisos del proyecto en GitHub">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          <span>GitHub</span>
+        </a>
+        <button type="button" class="tema" id="tema" aria-label="Cambiar entre modo claro y oscuro"></button>
+      </div>
     </div>
     <hr class="regla">
     <div class="cabecera">
       <div>
+        <p class="proyecto">Sourcing Internacional · Combustibles y Materia Prima</p>
         <h1 id="titulo">Precios de lista del diésel</h1>
         <p class="bajada" id="bajada">Plantas de venta de Petroperú. Soles por galón, con impuestos, sin descuentos ni FISE.</p>
       </div>
@@ -309,10 +330,11 @@ a { color: var(--series-1); }
   <nav class="vistas" role="tablist" aria-label="Vistas del informe">
     <button role="tab" id="tab-petroperu" data-vista="petroperu" aria-selected="true">Precios Petroperú</button>
     <button role="tab" id="tab-osinergmin" data-vista="osinergmin" aria-selected="false">Referencia Osinergmin</button>
+    <button role="tab" id="tab-carbon" data-vista="carbon" aria-selected="false">Carbón importado</button>
   </nav>
 
   <div class="filtros" role="group" aria-label="Filtros">
-    <label>Planta
+    <label id="filtro-planta">Planta
       <select id="planta"></select>
     </label>
     <div class="etiqueta">
@@ -331,8 +353,10 @@ a { color: var(--series-1); }
   <footer class="muted">
     Fuente: <a href="https://www.petroperu.com.pe/productos/lista-de-precios-en-nuestras-plantas/">listas de precios Automotriz de Petroperú</a>
     (Addendum N° 1) y <a href="https://www.osinergmin.gob.pe/seccion/centro_documental/gart/PreciosReferencia/">precios de referencia de Osinergmin</a> (publicación semanal). El agente revisa la web de Petroperú cada día a las 08:00 y a las 12:30 (hora de Lima); con la página abierta, los datos nuevos aparecen solos.
+    Carbón: modelo mensual con datos de FRED/IMF, Banco Mundial, BCRP y UN Comtrade, actualizado cada lunes.
     Mapa: <a href="https://github.com/juaneladio/peru-geojson">peru-geojson</a> (MPL 2.0).
     Descarga los datos en <a href="data/precios-diesel-petroperu.xlsx" download>Excel</a> o en <a href="data/listas.csv">CSV</a>.
+    <br>Proyecto Sourcing Internacional Combustibles y Materia Prima: código, datos y avisos en <a href="https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES">GitHub</a>.
   </footer>
 </main>
 
@@ -357,11 +381,23 @@ let datos = {}; // datos[planta][producto] = [{fecha: Date, precio}]
 const sinMovimiento = matchMedia("(prefers-reduced-motion: reduce)");
 let estado = { planta: "CALLAO", meses: 3, vista: "petroperu" };
 
+// Lee un CSV sencillo; admite campos entre comillas con comas (como los que escribe pandas).
 function leerCSV(texto) {
+  const partir = f => {
+    if (!f.includes('"')) return f.split(",");
+    const v = [""]; let comillas = false;
+    for (let i = 0; i < f.length; i++) {
+      const c = f[i];
+      if (c === '"') { if (comillas && f[i + 1] === '"') { v[v.length - 1] += '"'; i++; } else comillas = !comillas; }
+      else if (c === "," && !comillas) v.push("");
+      else v[v.length - 1] += c;
+    }
+    return v;
+  };
   const [cab, ...filas] = texto.trim().split(/\r?\n/);
-  const cols = cab.split(",");
+  const cols = partir(cab);
   return filas.map(f => {
-    const v = f.split(","); const o = {};
+    const v = partir(f); const o = {};
     cols.forEach((c, i) => o[c] = v[i]);
     return o;
   });
@@ -420,17 +456,54 @@ async function cargarOsinergmin() {
   return true;
 }
 
+// Carbón importado: modelo mensual del monitor (reportes/carbon/), en USD por tonelada.
+let carbon = {}, carbonInd = [], carbonResumen = null; // carbon[serie] = [{fecha, precio}]
+let textoCarbon = "";
+async function leerRepo(ruta) {
+  for (const url of FUENTES.map(u => u.replace("data/listas.csv", ruta))) {
+    try {
+      const r = await fetch(url + "?v=" + Date.now(), { cache: "no-store" });
+      if (r.ok) return await r.text();
+    } catch {}
+  }
+  return null;
+}
+async function cargarCarbon() {
+  const [modelo, ind, res] = await Promise.all(["modelo_mensual.csv", "indicadores.csv", "resumen.json"].map(f => leerRepo("reportes/carbon/" + f)));
+  if (modelo === null || modelo + ind + res === textoCarbon) return false;
+  const nuevos = {};
+  for (const f of leerCSV(modelo)) {
+    const fecha = new Date(f.fecha + "-01T00:00:00Z");
+    for (const [k, v] of Object.entries(f)) if (k !== "fecha" && v !== "" && v != null && !isNaN(+v)) (nuevos[k] ??= []).push({ fecha, precio: +v });
+  }
+  carbon = nuevos;
+  carbonInd = ind ? leerCSV(ind) : [];
+  try { carbonResumen = res ? JSON.parse(res) : null; } catch { carbonResumen = null; }
+  textoCarbon = modelo + ind + res;
+  return true;
+}
+
 // Con la página abierta, busca datos nuevos cada 15 minutos y al volver a la pestaña.
 async function revisar() {
   try {
-    const a = await cargarDatos(), b = await cargarOsinergmin();
-    if (a || b) { actualizarEncabezado(); dibujar(true); }
+    const a = await cargarDatos(), b = await cargarOsinergmin(), c = await cargarCarbon().catch(() => false);
+    if (a || b || c) { actualizarEncabezado(); dibujar(true); }
   } catch {}
 }
 
 const diasDesde = f => Math.floor((Date.now() - +f) / 864e5);
 
+const fMesLargo = d => d.toLocaleDateString("es-PE", { month: "long", year: "numeric", timeZone: "UTC" });
+
 function actualizarEncabezado() {
+  if (estado.vista === "carbon" && carbon.carbon_landed) {
+    document.getElementById("titulo").textContent = "Costo del carbón importado";
+    document.getElementById("bajada").textContent = "Carbón térmico de Colombia puesto en planta Conchán. Dólares por tonelada, promedio mensual.";
+    const ultimo = carbon.carbon_landed.at(-1).fecha;
+    const act = carbonResumen?.actualizado ? `Actualizado el ${fFecha(new Date(carbonResumen.actualizado + "T00:00:00Z"))}; se actualiza cada lunes.` : "Se actualiza cada lunes.";
+    document.getElementById("actualizado").replaceChildren(el("strong", {}, `Datos a ${fMesLargo(ultimo)}`), act + " Fuentes: FRED/IMF, Banco Mundial, BCRP, UN Comtrade");
+    return;
+  }
   if (estado.vista === "osinergmin" && Object.keys(osi).length) {
     const ultima = new Date(Math.max(...Object.values(osi).map(p => +p.bajo.at(-1).fecha)));
     const dias = diasDesde(ultima);
@@ -471,14 +544,18 @@ async function iniciar() {
     if (Object.keys(datos).length) dibujar();
   });
   try {
-    await Promise.all([cargarDatos(), cargarOsinergmin().catch(() => false), cargarMapa()]);
+    await Promise.all([cargarDatos(), cargarOsinergmin().catch(() => false), cargarMapa(), cargarCarbon().catch(() => false)]);
   } catch (e) {
     document.getElementById("contenido").innerHTML = '<p class="estado">No se pudieron cargar los datos.</p>';
     return;
   }
   const sel = document.getElementById("planta");
   try { estado.planta = localStorage.getItem("planta") || estado.planta; } catch {}
-  try { if (["osinergmin", "comparacion"].includes(localStorage.getItem("vista")) && Object.keys(osi).length) estado.vista = "osinergmin"; } catch {}
+  try {
+    const v = localStorage.getItem("vista");
+    if (["osinergmin", "comparacion"].includes(v) && Object.keys(osi).length) estado.vista = "osinergmin";
+    if (v === "carbon" && carbon.carbon_landed) estado.vista = "carbon";
+  } catch {}
   llenarPlantas();
   sel.addEventListener("change", () => { estado.planta = sel.value; try { localStorage.setItem("planta", sel.value); } catch {} dibujar(true); });
   document.querySelectorAll("#rango button").forEach(b => b.addEventListener("click", () => {
@@ -491,10 +568,12 @@ async function iniciar() {
     estado.vista = t.dataset.vista;
     pestañas.forEach(x => x.setAttribute("aria-selected", x === t));
     try { localStorage.setItem("vista", estado.vista); } catch {}
-    llenarPlantas();
+    if (estado.vista !== "carbon") llenarPlantas();
+    document.getElementById("filtro-planta").hidden = estado.vista === "carbon";
     actualizarEncabezado();
     dibujar(true);
   }));
+  document.getElementById("filtro-planta").hidden = estado.vista === "carbon";
   actualizarEncabezado();
   dibujar(true);
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { pintarBotonTema(); dibujar(); });
@@ -555,6 +634,7 @@ function dibujar(animar = false) {
   cont.classList.toggle("animar", animar);
   cont.setAttribute("aria-labelledby", estado.vista === "osinergmin" ? "tab-osinergmin" : "tab-petroperu");
   if (estado.vista === "osinergmin") return dibujarOsinergmin(cont, animar);
+  if (estado.vista === "carbon") return dibujarCarbon(cont, animar);
   const planta = datos[estado.planta];
   const inicio = desde();
 
@@ -718,6 +798,145 @@ function dibujarOsinergmin(cont, animar) {
       el("li", {}, "El precio de cada planta es el del Callao más su componente logístico."),
       el("li", {}, "Cinco publicaciones de 2023 y 2024 son imágenes escaneadas y no tienen datos; en el gráfico se mantiene el valor de la semana anterior.")),
     el("p", { class: "nota" }, el("a", { href: ultima ? URL_OSINERGMIN(ultima) : "https://www.osinergmin.gob.pe" }, "Ver la publicación de Osinergmin")));
+  cont.append(c4);
+}
+
+// Carbón importado (monitor semanal): costo puesto en planta Conchán, en USD por tonelada.
+const moneda = () => estado.vista === "carbon" ? "US$" : "S/";
+const fmtDetalle = v => estado.vista === "carbon" ? fmt(v) : fmt4(v);
+const CARBON_COSTO = [
+  { clave: "carbon_landed", nombre: "Puesto en planta", corto: "Puesto en planta", color: "--series-2" },
+  { clave: "carbon_cif", nombre: "CIF Conchán", corto: "CIF Conchán", color: "--series-1" },
+  { clave: "carbon_col_fob", nombre: "FOB Colombia", corto: "FOB Colombia", color: "--alto-azufre" },
+];
+const CARBON_INDICES = [
+  { clave: "carbon_newcastle_fob", nombre: "Newcastle FOB (Australia)", corto: "Newcastle", color: "--series-1" },
+  { clave: "carbon_api2_cif_ara", nombre: "API2 CIF Rotterdam", corto: "API2", color: "--series-2" },
+  { clave: "carbon_api4_fob_rb", nombre: "API4 FOB Richards Bay (Sudáfrica)", corto: "API4", color: "--alto-azufre" },
+];
+const URL_REPO = "https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES";
+
+function dibujarCarbon(cont, animar) {
+  if (!carbon.carbon_landed?.length) {
+    cont.append(el("p", { class: "estado" }, "Aún no hay datos del carbón importado. Se cargan en la próxima ejecución del monitor (cada lunes)."));
+    return;
+  }
+  const inicio = desde(), ultimo = carbon.carbon_landed.at(-1).fecha, r = carbonResumen || {};
+  const periodo = estado.meses ? ` en ${estado.meses === 12 ? "el último año" : `los últimos ${estado.meses} meses`}` : " desde enero de 2023";
+
+  // Letrero: costo puesto en planta y sus componentes
+  const letrero = el("section", { class: "letrero", "aria-label": "Costo del carbón puesto en planta Conchán" },
+    el("div", { class: "letrero-cab" }, el("h2", {}, "Carbón Colombia en Conchán"),
+      el("p", {}, `Dólares por tonelada, ${r.kcal_spec ? `${r.kcal_spec.toLocaleString("es-PE")} kcal/kg NAR, ` : ""}promedio de ${fMesLargo(ultimo)}`)));
+  for (const prod of CARBON_COSTO) {
+    const s = carbon[prod.clave];
+    const fila = el("div", { class: "fila-precio" },
+      el("div", { class: "prod" }, el("span", { class: "chip", style: `background:var(${prod.color})` }), prod.nombre));
+    letrero.append(fila);
+    if (!s?.length) { fila.append(el("div", { class: "cifra" }, "—"), el("div", { class: "cambios" }, "Sin dato")); continue; }
+    const actual = s.at(-1), anterior = s.at(-2), base = precioEn(s, inicio) || s[0];
+    const numero = el("span");
+    fila.append(el("div", { class: "cifra" }, el("small", {}, "US$"), numero));
+    rodar(numero, anterior ? anterior.precio : actual.precio, actual.precio, animar);
+    const cambios = el("div", { class: "cambios" });
+    if (anterior) {
+      const d = actual.precio - anterior.precio, dir = direccion(d);
+      cambios.append(el("div", { class: `principal ${dir}` }, dir === "igual"
+        ? "= Sin cambio frente al mes anterior"
+        : `${FLECHA[dir]} ${dir === "sube" ? "Subió" : "Bajó"} US$ ${fmt(Math.abs(d))} frente al mes anterior`));
+    }
+    const dBase = actual.precio - base.precio, p100 = dBase / base.precio * 100, dirBase = direccion(dBase);
+    cambios.append(el("div", {}, el("span", { class: dirBase },
+      `${FLECHA[dirBase]} ${dBase >= 0 ? "+" : "−"}${fmt(Math.abs(dBase))} (${p100 >= 0 ? "+" : "−"}${Math.abs(p100).toFixed(1)}%)`), periodo));
+    if (prod.clave === "carbon_landed" && r.presupuesto_landed_usd_t) {
+      const dp = actual.precio - r.presupuesto_landed_usd_t;
+      cambios.append(el("div", {}, `US$ ${fmt(Math.abs(dp))} ${dp > 0 ? "sobre" : "bajo"} el presupuesto (US$ ${fmt(r.presupuesto_landed_usd_t)})`));
+    }
+    fila.append(cambios);
+  }
+  const ult = k => carbon[k]?.at(-1)?.precio;
+  const fob = r.fuente_carbon_fob || "";
+  const origenFob = fob.startsWith("nowcast_") ? `estimado con el índice ${fob.includes("api2") ? "API2" : "Newcastle"} × ratio Colombia/índice`
+    : fob ? "tomado de cotizaciones o de comercio exterior" : "";
+  letrero.append(el("p", { class: "letrero-pie" }, [
+    ult("carbon_landed_pen") != null ? `Equivale a S/ ${fmt(ult("carbon_landed_pen"))} por tonelada` : "",
+    ult("carbon_usd_gj") != null ? ` y US$ ${fmt(ult("carbon_usd_gj"))} por GJ.` : ".",
+    ult("carbon_flete") != null ? ` Flete Colombia→Conchán: US$ ${fmt(ult("carbon_flete"))}/t.` : "",
+    origenFob ? ` FOB ${origenFob}.` : "",
+  ].join("")));
+  cont.append(letrero);
+
+  // Alertas del monitor
+  const c0 = el("section", { class: "bloque" });
+  const lista = el("ul", { class: "alertas" });
+  for (const a of r.alertas || []) lista.append(el("li", {}, a));
+  if (!r.alertas?.length) lista.append(el("li", { class: "ok" }, "Sin alertas este mes."));
+  c0.append(el("h2", {}, "Alertas del monitor"),
+    el("p", { class: "nota" }, "Variaciones mensuales fuertes, valores fuera del rango de 24 meses o costo por encima del presupuesto."), lista);
+  cont.append(c0);
+
+  // Evolución del costo
+  const c1 = el("section", { class: "bloque" });
+  c1.append(el("h2", {}, "Evolución del costo puesto en planta"),
+    el("p", { class: "nota" }, "Promedio mensual en dólares por tonelada: FOB Colombia, más flete y seguro (CIF), más costos de internamiento en Conchán."));
+  const g1 = el("div", { class: "grafico", "data-titulo": "Evolución del costo del carbón puesto en planta Conchán" });
+  c1.append(g1);
+  const ley1 = el("div", { class: "leyenda" });
+  for (const p of CARBON_COSTO) ley1.append(el("span", {}, el("span", { class: "chip", style: `background:var(${p.color})` }), p.nombre));
+  c1.append(ley1);
+  cont.append(c1);
+  graficoLineas(g1, carbon, inicio, CARBON_COSTO.map(p => ({ ...p, serie: carbon[p.clave] })));
+
+  // Índices internacionales
+  const indices = CARBON_INDICES.filter(p => carbon[p.clave]?.length);
+  if (indices.length) {
+    const c2 = el("section", { class: "bloque" });
+    c2.append(el("h2", {}, "Índices internacionales del carbón"),
+      el("p", { class: "nota" }, "Referencias de mercado en dólares por tonelada, promedio mensual."));
+    const g2 = el("div", { class: "grafico", "data-titulo": "Índices internacionales del carbón" });
+    c2.append(g2);
+    const ley2 = el("div", { class: "leyenda" });
+    for (const p of indices) ley2.append(el("span", {}, el("span", { class: "chip", style: `background:var(${p.color})` }), p.nombre));
+    c2.append(ley2);
+    cont.append(c2);
+    graficoLineas(g2, carbon, inicio, indices.map(p => ({ ...p, serie: carbon[p.clave] })));
+  }
+
+  // Indicadores del modelo
+  const c3 = el("section", { class: "bloque tabla-card" });
+  const fmtPct = v => v === "" || v == null || isNaN(+v) ? "—" : `${+v > 0 ? "+" : +v < 0 ? "−" : ""}${Math.abs(+v).toFixed(1)}%`;
+  const tabla = el("table", {}, el("thead", {}, el("tr", {}, ...["Indicador", "Mes", "Último", "Variación mensual", "Variación anual", "Promedio 12 meses"].map(t => el("th", {}, t)))));
+  const tb = el("tbody");
+  for (const f of carbonInd) {
+    const dec = /tipo de cambio|ratio|\/|participación|vs/i.test(f.descripcion) && !/USD\/t|PEN\/t|USD\/GJ|USD\/bbl/.test(f.descripcion) ? 3 : 2;
+    const num = v => v === "" || isNaN(+v) ? "—" : (+v).toLocaleString("es-PE", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    const dir = f.var_mensual_pct === "" ? "igual" : direccion(+f.var_mensual_pct / 100);
+    tb.append(el("tr", {}, el("td", {}, f.descripcion), el("td", {}, fMes(new Date(f.mes + "-01T00:00:00Z"))), el("td", {}, num(f.ultimo)),
+      el("td", dir === "igual" ? {} : { class: dir }, el("span", { class: "flecha", "aria-hidden": "true" }, dir === "igual" ? "" : FLECHA[dir]), fmtPct(f.var_mensual_pct)),
+      el("td", {}, fmtPct(f.var_anual_pct)), el("td", {}, num(f.prom_12m))));
+  }
+  tabla.append(tb);
+  const det = el("details", {}, el("summary", {}, "Ver indicadores del modelo"),
+    el("p", { class: "nota", style: "margin-top:6px" }, "▲ en ámbar: subió frente al mes anterior. ▼ en verde: bajó. Cada indicador muestra su último mes con dato."),
+    el("div", { class: "tabla-scroll" }, tabla));
+  const csv = el("a", { class: "boton-excel", href: "reportes/carbon/modelo_mensual.csv", download: "carbon-modelo-mensual.csv",
+    title: "Modelo mensual completo desde 2019, en CSV (se abre en Excel)" });
+  csv.innerHTML = ICONO_EXCEL + "<span>Descargar CSV</span>";
+  c3.append(csv, det);
+  cont.append(c3);
+
+  // Metodología y supuestos
+  const c4 = el("section", { class: "bloque" });
+  c4.append(el("h2", {}, "Sobre estos costos"),
+    el("ul", { class: "explicacion" },
+      el("li", {}, "No hay un precio público diario del carbón colombiano: el FOB se estima con un índice internacional y un ratio calibrado con datos de comercio exterior (UN Comtrade). Si cargas cotizaciones propias, se usan primero."),
+      el("li", {}, "El flete Colombia→Conchán (vía Canal de Panamá) se ajusta con el Brent. Al CIF se le suman agente de aduanas, descarga, almacenaje y transporte a planta."),
+      el("li", {}, "El IGV es crédito fiscal: no se suma al costo."),
+      el("li", {}, "Los supuestos (poder calorífico, costos portuarios, presupuesto) están en carbon/config.yaml y se pueden ajustar.")),
+    el("div", { class: "enlaces" },
+      el("a", { href: `${URL_REPO}/blob/main/reportes/carbon/ultimo_reporte.md` }, "Ver el reporte completo del monitor"),
+      el("a", { href: `${URL_REPO}/blob/main/carbon/README.md` }, "Metodología"),
+      el("a", { href: `${URL_REPO}/blob/main/carbon/config.yaml` }, "Supuestos")));
   cont.append(c4);
 }
 
@@ -926,7 +1145,7 @@ function graficoLineas(caja, planta, inicio, defs = null, conCambios = false) {
   const x0 = Math.min(...series.map(s => +s.pts[0].fecha)), x1 = +hoy;
   const x = escala(x0, x1, m.l, ancho - m.r), y = escala(yt[0], yt.at(-1), alto - m.b, m.t);
   const svg = el("svg:svg", { viewBox: `0 0 ${ancho} ${alto}`, height: alto, role: "img",
-    "aria-label": `Evolución del precio del diésel en ${nombrePlanta(estado.planta)}` });
+    "aria-label": caja.dataset.titulo || `Evolución del precio del diésel en ${nombrePlanta(estado.planta)}` });
 
   for (const v of yt) {
     svg.append(el("svg:line", { x1: m.l, x2: ancho - m.r, y1: y(v), y2: y(v), stroke: css("--grid") }));
@@ -998,7 +1217,7 @@ function graficoLineas(caja, planta, inicio, defs = null, conCambios = false) {
     for (let i = 1; i < etq.length; i++) if (etq[i].y - etq[i - 1].y < 30) etq[i].y = etq[i - 1].y + 30;
     for (const { s, y: py } of etq) {
       svg.append(el("svg:text", { class: "tras-trazo", x: x(x1) + 10, y: py - 2, style: "fill:var(--text-secondary)" }, s.corto));
-      svg.append(el("svg:text", { class: "tras-trazo", x: x(x1) + 10, y: py + 14, style: "fill:var(--text-primary);font:600 15px var(--f-titulo)" }, "S/ " + fmt(s.pts.at(-1).precio)));
+      svg.append(el("svg:text", { class: "tras-trazo", x: x(x1) + 10, y: py + 14, style: "fill:var(--text-primary);font:600 15px var(--f-titulo)" }, moneda() + " " + fmt(s.pts.at(-1).precio)));
     }
   }
 
@@ -1017,7 +1236,7 @@ function graficoLineas(caja, planta, inicio, defs = null, conCambios = false) {
     const f = new Date(Math.max(x0, Math.min(x1, x0 + (px - m.l) / (ancho - m.l - m.r) * (x1 - x0))));
     const xx = x(+f);
     guia.setAttribute("x1", xx); guia.setAttribute("x2", xx); guia.setAttribute("opacity", 1);
-    tip.replaceChildren(el("div", { class: "muted", style: "margin-bottom:4px" }, fFecha(f)));
+    tip.replaceChildren(el("div", { class: "muted", style: "margin-bottom:4px" }, estado.vista === "carbon" ? fMesLargo(precioEn(series[0].pts, f)?.fecha || f) : fFecha(f)));
     series.forEach((s, i) => {
       const p = precioEn(s.pts, f);
       puntos[i].setAttribute("opacity", p ? 1 : 0);
@@ -1025,10 +1244,10 @@ function graficoLineas(caja, planta, inicio, defs = null, conCambios = false) {
       puntos[i].setAttribute("cx", xx); puntos[i].setAttribute("cy", y(p.precio));
       tip.append(el("div", { class: "fila" },
         el("span", {}, el("span", { class: "chip", style: `background:var(${s.color})` }), s.corto),
-        el("strong", {}, "S/ " + fmt4(p.precio))));
+        el("strong", {}, moneda() + " " + fmtDetalle(p.precio))));
       const cambio = s.cambios.find(c => c.p === p);
       if (cambio && diasDesde(p.fecha) - diasDesde(f) < 1) tip.append(el("div", { class: "fila" }, el("span", {}),
-        el("span", { class: `pill ${cambio.dir}` }, `${FLECHA[cambio.dir]} ${cambio.d > 0 ? "+" : "−"}S/ ${fmt4(Math.abs(cambio.d))} este día`)));
+        el("span", { class: `pill ${cambio.dir}` }, `${FLECHA[cambio.dir]} ${cambio.d > 0 ? "+" : "−"}${moneda()} ${fmtDetalle(Math.abs(cambio.d))} este día`)));
     });
     tip.style.opacity = 1;
     const izq = xx + 16 + tip.offsetWidth > ancho ? xx - tip.offsetWidth - 16 : xx + 16;

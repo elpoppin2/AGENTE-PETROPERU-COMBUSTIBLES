@@ -1,4 +1,25 @@
-# Agente de precios de diésel – Petroperú
+# Sourcing Internacional Combustibles y Materia Prima
+
+Proyecto de UNACEM que sigue los precios de los combustibles y materias primas que se compran.
+Tiene dos módulos y un solo tablero web:
+
+| Módulo | Qué sigue | Frecuencia | Código |
+|---|---|---|---|
+| **Diésel** | Precios de lista de Petroperú (B5 S-50 y B5 S-50 UV) y precios de referencia de Osinergmin | Diario (08:00 y 12:30 de Lima) | `agente_petroperu.py` |
+| **Carbón importado** | Costo del carbón térmico de Colombia puesto en planta Conchán, índices internacionales, flete y alertas | Semanal (lunes) | [`carbon/`](carbon/README.md) |
+
+- **Tablero:** https://elpoppin2.github.io/AGENTE-PETROPERU-COMBUSTIBLES/ (pestañas *Precios Petroperú*,
+  *Referencia Osinergmin* y *Carbón importado*).
+- **Repositorio:** https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES
+- **Pruebas de todo el proyecto:** `pip install -r requirements.txt && python -m pytest -q`
+
+El módulo de carbón viene del repositorio `PRECIOS-COMBUSTIBLES-CARB-N-IMPORTADO---COLOMBIA`; su
+documentación completa está en [`carbon/README.md`](carbon/README.md) y su workflow en
+[`.github/workflows/carbon.yml`](.github/workflows/carbon.yml).
+
+---
+
+## Módulo diésel: agente de precios de Petroperú
 
 Agente que **todos los días** entra a
 [Listas de precios en nuestras plantas de ventas](https://www.petroperu.com.pe/productos/lista-de-precios-en-nuestras-plantas/),

@@ -1,0 +1,19 @@
+serie,descripcion,mes,ultimo,var_mensual_pct,var_anual_pct,prom_3m,prom_12m,min_24m,max_24m,zscore_24m
+carbon_newcastle_fob,Newcastle FOB (USD/t),2026-10,152.3000,-1.0010,36.5941,148.8827,135.8476,101.1429,153.8400,1.4923
+carbon_api4_fob_rb,API4 FOB Richards Bay (USD/t),2026-10,100.0000,1.8330,9.1703,98.3333,94.6750,90.6000,106.8000,0.8858
+carbon_col_fob,"Colombia FOB, spec contrato (USD/t)",2026-10,106.5615,-1.0010,33.0474,104.1705,92.4546,76.5202,116.1000,0.9948
+carbon_flete,Flete Colombia→Conchán (USD/t),2026-10,33.8302,3.7643,34.1240,31.9617,29.2121,24.8683,33.8302,2.2170
+carbon_cif,CIF Conchán (USD/t),2026-10,140.6023,0.1068,33.3052,136.3364,121.8492,101.5406,141.5192,1.3797
+carbon_landed,Puesto en planta (USD/t),2026-10,152.5944,0.0987,30.0412,148.3136,133.7757,113.3960,153.5145,1.3797
+carbon_landed_pen,Puesto en planta (PEN/t),2026-10,525.3520,1.9676,31.1113,503.7190,454.8129,381.8383,561.9553,0.9684
+carbon_usd_gj,Puesto en planta (USD/GJ),2026-10,6.0744,0.0987,30.0412,5.9040,5.3253,4.5140,6.1111,1.3797
+carbon_cif_comtrade,CIF Perú desde Colombia — Comtrade (USD/t),2025-03,140.9422,4.3672,,138.1052,137.0525,135.0445,140.9422,
+pe_imp_carbon_mundo_cif,CIF Perú desde todo origen — Comtrade (USD/t),2025-03,140.9422,4.3672,,138.1052,137.0525,135.0445,140.9422,
+brent,Brent (USD/bbl),2026-10,123.9300,8.5582,92.0205,109.7233,90.8100,62.5400,123.9300,2.3166
+fx_pen_usd,Tipo de cambio (PEN/USD),2026-10,3.4428,1.8670,0.8229,3.3954,3.3981,3.3568,3.7800,-0.5038
+fx_cop_usd,Tipo de cambio (COP/USD),2026-10,3185.2477,0.0000,-17.9117,3167.1391,3520.4124,3130.9219,4412.0563,-1.6830
+ratio_col_newcastle,Colombia FOB / Newcastle,2026-10,0.6997,0.0000,-2.5966,0.6997,0.6801,0.6106,1.1159,-0.4757
+paridad_carbon_brent,Carbón vs Brent (USD/GJ ÷ USD/GJ),2026-10,0.2095,-8.8056,-30.7119,0.2341,0.2567,0.1882,0.4389,-1.4306
+flete_share_carbon,Flete / CIF,2026-10,0.2406,3.6536,0.6142,0.2343,0.2403,0.1781,0.2666,0.5763
+carbon_vs_cif_comtrade,CIF modelo / CIF Comtrade Perú,2025-03,0.8610,-8.1515,,0.9071,0.9259,0.8610,1.0015,
+share_colombia_import_pe,Participación de Colombia en importaciones de Perú (t),2025-03,1.0000,0.0000,,1.0000,1.0000,1.0000,1.0000,

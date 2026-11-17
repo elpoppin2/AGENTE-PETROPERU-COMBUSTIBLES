@@ -1,0 +1,5 @@
+{"elements":[],"count":3,"data":[
+{"typeCode":"C","freqCode":"M","period":"202506","reporterCode":604,"flowCode":"M","partnerCode":170,"partner2Code":0,"cmdCode":"270112","customsCode":"C00","motCode":0,"qtyUnitCode":8,"qty":60000000,"netWgt":60000000,"cifvalue":8400000,"fobvalue":null,"primaryValue":8400000},
+{"typeCode":"C","freqCode":"M","period":"202507","reporterCode":604,"flowCode":"M","partnerCode":170,"partner2Code":0,"cmdCode":"270112","customsCode":"C00","motCode":0,"qtyUnitCode":8,"qty":null,"netWgt":null,"cifvalue":null,"fobvalue":null,"primaryValue":4500000},
+{"typeCode":"C","freqCode":"M","period":"202508","reporterCode":604,"flowCode":"M","partnerCode":170,"partner2Code":0,"cmdCode":"270112","customsCode":"C00","motCode":0,"qtyUnitCode":8,"qty":30000000,"netWgt":null,"cifvalue":4350000,"fobvalue":null,"primaryValue":4350000}
+]}
