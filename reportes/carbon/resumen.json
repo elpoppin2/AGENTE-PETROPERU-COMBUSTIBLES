@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-17",
+ "actualizado": "2026-11-18",
  "ultimo_mes": "2026-10",
  "fuente_carbon_fob": "nowcast_newcastle",
  "alertas": [
@@ -13,22 +13,22 @@
  "conveniencia": {
   "material": "carbon",
   "mes": "2026-10",
-  "cfr": 166.56576909955845,
-  "indice": 11.4,
+  "cfr": 188.68836028076126,
+  "indice": 11.8,
   "etiqueta": "Conviene esperar",
   "percentil_36m": 94.4,
-  "promedio_12m": 147.6087982707601,
-  "frente_promedio_12m_pct": 12.84,
-  "cambio_esperado_12m_pct": -3.87,
-  "cfr_12m_p10": 111.34768586222394,
-  "cfr_12m_p50": 160.1193176797138,
-  "cfr_12m_p90": 238.11844436309605,
-  "flete_en_cfr_pct": 20.3,
-  "flete_en_cfr_mediana_36m_pct": 19.7,
+  "promedio_12m": 167.3415756674402,
+  "frente_promedio_12m_pct": 12.76,
+  "cambio_esperado_12m_pct": -3.65,
+  "cfr_12m_p10": 125.25847065849459,
+  "cfr_12m_p50": 181.80849745696176,
+  "cfr_12m_p90": 272.415108217358,
+  "flete_en_cfr_pct": 17.9,
+  "flete_en_cfr_mediana_36m_pct": 17.4,
   "componentes": {
    "posicion_36m": 5.6,
    "frente_promedio": 0.0,
-   "simulacion": 30.6
+   "simulacion": 31.8
   }
  },
  "escoria": {
@@ -40,16 +40,16 @@
   "conveniencia": {
    "material": "escoria",
    "mes": "2026-10",
-   "cfr": 39.333880640136016,
+   "cfr": 39.33388064013601,
    "indice": 13.0,
    "etiqueta": "Conviene esperar",
    "percentil_36m": 94.4,
-   "promedio_12m": 35.35466303142666,
+   "promedio_12m": 35.35466303142665,
    "frente_promedio_12m_pct": 11.26,
    "cambio_esperado_12m_pct": -2.85,
-   "cfr_12m_p10": 32.33072255599031,
-   "cfr_12m_p50": 38.21408447034615,
-   "cfr_12m_p90": 45.96802727327363,
+   "cfr_12m_p10": 32.3307225559903,
+   "cfr_12m_p50": 38.21408447034618,
+   "cfr_12m_p90": 45.968027273273705,
    "flete_en_cfr_pct": 84.7,
    "flete_en_cfr_mediana_36m_pct": 81.5,
    "componentes": {

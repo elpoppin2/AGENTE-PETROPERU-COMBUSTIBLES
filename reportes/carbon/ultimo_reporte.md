@@ -1,6 +1,6 @@
 # Precios carbones internacionales — Puerto Conchán
 
-_Actualizado: 2026-11-17 · Último mes con índice de referencia: 2026-10_
+_Actualizado: 2026-11-18 · Último mes con índice de referencia: 2026-10_
 
 ## Alertas
 
@@ -13,10 +13,10 @@ _Actualizado: 2026-11-17 · Último mes con índice de referencia: 2026-10_
 
 | Concepto | Valor |
 |---|---:|
-| FOB Colombia, spec contrato (USD/t) | 132.74 |
+| FOB Colombia, spec contrato (USD/t) | 154.86 |
 | Flete marítimo Colombia→Conchán (USD/t) | 33.83 |
-| CFR Conchán (USD/t) | 166.57 |
-| CFR Conchán (PEN/t) | 573.46 |
+| CFR Conchán (USD/t) | 188.69 |
+| CFR Conchán (PEN/t) | 649.62 |
 | Referencia CFR (USD/t) | — |
 | Fuente del FOB | estimado: Newcastle × ratio Colombia/Newcastle |
 
@@ -39,11 +39,11 @@ Spec 7000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 |---|---|---:|---:|---:|---:|---:|---|---:|
 | Newcastle FOB (USD/t) | 2026-10 | **152.30** | -1.0% | +36.6% | 148.88 | 135.85 | 101.14 – 153.84 | 1.5 |
 | API4 FOB Richards Bay (USD/t) | 2026-10 | **100.00** | +1.8% | +9.2% | 98.33 | 94.67 | 90.60 – 106.80 | 0.9 |
-| Colombia FOB, spec contrato (USD/t) | 2026-10 | **132.74** | -1.0% | +36.6% | 129.76 | 118.40 | 82.06 – 134.08 | 1.6 |
+| Colombia FOB, spec contrato (USD/t) | 2026-10 | **154.86** | -1.0% | +36.6% | 151.38 | 138.13 | 95.74 – 156.42 | 1.6 |
 | Flete Colombia→Conchán (USD/t) | 2026-10 | **33.83** | +3.8% | +34.1% | 31.96 | 29.21 | 24.87 – 33.83 | 2.2 |
-| CFR Conchán (USD/t) | 2026-10 | **166.57** | -0.1% | +36.1% | 161.72 | 147.61 | 107.91 – 166.68 | 1.7 |
-| CFR Conchán (PEN/t) | 2026-10 | **573.46** | +1.8% | +37.2% | 549.26 | 501.93 | 399.37 – 573.46 | 1.6 |
-| CFR comparable con ofertas, con atenuantes (USD/t) | 2026-10 | **174.84** | -0.1% | +34.4% | 169.92 | 155.63 | 115.41 – 174.95 | 1.7 |
+| CFR Conchán (USD/t) | 2026-10 | **188.69** | -0.2% | +36.1% | 183.35 | 167.34 | 121.59 – 189.03 | 1.7 |
+| CFR Conchán (PEN/t) | 2026-10 | **649.62** | +1.7% | +37.3% | 622.70 | 569.02 | 449.98 – 649.62 | 1.6 |
+| CFR comparable con ofertas, con atenuantes (USD/t) | 2026-10 | **197.25** | -0.2% | +34.6% | 191.84 | 175.62 | 129.27 – 197.59 | 1.7 |
 | CIF Perú desde Colombia — Comtrade (USD/t) | 2025-03 | **140.94** | +4.4% | — | 138.11 | 137.05 | 135.04 – 140.94 | — |
 | CIF Perú desde todo origen — Comtrade (USD/t) | 2025-03 | **140.94** | +4.4% | — | 138.11 | 137.05 | 135.04 – 140.94 | — |
 | Escoria FOB Japón (USD/t) | 2026-10 | **6.01** | +0.0% | +21.3% | 6.01 | 6.13 | 2.00 – 10.37 | -0.1 |
@@ -59,10 +59,10 @@ Spec 7000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 
 | Indicador | Mes | Último | m/m | a/a | Prom. 3m | Prom. 12m | Rango 24m | z 24m |
 |---|---|---:|---:|---:|---:|---:|---|---:|
-| Colombia FOB / Newcastle | 2026-10 | **0.872** | +0.0% | +0.0% | 0.872 | 0.872 | 0.721 – 1.116 | -0.1 |
-| Carbón vs Brent (USD/GJ ÷ USD/GJ) | 2026-10 | **0.224** | -8.8% | -28.9% | 0.250 | 0.282 | 0.221 – 0.376 | -1.7 |
-| Flete / CFR | 2026-10 | **0.203** | +3.8% | -1.4% | 0.198 | 0.198 | 0.178 – 0.240 | 0.1 |
-| CFR modelo / CIF Comtrade Perú | 2025-03 | **0.837** | -10.1% | — | 0.919 | 0.988 | 0.837 – 1.185 | — |
+| Colombia FOB / Newcastle | 2026-10 | **0.872** | -0.0% | +0.0% | 0.872 | 0.872 | 0.721 – 1.116 | -0.1 |
+| Carbón vs Brent (USD/GJ ÷ USD/GJ) | 2026-10 | **0.261** | -8.8% | -28.9% | 0.292 | 0.329 | 0.257 – 0.439 | -1.7 |
+| Flete / CFR | 2026-10 | **0.179** | +4.0% | -1.5% | 0.174 | 0.175 | 0.157 – 0.213 | 0.1 |
+| CFR modelo / CIF Comtrade Perú | 2025-03 | **0.945** | -10.2% | — | 1.039 | 1.120 | 0.945 – 1.349 | — |
 | Participación de Colombia en importaciones de Perú (t) | 2025-03 | **1.000** | +0.0% | — | 1.000 | 1.000 | 1.000 – 1.000 | — |
 | Flete / CFR escoria | 2026-10 | **0.847** | +0.5% | +1.1% | 0.840 | 0.827 | 0.725 – 0.931 | 0.5 |
 | Escoria CFR modelo / CIF Comtrade Perú | 2025-12 | **1.00** | -11.4% | +35.7% | 1.04 | 1.05 | 0.73 – 1.24 | 0.3 |
