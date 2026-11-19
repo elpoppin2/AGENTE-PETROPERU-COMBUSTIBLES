@@ -178,3 +178,15 @@ def test_cfr_comparable_con_atenuantes(synthetic_wide, cfg):
     base = r["carbon_cfr"] + 6.0
     assert r["carbon_costo_credito"] == pytest.approx(base * 0.08 * 60 / 365)
     assert r["carbon_cfr_comparable"] == pytest.approx(base + r["carbon_costo_credito"])
+
+
+def test_escoria_fob_estimado_con_el_mundo(synthetic_wide, cfg):
+    """Sin dato a Perú, el FOB sale del mundo × la relación Perú/mundo, no del valor del mundo tal cual."""
+    w = synthetic_wide.copy()
+    w["jp_exp_escoria_mundo_fob_usd_t"] = 9.0
+    w.loc[w.index[:-1], "jp_exp_escoria_pe_fob_usd_t"] = 6.0      # el último mes solo tiene el dato del mundo
+    res = analytics.compute(w, cfg)
+    r = res.monthly.iloc[-1]
+    assert res.meta["ratio_escoria_peru_mundo"] == pytest.approx(6.0 / 9.0)
+    assert r["escoria_fob"] == pytest.approx(6.0) and r["escoria_fob_fuente"] == "estimado_mundo"
+    assert r["escoria_cfr_comparable"] > r["escoria_cfr"]

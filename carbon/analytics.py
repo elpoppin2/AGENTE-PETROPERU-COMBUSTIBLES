@@ -36,6 +36,7 @@ KEY_SERIES = {
     "escoria_flete": "Flete Japón→Conchán (USD/t)",
     "escoria_cfr": "Escoria CFR Conchán (USD/t)",
     "escoria_cfr_pen": "Escoria CFR Conchán (PEN/t)",
+    "escoria_cfr_comparable": "Escoria CFR comparable con ofertas, con crédito (USD/t)",
     "escoria_cif_comtrade": "Escoria CIF Perú desde Japón — Comtrade (USD/t)",
     "brent": "Brent (USD/bbl)",
     "fx_pen_usd": "Tipo de cambio (PEN/USD)",
@@ -91,11 +92,11 @@ def _recent_median(s: pd.Series, n: int = 12) -> float | None:
     return float(s.tail(n).median()) if not s.empty else None
 
 
-def _freight(brent: pd.Series, fcfg: dict, implied: pd.Series, manual: pd.Series) -> tuple[pd.Series, float]:
+def _freight(brent: pd.Series, fcfg: dict, implied: pd.Series, manual: pd.Series, n: int = 12) -> tuple[pd.Series, float]:
     model = fcfg["base_usd_t"] * (brent / fcfg["brent_base_usd_bbl"]) ** fcfg["elasticidad_bunker"]
     model = model.fillna(fcfg["base_usd_t"])
     implied = implied.where((implied > 3) & (implied < 150))     # descarta valores absurdos
-    scale = _recent_median(implied / model) or 1.0
+    scale = _recent_median(implied / model, n) or 1.0
     scale = float(np.clip(scale, 0.5, 2.0))
     return manual.combine_first(model * scale), scale
 
@@ -185,24 +186,35 @@ def compute(w: pd.DataFrame, cfg: dict) -> Result:
     m["share_colombia_import_pe"] = m["pe_imp_carbon_col_vol_t"] / m["pe_imp_carbon_mundo_vol_t"]
 
     # --- Escoria granulada de Japón (GBFS): FOB Japón + flete = CFR Conchán -------
-    # No hay índice de mercado: el FOB es la cotización, o el valor unitario de las
-    # exportaciones de Japón (Comtrade, mensual o anual); si falta, el último dato.
+    # No hay índice de mercado. El FOB es, en orden: la cotización; lo que Japón exporta a Perú
+    # (Comtrade mensual); lo que exporta al mundo × la relación Perú/mundo (Japón vende más caro a
+    # Asia que a Perú, así que el valor del mundo no se usa tal cual); el dato anual a Perú; el último dato.
     ecfg = cfg.get("escoria")
     if ecfg:
-        obs_e, src_e = _first(w, ["manual_escoria_fob", "jp_exp_escoria_pe_fob_usd_t", "jp_exp_escoria_mundo_fob_usd_t"])
+        pe_e, mundo_e = _col(w, "jp_exp_escoria_pe_fob_usd_t"), _col(w, "jp_exp_escoria_mundo_fob_usd_t")
+        ratio_pe_mundo = _recent_median(pe_e / mundo_e) if (pe_e * mundo_e).notna().sum() >= 3 else None
+        estimado_mundo = mundo_e * ratio_pe_mundo if ratio_pe_mundo else pd.Series(np.nan, index=w.index)
+        obs_e, src_e = _first(w, ["manual_escoria_fob", "jp_exp_escoria_pe_fob_usd_t"])
         anual_fob = _anual(w, "jp_exp_escoria_pe_fob_anual_usd_t")
-        fob_e = obs_e.combine_first(anual_fob)
-        src_e = src_e.where(obs_e.notna(), np.where(anual_fob.notna(), "comtrade_anual", None))
+        fob_e = obs_e.combine_first(estimado_mundo).combine_first(anual_fob)
+        src_e = src_e.where(obs_e.notna(), np.where(estimado_mundo.notna(), "estimado_mundo",
+                                                    np.where(anual_fob.notna(), "comtrade_anual", None)))
         llevado = fob_e.ffill()
         src_e = src_e.where(fob_e.notna(), np.where(llevado.notna(), "ultimo_dato", "supuesto"))
         m["escoria_fob"] = llevado.fillna(ecfg["fob_default_usd_t"])
         m["escoria_fob_fuente"] = src_e
         cif_jp = _col(w, "pe_imp_escoria_jpn_cif_usd_t").combine_first(_anual(w, "pe_imp_escoria_jpn_cif_anual_usd_t"))
         fob_jp = _col(w, "jp_exp_escoria_pe_fob_usd_t").combine_first(anual_fob)
-        m["escoria_flete"], scale_e = _freight(m["brent"], ecfg["flete"], cif_jp - fob_jp, _col(w, "manual_flete_escoria"))
+        # El flete se calibra con el flete implícito de los últimos meses_calibracion (36 por defecto):
+        # con solo 12 quedaba atado a un año (2025) de flete barato.
+        m["escoria_flete"], scale_e = _freight(m["brent"], ecfg["flete"], cif_jp - fob_jp, _col(w, "manual_flete_escoria"),
+                                               ecfg["flete"].get("meses_calibracion", 36))
         m["escoria_cfr"] = (_col(w, "manual_escoria_cfr").combine_first(_col(w, "manual_escoria_cif"))
                             .combine_first(m["escoria_fob"] + m["escoria_flete"]))
         m["escoria_cfr_pen"] = m["escoria_cfr"] * m["fx_pen_usd"]
+        at_e = ecfg.get("atenuantes") or {}
+        m["escoria_costo_credito"] = m["escoria_cfr"] * float(at_e.get("tasa_anual_pct", 0)) / 100 * float(at_e.get("plazo_pago_dias", 0)) / 365
+        m["escoria_cfr_comparable"] = m["escoria_cfr"] + m["escoria_costo_credito"]
         m["escoria_cif_comtrade"] = cif_jp
         m["flete_share_escoria"] = m["escoria_flete"] / m["escoria_cfr"]
         m["escoria_vs_cif_comtrade"] = m["escoria_cfr"] / cif_jp
@@ -227,6 +239,8 @@ def compute(w: pd.DataFrame, cfg: dict) -> Result:
         "fuente_carbon_fob": m["carbon_col_fob_fuente"].iloc[-1] if not m.empty else None,
         "calibracion_ratio": calibracion,
         "fuente_escoria_fob": m["escoria_fob_fuente"].iloc[-1] if ecfg and not m.empty else None,
+        "ratio_escoria_peru_mundo": ratio_pe_mundo if ecfg else None,
+        "factor_flete_escoria": scale_e if ecfg else None,
         "ultimo_dato_por_serie": {c: w[c].last_valid_index().strftime("%Y-%m")
                                   for c in w.columns if w[c].notna().any()},
     }

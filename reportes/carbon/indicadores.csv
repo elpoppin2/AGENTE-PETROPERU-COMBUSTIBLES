@@ -8,10 +8,11 @@ carbon_cfr_pen,CFR Conchán (PEN/t),2026-10,649.6239,1.6854,37.2661,622.7039,569
 carbon_cfr_comparable,"CFR comparable con ofertas, con atenuantes (USD/t)",2026-10,197.2486,-0.1736,34.6447,191.8352,175.6211,129.2652,197.5917,1.7034
 carbon_cif_comtrade,CIF Perú desde Colombia — Comtrade (USD/t),2025-03,140.9422,4.3672,,138.1052,137.0525,135.0445,140.9422,
 pe_imp_carbon_mundo_cif,CIF Perú desde todo origen — Comtrade (USD/t),2025-03,140.9422,4.3672,,138.1052,137.0525,135.0445,140.9422,
-escoria_fob,Escoria FOB Japón (USD/t),2026-10,8.5804,0.0000,73.0648,7.7246,6.5535,1.9995,10.3734,0.8995
-escoria_flete,Flete Japón→Conchán (USD/t),2026-10,33.3209,3.3392,29.8192,31.6746,29.2290,25.3460,33.3209,2.2080
-escoria_cfr,Escoria CFR Conchán (USD/t),2026-10,41.9013,2.6374,36.8203,39.3992,35.7826,28.9518,41.9013,1.9310
-escoria_cfr_pen,Escoria CFR Conchán (PEN/t),2026-10,144.2594,4.5545,37.9473,133.8502,121.6868,102.1311,144.2966,1.6998
+escoria_fob,Escoria FOB Japón (USD/t),2026-10,5.5242,0.0000,11.4222,5.6871,5.5105,1.9995,6.6786,0.2792
+escoria_flete,Flete Japón→Conchán (USD/t),2026-10,38.5271,3.3392,29.8192,36.6236,33.7959,29.3061,38.5271,2.2080
+escoria_cfr,Escoria CFR Conchán (USD/t),2026-10,44.0513,2.9083,27.1858,42.3107,39.3063,33.1584,44.0513,1.9658
+escoria_cfr_pen,Escoria CFR Conchán (PEN/t),2026-10,151.6615,4.8305,28.2335,143.7109,133.6591,115.4661,151.6615,1.8017
+escoria_cfr_comparable,"Escoria CFR comparable con ofertas, con crédito (USD/t)",2026-10,44.6306,2.9083,27.1858,42.8671,39.8232,33.5945,44.6306,1.9658
 escoria_cif_comtrade,Escoria CIF Perú desde Japón — Comtrade (USD/t),2025-12,30.4767,0.0000,-23.1367,30.4767,31.3415,30.4767,39.6506,-1.1234
 brent,Brent (USD/bbl),2026-10,123.9300,8.5582,92.0205,109.7233,90.8100,62.5400,123.9300,2.3166
 fx_pen_usd,Tipo de cambio (PEN/USD),2026-10,3.4428,1.8679,0.8238,3.3954,3.3981,3.3568,3.7800,-0.5035
@@ -21,5 +22,5 @@ paridad_carbon_brent,Carbón vs Brent (USD/GJ ÷ USD/GJ),2026-10,0.2609,-8.8056,
 flete_share_carbon,Flete / CFR,2026-10,0.1793,3.9505,-1.4842,0.1742,0.1747,0.1569,0.2126,0.1347
 carbon_vs_cif_comtrade,CFR modelo / CIF Comtrade Perú,2025-03,0.9447,-10.2438,,1.0395,1.1202,0.9447,1.3490,
 share_colombia_import_pe,Participación de Colombia en importaciones de Perú (t),2025-03,1.0000,0.0000,,1.0000,1.0000,1.0000,1.0000,
-flete_share_escoria,Flete / CFR escoria,2026-10,0.7952,0.6838,-5.1170,0.8052,0.8186,0.7248,0.9313,-0.3866
-escoria_vs_cif_comtrade,Escoria CFR modelo / CIF Comtrade Perú,2025-12,0.9952,-11.3920,35.6503,1.0411,1.0521,0.7336,1.2368,0.2824
+flete_share_escoria,Flete / CFR escoria,2026-10,0.8746,0.4187,2.0706,0.8652,0.8594,0.8255,0.9400,0.4812
+escoria_vs_cif_comtrade,Escoria CFR modelo / CIF Comtrade Perú,2025-12,1.1251,-2.3890,33.8815,1.1381,1.1395,0.8404,1.2556,0.6686

@@ -1192,6 +1192,7 @@ const URL_REPO = "https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES";
 const ORIGEN_ESCORIA = {
   jp_exp_escoria_pe_fob_usd_t: "Exportaciones de Japón a Perú (UN Comtrade)",
   jp_exp_escoria_mundo_fob_usd_t: "Exportaciones de Japón al mundo (UN Comtrade)",
+  estimado_mundo: "Estimado: lo que Japón exporta al mundo × la relación Perú/mundo (UN Comtrade)",
   comtrade_anual: "Exportaciones de Japón a Perú del año (UN Comtrade)",
   ultimo_dato: "Último dato de UN Comtrade",
   supuesto: "Valor de referencia: aún sin datos de UN Comtrade",
@@ -1199,7 +1200,7 @@ const ORIGEN_ESCORIA = {
 const MATERIAS = {
   carbon: {
     clave: "carbon", fob: "carbon_col_fob", flete: "carbon_flete", cfr: "carbon_cfr", kcal: true,
-    comparable: "carbon_cfr_comparable",
+    comparable: "carbon_cfr_comparable", textoComparable: "con granulometría fina, calidad y crédito",
     atenuantes: [["carbon_prima_granulometria", "Granulometría fina (chancado)"], ["carbon_prima_calidad", "Calidad (baja ceniza y azufre)"],
       ["carbon_costo_credito", "Crédito (plazo de pago)"]],
     nombreCorto: "carbón", del: "del carbón", origen: "Colombia", fobNombre: "FOB Colombia",
@@ -1220,6 +1221,8 @@ const MATERIAS = {
   },
   escoria: {
     clave: "escoria", fob: "escoria_fob", flete: "escoria_flete", cfr: "escoria_cfr", kcal: false,
+    comparable: "escoria_cfr_comparable", textoComparable: "con el crédito del plazo de pago",
+    atenuantes: [["escoria_costo_credito", "Crédito (plazo de pago)"]],
     nombreCorto: "la escoria", del: "de la escoria", origen: "Japón", fobNombre: "FOB Japón",
     titulo: "Precio de la escoria granulada",
     bajada: "Escoria granulada de alto horno (GBFS) de Japón: precio FOB y CFR Muelle Conchán, con el comercio exterior Japón→Perú. Dólares por tonelada, promedio mensual.",
@@ -1233,7 +1236,7 @@ const MATERIAS = {
     ], nota: "No hay un índice público de la escoria. El CFR se compara con lo que Perú declaró al importar escoria de Japón (UN Comtrade, CIF). Promedio mensual en dólares por tonelada." },
     indicadores: f => f.serie.includes("escoria") || ["brent", "fx_pen_usd"].includes(f.serie),
     notas: [
-      "No hay un índice público ni un precio diario de la escoria granulada. Para los meses sin cotización, el FOB es el valor de las exportaciones de Japón a Perú en UN Comtrade (mensual o anual); si falta, se usa el último dato.",
+      "No hay un índice público ni un precio diario de la escoria granulada. El FOB es el valor de las exportaciones de Japón a Perú en UN Comtrade; si falta el mes, se estima con lo que Japón exporta al mundo por la relación Perú/mundo (Japón vende más caro en Asia), y si no, con el dato anual o el último disponible.",
       "El flete Japón→Conchán se estima con el precio del Brent y se calibra con la diferencia entre el CIF de Perú y el FOB de Japón (UN Comtrade). Es una ruta de retorno desde Asia: por eso el flete por tonelada es bajo para un viaje tan largo.",
       "El valor de aduanas de Japón puede estar subdeclarado por precios internos de las tradings; en la escoria, el CFR total es más confiable que su desglose.",
     ],
@@ -1299,7 +1302,7 @@ function dibujarMateria(cont, animar, M) {
   const comparable = M.comparable && carbon[M.comparable]?.at(-1);
   if (flete) letrero.append(el("p", { class: "letrero-pie" },
     `Flete marítimo ${M.ruta}: US$ ${fmt(flete.precio)} por tonelada, estimado con el Brent.`,
-    ...(comparable ? [el("br"), `CFR comparable con ofertas (con granulometría fina, calidad y crédito): `, el("strong", { style: "color:var(--letrero-texto)" }, `US$ ${fmt(comparable.precio)}`), "."] : [])));
+    ...(comparable ? [el("br"), `CFR comparable con ofertas (${M.textoComparable}): `, el("strong", { style: "color:var(--letrero-texto)" }, `US$ ${fmt(comparable.precio)}`), "."] : [])));
   cont.append(letrero);
 
   // Conveniencia de compra y simulación a 12 meses
@@ -1339,7 +1342,7 @@ function dibujarMateria(cont, animar, M) {
   const ATENUANTE = { nombre: "Atenuantes de las ofertas", color: "--series-1" };
   if (M.atenuantes && carbon[M.comparable]?.length) {
     tbd.append(el("tr", {}, el("td", { colspan: 5, style: "font:600 14px var(--f-titulo);color:var(--text-secondary);padding-top:12px" },
-      chipSerie(ATENUANTE), " Para comparar con ofertas", ayuda("Supuestos de mercado que las ofertas suelen incluir y el CFR no: chancado para granulometría fina, prima por baja ceniza y azufre, y el costo financiero del plazo de pago. Se ajustan en carbon/config.yaml."))));
+      chipSerie(ATENUANTE), " Para comparar con ofertas", ayuda(`Supuestos de mercado que las ofertas suelen incluir y el CFR no (${M.textoComparable}). Se ajustan en carbon/config.yaml.`))));
     for (const [k, n] of M.atenuantes) filaD(n, k, el("span", { style: "display:inline-block;width:10px" }));
     filaD("CFR comparable con ofertas", M.comparable);
   }

@@ -1,6 +1,6 @@
 # Precios carbones internacionales — Puerto Conchán
 
-_Actualizado: 2026-11-18 · Último mes con índice de referencia: 2026-10_
+_Actualizado: 2026-11-19 · Último mes con índice de referencia: 2026-10_
 
 ## Alertas
 
@@ -26,10 +26,10 @@ Spec 7000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 
 | Concepto | Valor |
 |---|---:|
-| FOB Japón (USD/t) | 8.58 |
-| Flete marítimo Japón→Conchán (USD/t) | 33.32 |
-| CFR Conchán (USD/t) | 41.90 |
-| CFR Conchán (PEN/t) | 144.26 |
+| FOB Japón (USD/t) | 5.52 |
+| Flete marítimo Japón→Conchán (USD/t) | 38.53 |
+| CFR Conchán (USD/t) | 44.05 |
+| CFR Conchán (PEN/t) | 151.66 |
 | Referencia CFR (USD/t) | — |
 | Fuente del FOB | último dato disponible |
 
@@ -46,10 +46,11 @@ Spec 7000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 | CFR comparable con ofertas, con atenuantes (USD/t) | 2026-10 | **197.25** | -0.2% | +34.6% | 191.84 | 175.62 | 129.27 – 197.59 | 1.7 |
 | CIF Perú desde Colombia — Comtrade (USD/t) | 2025-03 | **140.94** | +4.4% | — | 138.11 | 137.05 | 135.04 – 140.94 | — |
 | CIF Perú desde todo origen — Comtrade (USD/t) | 2025-03 | **140.94** | +4.4% | — | 138.11 | 137.05 | 135.04 – 140.94 | — |
-| Escoria FOB Japón (USD/t) | 2026-10 | **8.58** | +0.0% | +73.1% | 7.72 | 6.55 | 2.00 – 10.37 | 0.9 |
-| Flete Japón→Conchán (USD/t) | 2026-10 | **33.32** | +3.3% | +29.8% | 31.67 | 29.23 | 25.35 – 33.32 | 2.2 |
-| Escoria CFR Conchán (USD/t) | 2026-10 | **41.90** | +2.6% | +36.8% | 39.40 | 35.78 | 28.95 – 41.90 | 1.9 |
-| Escoria CFR Conchán (PEN/t) | 2026-10 | **144.26** | +4.6% | +37.9% | 133.85 | 121.69 | 102.13 – 144.30 | 1.7 |
+| Escoria FOB Japón (USD/t) | 2026-10 | **5.52** | +0.0% | +11.4% | 5.69 | 5.51 | 2.00 – 6.68 | 0.3 |
+| Flete Japón→Conchán (USD/t) | 2026-10 | **38.53** | +3.3% | +29.8% | 36.62 | 33.80 | 29.31 – 38.53 | 2.2 |
+| Escoria CFR Conchán (USD/t) | 2026-10 | **44.05** | +2.9% | +27.2% | 42.31 | 39.31 | 33.16 – 44.05 | 2.0 |
+| Escoria CFR Conchán (PEN/t) | 2026-10 | **151.66** | +4.8% | +28.2% | 143.71 | 133.66 | 115.47 – 151.66 | 1.8 |
+| Escoria CFR comparable con ofertas, con crédito (USD/t) | 2026-10 | **44.63** | +2.9% | +27.2% | 42.87 | 39.82 | 33.59 – 44.63 | 2.0 |
 | Escoria CIF Perú desde Japón — Comtrade (USD/t) | 2025-12 | **30.48** | +0.0% | -23.1% | 30.48 | 31.34 | 30.48 – 39.65 | -1.1 |
 | Brent (USD/bbl) | 2026-10 | **123.93** | +8.6% | +92.0% | 109.72 | 90.81 | 62.54 – 123.93 | 2.3 |
 | Tipo de cambio (PEN/USD) | 2026-10 | **3.443** | +1.9% | +0.8% | 3.395 | 3.398 | 3.357 – 3.780 | -0.5 |
@@ -64,8 +65,8 @@ Spec 7000 kcal/kg NAR. Ratio Colombia/API2: 0.850 (valor por defecto); Colombia/
 | Flete / CFR | 2026-10 | **0.179** | +4.0% | -1.5% | 0.174 | 0.175 | 0.157 – 0.213 | 0.1 |
 | CFR modelo / CIF Comtrade Perú | 2025-03 | **0.945** | -10.2% | — | 1.039 | 1.120 | 0.945 – 1.349 | — |
 | Participación de Colombia en importaciones de Perú (t) | 2025-03 | **1.000** | +0.0% | — | 1.000 | 1.000 | 1.000 – 1.000 | — |
-| Flete / CFR escoria | 2026-10 | **0.795** | +0.7% | -5.1% | 0.805 | 0.819 | 0.725 – 0.931 | -0.4 |
-| Escoria CFR modelo / CIF Comtrade Perú | 2025-12 | **1.00** | -11.4% | +35.7% | 1.04 | 1.05 | 0.73 – 1.24 | 0.3 |
+| Flete / CFR escoria | 2026-10 | **0.875** | +0.4% | +2.1% | 0.865 | 0.859 | 0.825 – 0.940 | 0.5 |
+| Escoria CFR modelo / CIF Comtrade Perú | 2025-12 | **1.13** | -2.4% | +33.9% | 1.14 | 1.14 | 0.84 – 1.26 | 0.7 |
 
 ## Gráficos (últimos 36 meses)
 

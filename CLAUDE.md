@@ -56,6 +56,10 @@ bituminoso de Colombia y escoria granulada de Japón. Tablero: https://elpoppin2
   (UN Comtrade). **Escenario B** (elegido por el dueño): ese comercio se toma en base 6,000 kcal/kg y
   se ajusta por 7,000/6,000 (`poder_calorifico_comercio_pe_kcal_kg: 6000`; con 7000 sería el escenario A,
   sin ese ajuste). El comercio con el mundo (más barato) solo se usa si hay menos de 3 datos. Sin referencia de presupuesto por defecto.
+- **Escoria granulada de Japón:** FOB = lo que Japón exporta a Perú (UN Comtrade); si falta el mes, lo
+  que exporta al mundo × la relación Perú/mundo (~0.65: Japón vende más caro en Asia). Flete
+  Japón→Conchán con el Brent, calibrado con el flete implícito (CIF Perú − FOB Japón) de los últimos
+  36 meses. CFR comparable = CFR + costo del crédito a 60 días al 8% anual.
 - **CFR comparable con ofertas:** CFR + atenuantes que suelen traer las ofertas (granulometría fina
   US$ 4.5/t, calidad US$ 1.5/t, costo del crédito a 60 días al 8% anual; supuestos en
   `carbon/config.yaml`). Es la cifra para comparar una oferta con el mercado.

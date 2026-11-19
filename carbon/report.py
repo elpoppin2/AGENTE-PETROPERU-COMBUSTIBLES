@@ -23,6 +23,7 @@ FUENTES_LEGIBLES = {
     "jp_exp_escoria_pe_fob_usd_t": "Comtrade: export. Japón→Perú (FOB, mensual)",
     "jp_exp_escoria_mundo_fob_usd_t": "Comtrade: export. Japón→mundo (FOB, mensual)",
     "comtrade_anual": "Comtrade: export. Japón→Perú (FOB, anual)",
+    "estimado_mundo": "estimado: export. Japón→mundo × relación Perú/mundo",
     "ultimo_dato": "último dato disponible",
     "supuesto": "valor por defecto de la configuración",
 }

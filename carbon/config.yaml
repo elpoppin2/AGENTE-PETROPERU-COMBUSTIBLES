@@ -42,11 +42,16 @@ escoria:
   hs: "261800"                    # Escorias granuladas (arena de escorias)
   presupuesto_cfr_usd_t: null     # referencia CFR Conchán (USD/t); vacío = sin alerta de referencia
   fob_default_usd_t: 8.0          # FOB Japón si no hay ningún dato de UN Comtrade
+  # Para comparar el CFR con ofertas: solo el costo del crédito (supuesto de mercado) — AJUSTAR
+  atenuantes:
+    plazo_pago_dias: 60
+    tasa_anual_pct: 8.0
   # Flete Japón -> Conchán (Handysize/Supramax, ruta de retorno desde Asia)
   flete:
     base_usd_t: 38.0              # flete de referencia con Brent = brent_base — AJUSTAR
     brent_base_usd_bbl: 80.0
     elasticidad_bunker: 0.40
+    meses_calibracion: 36         # meses de flete implícito (CIF Perú − FOB Japón) para calibrar
 
 # CSV descargados de Investing.com ("Datos históricos" -> Descargar) y guardados en
 # data/carbon/manual/investing/. El nombre del archivo decide la serie (palabra clave).

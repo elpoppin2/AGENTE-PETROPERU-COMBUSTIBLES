@@ -31,7 +31,11 @@ estructura que el carbón: **FOB Japón + flete = CFR Muelle Conchán** (pestañ
 - No hay índice público ni precio diario. El FOB es, en orden: la cotización cargada
   (`material = escoria` en `data/carbon/manual/cotizaciones.csv`), el valor unitario de las
   exportaciones de Japón a Perú en UN Comtrade (mensual; si falta, el anual) y, si no, el último dato.
-- El flete Japón→Conchán se estima con el Brent y se calibra con `CIF Perú − FOB Japón` (Comtrade).
+- Si falta el dato mensual a Perú, el FOB se estima con lo que Japón exporta al mundo × la relación
+  Perú/mundo (mediana), porque Japón vende más caro a Asia; el valor del mundo no se usa tal cual.
+- El flete Japón→Conchán se estima con el Brent y se calibra con `CIF Perú − FOB Japón` (Comtrade) de
+  los últimos `meses_calibracion` (36) meses.
+- CFR comparable con ofertas = CFR + costo del crédito (`escoria.atenuantes`).
 - Se compara con el CIF real de Perú desde Japón (Comtrade). Alerta si el CFR supera
   `escoria.presupuesto_cfr_usd_t` (opcional; vacía por defecto).
 
