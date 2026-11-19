@@ -41,11 +41,11 @@
    "pe_imp_escoria_jpn_cif_anual_vol_t"
   ],
   "avisos": [
-   "Comtrade pe_imp_carbon_col_cif: sin registros (HTTP 200) {\"elapsedTime\":\"0.05 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
-   "Comtrade co_exp_carbon_pe_fob: sin registros (HTTP 200) {\"elapsedTime\":\"0.03 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
-   "Comtrade co_exp_carbon_mundo_fob: sin registros (HTTP 200) {\"elapsedTime\":\"0.05 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
-   "Comtrade pe_imp_carbon_mundo_cif: sin registros (HTTP 200) {\"elapsedTime\":\"0.07 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
-   "Comtrade pe_imp_escoria_jpn_cif: sin registros (HTTP 200) {\"elapsedTime\":\"0.19 secs\",\"count\":0,\"data\":[],\"error\":\"\"}"
+   "Comtrade pe_imp_carbon_col_cif: sin registros (HTTP 200) {\"elapsedTime\":\"0.06 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
+   "Comtrade co_exp_carbon_pe_fob: sin registros (HTTP 200) {\"elapsedTime\":\"0.02 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
+   "Comtrade co_exp_carbon_mundo_fob: sin registros (HTTP 200) {\"elapsedTime\":\"0.04 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
+   "Comtrade pe_imp_carbon_mundo_cif: sin registros (HTTP 200) {\"elapsedTime\":\"0.12 secs\",\"count\":0,\"data\":[],\"error\":\"\"}",
+   "Comtrade pe_imp_escoria_jpn_cif: sin registros (HTTP 200) {\"elapsedTime\":\"0.33 secs\",\"count\":0,\"data\":[],\"error\":\"\"}"
   ]
  },
  {
