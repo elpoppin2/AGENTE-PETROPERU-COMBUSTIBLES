@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh api -X POST repos/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES/actions/workflows/387068877/dispatches -f ref=main)"
+    ]
+  }
+}
