@@ -1,533 +1,533 @@
 fecha,serie,valor,unidad,fuente,actualizado
-2018-01-01,brent,69.08,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-02-01,brent,65.32,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-03-01,brent,66.02,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-04-01,brent,72.11,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-05-01,brent,76.98,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-06-01,brent,74.41,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-07-01,brent,74.25,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-08-01,brent,72.53,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-09-01,brent,78.89,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-10-01,brent,81.03,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-11-01,brent,64.75,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-12-01,brent,57.36,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-01-01,brent,59.41,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-02-01,brent,63.96,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-03-01,brent,66.14,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-04-01,brent,71.23,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-05-01,brent,71.32,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-06-01,brent,64.22,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-07-01,brent,63.92,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-08-01,brent,59.04,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-09-01,brent,62.83,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-10-01,brent,59.71,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-11-01,brent,63.21,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2019-12-01,brent,67.31,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-01-01,brent,63.65,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-02-01,brent,55.66,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-03-01,brent,32.01,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-04-01,brent,18.38,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-05-01,brent,29.38,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-06-01,brent,40.27,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-07-01,brent,43.24,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-08-01,brent,44.74,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-09-01,brent,40.91,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-10-01,brent,40.19,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-11-01,brent,42.69,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2020-12-01,brent,49.99,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-01-01,brent,54.77,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-02-01,brent,62.28,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-03-01,brent,65.41,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-04-01,brent,64.81,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-05-01,brent,68.53,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-06-01,brent,73.16,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-07-01,brent,75.17,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-08-01,brent,70.75,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-09-01,brent,74.49,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-10-01,brent,83.54,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-11-01,brent,81.05,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2021-12-01,brent,74.17,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-01-01,brent,86.51,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-02-01,brent,97.13,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-03-01,brent,117.25,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-04-01,brent,104.58,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-05-01,brent,113.34,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-06-01,brent,122.71,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-07-01,brent,111.93,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-08-01,brent,100.45,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-09-01,brent,89.76,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-10-01,brent,93.33,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-11-01,brent,91.42,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2022-12-01,brent,80.92,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-01-01,brent,82.5,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-02-01,brent,82.59,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-03-01,brent,78.43,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-04-01,brent,84.64,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-05-01,brent,75.47,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-06-01,brent,74.84,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-07-01,brent,80.11,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-08-01,brent,86.15,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-09-01,brent,93.72,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-10-01,brent,90.6,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-11-01,brent,82.94,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2023-12-01,brent,77.63,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-01-01,brent,80.12,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-02-01,brent,83.48,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-03-01,brent,85.41,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-04-01,brent,89.94,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-05-01,brent,81.75,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-06-01,brent,82.25,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-07-01,brent,85.15,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-08-01,brent,80.36,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-09-01,brent,74.02,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-10-01,brent,75.63,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-11-01,brent,74.35,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2024-12-01,brent,73.86,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-01-01,brent,79.27,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-02-01,brent,75.44,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-03-01,brent,72.73,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-04-01,brent,68.13,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-05-01,brent,64.45,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-06-01,brent,71.44,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-07-01,brent,71.04,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-08-01,brent,67.87,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-09-01,brent,67.99,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-10-01,brent,64.54,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-11-01,brent,63.8,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2025-12-01,brent,62.54,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2026-01-01,brent,66.6,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2026-02-01,brent,70.89,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2026-03-01,brent,103.13,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2026-04-01,brent,117.29,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2026-05-01,brent,107.14,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2026-06-01,brent,85.4,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2026-07-01,brent,83.76,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2026-08-01,brent,91.08,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2026-09-01,brent,114.16,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2026-10-01,brent,123.93,USD/bbl,FRED MCOILBRENTEU,2026-11-19
-2018-01-01,brent_bm,69.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-02-01,brent_bm,65.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-03-01,brent_bm,66.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-04-01,brent_bm,71.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-05-01,brent_bm,76.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-06-01,brent_bm,75.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-07-01,brent_bm,74.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-08-01,brent_bm,73.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-09-01,brent_bm,78.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-10-01,brent_bm,80.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-11-01,brent_bm,65.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-12-01,brent_bm,56.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-01-01,brent_bm,59.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-02-01,brent_bm,64.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-03-01,brent_bm,66.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-04-01,brent_bm,71.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-05-01,brent_bm,70.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-06-01,brent_bm,63.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-07-01,brent_bm,64.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-08-01,brent_bm,59.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-09-01,brent_bm,62.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-10-01,brent_bm,59.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-11-01,brent_bm,62.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2019-12-01,brent_bm,65.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-01-01,brent_bm,63.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-02-01,brent_bm,55.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-03-01,brent_bm,33.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-04-01,brent_bm,23.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-05-01,brent_bm,31.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-06-01,brent_bm,39.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-07-01,brent_bm,42.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-08-01,brent_bm,44.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-09-01,brent_bm,41.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-10-01,brent_bm,40.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-11-01,brent_bm,43.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2020-12-01,brent_bm,49.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-01-01,brent_bm,54.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-02-01,brent_bm,62.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-03-01,brent_bm,65.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-04-01,brent_bm,64.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-05-01,brent_bm,68.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-06-01,brent_bm,73.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-07-01,brent_bm,74.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-08-01,brent_bm,70.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-09-01,brent_bm,74.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-10-01,brent_bm,83.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-11-01,brent_bm,80.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2021-12-01,brent_bm,74.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-01-01,brent_bm,85.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-02-01,brent_bm,95.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-03-01,brent_bm,115.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-04-01,brent_bm,105.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-05-01,brent_bm,112.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-06-01,brent_bm,120.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-07-01,brent_bm,108.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-08-01,brent_bm,98.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-09-01,brent_bm,90.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-10-01,brent_bm,93.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-11-01,brent_bm,91.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2022-12-01,brent_bm,80.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-01-01,brent_bm,83.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-02-01,brent_bm,82.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-03-01,brent_bm,78.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-04-01,brent_bm,84.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-05-01,brent_bm,75.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-06-01,brent_bm,74.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-07-01,brent_bm,80.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-08-01,brent_bm,86.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-09-01,brent_bm,94.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-10-01,brent_bm,91.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-11-01,brent_bm,83.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2023-12-01,brent_bm,77.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-01-01,brent_bm,80.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-02-01,brent_bm,83.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-03-01,brent_bm,85.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-04-01,brent_bm,90.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-05-01,brent_bm,82.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-06-01,brent_bm,82.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-07-01,brent_bm,85.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-08-01,brent_bm,80.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-09-01,brent_bm,74.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-10-01,brent_bm,75.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-11-01,brent_bm,74.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2024-12-01,brent_bm,73.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-01-01,brent_bm,79.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-02-01,brent_bm,75.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-03-01,brent_bm,72.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-04-01,brent_bm,67.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-05-01,brent_bm,64.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-06-01,brent_bm,71.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-07-01,brent_bm,71.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-08-01,brent_bm,68.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-09-01,brent_bm,68.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-10-01,brent_bm,64.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-11-01,brent_bm,63.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2025-12-01,brent_bm,62.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2026-01-01,brent_bm,66.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2026-02-01,brent_bm,71.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2026-03-01,brent_bm,103.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2026-04-01,brent_bm,120.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2026-05-01,brent_bm,107.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2026-06-01,brent_bm,85.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2026-07-01,brent_bm,83.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2026-08-01,brent_bm,90.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2026-09-01,brent_bm,116.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2026-10-01,brent_bm,125.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-19
-2018-01-01,carbon_bm_australia_fob,106.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-02-01,carbon_bm_australia_fob,106.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-03-01,carbon_bm_australia_fob,96.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-04-01,carbon_bm_australia_fob,93.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-05-01,carbon_bm_australia_fob,105.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-06-01,carbon_bm_australia_fob,114.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-07-01,carbon_bm_australia_fob,119.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-08-01,carbon_bm_australia_fob,117.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-09-01,carbon_bm_australia_fob,114.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-10-01,carbon_bm_australia_fob,108.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-11-01,carbon_bm_australia_fob,100.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-12-01,carbon_bm_australia_fob,101.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-01-01,carbon_bm_australia_fob,98.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-02-01,carbon_bm_australia_fob,95.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-03-01,carbon_bm_australia_fob,93.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-04-01,carbon_bm_australia_fob,86.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-05-01,carbon_bm_australia_fob,82.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-06-01,carbon_bm_australia_fob,72.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-07-01,carbon_bm_australia_fob,72.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-08-01,carbon_bm_australia_fob,65.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-09-01,carbon_bm_australia_fob,66.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-10-01,carbon_bm_australia_fob,69.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-11-01,carbon_bm_australia_fob,67.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-12-01,carbon_bm_australia_fob,66.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-01-01,carbon_bm_australia_fob,69.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-02-01,carbon_bm_australia_fob,67.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-03-01,carbon_bm_australia_fob,66.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-04-01,carbon_bm_australia_fob,58.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-05-01,carbon_bm_australia_fob,52.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-06-01,carbon_bm_australia_fob,52.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-07-01,carbon_bm_australia_fob,51.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-08-01,carbon_bm_australia_fob,50.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-09-01,carbon_bm_australia_fob,54.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-10-01,carbon_bm_australia_fob,58.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-11-01,carbon_bm_australia_fob,64.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-12-01,carbon_bm_australia_fob,83.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-01-01,carbon_bm_australia_fob,86.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-02-01,carbon_bm_australia_fob,86.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-03-01,carbon_bm_australia_fob,94.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-04-01,carbon_bm_australia_fob,92.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-05-01,carbon_bm_australia_fob,107.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-06-01,carbon_bm_australia_fob,130.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-07-01,carbon_bm_australia_fob,152.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-08-01,carbon_bm_australia_fob,169.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-09-01,carbon_bm_australia_fob,185.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-10-01,carbon_bm_australia_fob,224.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-11-01,carbon_bm_australia_fob,157.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-12-01,carbon_bm_australia_fob,169.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-01-01,carbon_bm_australia_fob,197.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-02-01,carbon_bm_australia_fob,219.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-03-01,carbon_bm_australia_fob,314.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-04-01,carbon_bm_australia_fob,310.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-05-01,carbon_bm_australia_fob,371.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-06-01,carbon_bm_australia_fob,374.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-07-01,carbon_bm_australia_fob,402.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-08-01,carbon_bm_australia_fob,407.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-09-01,carbon_bm_australia_fob,430.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-10-01,carbon_bm_australia_fob,389.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-11-01,carbon_bm_australia_fob,342.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-12-01,carbon_bm_australia_fob,379.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-01-01,carbon_bm_australia_fob,318.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-02-01,carbon_bm_australia_fob,207.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-03-01,carbon_bm_australia_fob,187.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-04-01,carbon_bm_australia_fob,194.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-05-01,carbon_bm_australia_fob,160.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-06-01,carbon_bm_australia_fob,139.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-07-01,carbon_bm_australia_fob,140.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-08-01,carbon_bm_australia_fob,152.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-09-01,carbon_bm_australia_fob,162.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-10-01,carbon_bm_australia_fob,142.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-11-01,carbon_bm_australia_fob,126.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-12-01,carbon_bm_australia_fob,141.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-01-01,carbon_bm_australia_fob,124.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-02-01,carbon_bm_australia_fob,124.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-03-01,carbon_bm_australia_fob,131.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-04-01,carbon_bm_australia_fob,135.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-05-01,carbon_bm_australia_fob,142.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-06-01,carbon_bm_australia_fob,135.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-07-01,carbon_bm_australia_fob,137.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-08-01,carbon_bm_australia_fob,145.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-09-01,carbon_bm_australia_fob,139.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-10-01,carbon_bm_australia_fob,146.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-11-01,carbon_bm_australia_fob,142.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-12-01,carbon_bm_australia_fob,129.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-01-01,carbon_bm_australia_fob,118.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-02-01,carbon_bm_australia_fob,106.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-03-01,carbon_bm_australia_fob,104.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-04-01,carbon_bm_australia_fob,98.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-05-01,carbon_bm_australia_fob,104.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-06-01,carbon_bm_australia_fob,109.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-07-01,carbon_bm_australia_fob,112.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-08-01,carbon_bm_australia_fob,112.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-09-01,carbon_bm_australia_fob,106.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-10-01,carbon_bm_australia_fob,107.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-11-01,carbon_bm_australia_fob,112.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-12-01,carbon_bm_australia_fob,107.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-01-01,carbon_bm_australia_fob,109.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-02-01,carbon_bm_australia_fob,118.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-03-01,carbon_bm_australia_fob,138.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-04-01,carbon_bm_australia_fob,130.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-05-01,carbon_bm_australia_fob,136.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-06-01,carbon_bm_australia_fob,138.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-07-01,carbon_bm_australia_fob,131.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-08-01,carbon_bm_australia_fob,135.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-09-01,carbon_bm_australia_fob,147.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-10-01,carbon_bm_australia_fob,152.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-01-01,carbon_bm_sudafrica_fob,97.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-02-01,carbon_bm_sudafrica_fob,92.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-03-01,carbon_bm_sudafrica_fob,89.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-04-01,carbon_bm_sudafrica_fob,92.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-05-01,carbon_bm_sudafrica_fob,101.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-06-01,carbon_bm_sudafrica_fob,103.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-07-01,carbon_bm_sudafrica_fob,106.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-08-01,carbon_bm_sudafrica_fob,98.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-09-01,carbon_bm_sudafrica_fob,102.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-10-01,carbon_bm_sudafrica_fob,100.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-11-01,carbon_bm_sudafrica_fob,91.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-12-01,carbon_bm_sudafrica_fob,95.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-01-01,carbon_bm_sudafrica_fob,91.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-02-01,carbon_bm_sudafrica_fob,84.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-03-01,carbon_bm_sudafrica_fob,78.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-04-01,carbon_bm_sudafrica_fob,72.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-05-01,carbon_bm_sudafrica_fob,68.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-06-01,carbon_bm_sudafrica_fob,62.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-07-01,carbon_bm_sudafrica_fob,65.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-08-01,carbon_bm_sudafrica_fob,60.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-09-01,carbon_bm_sudafrica_fob,61.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-10-01,carbon_bm_sudafrica_fob,67.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-11-01,carbon_bm_sudafrica_fob,73.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2019-12-01,carbon_bm_sudafrica_fob,76.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-01-01,carbon_bm_sudafrica_fob,82.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-02-01,carbon_bm_sudafrica_fob,80.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-03-01,carbon_bm_sudafrica_fob,67.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-04-01,carbon_bm_sudafrica_fob,56.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-05-01,carbon_bm_sudafrica_fob,57.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-06-01,carbon_bm_sudafrica_fob,56.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-07-01,carbon_bm_sudafrica_fob,56.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-08-01,carbon_bm_sudafrica_fob,57.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-09-01,carbon_bm_sudafrica_fob,57.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-10-01,carbon_bm_sudafrica_fob,61.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-11-01,carbon_bm_sudafrica_fob,69.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2020-12-01,carbon_bm_sudafrica_fob,85.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-01-01,carbon_bm_sudafrica_fob,86.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-02-01,carbon_bm_sudafrica_fob,82.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-03-01,carbon_bm_sudafrica_fob,90.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-04-01,carbon_bm_sudafrica_fob,89.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-05-01,carbon_bm_sudafrica_fob,99.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-06-01,carbon_bm_sudafrica_fob,112.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-07-01,carbon_bm_sudafrica_fob,122.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-08-01,carbon_bm_sudafrica_fob,137.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-09-01,carbon_bm_sudafrica_fob,146.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-10-01,carbon_bm_sudafrica_fob,199.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-11-01,carbon_bm_sudafrica_fob,128.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2021-12-01,carbon_bm_sudafrica_fob,142.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-01-01,carbon_bm_sudafrica_fob,168.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-02-01,carbon_bm_sudafrica_fob,196.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-03-01,carbon_bm_sudafrica_fob,294.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-04-01,carbon_bm_sudafrica_fob,302.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-05-01,carbon_bm_sudafrica_fob,280.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-06-01,carbon_bm_sudafrica_fob,291.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-07-01,carbon_bm_sudafrica_fob,269.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-08-01,carbon_bm_sudafrica_fob,274.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-09-01,carbon_bm_sudafrica_fob,235.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-10-01,carbon_bm_sudafrica_fob,191.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-11-01,carbon_bm_sudafrica_fob,169.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2022-12-01,carbon_bm_sudafrica_fob,215.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-01-01,carbon_bm_sudafrica_fob,172.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-02-01,carbon_bm_sudafrica_fob,144.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-03-01,carbon_bm_sudafrica_fob,136.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-04-01,carbon_bm_sudafrica_fob,133.7,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-05-01,carbon_bm_sudafrica_fob,103.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-06-01,carbon_bm_sudafrica_fob,98.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-07-01,carbon_bm_sudafrica_fob,96.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-08-01,carbon_bm_sudafrica_fob,97.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-09-01,carbon_bm_sudafrica_fob,99.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-10-01,carbon_bm_sudafrica_fob,128.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-11-01,carbon_bm_sudafrica_fob,109.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2023-12-01,carbon_bm_sudafrica_fob,108.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-01-01,carbon_bm_sudafrica_fob,106.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-02-01,carbon_bm_sudafrica_fob,105.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-03-01,carbon_bm_sudafrica_fob,104.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-04-01,carbon_bm_sudafrica_fob,104.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-05-01,carbon_bm_sudafrica_fob,105.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-06-01,carbon_bm_sudafrica_fob,105.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-07-01,carbon_bm_sudafrica_fob,105.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-08-01,carbon_bm_sudafrica_fob,106.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-09-01,carbon_bm_sudafrica_fob,106.1,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-10-01,carbon_bm_sudafrica_fob,106.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-11-01,carbon_bm_sudafrica_fob,106.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2024-12-01,carbon_bm_sudafrica_fob,105.5,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-01-01,carbon_bm_sudafrica_fob,103.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-02-01,carbon_bm_sudafrica_fob,100.4,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-03-01,carbon_bm_sudafrica_fob,98.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-04-01,carbon_bm_sudafrica_fob,95.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-05-01,carbon_bm_sudafrica_fob,94.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-06-01,carbon_bm_sudafrica_fob,93.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-07-01,carbon_bm_sudafrica_fob,93.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-08-01,carbon_bm_sudafrica_fob,93.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-09-01,carbon_bm_sudafrica_fob,92.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-10-01,carbon_bm_sudafrica_fob,91.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-11-01,carbon_bm_sudafrica_fob,91.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2025-12-01,carbon_bm_sudafrica_fob,90.9,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-01-01,carbon_bm_sudafrica_fob,90.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-02-01,carbon_bm_sudafrica_fob,91.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-03-01,carbon_bm_sudafrica_fob,93.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-04-01,carbon_bm_sudafrica_fob,94.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-05-01,carbon_bm_sudafrica_fob,95.6,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-06-01,carbon_bm_sudafrica_fob,96.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-07-01,carbon_bm_sudafrica_fob,96.3,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-08-01,carbon_bm_sudafrica_fob,96.8,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-09-01,carbon_bm_sudafrica_fob,98.2,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2026-10-01,carbon_bm_sudafrica_fob,100.0,USD/t,Banco Mundial Pink Sheet,2026-11-19
-2018-01-01,carbon_newcastle_fob,111.93262987013,USD/t,FRED PCOALAUUSDM,2026-11-19
-2018-02-01,carbon_newcastle_fob,111.477321428571,USD/t,FRED PCOALAUUSDM,2026-11-19
-2018-03-01,carbon_newcastle_fob,105.72806122449,USD/t,FRED PCOALAUUSDM,2026-11-19
-2018-04-01,carbon_newcastle_fob,99.2233928571427,USD/t,FRED PCOALAUUSDM,2026-11-19
-2018-05-01,carbon_newcastle_fob,109.375,USD/t,FRED PCOALAUUSDM,2026-11-19
-2018-06-01,carbon_newcastle_fob,121.524489795918,USD/t,FRED PCOALAUUSDM,2026-11-19
-2018-07-01,carbon_newcastle_fob,125.085876623376,USD/t,FRED PCOALAUUSDM,2026-11-19
-2018-08-01,carbon_newcastle_fob,123.734902597402,USD/t,FRED PCOALAUUSDM,2026-11-19
-2018-09-01,carbon_newcastle_fob,122.229107142857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2018-10-01,carbon_newcastle_fob,114.762111801242,USD/t,FRED PCOALAUUSDM,2026-11-19
-2018-11-01,carbon_newcastle_fob,107.552922077922,USD/t,FRED PCOALAUUSDM,2026-11-19
-2018-12-01,carbon_newcastle_fob,106.143609022556,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-01-01,carbon_newcastle_fob,105.401298701298,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-02-01,carbon_newcastle_fob,101.357142857143,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-03-01,carbon_newcastle_fob,99.6698979591835,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-04-01,carbon_newcastle_fob,88.7646428571427,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-05-01,carbon_newcastle_fob,89.5642857142855,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-06-01,carbon_newcastle_fob,77.6298214285713,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-07-01,carbon_newcastle_fob,77.8458074534159,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-08-01,carbon_newcastle_fob,69.7392857142855,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-09-01,carbon_newcastle_fob,66.9586734693876,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-10-01,carbon_newcastle_fob,69.1942546583849,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-11-01,carbon_newcastle_fob,69.7290816326529,USD/t,FRED PCOALAUUSDM,2026-11-19
-2019-12-01,carbon_newcastle_fob,70.4646428571427,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-01-01,carbon_newcastle_fob,72.10616883,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-02-01,carbon_newcastle_fob,71.05017857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-03-01,carbon_newcastle_fob,70.20487013,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-04-01,carbon_newcastle_fob,64.62,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-05-01,carbon_newcastle_fob,54.14830827,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-06-01,carbon_newcastle_fob,55.00275974,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-07-01,carbon_newcastle_fob,51.67220497,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-08-01,carbon_newcastle_fob,51.3825,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-09-01,carbon_newcastle_fob,52.00568182,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-10-01,carbon_newcastle_fob,58.06948052,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-11-01,carbon_newcastle_fob,62.94642857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2020-12-01,carbon_newcastle_fob,80.58979592,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-01-01,carbon_newcastle_fob,90.99535714,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-02-01,carbon_newcastle_fob,92.48571429,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-03-01,carbon_newcastle_fob,95.23090062,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-04-01,carbon_newcastle_fob,97.84767857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-05-01,carbon_newcastle_fob,104.2071429,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-06-01,carbon_newcastle_fob,132.1529221,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-07-01,carbon_newcastle_fob,153.1982143,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-08-01,carbon_newcastle_fob,173.5683673,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-09-01,carbon_newcastle_fob,188.1228896,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-10-01,carbon_newcastle_fob,240.7321429,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-11-01,carbon_newcastle_fob,177.8016234,USD/t,FRED PCOALAUUSDM,2026-11-19
-2021-12-01,carbon_newcastle_fob,181.4739796,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-01-01,carbon_newcastle_fob,231.7601786,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-02-01,carbon_newcastle_fob,272.4867857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-03-01,carbon_newcastle_fob,353.440528,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-04-01,carbon_newcastle_fob,334.7182331,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-05-01,carbon_newcastle_fob,418.4938776,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-06-01,carbon_newcastle_fob,427.425,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-07-01,carbon_newcastle_fob,433.6265306,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-08-01,carbon_newcastle_fob,447.4475649,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-09-01,carbon_newcastle_fob,467.7836735,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-10-01,carbon_newcastle_fob,426.9091837,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-11-01,carbon_newcastle_fob,368.2582792,USD/t,FRED PCOALAUUSDM,2026-11-19
-2022-12-01,carbon_newcastle_fob,427.6869643,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-01-01,carbon_newcastle_fob,404.5352041,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-02-01,carbon_newcastle_fob,244.2053571,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-03-01,carbon_newcastle_fob,195.9992236,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-04-01,carbon_newcastle_fob,200.6761905,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-05-01,carbon_newcastle_fob,179.2623214,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-06-01,carbon_newcastle_fob,138.6316558,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-07-01,carbon_newcastle_fob,141.0295918,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-08-01,carbon_newcastle_fob,152.7925325,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-09-01,carbon_newcastle_fob,168.4790816,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-10-01,carbon_newcastle_fob,150.7383117,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-11-01,carbon_newcastle_fob,132.1193182,USD/t,FRED PCOALAUUSDM,2026-11-19
-2023-12-01,carbon_newcastle_fob,149.362218,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-01-01,carbon_newcastle_fob,140.8178571,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-02-01,carbon_newcastle_fob,128.7005102,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-03-01,carbon_newcastle_fob,137.7032143,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-04-01,carbon_newcastle_fob,137.4953571,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-05-01,carbon_newcastle_fob,148.0060714,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-06-01,carbon_newcastle_fob,143.5092857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-07-01,carbon_newcastle_fob,141.9942857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-08-01,carbon_newcastle_fob,151.635,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-09-01,carbon_newcastle_fob,148.7432143,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-10-01,carbon_newcastle_fob,153.2175,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-11-01,carbon_newcastle_fob,150.57,USD/t,FRED PCOALAUUSDM,2026-11-19
-2024-12-01,carbon_newcastle_fob,140.2242857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-01-01,carbon_newcastle_fob,125.3228571,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-02-01,carbon_newcastle_fob,113.1739286,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-03-01,carbon_newcastle_fob,104.7685714,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-04-01,carbon_newcastle_fob,101.1428571,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-05-01,carbon_newcastle_fob,104.0378571,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-06-01,carbon_newcastle_fob,110.1385714,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-07-01,carbon_newcastle_fob,116.2992857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-08-01,carbon_newcastle_fob,119.2135714,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-09-01,carbon_newcastle_fob,112.5342857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-10-01,carbon_newcastle_fob,111.4982143,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-11-01,carbon_newcastle_fob,115.4367857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2025-12-01,carbon_newcastle_fob,115.6842857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2026-01-01,carbon_newcastle_fob,115.815,USD/t,FRED PCOALAUUSDM,2026-11-19
-2026-02-01,carbon_newcastle_fob,122.2092857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2026-03-01,carbon_newcastle_fob,140.0560714,USD/t,FRED PCOALAUUSDM,2026-11-19
-2026-04-01,carbon_newcastle_fob,142.11,USD/t,FRED PCOALAUUSDM,2026-11-19
-2026-05-01,carbon_newcastle_fob,141.4532143,USD/t,FRED PCOALAUUSDM,2026-11-19
-2026-06-01,carbon_newcastle_fob,150.3621429,USD/t,FRED PCOALAUUSDM,2026-11-19
-2026-07-01,carbon_newcastle_fob,140.3967857,USD/t,FRED PCOALAUUSDM,2026-11-19
-2026-08-01,carbon_newcastle_fob,140.5082143,USD/t,FRED PCOALAUUSDM,2026-11-19
-2026-09-01,carbon_newcastle_fob,153.84,USD/t,FRED PCOALAUUSDM,2026-11-19
+2018-01-01,brent,69.08,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-02-01,brent,65.32,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-03-01,brent,66.02,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-04-01,brent,72.11,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-05-01,brent,76.98,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-06-01,brent,74.41,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-07-01,brent,74.25,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-08-01,brent,72.53,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-09-01,brent,78.89,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-10-01,brent,81.03,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-11-01,brent,64.75,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-12-01,brent,57.36,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-01-01,brent,59.41,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-02-01,brent,63.96,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-03-01,brent,66.14,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-04-01,brent,71.23,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-05-01,brent,71.32,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-06-01,brent,64.22,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-07-01,brent,63.92,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-08-01,brent,59.04,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-09-01,brent,62.83,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-10-01,brent,59.71,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-11-01,brent,63.21,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2019-12-01,brent,67.31,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-01-01,brent,63.65,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-02-01,brent,55.66,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-03-01,brent,32.01,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-04-01,brent,18.38,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-05-01,brent,29.38,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-06-01,brent,40.27,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-07-01,brent,43.24,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-08-01,brent,44.74,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-09-01,brent,40.91,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-10-01,brent,40.19,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-11-01,brent,42.69,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2020-12-01,brent,49.99,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-01-01,brent,54.77,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-02-01,brent,62.28,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-03-01,brent,65.41,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-04-01,brent,64.81,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-05-01,brent,68.53,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-06-01,brent,73.16,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-07-01,brent,75.17,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-08-01,brent,70.75,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-09-01,brent,74.49,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-10-01,brent,83.54,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-11-01,brent,81.05,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2021-12-01,brent,74.17,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-01-01,brent,86.51,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-02-01,brent,97.13,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-03-01,brent,117.25,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-04-01,brent,104.58,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-05-01,brent,113.34,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-06-01,brent,122.71,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-07-01,brent,111.93,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-08-01,brent,100.45,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-09-01,brent,89.76,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-10-01,brent,93.33,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-11-01,brent,91.42,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2022-12-01,brent,80.92,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-01-01,brent,82.5,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-02-01,brent,82.59,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-03-01,brent,78.43,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-04-01,brent,84.64,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-05-01,brent,75.47,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-06-01,brent,74.84,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-07-01,brent,80.11,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-08-01,brent,86.15,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-09-01,brent,93.72,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-10-01,brent,90.6,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-11-01,brent,82.94,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2023-12-01,brent,77.63,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-01-01,brent,80.12,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-02-01,brent,83.48,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-03-01,brent,85.41,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-04-01,brent,89.94,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-05-01,brent,81.75,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-06-01,brent,82.25,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-07-01,brent,85.15,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-08-01,brent,80.36,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-09-01,brent,74.02,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-10-01,brent,75.63,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-11-01,brent,74.35,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2024-12-01,brent,73.86,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-01-01,brent,79.27,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-02-01,brent,75.44,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-03-01,brent,72.73,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-04-01,brent,68.13,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-05-01,brent,64.45,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-06-01,brent,71.44,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-07-01,brent,71.04,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-08-01,brent,67.87,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-09-01,brent,67.99,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-10-01,brent,64.54,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-11-01,brent,63.8,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2025-12-01,brent,62.54,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2026-01-01,brent,66.6,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2026-02-01,brent,70.89,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2026-03-01,brent,103.13,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2026-04-01,brent,117.29,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2026-05-01,brent,107.14,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2026-06-01,brent,85.4,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2026-07-01,brent,83.76,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2026-08-01,brent,91.08,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2026-09-01,brent,114.16,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2026-10-01,brent,123.93,USD/bbl,FRED MCOILBRENTEU,2026-11-24
+2018-01-01,brent_bm,69.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-02-01,brent_bm,65.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-03-01,brent_bm,66.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-04-01,brent_bm,71.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-05-01,brent_bm,76.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-06-01,brent_bm,75.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-07-01,brent_bm,74.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-08-01,brent_bm,73.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-09-01,brent_bm,78.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-10-01,brent_bm,80.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-11-01,brent_bm,65.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-12-01,brent_bm,56.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-01-01,brent_bm,59.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-02-01,brent_bm,64.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-03-01,brent_bm,66.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-04-01,brent_bm,71.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-05-01,brent_bm,70.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-06-01,brent_bm,63.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-07-01,brent_bm,64.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-08-01,brent_bm,59.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-09-01,brent_bm,62.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-10-01,brent_bm,59.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-11-01,brent_bm,62.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2019-12-01,brent_bm,65.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-01-01,brent_bm,63.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-02-01,brent_bm,55.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-03-01,brent_bm,33.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-04-01,brent_bm,23.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-05-01,brent_bm,31.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-06-01,brent_bm,39.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-07-01,brent_bm,42.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-08-01,brent_bm,44.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-09-01,brent_bm,41.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-10-01,brent_bm,40.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-11-01,brent_bm,43.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2020-12-01,brent_bm,49.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-01-01,brent_bm,54.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-02-01,brent_bm,62.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-03-01,brent_bm,65.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-04-01,brent_bm,64.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-05-01,brent_bm,68.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-06-01,brent_bm,73.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-07-01,brent_bm,74.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-08-01,brent_bm,70.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-09-01,brent_bm,74.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-10-01,brent_bm,83.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-11-01,brent_bm,80.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2021-12-01,brent_bm,74.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-01-01,brent_bm,85.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-02-01,brent_bm,95.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-03-01,brent_bm,115.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-04-01,brent_bm,105.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-05-01,brent_bm,112.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-06-01,brent_bm,120.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-07-01,brent_bm,108.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-08-01,brent_bm,98.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-09-01,brent_bm,90.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-10-01,brent_bm,93.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-11-01,brent_bm,91.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2022-12-01,brent_bm,80.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-01-01,brent_bm,83.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-02-01,brent_bm,82.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-03-01,brent_bm,78.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-04-01,brent_bm,84.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-05-01,brent_bm,75.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-06-01,brent_bm,74.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-07-01,brent_bm,80.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-08-01,brent_bm,86.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-09-01,brent_bm,94.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-10-01,brent_bm,91.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-11-01,brent_bm,83.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2023-12-01,brent_bm,77.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-01-01,brent_bm,80.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-02-01,brent_bm,83.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-03-01,brent_bm,85.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-04-01,brent_bm,90.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-05-01,brent_bm,82.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-06-01,brent_bm,82.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-07-01,brent_bm,85.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-08-01,brent_bm,80.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-09-01,brent_bm,74.3,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-10-01,brent_bm,75.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-11-01,brent_bm,74.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2024-12-01,brent_bm,73.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-01-01,brent_bm,79.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-02-01,brent_bm,75.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-03-01,brent_bm,72.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-04-01,brent_bm,67.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-05-01,brent_bm,64.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-06-01,brent_bm,71.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-07-01,brent_bm,71.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-08-01,brent_bm,68.2,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-09-01,brent_bm,68.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-10-01,brent_bm,64.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-11-01,brent_bm,63.6,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2025-12-01,brent_bm,62.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2026-01-01,brent_bm,66.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2026-02-01,brent_bm,71.1,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2026-03-01,brent_bm,103.7,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2026-04-01,brent_bm,120.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2026-05-01,brent_bm,107.5,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2026-06-01,brent_bm,85.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2026-07-01,brent_bm,83.4,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2026-08-01,brent_bm,90.9,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2026-09-01,brent_bm,116.8,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2026-10-01,brent_bm,125.0,USD/bbl,Banco Mundial Pink Sheet,2026-11-24
+2018-01-01,carbon_bm_australia_fob,106.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-02-01,carbon_bm_australia_fob,106.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-03-01,carbon_bm_australia_fob,96.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-04-01,carbon_bm_australia_fob,93.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-05-01,carbon_bm_australia_fob,105.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-06-01,carbon_bm_australia_fob,114.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-07-01,carbon_bm_australia_fob,119.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-08-01,carbon_bm_australia_fob,117.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-09-01,carbon_bm_australia_fob,114.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-10-01,carbon_bm_australia_fob,108.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-11-01,carbon_bm_australia_fob,100.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-12-01,carbon_bm_australia_fob,101.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-01-01,carbon_bm_australia_fob,98.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-02-01,carbon_bm_australia_fob,95.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-03-01,carbon_bm_australia_fob,93.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-04-01,carbon_bm_australia_fob,86.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-05-01,carbon_bm_australia_fob,82.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-06-01,carbon_bm_australia_fob,72.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-07-01,carbon_bm_australia_fob,72.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-08-01,carbon_bm_australia_fob,65.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-09-01,carbon_bm_australia_fob,66.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-10-01,carbon_bm_australia_fob,69.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-11-01,carbon_bm_australia_fob,67.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-12-01,carbon_bm_australia_fob,66.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-01-01,carbon_bm_australia_fob,69.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-02-01,carbon_bm_australia_fob,67.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-03-01,carbon_bm_australia_fob,66.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-04-01,carbon_bm_australia_fob,58.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-05-01,carbon_bm_australia_fob,52.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-06-01,carbon_bm_australia_fob,52.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-07-01,carbon_bm_australia_fob,51.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-08-01,carbon_bm_australia_fob,50.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-09-01,carbon_bm_australia_fob,54.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-10-01,carbon_bm_australia_fob,58.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-11-01,carbon_bm_australia_fob,64.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-12-01,carbon_bm_australia_fob,83.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-01-01,carbon_bm_australia_fob,86.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-02-01,carbon_bm_australia_fob,86.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-03-01,carbon_bm_australia_fob,94.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-04-01,carbon_bm_australia_fob,92.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-05-01,carbon_bm_australia_fob,107.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-06-01,carbon_bm_australia_fob,130.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-07-01,carbon_bm_australia_fob,152.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-08-01,carbon_bm_australia_fob,169.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-09-01,carbon_bm_australia_fob,185.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-10-01,carbon_bm_australia_fob,224.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-11-01,carbon_bm_australia_fob,157.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-12-01,carbon_bm_australia_fob,169.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-01-01,carbon_bm_australia_fob,197.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-02-01,carbon_bm_australia_fob,219.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-03-01,carbon_bm_australia_fob,314.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-04-01,carbon_bm_australia_fob,310.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-05-01,carbon_bm_australia_fob,371.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-06-01,carbon_bm_australia_fob,374.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-07-01,carbon_bm_australia_fob,402.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-08-01,carbon_bm_australia_fob,407.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-09-01,carbon_bm_australia_fob,430.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-10-01,carbon_bm_australia_fob,389.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-11-01,carbon_bm_australia_fob,342.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-12-01,carbon_bm_australia_fob,379.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-01-01,carbon_bm_australia_fob,318.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-02-01,carbon_bm_australia_fob,207.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-03-01,carbon_bm_australia_fob,187.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-04-01,carbon_bm_australia_fob,194.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-05-01,carbon_bm_australia_fob,160.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-06-01,carbon_bm_australia_fob,139.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-07-01,carbon_bm_australia_fob,140.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-08-01,carbon_bm_australia_fob,152.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-09-01,carbon_bm_australia_fob,162.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-10-01,carbon_bm_australia_fob,142.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-11-01,carbon_bm_australia_fob,126.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-12-01,carbon_bm_australia_fob,141.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-01-01,carbon_bm_australia_fob,124.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-02-01,carbon_bm_australia_fob,124.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-03-01,carbon_bm_australia_fob,131.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-04-01,carbon_bm_australia_fob,135.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-05-01,carbon_bm_australia_fob,142.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-06-01,carbon_bm_australia_fob,135.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-07-01,carbon_bm_australia_fob,137.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-08-01,carbon_bm_australia_fob,145.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-09-01,carbon_bm_australia_fob,139.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-10-01,carbon_bm_australia_fob,146.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-11-01,carbon_bm_australia_fob,142.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-12-01,carbon_bm_australia_fob,129.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-01-01,carbon_bm_australia_fob,118.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-02-01,carbon_bm_australia_fob,106.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-03-01,carbon_bm_australia_fob,104.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-04-01,carbon_bm_australia_fob,98.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-05-01,carbon_bm_australia_fob,104.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-06-01,carbon_bm_australia_fob,109.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-07-01,carbon_bm_australia_fob,112.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-08-01,carbon_bm_australia_fob,112.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-09-01,carbon_bm_australia_fob,106.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-10-01,carbon_bm_australia_fob,107.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-11-01,carbon_bm_australia_fob,112.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-12-01,carbon_bm_australia_fob,107.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-01-01,carbon_bm_australia_fob,109.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-02-01,carbon_bm_australia_fob,118.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-03-01,carbon_bm_australia_fob,138.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-04-01,carbon_bm_australia_fob,130.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-05-01,carbon_bm_australia_fob,136.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-06-01,carbon_bm_australia_fob,138.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-07-01,carbon_bm_australia_fob,131.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-08-01,carbon_bm_australia_fob,135.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-09-01,carbon_bm_australia_fob,147.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-10-01,carbon_bm_australia_fob,152.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-01-01,carbon_bm_sudafrica_fob,97.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-02-01,carbon_bm_sudafrica_fob,92.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-03-01,carbon_bm_sudafrica_fob,89.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-04-01,carbon_bm_sudafrica_fob,92.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-05-01,carbon_bm_sudafrica_fob,101.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-06-01,carbon_bm_sudafrica_fob,103.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-07-01,carbon_bm_sudafrica_fob,106.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-08-01,carbon_bm_sudafrica_fob,98.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-09-01,carbon_bm_sudafrica_fob,102.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-10-01,carbon_bm_sudafrica_fob,100.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-11-01,carbon_bm_sudafrica_fob,91.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-12-01,carbon_bm_sudafrica_fob,95.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-01-01,carbon_bm_sudafrica_fob,91.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-02-01,carbon_bm_sudafrica_fob,84.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-03-01,carbon_bm_sudafrica_fob,78.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-04-01,carbon_bm_sudafrica_fob,72.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-05-01,carbon_bm_sudafrica_fob,68.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-06-01,carbon_bm_sudafrica_fob,62.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-07-01,carbon_bm_sudafrica_fob,65.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-08-01,carbon_bm_sudafrica_fob,60.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-09-01,carbon_bm_sudafrica_fob,61.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-10-01,carbon_bm_sudafrica_fob,67.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-11-01,carbon_bm_sudafrica_fob,73.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2019-12-01,carbon_bm_sudafrica_fob,76.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-01-01,carbon_bm_sudafrica_fob,82.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-02-01,carbon_bm_sudafrica_fob,80.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-03-01,carbon_bm_sudafrica_fob,67.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-04-01,carbon_bm_sudafrica_fob,56.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-05-01,carbon_bm_sudafrica_fob,57.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-06-01,carbon_bm_sudafrica_fob,56.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-07-01,carbon_bm_sudafrica_fob,56.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-08-01,carbon_bm_sudafrica_fob,57.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-09-01,carbon_bm_sudafrica_fob,57.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-10-01,carbon_bm_sudafrica_fob,61.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-11-01,carbon_bm_sudafrica_fob,69.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2020-12-01,carbon_bm_sudafrica_fob,85.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-01-01,carbon_bm_sudafrica_fob,86.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-02-01,carbon_bm_sudafrica_fob,82.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-03-01,carbon_bm_sudafrica_fob,90.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-04-01,carbon_bm_sudafrica_fob,89.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-05-01,carbon_bm_sudafrica_fob,99.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-06-01,carbon_bm_sudafrica_fob,112.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-07-01,carbon_bm_sudafrica_fob,122.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-08-01,carbon_bm_sudafrica_fob,137.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-09-01,carbon_bm_sudafrica_fob,146.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-10-01,carbon_bm_sudafrica_fob,199.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-11-01,carbon_bm_sudafrica_fob,128.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2021-12-01,carbon_bm_sudafrica_fob,142.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-01-01,carbon_bm_sudafrica_fob,168.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-02-01,carbon_bm_sudafrica_fob,196.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-03-01,carbon_bm_sudafrica_fob,294.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-04-01,carbon_bm_sudafrica_fob,302.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-05-01,carbon_bm_sudafrica_fob,280.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-06-01,carbon_bm_sudafrica_fob,291.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-07-01,carbon_bm_sudafrica_fob,269.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-08-01,carbon_bm_sudafrica_fob,274.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-09-01,carbon_bm_sudafrica_fob,235.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-10-01,carbon_bm_sudafrica_fob,191.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-11-01,carbon_bm_sudafrica_fob,169.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2022-12-01,carbon_bm_sudafrica_fob,215.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-01-01,carbon_bm_sudafrica_fob,172.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-02-01,carbon_bm_sudafrica_fob,144.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-03-01,carbon_bm_sudafrica_fob,136.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-04-01,carbon_bm_sudafrica_fob,133.7,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-05-01,carbon_bm_sudafrica_fob,103.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-06-01,carbon_bm_sudafrica_fob,98.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-07-01,carbon_bm_sudafrica_fob,96.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-08-01,carbon_bm_sudafrica_fob,97.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-09-01,carbon_bm_sudafrica_fob,99.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-10-01,carbon_bm_sudafrica_fob,128.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-11-01,carbon_bm_sudafrica_fob,109.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2023-12-01,carbon_bm_sudafrica_fob,108.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-01-01,carbon_bm_sudafrica_fob,106.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-02-01,carbon_bm_sudafrica_fob,105.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-03-01,carbon_bm_sudafrica_fob,104.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-04-01,carbon_bm_sudafrica_fob,104.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-05-01,carbon_bm_sudafrica_fob,105.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-06-01,carbon_bm_sudafrica_fob,105.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-07-01,carbon_bm_sudafrica_fob,105.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-08-01,carbon_bm_sudafrica_fob,106.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-09-01,carbon_bm_sudafrica_fob,106.1,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-10-01,carbon_bm_sudafrica_fob,106.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-11-01,carbon_bm_sudafrica_fob,106.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2024-12-01,carbon_bm_sudafrica_fob,105.5,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-01-01,carbon_bm_sudafrica_fob,103.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-02-01,carbon_bm_sudafrica_fob,100.4,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-03-01,carbon_bm_sudafrica_fob,98.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-04-01,carbon_bm_sudafrica_fob,95.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-05-01,carbon_bm_sudafrica_fob,94.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-06-01,carbon_bm_sudafrica_fob,93.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-07-01,carbon_bm_sudafrica_fob,93.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-08-01,carbon_bm_sudafrica_fob,93.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-09-01,carbon_bm_sudafrica_fob,92.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-10-01,carbon_bm_sudafrica_fob,91.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-11-01,carbon_bm_sudafrica_fob,91.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2025-12-01,carbon_bm_sudafrica_fob,90.9,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-01-01,carbon_bm_sudafrica_fob,90.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-02-01,carbon_bm_sudafrica_fob,91.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-03-01,carbon_bm_sudafrica_fob,93.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-04-01,carbon_bm_sudafrica_fob,94.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-05-01,carbon_bm_sudafrica_fob,95.6,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-06-01,carbon_bm_sudafrica_fob,96.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-07-01,carbon_bm_sudafrica_fob,96.3,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-08-01,carbon_bm_sudafrica_fob,96.8,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-09-01,carbon_bm_sudafrica_fob,98.2,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2026-10-01,carbon_bm_sudafrica_fob,100.0,USD/t,Banco Mundial Pink Sheet,2026-11-24
+2018-01-01,carbon_newcastle_fob,111.93262987013,USD/t,FRED PCOALAUUSDM,2026-11-24
+2018-02-01,carbon_newcastle_fob,111.477321428571,USD/t,FRED PCOALAUUSDM,2026-11-24
+2018-03-01,carbon_newcastle_fob,105.72806122449,USD/t,FRED PCOALAUUSDM,2026-11-24
+2018-04-01,carbon_newcastle_fob,99.2233928571427,USD/t,FRED PCOALAUUSDM,2026-11-24
+2018-05-01,carbon_newcastle_fob,109.375,USD/t,FRED PCOALAUUSDM,2026-11-24
+2018-06-01,carbon_newcastle_fob,121.524489795918,USD/t,FRED PCOALAUUSDM,2026-11-24
+2018-07-01,carbon_newcastle_fob,125.085876623376,USD/t,FRED PCOALAUUSDM,2026-11-24
+2018-08-01,carbon_newcastle_fob,123.734902597402,USD/t,FRED PCOALAUUSDM,2026-11-24
+2018-09-01,carbon_newcastle_fob,122.229107142857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2018-10-01,carbon_newcastle_fob,114.762111801242,USD/t,FRED PCOALAUUSDM,2026-11-24
+2018-11-01,carbon_newcastle_fob,107.552922077922,USD/t,FRED PCOALAUUSDM,2026-11-24
+2018-12-01,carbon_newcastle_fob,106.143609022556,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-01-01,carbon_newcastle_fob,105.401298701298,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-02-01,carbon_newcastle_fob,101.357142857143,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-03-01,carbon_newcastle_fob,99.6698979591835,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-04-01,carbon_newcastle_fob,88.7646428571427,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-05-01,carbon_newcastle_fob,89.5642857142855,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-06-01,carbon_newcastle_fob,77.6298214285713,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-07-01,carbon_newcastle_fob,77.8458074534159,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-08-01,carbon_newcastle_fob,69.7392857142855,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-09-01,carbon_newcastle_fob,66.9586734693876,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-10-01,carbon_newcastle_fob,69.1942546583849,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-11-01,carbon_newcastle_fob,69.7290816326529,USD/t,FRED PCOALAUUSDM,2026-11-24
+2019-12-01,carbon_newcastle_fob,70.4646428571427,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-01-01,carbon_newcastle_fob,72.10616883,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-02-01,carbon_newcastle_fob,71.05017857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-03-01,carbon_newcastle_fob,70.20487013,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-04-01,carbon_newcastle_fob,64.62,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-05-01,carbon_newcastle_fob,54.14830827,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-06-01,carbon_newcastle_fob,55.00275974,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-07-01,carbon_newcastle_fob,51.67220497,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-08-01,carbon_newcastle_fob,51.3825,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-09-01,carbon_newcastle_fob,52.00568182,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-10-01,carbon_newcastle_fob,58.06948052,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-11-01,carbon_newcastle_fob,62.94642857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2020-12-01,carbon_newcastle_fob,80.58979592,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-01-01,carbon_newcastle_fob,90.99535714,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-02-01,carbon_newcastle_fob,92.48571429,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-03-01,carbon_newcastle_fob,95.23090062,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-04-01,carbon_newcastle_fob,97.84767857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-05-01,carbon_newcastle_fob,104.2071429,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-06-01,carbon_newcastle_fob,132.1529221,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-07-01,carbon_newcastle_fob,153.1982143,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-08-01,carbon_newcastle_fob,173.5683673,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-09-01,carbon_newcastle_fob,188.1228896,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-10-01,carbon_newcastle_fob,240.7321429,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-11-01,carbon_newcastle_fob,177.8016234,USD/t,FRED PCOALAUUSDM,2026-11-24
+2021-12-01,carbon_newcastle_fob,181.4739796,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-01-01,carbon_newcastle_fob,231.7601786,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-02-01,carbon_newcastle_fob,272.4867857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-03-01,carbon_newcastle_fob,353.440528,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-04-01,carbon_newcastle_fob,334.7182331,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-05-01,carbon_newcastle_fob,418.4938776,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-06-01,carbon_newcastle_fob,427.425,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-07-01,carbon_newcastle_fob,433.6265306,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-08-01,carbon_newcastle_fob,447.4475649,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-09-01,carbon_newcastle_fob,467.7836735,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-10-01,carbon_newcastle_fob,426.9091837,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-11-01,carbon_newcastle_fob,368.2582792,USD/t,FRED PCOALAUUSDM,2026-11-24
+2022-12-01,carbon_newcastle_fob,427.6869643,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-01-01,carbon_newcastle_fob,404.5352041,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-02-01,carbon_newcastle_fob,244.2053571,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-03-01,carbon_newcastle_fob,195.9992236,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-04-01,carbon_newcastle_fob,200.6761905,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-05-01,carbon_newcastle_fob,179.2623214,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-06-01,carbon_newcastle_fob,138.6316558,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-07-01,carbon_newcastle_fob,141.0295918,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-08-01,carbon_newcastle_fob,152.7925325,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-09-01,carbon_newcastle_fob,168.4790816,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-10-01,carbon_newcastle_fob,150.7383117,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-11-01,carbon_newcastle_fob,132.1193182,USD/t,FRED PCOALAUUSDM,2026-11-24
+2023-12-01,carbon_newcastle_fob,149.362218,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-01-01,carbon_newcastle_fob,140.8178571,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-02-01,carbon_newcastle_fob,128.7005102,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-03-01,carbon_newcastle_fob,137.7032143,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-04-01,carbon_newcastle_fob,137.4953571,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-05-01,carbon_newcastle_fob,148.0060714,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-06-01,carbon_newcastle_fob,143.5092857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-07-01,carbon_newcastle_fob,141.9942857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-08-01,carbon_newcastle_fob,151.635,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-09-01,carbon_newcastle_fob,148.7432143,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-10-01,carbon_newcastle_fob,153.2175,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-11-01,carbon_newcastle_fob,150.57,USD/t,FRED PCOALAUUSDM,2026-11-24
+2024-12-01,carbon_newcastle_fob,140.2242857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-01-01,carbon_newcastle_fob,125.3228571,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-02-01,carbon_newcastle_fob,113.1739286,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-03-01,carbon_newcastle_fob,104.7685714,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-04-01,carbon_newcastle_fob,101.1428571,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-05-01,carbon_newcastle_fob,104.0378571,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-06-01,carbon_newcastle_fob,110.1385714,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-07-01,carbon_newcastle_fob,116.2992857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-08-01,carbon_newcastle_fob,119.2135714,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-09-01,carbon_newcastle_fob,112.5342857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-10-01,carbon_newcastle_fob,111.4982143,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-11-01,carbon_newcastle_fob,115.4367857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2025-12-01,carbon_newcastle_fob,115.6842857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2026-01-01,carbon_newcastle_fob,115.815,USD/t,FRED PCOALAUUSDM,2026-11-24
+2026-02-01,carbon_newcastle_fob,122.2092857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2026-03-01,carbon_newcastle_fob,140.0560714,USD/t,FRED PCOALAUUSDM,2026-11-24
+2026-04-01,carbon_newcastle_fob,142.11,USD/t,FRED PCOALAUUSDM,2026-11-24
+2026-05-01,carbon_newcastle_fob,141.4532143,USD/t,FRED PCOALAUUSDM,2026-11-24
+2026-06-01,carbon_newcastle_fob,150.3621429,USD/t,FRED PCOALAUUSDM,2026-11-24
+2026-07-01,carbon_newcastle_fob,140.3967857,USD/t,FRED PCOALAUUSDM,2026-11-24
+2026-08-01,carbon_newcastle_fob,140.5082143,USD/t,FRED PCOALAUUSDM,2026-11-24
+2026-09-01,carbon_newcastle_fob,153.84,USD/t,FRED PCOALAUUSDM,2026-11-24
 2024-10-01,co_exp_carbon_mundo_fob_usd_t,95.6354,USD/t,UN Comtrade (FOB),2026-10-26
 2024-11-01,co_exp_carbon_mundo_fob_usd_t,100.5086,USD/t,UN Comtrade (FOB),2026-11-17
 2024-12-01,co_exp_carbon_mundo_fob_usd_t,99.0043,USD/t,UN Comtrade (FOB),2026-11-17
@@ -576,219 +576,219 @@ fecha,serie,valor,unidad,fuente,actualizado
 2025-05-01,co_exp_carbon_pe_fob_vol_t,33000.0,t,UN Comtrade (FOB),2026-11-17
 2025-08-01,co_exp_carbon_pe_fob_vol_t,61622.49,t,UN Comtrade (FOB),2026-11-17
 2025-09-01,co_exp_carbon_pe_fob_vol_t,36434.37,t,UN Comtrade (FOB),2026-11-17
-2018-01-01,fx_cop_usd,2866.49586956522,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-02-01,fx_cop_usd,2860.52425,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-03-01,fx_cop_usd,2842.3875,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-04-01,fx_cop_usd,2765.22642857143,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-05-01,fx_cop_usd,2863.57673913043,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-06-01,fx_cop_usd,2893.08071428571,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-07-01,fx_cop_usd,2885.5325,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-08-01,fx_cop_usd,2965.26630434783,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-09-01,fx_cop_usd,3033.4665,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-10-01,fx_cop_usd,3092.21652173913,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-11-01,fx_cop_usd,3198.37340909091,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-12-01,fx_cop_usd,3216.61952380952,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-01-01,fx_cop_usd,3160.83826086957,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-02-01,fx_cop_usd,3112.36,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-03-01,fx_cop_usd,3131.56595238095,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-04-01,fx_cop_usd,3158.60818181818,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-05-01,fx_cop_usd,3311.94304347826,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-06-01,fx_cop_usd,3250.83725,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-07-01,fx_cop_usd,3212.27652173913,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-08-01,fx_cop_usd,3419.28909090909,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-09-01,fx_cop_usd,3403.97785714286,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-10-01,fx_cop_usd,3431.76847826087,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-11-01,fx_cop_usd,3412.55523809524,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2019-12-01,fx_cop_usd,3366.76431818182,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-01-01,fx_cop_usd,3321.72086956522,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-02-01,fx_cop_usd,3415.27275,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-03-01,fx_cop_usd,3908.30777272727,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-04-01,fx_cop_usd,3973.60204545455,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-05-01,fx_cop_usd,3853.47238095238,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-06-01,fx_cop_usd,3701.38590909091,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-07-01,fx_cop_usd,3659.32282608696,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-08-01,fx_cop_usd,3788.98071428571,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-09-01,fx_cop_usd,3756.74181818182,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-10-01,fx_cop_usd,3832.83113636364,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-11-01,fx_cop_usd,3674.11785714286,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2020-12-01,fx_cop_usd,3461.58195652174,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-01-01,fx_cop_usd,3494.95238095238,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-02-01,fx_cop_usd,3551.99675,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-03-01,fx_cop_usd,3618.25847826087,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-04-01,fx_cop_usd,3654.61386363636,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-05-01,fx_cop_usd,3737.57142857143,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-06-01,fx_cop_usd,3687.40090909091,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-07-01,fx_cop_usd,3835.86704545455,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-08-01,fx_cop_usd,3882.25045454545,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-09-01,fx_cop_usd,3823.62545454545,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-10-01,fx_cop_usd,3768.99928571429,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-11-01,fx_cop_usd,3906.6075,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2021-12-01,fx_cop_usd,3969.67913043478,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-01-01,fx_cop_usd,4002.74571428571,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-02-01,fx_cop_usd,3934.64425,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-03-01,fx_cop_usd,3799.54913043478,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-04-01,fx_cop_usd,3800.74666666667,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-05-01,fx_cop_usd,4015.56968181818,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-06-01,fx_cop_usd,3950.26154545455,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-07-01,fx_cop_usd,4389.14471428571,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-08-01,fx_cop_usd,4324.01469565217,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-09-01,fx_cop_usd,4445.91972727273,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-10-01,fx_cop_usd,4726.85123809524,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-11-01,fx_cop_usd,4920.76295454545,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2022-12-01,fx_cop_usd,4793.10268181818,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-01-01,fx_cop_usd,4715.02277272727,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-02-01,fx_cop_usd,4822.55175,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-03-01,fx_cop_usd,4759.07413043478,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-04-01,fx_cop_usd,4530.26385,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-05-01,fx_cop_usd,4536.50956521739,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-06-01,fx_cop_usd,4205.26236363636,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-07-01,fx_cop_usd,4054.68276190476,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-08-01,fx_cop_usd,4077.89526086957,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-09-01,fx_cop_usd,4007.122,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-10-01,fx_cop_usd,4227.93386363636,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-11-01,fx_cop_usd,4035.88681818182,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2023-12-01,fx_cop_usd,3948.0969047619,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-01-01,fx_cop_usd,3922.4452173913,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-02-01,fx_cop_usd,3931.98071428571,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-03-01,fx_cop_usd,3899.27714285714,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-04-01,fx_cop_usd,3871.30272727273,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-05-01,fx_cop_usd,3867.875,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-06-01,fx_cop_usd,4059.6821,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-07-01,fx_cop_usd,4038.10765217391,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-08-01,fx_cop_usd,4068.28177272727,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-09-01,fx_cop_usd,4193.88819047619,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-10-01,fx_cop_usd,4266.34765217391,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-11-01,fx_cop_usd,4412.05628571429,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2024-12-01,fx_cop_usd,4386.38459090909,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-01-01,fx_cop_usd,4296.38604347826,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-02-01,fx_cop_usd,4128.8034,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-03-01,fx_cop_usd,4136.47376190476,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-04-01,fx_cop_usd,4282.85140909091,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-05-01,fx_cop_usd,4203.47218181818,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-06-01,fx_cop_usd,4113.358,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-07-01,fx_cop_usd,4054.74591304348,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-08-01,fx_cop_usd,4041.31757142857,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-09-01,fx_cop_usd,3919.62295454545,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-10-01,fx_cop_usd,3880.27130434783,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-11-01,fx_cop_usd,3774.16325,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2025-12-01,fx_cop_usd,3795.69326086957,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2026-01-01,fx_cop_usd,3697.97340909091,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2026-02-01,fx_cop_usd,3676.204,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2026-03-01,fx_cop_usd,3712.27886363636,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2026-04-01,fx_cop_usd,3616.7075,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2026-05-01,fx_cop_usd,3717.78333333333,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2026-06-01,fx_cop_usd,3493.56795454545,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2026-07-01,fx_cop_usd,3259.16,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2026-08-01,fx_cop_usd,3130.9219047619,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2026-09-01,fx_cop_usd,3185.24772727273,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2026-10-01,fx_cop_usd,3195.1986363636,COP por USD,FRED COLCCUSMA02STM,2026-11-19
-2018-01-01,fx_pen_usd,3.2156666666666665,PEN por USD,BCRP PD04638PD,2026-11-19
-2018-02-01,fx_pen_usd,3.249892857142857,PEN por USD,BCRP PD04638PD,2026-11-19
-2018-03-01,fx_pen_usd,3.2529000000000012,PEN por USD,BCRP PD04638PD,2026-11-19
-2018-04-01,fx_pen_usd,3.2310214285714296,PEN por USD,BCRP PD04638PD,2026-11-19
-2018-05-01,fx_pen_usd,3.2745779220779228,PEN por USD,BCRP PD04638PD,2026-11-19
-2018-06-01,fx_pen_usd,3.272342857142857,PEN por USD,BCRP PD04638PD,2026-11-19
-2018-07-01,fx_pen_usd,3.277877551020409,PEN por USD,BCRP PD04638PD,2026-11-19
-2018-08-01,fx_pen_usd,3.2895374149659875,PEN por USD,BCRP PD04638PD,2026-11-19
-2018-09-01,fx_pen_usd,3.3125785714285727,PEN por USD,BCRP PD04638PD,2026-11-19
-2018-10-01,fx_pen_usd,3.335123376623376,PEN por USD,BCRP PD04638PD,2026-11-19
-2018-11-01,fx_pen_usd,3.376221428571428,PEN por USD,BCRP PD04638PD,2026-11-19
-2018-12-01,fx_pen_usd,3.3648571428571423,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-01-01,fx_pen_usd,3.3443896103896105,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-02-01,fx_pen_usd,3.3219428571428558,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-03-01,fx_pen_usd,3.3055666666666665,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-04-01,fx_pen_usd,3.3047428571428576,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-05-01,fx_pen_usd,3.3335064935064933,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-06-01,fx_pen_usd,3.32597857142857,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-07-01,fx_pen_usd,3.291170068027211,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-08-01,fx_pen_usd,3.378949999999999,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-09-01,fx_pen_usd,3.3581768707483,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-10-01,fx_pen_usd,3.360557823129252,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-11-01,fx_pen_usd,3.3730642857142863,PEN por USD,BCRP PD04638PD,2026-11-19
-2019-12-01,fx_pen_usd,3.3553605442176866,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-01-01,fx_pen_usd,3.328396103896105,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-02-01,fx_pen_usd,3.3920214285714296,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-03-01,fx_pen_usd,3.4943235930735934,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-04-01,fx_pen_usd,3.400949999999999,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-05-01,fx_pen_usd,3.422725,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-06-01,fx_pen_usd,3.472579365079364,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-07-01,fx_pen_usd,3.51844696969697,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-08-01,fx_pen_usd,3.565476190476191,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-09-01,fx_pen_usd,3.556484848484848,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-10-01,fx_pen_usd,3.5968257575757576,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-11-01,fx_pen_usd,3.6097460317460315,PEN por USD,BCRP PD04638PD,2026-11-19
-2020-12-01,fx_pen_usd,3.6038507936507926,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-01-01,fx_pen_usd,3.6260249999999994,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-02-01,fx_pen_usd,3.6462333333333334,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-03-01,fx_pen_usd,3.710246376811594,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-04-01,fx_pen_usd,3.7011499999999997,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-05-01,fx_pen_usd,3.7771428571428567,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-06-01,fx_pen_usd,3.913690476190475,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-07-01,fx_pen_usd,3.9434916666666657,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-08-01,fx_pen_usd,4.087571428571429,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-09-01,fx_pen_usd,4.10865909090909,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-10-01,fx_pen_usd,4.014183333333334,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-11-01,fx_pen_usd,4.0205238095238105,PEN por USD,BCRP PD04638PD,2026-11-19
-2021-12-01,fx_pen_usd,4.037669696969697,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-01-01,fx_pen_usd,3.8887857142857136,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-02-01,fx_pen_usd,3.7919500000000013,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-03-01,fx_pen_usd,3.7408478260869567,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-04-01,fx_pen_usd,3.742385964912281,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-05-01,fx_pen_usd,3.7584848484848483,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-06-01,fx_pen_usd,3.748174603174603,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-07-01,fx_pen_usd,3.9040614035087726,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-08-01,fx_pen_usd,3.875143939393938,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-09-01,fx_pen_usd,3.900583333333333,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-10-01,fx_pen_usd,3.9798412698412697,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-11-01,fx_pen_usd,3.8773452380952387,PEN por USD,BCRP PD04638PD,2026-11-19
-2022-12-01,fx_pen_usd,3.8301749999999997,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-01-01,fx_pen_usd,3.8347777777777763,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-02-01,fx_pen_usd,3.8414916666666685,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-03-01,fx_pen_usd,3.7803492753623185,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-04-01,fx_pen_usd,3.7659351851851843,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-05-01,fx_pen_usd,3.6895000000000007,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-06-01,fx_pen_usd,3.651587301587301,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-07-01,fx_pen_usd,3.602266666666666,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-08-01,fx_pen_usd,3.698221212121212,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-09-01,fx_pen_usd,3.7311984126984123,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-10-01,fx_pen_usd,3.846075757575757,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-11-01,fx_pen_usd,3.7609523809523813,PEN por USD,BCRP PD04638PD,2026-11-19
-2023-12-01,fx_pen_usd,3.734596491228069,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-01-01,fx_pen_usd,3.7417222222222213,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-02-01,fx_pen_usd,3.8280634920634915,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-03-01,fx_pen_usd,3.709964912280701,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-04-01,fx_pen_usd,3.7158939394090917,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-05-01,fx_pen_usd,3.732719696969696,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-06-01,fx_pen_usd,3.787631578947368,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-07-01,fx_pen_usd,3.765466666666666,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-08-01,fx_pen_usd,3.742208333333334,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-09-01,fx_pen_usd,3.769539682539683,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-10-01,fx_pen_usd,3.755242424242425,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-11-01,fx_pen_usd,3.7800000000000002,PEN por USD,BCRP PD04638PD,2026-11-19
-2024-12-01,fx_pen_usd,3.7360789473684206,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-01-01,fx_pen_usd,3.7482045454545467,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-02-01,fx_pen_usd,3.698058333333333,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-03-01,fx_pen_usd,3.653007936507937,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-04-01,fx_pen_usd,3.7009166666666666,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-05-01,fx_pen_usd,3.660595238095238,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-06-01,fx_pen_usd,3.6040396825396823,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-07-01,fx_pen_usd,3.557541666666667,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-08-01,fx_pen_usd,3.5435750000000015,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-09-01,fx_pen_usd,3.5027261904761904,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-10-01,fx_pen_usd,3.414711038961039,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-11-01,fx_pen_usd,3.3734642857142854,PEN por USD,BCRP PD04638PD,2026-11-19
-2025-12-01,fx_pen_usd,3.367298496240602,PEN por USD,BCRP PD04638PD,2026-11-19
-2026-01-01,fx_pen_usd,3.356800000000001,PEN por USD,BCRP PD04638PD,2026-11-19
-2026-02-01,fx_pen_usd,3.3574392857142854,PEN por USD,BCRP PD04638PD,2026-11-19
-2026-03-01,fx_pen_usd,3.4490616883116876,PEN por USD,BCRP PD04638PD,2026-11-19
-2026-04-01,fx_pen_usd,3.444214285714287,PEN por USD,BCRP PD04638PD,2026-11-19
-2026-05-01,fx_pen_usd,3.4352642857142848,PEN por USD,BCRP PD04638PD,2026-11-19
-2026-06-01,fx_pen_usd,3.4056632653061225,PEN por USD,BCRP PD04638PD,2026-11-19
-2026-07-01,fx_pen_usd,3.401221804511279,PEN por USD,BCRP PD04638PD,2026-11-19
-2026-08-01,fx_pen_usd,3.363685714285714,PEN por USD,BCRP PD04638PD,2026-11-19
-2026-09-01,fx_pen_usd,3.379711038961039,PEN por USD,BCRP PD04638PD,2026-11-19
-2026-10-01,fx_pen_usd,3.4428401360544223,PEN por USD,BCRP PD04638PD,2026-11-19
-2026-11-01,fx_pen_usd,3.4280324675324683,PEN por USD,BCRP PD04638PD,2026-11-19
+2018-01-01,fx_cop_usd,2866.49586956522,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-02-01,fx_cop_usd,2860.52425,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-03-01,fx_cop_usd,2842.3875,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-04-01,fx_cop_usd,2765.22642857143,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-05-01,fx_cop_usd,2863.57673913043,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-06-01,fx_cop_usd,2893.08071428571,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-07-01,fx_cop_usd,2885.5325,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-08-01,fx_cop_usd,2965.26630434783,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-09-01,fx_cop_usd,3033.4665,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-10-01,fx_cop_usd,3092.21652173913,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-11-01,fx_cop_usd,3198.37340909091,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-12-01,fx_cop_usd,3216.61952380952,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-01-01,fx_cop_usd,3160.83826086957,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-02-01,fx_cop_usd,3112.36,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-03-01,fx_cop_usd,3131.56595238095,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-04-01,fx_cop_usd,3158.60818181818,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-05-01,fx_cop_usd,3311.94304347826,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-06-01,fx_cop_usd,3250.83725,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-07-01,fx_cop_usd,3212.27652173913,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-08-01,fx_cop_usd,3419.28909090909,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-09-01,fx_cop_usd,3403.97785714286,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-10-01,fx_cop_usd,3431.76847826087,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-11-01,fx_cop_usd,3412.55523809524,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2019-12-01,fx_cop_usd,3366.76431818182,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-01-01,fx_cop_usd,3321.72086956522,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-02-01,fx_cop_usd,3415.27275,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-03-01,fx_cop_usd,3908.30777272727,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-04-01,fx_cop_usd,3973.60204545455,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-05-01,fx_cop_usd,3853.47238095238,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-06-01,fx_cop_usd,3701.38590909091,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-07-01,fx_cop_usd,3659.32282608696,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-08-01,fx_cop_usd,3788.98071428571,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-09-01,fx_cop_usd,3756.74181818182,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-10-01,fx_cop_usd,3832.83113636364,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-11-01,fx_cop_usd,3674.11785714286,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2020-12-01,fx_cop_usd,3461.58195652174,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-01-01,fx_cop_usd,3494.95238095238,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-02-01,fx_cop_usd,3551.99675,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-03-01,fx_cop_usd,3618.25847826087,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-04-01,fx_cop_usd,3654.61386363636,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-05-01,fx_cop_usd,3737.57142857143,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-06-01,fx_cop_usd,3687.40090909091,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-07-01,fx_cop_usd,3835.86704545455,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-08-01,fx_cop_usd,3882.25045454545,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-09-01,fx_cop_usd,3823.62545454545,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-10-01,fx_cop_usd,3768.99928571429,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-11-01,fx_cop_usd,3906.6075,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2021-12-01,fx_cop_usd,3969.67913043478,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-01-01,fx_cop_usd,4002.74571428571,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-02-01,fx_cop_usd,3934.64425,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-03-01,fx_cop_usd,3799.54913043478,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-04-01,fx_cop_usd,3800.74666666667,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-05-01,fx_cop_usd,4015.56968181818,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-06-01,fx_cop_usd,3950.26154545455,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-07-01,fx_cop_usd,4389.14471428571,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-08-01,fx_cop_usd,4324.01469565217,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-09-01,fx_cop_usd,4445.91972727273,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-10-01,fx_cop_usd,4726.85123809524,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-11-01,fx_cop_usd,4920.76295454545,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2022-12-01,fx_cop_usd,4793.10268181818,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-01-01,fx_cop_usd,4715.02277272727,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-02-01,fx_cop_usd,4822.55175,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-03-01,fx_cop_usd,4759.07413043478,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-04-01,fx_cop_usd,4530.26385,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-05-01,fx_cop_usd,4536.50956521739,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-06-01,fx_cop_usd,4205.26236363636,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-07-01,fx_cop_usd,4054.68276190476,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-08-01,fx_cop_usd,4077.89526086957,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-09-01,fx_cop_usd,4007.122,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-10-01,fx_cop_usd,4227.93386363636,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-11-01,fx_cop_usd,4035.88681818182,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2023-12-01,fx_cop_usd,3948.0969047619,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-01-01,fx_cop_usd,3922.4452173913,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-02-01,fx_cop_usd,3931.98071428571,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-03-01,fx_cop_usd,3899.27714285714,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-04-01,fx_cop_usd,3871.30272727273,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-05-01,fx_cop_usd,3867.875,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-06-01,fx_cop_usd,4059.6821,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-07-01,fx_cop_usd,4038.10765217391,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-08-01,fx_cop_usd,4068.28177272727,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-09-01,fx_cop_usd,4193.88819047619,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-10-01,fx_cop_usd,4266.34765217391,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-11-01,fx_cop_usd,4412.05628571429,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2024-12-01,fx_cop_usd,4386.38459090909,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-01-01,fx_cop_usd,4296.38604347826,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-02-01,fx_cop_usd,4128.8034,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-03-01,fx_cop_usd,4136.47376190476,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-04-01,fx_cop_usd,4282.85140909091,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-05-01,fx_cop_usd,4203.47218181818,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-06-01,fx_cop_usd,4113.358,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-07-01,fx_cop_usd,4054.74591304348,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-08-01,fx_cop_usd,4041.31757142857,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-09-01,fx_cop_usd,3919.62295454545,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-10-01,fx_cop_usd,3880.27130434783,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-11-01,fx_cop_usd,3774.16325,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2025-12-01,fx_cop_usd,3795.69326086957,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2026-01-01,fx_cop_usd,3697.97340909091,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2026-02-01,fx_cop_usd,3676.204,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2026-03-01,fx_cop_usd,3712.27886363636,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2026-04-01,fx_cop_usd,3616.7075,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2026-05-01,fx_cop_usd,3717.78333333333,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2026-06-01,fx_cop_usd,3493.56795454545,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2026-07-01,fx_cop_usd,3259.16,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2026-08-01,fx_cop_usd,3130.9219047619,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2026-09-01,fx_cop_usd,3185.24772727273,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2026-10-01,fx_cop_usd,3195.1986363636,COP por USD,FRED COLCCUSMA02STM,2026-11-24
+2018-01-01,fx_pen_usd,3.2156666666666665,PEN por USD,BCRP PD04638PD,2026-11-24
+2018-02-01,fx_pen_usd,3.249892857142857,PEN por USD,BCRP PD04638PD,2026-11-24
+2018-03-01,fx_pen_usd,3.2529000000000012,PEN por USD,BCRP PD04638PD,2026-11-24
+2018-04-01,fx_pen_usd,3.2310214285714296,PEN por USD,BCRP PD04638PD,2026-11-24
+2018-05-01,fx_pen_usd,3.2745779220779228,PEN por USD,BCRP PD04638PD,2026-11-24
+2018-06-01,fx_pen_usd,3.272342857142857,PEN por USD,BCRP PD04638PD,2026-11-24
+2018-07-01,fx_pen_usd,3.277877551020409,PEN por USD,BCRP PD04638PD,2026-11-24
+2018-08-01,fx_pen_usd,3.2895374149659875,PEN por USD,BCRP PD04638PD,2026-11-24
+2018-09-01,fx_pen_usd,3.3125785714285727,PEN por USD,BCRP PD04638PD,2026-11-24
+2018-10-01,fx_pen_usd,3.335123376623376,PEN por USD,BCRP PD04638PD,2026-11-24
+2018-11-01,fx_pen_usd,3.376221428571428,PEN por USD,BCRP PD04638PD,2026-11-24
+2018-12-01,fx_pen_usd,3.3648571428571423,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-01-01,fx_pen_usd,3.3443896103896105,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-02-01,fx_pen_usd,3.3219428571428558,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-03-01,fx_pen_usd,3.3055666666666665,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-04-01,fx_pen_usd,3.3047428571428576,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-05-01,fx_pen_usd,3.3335064935064933,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-06-01,fx_pen_usd,3.32597857142857,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-07-01,fx_pen_usd,3.291170068027211,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-08-01,fx_pen_usd,3.378949999999999,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-09-01,fx_pen_usd,3.3581768707483,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-10-01,fx_pen_usd,3.360557823129252,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-11-01,fx_pen_usd,3.3730642857142863,PEN por USD,BCRP PD04638PD,2026-11-24
+2019-12-01,fx_pen_usd,3.3553605442176866,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-01-01,fx_pen_usd,3.328396103896105,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-02-01,fx_pen_usd,3.3920214285714296,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-03-01,fx_pen_usd,3.4943235930735934,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-04-01,fx_pen_usd,3.400949999999999,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-05-01,fx_pen_usd,3.422725,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-06-01,fx_pen_usd,3.472579365079364,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-07-01,fx_pen_usd,3.51844696969697,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-08-01,fx_pen_usd,3.565476190476191,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-09-01,fx_pen_usd,3.556484848484848,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-10-01,fx_pen_usd,3.5968257575757576,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-11-01,fx_pen_usd,3.6097460317460315,PEN por USD,BCRP PD04638PD,2026-11-24
+2020-12-01,fx_pen_usd,3.6038507936507926,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-01-01,fx_pen_usd,3.6260249999999994,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-02-01,fx_pen_usd,3.6462333333333334,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-03-01,fx_pen_usd,3.710246376811594,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-04-01,fx_pen_usd,3.7011499999999997,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-05-01,fx_pen_usd,3.7771428571428567,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-06-01,fx_pen_usd,3.913690476190475,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-07-01,fx_pen_usd,3.9434916666666657,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-08-01,fx_pen_usd,4.087571428571429,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-09-01,fx_pen_usd,4.10865909090909,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-10-01,fx_pen_usd,4.014183333333334,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-11-01,fx_pen_usd,4.0205238095238105,PEN por USD,BCRP PD04638PD,2026-11-24
+2021-12-01,fx_pen_usd,4.037669696969697,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-01-01,fx_pen_usd,3.8887857142857136,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-02-01,fx_pen_usd,3.7919500000000013,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-03-01,fx_pen_usd,3.7408478260869567,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-04-01,fx_pen_usd,3.742385964912281,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-05-01,fx_pen_usd,3.7584848484848483,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-06-01,fx_pen_usd,3.748174603174603,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-07-01,fx_pen_usd,3.9040614035087726,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-08-01,fx_pen_usd,3.875143939393938,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-09-01,fx_pen_usd,3.900583333333333,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-10-01,fx_pen_usd,3.9798412698412697,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-11-01,fx_pen_usd,3.8773452380952387,PEN por USD,BCRP PD04638PD,2026-11-24
+2022-12-01,fx_pen_usd,3.8301749999999997,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-01-01,fx_pen_usd,3.8347777777777763,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-02-01,fx_pen_usd,3.8414916666666685,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-03-01,fx_pen_usd,3.7803492753623185,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-04-01,fx_pen_usd,3.7659351851851843,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-05-01,fx_pen_usd,3.6895000000000007,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-06-01,fx_pen_usd,3.651587301587301,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-07-01,fx_pen_usd,3.602266666666666,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-08-01,fx_pen_usd,3.698221212121212,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-09-01,fx_pen_usd,3.7311984126984123,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-10-01,fx_pen_usd,3.846075757575757,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-11-01,fx_pen_usd,3.7609523809523813,PEN por USD,BCRP PD04638PD,2026-11-24
+2023-12-01,fx_pen_usd,3.734596491228069,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-01-01,fx_pen_usd,3.7417222222222213,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-02-01,fx_pen_usd,3.8280634920634915,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-03-01,fx_pen_usd,3.709964912280701,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-04-01,fx_pen_usd,3.7158939394090917,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-05-01,fx_pen_usd,3.732719696969696,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-06-01,fx_pen_usd,3.787631578947368,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-07-01,fx_pen_usd,3.765466666666666,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-08-01,fx_pen_usd,3.742208333333334,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-09-01,fx_pen_usd,3.769539682539683,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-10-01,fx_pen_usd,3.755242424242425,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-11-01,fx_pen_usd,3.7800000000000002,PEN por USD,BCRP PD04638PD,2026-11-24
+2024-12-01,fx_pen_usd,3.7360789473684206,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-01-01,fx_pen_usd,3.7482045454545467,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-02-01,fx_pen_usd,3.698058333333333,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-03-01,fx_pen_usd,3.653007936507937,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-04-01,fx_pen_usd,3.7009166666666666,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-05-01,fx_pen_usd,3.660595238095238,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-06-01,fx_pen_usd,3.6040396825396823,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-07-01,fx_pen_usd,3.557541666666667,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-08-01,fx_pen_usd,3.5435750000000015,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-09-01,fx_pen_usd,3.5027261904761904,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-10-01,fx_pen_usd,3.414711038961039,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-11-01,fx_pen_usd,3.3734642857142854,PEN por USD,BCRP PD04638PD,2026-11-24
+2025-12-01,fx_pen_usd,3.367298496240602,PEN por USD,BCRP PD04638PD,2026-11-24
+2026-01-01,fx_pen_usd,3.356800000000001,PEN por USD,BCRP PD04638PD,2026-11-24
+2026-02-01,fx_pen_usd,3.3574392857142854,PEN por USD,BCRP PD04638PD,2026-11-24
+2026-03-01,fx_pen_usd,3.4490616883116876,PEN por USD,BCRP PD04638PD,2026-11-24
+2026-04-01,fx_pen_usd,3.444214285714287,PEN por USD,BCRP PD04638PD,2026-11-24
+2026-05-01,fx_pen_usd,3.4352642857142848,PEN por USD,BCRP PD04638PD,2026-11-24
+2026-06-01,fx_pen_usd,3.4056632653061225,PEN por USD,BCRP PD04638PD,2026-11-24
+2026-07-01,fx_pen_usd,3.401221804511279,PEN por USD,BCRP PD04638PD,2026-11-24
+2026-08-01,fx_pen_usd,3.363685714285714,PEN por USD,BCRP PD04638PD,2026-11-24
+2026-09-01,fx_pen_usd,3.379711038961039,PEN por USD,BCRP PD04638PD,2026-11-24
+2026-10-01,fx_pen_usd,3.4428401360544223,PEN por USD,BCRP PD04638PD,2026-11-24
+2026-11-01,fx_pen_usd,3.4298619047619057,PEN por USD,BCRP PD04638PD,2026-11-24
 2024-11-01,jp_exp_escoria_mundo_fob_usd_t,9.1308,USD/t,UN Comtrade (FOB),2026-11-17
 2024-12-01,jp_exp_escoria_mundo_fob_usd_t,8.8526,USD/t,UN Comtrade (FOB),2026-11-17
 2025-01-01,jp_exp_escoria_mundo_fob_usd_t,9.1743,USD/t,UN Comtrade (FOB),2026-11-17
@@ -807,11 +807,11 @@ fecha,serie,valor,unidad,fuente,actualizado
 2026-02-01,jp_exp_escoria_mundo_fob_usd_t,7.8401,USD/t,UN Comtrade (FOB),2026-11-17
 2026-03-01,jp_exp_escoria_mundo_fob_usd_t,8.7396,USD/t,UN Comtrade (FOB),2026-11-17
 2026-04-01,jp_exp_escoria_mundo_fob_usd_t,9.3004,USD/t,UN Comtrade (FOB),2026-11-17
-2026-05-01,jp_exp_escoria_mundo_fob_usd_t,7.611272030910554,USD/t,UN Comtrade (FOB),2026-11-19
-2026-06-01,jp_exp_escoria_mundo_fob_usd_t,8.520890494577408,USD/t,UN Comtrade (FOB),2026-11-19
-2026-07-01,jp_exp_escoria_mundo_fob_usd_t,8.650395268294316,USD/t,UN Comtrade (FOB),2026-11-19
-2026-08-01,jp_exp_escoria_mundo_fob_usd_t,7.767376167759148,USD/t,UN Comtrade (FOB),2026-11-19
-2026-09-01,jp_exp_escoria_mundo_fob_usd_t,8.580381059967792,USD/t,UN Comtrade (FOB),2026-11-19
+2026-05-01,jp_exp_escoria_mundo_fob_usd_t,7.611272030910554,USD/t,UN Comtrade (FOB),2026-11-24
+2026-06-01,jp_exp_escoria_mundo_fob_usd_t,8.520890494577408,USD/t,UN Comtrade (FOB),2026-11-24
+2026-07-01,jp_exp_escoria_mundo_fob_usd_t,8.650395268294316,USD/t,UN Comtrade (FOB),2026-11-24
+2026-08-01,jp_exp_escoria_mundo_fob_usd_t,7.767376167759148,USD/t,UN Comtrade (FOB),2026-11-24
+2026-09-01,jp_exp_escoria_mundo_fob_usd_t,8.580381059967792,USD/t,UN Comtrade (FOB),2026-11-24
 2024-11-01,jp_exp_escoria_mundo_fob_vol_t,837142.0,t,UN Comtrade (FOB),2026-11-17
 2024-12-01,jp_exp_escoria_mundo_fob_vol_t,987467.0,t,UN Comtrade (FOB),2026-11-17
 2025-01-01,jp_exp_escoria_mundo_fob_vol_t,957775.0,t,UN Comtrade (FOB),2026-11-17
@@ -830,27 +830,27 @@ fecha,serie,valor,unidad,fuente,actualizado
 2026-02-01,jp_exp_escoria_mundo_fob_vol_t,923106.0,t,UN Comtrade (FOB),2026-11-17
 2026-03-01,jp_exp_escoria_mundo_fob_vol_t,1020936.0,t,UN Comtrade (FOB),2026-11-17
 2026-04-01,jp_exp_escoria_mundo_fob_vol_t,863150.0,t,UN Comtrade (FOB),2026-11-17
-2026-05-01,jp_exp_escoria_mundo_fob_vol_t,931203.0,t,UN Comtrade (FOB),2026-11-19
-2026-06-01,jp_exp_escoria_mundo_fob_vol_t,920685.0,t,UN Comtrade (FOB),2026-11-19
-2026-07-01,jp_exp_escoria_mundo_fob_vol_t,1044655.0,t,UN Comtrade (FOB),2026-11-19
-2026-08-01,jp_exp_escoria_mundo_fob_vol_t,939299.0,t,UN Comtrade (FOB),2026-11-19
-2026-09-01,jp_exp_escoria_mundo_fob_vol_t,898499.0,t,UN Comtrade (FOB),2026-11-19
+2026-05-01,jp_exp_escoria_mundo_fob_vol_t,931203.0,t,UN Comtrade (FOB),2026-11-24
+2026-06-01,jp_exp_escoria_mundo_fob_vol_t,920685.0,t,UN Comtrade (FOB),2026-11-24
+2026-07-01,jp_exp_escoria_mundo_fob_vol_t,1044655.0,t,UN Comtrade (FOB),2026-11-24
+2026-08-01,jp_exp_escoria_mundo_fob_vol_t,939299.0,t,UN Comtrade (FOB),2026-11-24
+2026-09-01,jp_exp_escoria_mundo_fob_vol_t,898499.0,t,UN Comtrade (FOB),2026-11-24
 2018-01-01,jp_exp_escoria_pe_fob_anual_usd_t,10.722,USD/t,UN Comtrade (FOB),2026-11-17
 2019-01-01,jp_exp_escoria_pe_fob_anual_usd_t,16.1092,USD/t,UN Comtrade (FOB),2026-11-17
 2020-01-01,jp_exp_escoria_pe_fob_anual_usd_t,9.5974,USD/t,UN Comtrade (FOB),2026-11-17
 2021-01-01,jp_exp_escoria_pe_fob_anual_usd_t,12.1288,USD/t,UN Comtrade (FOB),2026-11-17
 2022-01-01,jp_exp_escoria_pe_fob_anual_usd_t,4.3523,USD/t,UN Comtrade (FOB),2026-11-17
 2023-01-01,jp_exp_escoria_pe_fob_anual_usd_t,10.3478,USD/t,UN Comtrade (FOB),2026-11-17
-2024-01-01,jp_exp_escoria_pe_fob_anual_usd_t,6.6013923078981644,USD/t,UN Comtrade (FOB),2026-11-19
-2025-01-01,jp_exp_escoria_pe_fob_anual_usd_t,4.587786923478424,USD/t,UN Comtrade (FOB),2026-11-19
+2024-01-01,jp_exp_escoria_pe_fob_anual_usd_t,6.6013923078981644,USD/t,UN Comtrade (FOB),2026-11-24
+2025-01-01,jp_exp_escoria_pe_fob_anual_usd_t,4.587786923478424,USD/t,UN Comtrade (FOB),2026-11-24
 2018-01-01,jp_exp_escoria_pe_fob_anual_vol_t,280990.0,t,UN Comtrade (FOB),2026-11-17
 2019-01-01,jp_exp_escoria_pe_fob_anual_vol_t,277110.0,t,UN Comtrade (FOB),2026-11-17
 2020-01-01,jp_exp_escoria_pe_fob_anual_vol_t,169284.0,t,UN Comtrade (FOB),2026-11-17
 2021-01-01,jp_exp_escoria_pe_fob_anual_vol_t,393320.0,t,UN Comtrade (FOB),2026-11-17
 2022-01-01,jp_exp_escoria_pe_fob_anual_vol_t,249212.0,t,UN Comtrade (FOB),2026-11-17
 2023-01-01,jp_exp_escoria_pe_fob_anual_vol_t,320784.0,t,UN Comtrade (FOB),2026-11-17
-2024-01-01,jp_exp_escoria_pe_fob_anual_vol_t,224204.0,t,UN Comtrade (FOB),2026-11-19
-2025-01-01,jp_exp_escoria_pe_fob_anual_vol_t,331449.0,t,UN Comtrade (FOB),2026-11-19
+2024-01-01,jp_exp_escoria_pe_fob_anual_vol_t,224204.0,t,UN Comtrade (FOB),2026-11-24
+2025-01-01,jp_exp_escoria_pe_fob_anual_vol_t,331449.0,t,UN Comtrade (FOB),2026-11-24
 2024-12-01,jp_exp_escoria_pe_fob_usd_t,1.9995,USD/t,UN Comtrade (FOB),2026-11-17
 2025-03-01,jp_exp_escoria_pe_fob_usd_t,2.0283,USD/t,UN Comtrade (FOB),2026-11-17
 2025-04-01,jp_exp_escoria_pe_fob_usd_t,4.946,USD/t,UN Comtrade (FOB),2026-11-17
@@ -862,10 +862,10 @@ fecha,serie,valor,unidad,fuente,actualizado
 2026-01-01,jp_exp_escoria_pe_fob_usd_t,4.5538,USD/t,UN Comtrade (FOB),2026-11-17
 2026-02-01,jp_exp_escoria_pe_fob_usd_t,5.0189,USD/t,UN Comtrade (FOB),2026-11-17
 2026-03-01,jp_exp_escoria_pe_fob_usd_t,5.8201,USD/t,UN Comtrade (FOB),2026-11-17
-2026-05-01,jp_exp_escoria_pe_fob_usd_t,5.696728616390267,USD/t,UN Comtrade (FOB),2026-11-19
-2026-06-01,jp_exp_escoria_pe_fob_usd_t,5.448767731707317,USD/t,UN Comtrade (FOB),2026-11-19
-2026-07-01,jp_exp_escoria_pe_fob_usd_t,5.96510708735578,USD/t,UN Comtrade (FOB),2026-11-19
-2026-08-01,jp_exp_escoria_pe_fob_usd_t,6.012980939947781,USD/t,UN Comtrade (FOB),2026-11-19
+2026-05-01,jp_exp_escoria_pe_fob_usd_t,5.696728616390267,USD/t,UN Comtrade (FOB),2026-11-24
+2026-06-01,jp_exp_escoria_pe_fob_usd_t,5.448767731707317,USD/t,UN Comtrade (FOB),2026-11-24
+2026-07-01,jp_exp_escoria_pe_fob_usd_t,5.96510708735578,USD/t,UN Comtrade (FOB),2026-11-24
+2026-08-01,jp_exp_escoria_pe_fob_usd_t,6.012980939947781,USD/t,UN Comtrade (FOB),2026-11-24
 2024-12-01,jp_exp_escoria_pe_fob_vol_t,36254.0,t,UN Comtrade (FOB),2026-11-17
 2025-03-01,jp_exp_escoria_pe_fob_vol_t,36943.0,t,UN Comtrade (FOB),2026-11-17
 2025-04-01,jp_exp_escoria_pe_fob_vol_t,42286.0,t,UN Comtrade (FOB),2026-11-17
@@ -877,10 +877,10 @@ fecha,serie,valor,unidad,fuente,actualizado
 2026-01-01,jp_exp_escoria_pe_fob_vol_t,42340.0,t,UN Comtrade (FOB),2026-11-17
 2026-02-01,jp_exp_escoria_pe_fob_vol_t,78106.0,t,UN Comtrade (FOB),2026-11-17
 2026-03-01,jp_exp_escoria_pe_fob_vol_t,42252.0,t,UN Comtrade (FOB),2026-11-17
-2026-05-01,jp_exp_escoria_pe_fob_vol_t,82610.0,t,UN Comtrade (FOB),2026-11-19
-2026-06-01,jp_exp_escoria_pe_fob_vol_t,41000.0,t,UN Comtrade (FOB),2026-11-19
-2026-07-01,jp_exp_escoria_pe_fob_vol_t,42470.0,t,UN Comtrade (FOB),2026-11-19
-2026-08-01,jp_exp_escoria_pe_fob_vol_t,42130.0,t,UN Comtrade (FOB),2026-11-19
+2026-05-01,jp_exp_escoria_pe_fob_vol_t,82610.0,t,UN Comtrade (FOB),2026-11-24
+2026-06-01,jp_exp_escoria_pe_fob_vol_t,41000.0,t,UN Comtrade (FOB),2026-11-24
+2026-07-01,jp_exp_escoria_pe_fob_vol_t,42470.0,t,UN Comtrade (FOB),2026-11-24
+2026-08-01,jp_exp_escoria_pe_fob_vol_t,42130.0,t,UN Comtrade (FOB),2026-11-24
 2024-10-01,pe_imp_carbon_col_cif_usd_t,135.5653,USD/t,UN Comtrade (CIF),2026-10-26
 2024-11-01,pe_imp_carbon_col_cif_usd_t,135.3814,USD/t,UN Comtrade (CIF),2026-11-17
 2025-01-01,pe_imp_carbon_col_cif_usd_t,138.329,USD/t,UN Comtrade (CIF),2026-11-17
@@ -907,16 +907,16 @@ fecha,serie,valor,unidad,fuente,actualizado
 2021-01-01,pe_imp_escoria_jpn_cif_anual_usd_t,34.548,USD/t,UN Comtrade (CIF),2026-11-17
 2022-01-01,pe_imp_escoria_jpn_cif_anual_usd_t,55.1155,USD/t,UN Comtrade (CIF),2026-11-17
 2023-01-01,pe_imp_escoria_jpn_cif_anual_usd_t,43.2636,USD/t,UN Comtrade (CIF),2026-11-17
-2024-01-01,pe_imp_escoria_jpn_cif_anual_usd_t,39.65060592616503,USD/t,UN Comtrade (CIF),2026-11-19
-2025-01-01,pe_imp_escoria_jpn_cif_anual_usd_t,30.476745261251338,USD/t,UN Comtrade (CIF),2026-11-19
+2024-01-01,pe_imp_escoria_jpn_cif_anual_usd_t,39.65060592616503,USD/t,UN Comtrade (CIF),2026-11-24
+2025-01-01,pe_imp_escoria_jpn_cif_anual_usd_t,30.476745261251338,USD/t,UN Comtrade (CIF),2026-11-24
 2018-01-01,pe_imp_escoria_jpn_cif_anual_vol_t,280307.3,t,UN Comtrade (CIF),2026-11-17
 2019-01-01,pe_imp_escoria_jpn_cif_anual_vol_t,240412.3,t,UN Comtrade (CIF),2026-11-17
 2020-01-01,pe_imp_escoria_jpn_cif_anual_vol_t,118093.6541,t,UN Comtrade (CIF),2026-11-17
 2021-01-01,pe_imp_escoria_jpn_cif_anual_vol_t,435174.0,t,UN Comtrade (CIF),2026-11-17
 2022-01-01,pe_imp_escoria_jpn_cif_anual_vol_t,248485.5,t,UN Comtrade (CIF),2026-11-17
 2023-01-01,pe_imp_escoria_jpn_cif_anual_vol_t,239160.75,t,UN Comtrade (CIF),2026-11-17
-2024-01-01,pe_imp_escoria_jpn_cif_anual_vol_t,268902.4,t,UN Comtrade (CIF),2026-11-19
-2025-01-01,pe_imp_escoria_jpn_cif_anual_vol_t,323161.79,t,UN Comtrade (CIF),2026-11-19
+2024-01-01,pe_imp_escoria_jpn_cif_anual_vol_t,268902.4,t,UN Comtrade (CIF),2026-11-24
+2025-01-01,pe_imp_escoria_jpn_cif_anual_vol_t,323161.79,t,UN Comtrade (CIF),2026-11-24
 2025-01-01,pe_imp_escoria_jpn_cif_usd_t,35.665,USD/t,UN Comtrade (CIF),2026-11-17
 2025-04-01,pe_imp_escoria_jpn_cif_usd_t,35.665,USD/t,UN Comtrade (CIF),2026-11-17
 2025-01-01,pe_imp_escoria_jpn_cif_vol_t,36257.6,t,UN Comtrade (CIF),2026-11-17
