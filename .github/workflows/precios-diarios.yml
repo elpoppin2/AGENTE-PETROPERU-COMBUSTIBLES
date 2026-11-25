@@ -50,6 +50,14 @@ jobs:
         id: promedio
         if: ${{ !cancelled() }}
         run: python agente_petroperu.py --promedio ${{ inputs.enviar_promedio && '--forzar' || '' }}
+      - name: Actualizar el Brent y el diésel internacional
+        # Precio spot diario (FRED/EIA) y tipo de cambio (BCRP) para la pestaña "Petróleo Brent".
+        # Si falla, no detiene el resto: se conservan los datos que ya había.
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python brent.py
       - name: Guardar historial en el repositorio
         if: always()
         run: |
