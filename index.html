@@ -484,6 +484,7 @@ a { color: var(--series-1); }
       <button role="tab" id="tab-osinergmin" data-vista="osinergmin" aria-selected="false"><span class="modulo-nombre">Referencia Osinergmin</span><span class="modulo-frecuencia">Diésel, sale cada lunes</span></button>
       <button role="tab" id="tab-carbon" data-vista="carbon" aria-selected="false"><span class="modulo-nombre">Precios carbones internacionales</span><span class="modulo-frecuencia">Carbón, promedio mensual</span></button>
       <button role="tab" id="tab-escoria" data-vista="escoria" aria-selected="false"><span class="modulo-nombre">Escoria japonesa</span><span class="modulo-frecuencia">Escoria, promedio mensual</span></button>
+      <button role="tab" id="tab-brent" data-vista="brent" aria-selected="false"><span class="modulo-nombre">Petróleo Brent</span><span class="modulo-frecuencia">Crudo y diésel, precio diario</span></button>
       <span class="indicador" aria-hidden="true"></span>
     </nav>
     <div class="cabecera">
@@ -518,6 +519,7 @@ a { color: var(--series-1); }
     Fuente: <a href="https://www.petroperu.com.pe/productos/lista-de-precios-en-nuestras-plantas/">listas de precios Automotriz de Petroperú</a>
     (Addendum N° 1) y <a href="https://www.osinergmin.gob.pe/seccion/centro_documental/gart/PreciosReferencia/">precios de referencia de Osinergmin</a> (publicación semanal). El agente revisa la web de Petroperú cada día a las 08:00 y a las 12:30 (hora de Lima); con la página abierta, los datos nuevos aparecen solos.
     Carbón y escoria: modelo mensual con datos de FRED/IMF, Banco Mundial, BCRP y UN Comtrade, actualizado cada lunes.
+    Brent y diésel de la Costa del Golfo: precio spot diario de la <a href="https://fred.stlouisfed.org/series/DCOILBRENTEU">EIA vía FRED</a> y tipo de cambio del BCRP, revisados cada día.
     Mapa: <a href="https://github.com/juaneladio/peru-geojson">peru-geojson</a> (MPL 2.0).
     Descarga los datos en <a href="data/precios-diesel-petroperu.xlsx" download>Excel</a> o en <a href="data/listas.csv">CSV</a>.
     <br>Proyecto Sourcing Internacional Combustibles y Materia Prima: código, datos y avisos en <a href="https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES">GitHub</a>.
@@ -549,6 +551,7 @@ a { color: var(--series-1); }
       <button type="button">¿Cuál fue el promedio ponderado del B5 S-50 en Conchán el mes pasado?</button>
       <button type="button">¿Conviene comprar carbón este mes? Explícame el índice.</button>
       <button type="button">¿Cómo varió el CFR de la escoria en los últimos 12 meses?</button>
+      <button type="button">¿Cuánto cuesta hoy el galón de Brent en soles y cómo se compara con el diésel en Conchán?</button>
     </div>
     <p class="consulta-copiado" id="consulta-copiado" role="status"></p>
     <a class="consulta-enviar" href="https://claude.ai/code" target="_blank" rel="noopener">Abrir Claude Code</a>
@@ -684,11 +687,27 @@ async function cargarCarbon() {
   return true;
 }
 
+// Petróleo Brent y diésel de la Costa del Golfo (spot diario, FRED/EIA) con el tipo de cambio del BCRP.
+let brent = {}; // brent[columna] = [{fecha, precio}]
+let textoBrent = "";
+async function cargarBrent() {
+  const texto = await leerRepo("data/brent.csv");
+  if (texto === null || texto === textoBrent) return false;
+  const nuevos = {};
+  for (const f of leerCSV(texto)) {
+    const fecha = new Date(f.fecha + "T00:00:00Z");
+    for (const [k, v] of Object.entries(f)) if (k !== "fecha" && v !== "" && v != null && !isNaN(+v)) (nuevos[k] ??= []).push({ fecha, precio: +v });
+  }
+  brent = nuevos; textoBrent = texto;
+  return true;
+}
+
 // Con la página abierta, busca datos nuevos cada 15 minutos y al volver a la pestaña.
 async function revisar() {
   try {
-    const a = await cargarDatos(), b = await cargarOsinergmin(), c = await cargarCarbon().catch(() => false);
-    if (a || b || c) { actualizarEncabezado(); dibujar(true); }
+    const a = await cargarDatos(), b = await cargarOsinergmin(), c = await cargarCarbon().catch(() => false),
+      d = await cargarBrent().catch(() => false);
+    if (a || b || c || d) { actualizarEncabezado(); dibujar(true); }
   } catch {}
 }
 
@@ -698,6 +717,16 @@ const fMesLargo = d => d.toLocaleDateString("es-PE", { month: "long", year: "num
 
 function actualizarEncabezado() {
   const M = MATERIAS[estado.vista];
+  if (estado.vista === "brent") {
+    document.getElementById("titulo").textContent = "Petróleo Brent y diésel internacional";
+    document.getElementById("bajada").textContent = "Precio spot diario del crudo Brent y del diésel de la Costa del Golfo de EE.UU. Dólares por barril y por galón, y su equivalente en soles por galón, sin impuestos.";
+    const u = brent.brent_usd_bbl?.at(-1)?.fecha;
+    if (!u) { document.getElementById("actualizado").replaceChildren(); return; }
+    const fuerte = el("strong", {}, `Cotización del ${fFecha(u)}`);
+    if (diasDesde(u) <= 7) fuerte.append(el("span", { class: "badge-nueva", title: "Cotización de los últimos 7 días" }, "Reciente"));
+    document.getElementById("actualizado").replaceChildren(fuerte, "Se revisa cada día; la EIA publica con 2 a 5 días hábiles de rezago. Fuentes: EIA (vía FRED) y BCRP");
+    return;
+  }
   if (M && carbon[M.cfr]) {
     document.getElementById("titulo").textContent = M.titulo;
     document.getElementById("bajada").textContent = M.bajada;
@@ -746,7 +775,7 @@ async function iniciar() {
     if (Object.keys(datos).length) dibujar();
   });
   try {
-    await Promise.all([cargarDatos(), cargarOsinergmin().catch(() => false), cargarMapa(), cargarCarbon().catch(() => false)]);
+    await Promise.all([cargarDatos(), cargarOsinergmin().catch(() => false), cargarMapa(), cargarCarbon().catch(() => false), cargarBrent().catch(() => false)]);
   } catch (e) {
     document.getElementById("contenido").innerHTML = '<p class="estado">No se pudieron cargar los datos.</p>';
     return;
@@ -757,6 +786,7 @@ async function iniciar() {
     const v = localStorage.getItem("vista");
     if (["osinergmin", "comparacion"].includes(v) && Object.keys(osi).length) estado.vista = "osinergmin";
     if (MATERIAS[v] && carbon[MATERIAS[v].cfr]) estado.vista = v;
+    if (v === "brent" && brent.brent_usd_bbl?.length) estado.vista = v;
   } catch {}
   llenarPlantas();
   if (!selectorPlanta) sel.addEventListener("change", () => { estado.planta = sel.value; try { localStorage.setItem("planta", sel.value); } catch {} dibujar(true); });
@@ -773,8 +803,8 @@ async function iniciar() {
     estado.vista = t.dataset.vista;
     pestañas.forEach(x => x.setAttribute("aria-selected", x === t));
     try { localStorage.setItem("vista", estado.vista); } catch {}
-    if (!esMateria()) llenarPlantas();
-    document.getElementById("filtro-planta").hidden = esMateria();
+    if (!sinPlanta()) llenarPlantas();
+    document.getElementById("filtro-planta").hidden = sinPlanta();
     mostrarRango2018();
     moverMarcas(true);
     actualizarEncabezado();
@@ -791,7 +821,7 @@ async function iniciar() {
     sig.focus(); sig.click(); e.preventDefault();
   });
   menuDescargas();
-  document.getElementById("filtro-planta").hidden = esMateria();
+  document.getElementById("filtro-planta").hidden = sinPlanta();
   mostrarRango2018();
   actualizarEncabezado();
   dibujar(true);
@@ -830,6 +860,7 @@ function menuDescargas() {
     ["data/listas.csv", "Listas de Petroperú (CSV)", "Un precio por lista, planta y producto"],
     ["data/osinergmin.csv", "Referencia Osinergmin (CSV)", "Publicaciones semanales por planta"],
     ["reportes/carbon/modelo_mensual.csv", "Carbón y escoria mes a mes (CSV)", "FOB, flete y CFR Conchán desde 2018"],
+    ["data/brent.csv", "Brent y diésel internacional (CSV)", "Precio diario por barril, por galón y en soles desde 2018"],
     null,
     [`${repo}/tree/main/reportes`, "Reportes en GitHub", "Promedios ponderados, avisos de precios y reporte del carbón"],
   ];
@@ -863,9 +894,9 @@ function menuDescargas() {
   boton.addEventListener("keydown", e => { if (e.key === "ArrowDown") { boton._tippy.show(); e.preventDefault(); } });
 }
 
-// "Desde 2018" solo existe para el carbón; al salir de esa vista se pasa a "Desde 2023".
+// "Desde 2018" solo existe para carbón, escoria y Brent; al salir de esas vistas se pasa a "Desde 2023".
 function mostrarRango2018() {
-  const b = document.getElementById("rango-2018"), carbonVista = esMateria();
+  const b = document.getElementById("rango-2018"), carbonVista = sinPlanta();
   b.hidden = !carbonVista;
   if (!carbonVista && estado.meses === -1) {
     estado.meses = 0;
@@ -963,7 +994,7 @@ const textoPeriodo = () => estado.meses === -1 ? " desde enero de 2018" : !estad
   : ` en ${estado.meses === 12 ? "el último año" : `los últimos ${estado.meses} meses`}`;
 
 function desde() {
-  if (estado.meses === -1) return new Date("2018-01-01T00:00:00Z");  // solo en la vista de carbón
+  if (estado.meses === -1) return new Date("2018-01-01T00:00:00Z");  // solo en carbón, escoria y Brent
   if (!estado.meses) return new Date("2023-01-01T00:00:00Z");
   const d = new Date(); d.setUTCMonth(d.getUTCMonth() - estado.meses); return d;
 }
@@ -1006,6 +1037,7 @@ function dibujar(animar = false) {
   cont.setAttribute("aria-labelledby", `tab-${estado.vista}`);
   if (estado.vista === "osinergmin") dibujarOsinergmin(cont, animar);
   else if (esMateria()) dibujarMateria(cont, animar, MATERIAS[estado.vista]);
+  else if (estado.vista === "brent") dibujarBrent(cont, animar);
   else dibujarPetroperu(cont, animar);
   activarAyudas(cont);
 }
@@ -1177,10 +1209,160 @@ function dibujarOsinergmin(cont, animar) {
   cont.append(c4);
 }
 
+// Petróleo Brent y diésel internacional (spot diario): por barril, por galón y en soles por galón.
+const BRENT_SERIES = [
+  { clave: "brent_usd_bbl", nombre: "Brent, por barril", corto: "Brent", color: "--text-primary", chipLetrero: "--letrero-texto",
+    unidad: "por barril", galon: "brent_usd_gal", soles: "brent_pen_gal",
+    ayuda: "Crudo de referencia del Mar del Norte. Fija el precio de cerca de dos tercios del petróleo del mundo y mueve el costo de los combustibles que importa Perú. Un barril tiene 42 galones." },
+  { clave: "diesel_golfo_usd_gal", nombre: "Diésel ULSD Costa del Golfo, por galón", corto: "Diésel Golfo", color: "--series-1",
+    unidad: "por galón", soles: "diesel_golfo_pen_gal", dec: 3,
+    ayuda: "Diésel de ultra bajo azufre (hasta 15 ppm) en la Costa del Golfo de EE.UU., precio spot. Es el mercado desde donde se importa el diésel al Perú y la base de los precios de referencia de Osinergmin." },
+];
+const URL_FRED = id => `https://fred.stlouisfed.org/series/${id}`;
+
+function dibujarBrent(cont, animar) {
+  const b = brent.brent_usd_bbl;
+  if (!b?.length) {
+    cont.append(el("p", { class: "estado" }, "Aún no hay precios del Brent. Se cargan en la próxima revisión diaria del agente."));
+    return;
+  }
+  const inicio = desde(), periodo = textoPeriodo();
+  const fmtN = (v, d = 2) => v.toLocaleString("es-PE", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const enDia = (k, f) => precioEn(brent[k] || [], f)?.precio;
+
+  // Letrero: última cotización del Brent y del diésel
+  const ultimo = b.at(-1).fecha;
+  const letrero = el("section", { class: "letrero", "aria-label": "Precio del petróleo Brent" },
+    el("div", { class: "letrero-cab" }, el("h2", {}, "Petróleo y diésel internacional"),
+      el("p", {}, `Dólares, precio spot sin impuestos. Cotización del ${fFecha(ultimo)}`)));
+  for (const prod of BRENT_SERIES) {
+    const s = brent[prod.clave], dec = prod.dec || 2;
+    const fila = el("div", { class: "fila-precio" }, el("div", { class: "prod" }, chipSerie(prod, true), prod.nombre, ayuda(prod.ayuda)));
+    letrero.append(fila);
+    if (!s?.length) { fila.append(el("div", { class: "cifra" }, "—"), el("div", { class: "cambios" }, "Sin dato todavía")); continue; }
+    const actual = s.at(-1), anterior = s.at(-2), base = precioEn(s, inicio) || s[0];
+    const numero = el("span");
+    fila.append(el("div", { class: "cifra" }, el("small", {}, "US$"), numero));
+    rodar(numero, anterior ? anterior.precio : actual.precio, actual.precio, animar, dec);
+    const cambios = el("div", { class: "cambios" });
+    if (anterior) {
+      const d = actual.precio - anterior.precio, dir = direccion(d);
+      cambios.append(el("div", { class: `principal ${dir}` }, dir === "igual"
+        ? "= Sin cambio frente al día anterior"
+        : `${FLECHA[dir]} ${dir === "sube" ? "Subió" : "Bajó"} US$ ${fmtN(Math.abs(d), dec)} (${Math.abs(d / anterior.precio * 100).toFixed(1)}%) frente al ${fFecha(anterior.fecha)}`));
+    }
+    const dBase = actual.precio - base.precio, p100 = dBase / base.precio * 100, dirBase = direccion(dBase);
+    cambios.append(el("div", {}, el("span", { class: dirBase },
+      `${FLECHA[dirBase]} ${dBase >= 0 ? "+" : "−"}${fmtN(Math.abs(dBase), dec)} (${p100 >= 0 ? "+" : "−"}${Math.abs(p100).toFixed(1)}%)`), periodo));
+    const gal = prod.galon ? enDia(prod.galon, actual.fecha) : null, sol = enDia(prod.soles, actual.fecha);
+    cambios.append(el("div", {}, [gal != null ? `US$ ${fmtN(gal, 3)} por galón` : "", sol != null ? `S/ ${fmtN(sol, 2)} por galón` : ""].filter(Boolean).join(" · ")));
+    if (+actual.fecha !== +ultimo) cambios.append(el("div", {}, `Último dato: ${fFecha(actual.fecha)}`));
+    fila.append(cambios);
+  }
+  const fx = brent.fx_pen_usd?.at(-1), dsl = brent.diesel_golfo_usd_gal?.at(-1), gal = enDia("brent_usd_gal", ultimo);
+  const pie = ["1 barril = 42 galones."];
+  if (dsl && gal != null && +dsl.fecha === +ultimo)
+    pie.push(`Margen de refinación del diésel (diésel − crudo): US$ ${fmtN(dsl.precio - gal, 3)} por galón.`);
+  if (fx) pie.push(`Tipo de cambio BCRP: S/ ${fmtN(fx.precio, 3)} por dólar.`);
+  letrero.append(el("p", { class: "letrero-pie" }, pie.join(" ")));
+  cont.append(letrero);
+
+  // Evolución del Brent (US$ por barril)
+  const c1 = el("section", { class: "bloque" });
+  c1.append(el("h2", {}, "Evolución del Brent"),
+    el("p", { class: "nota" }, "Dólares por barril, precio spot de cada día hábil. Pasa el mouse o toca el gráfico para ver cada día."));
+  const g1 = el("div", { class: "grafico", "data-titulo": "Evolución del precio del Brent", "data-moneda": "US$", "data-decimales": 2 });
+  c1.append(g1);
+  cont.append(c1);
+  graficoLineas(g1, brent, inicio, [{ ...BRENT_SERIES[0], corto: "Brent", serie: b, lineal: true }]);
+
+  // Del crudo al precio en planta: todo en soles por galón
+  const CADENA = [
+    { nombre: "Crudo Brent", corto: "Crudo Brent", color: "--text-primary", serie: brent.brent_pen_gal, lineal: true,
+      texto: "Materia prima: el crudo antes de refinar." },
+    { nombre: "Diésel ULSD Costa del Golfo", corto: "Diésel Golfo", color: "--series-1", serie: brent.diesel_golfo_pen_gal, lineal: true,
+      texto: "Diésel refinado en EE.UU.; la diferencia con el crudo es el margen de refinación." },
+    { nombre: "Referencia Osinergmin, Callao (B5 bajo azufre)", corto: "Osinergmin", color: "--alto-azufre", punteada: true, serie: osi.CALLAO?.bajo,
+      texto: "Diésel puesto en el Callao: suma flete, seguro, mezcla con biodiésel y logística. Sin impuestos." },
+    { nombre: "Lista Petroperú, Conchán (B5 S-50)", corto: "Petroperú", color: "--series-2", serie: datos.CONCHAN?.DIESEL_B5_S50,
+      texto: "Precio de venta en planta: suma margen, ISC e IGV." },
+  ].filter(p => p.serie?.length);
+  const c2 = el("section", { class: "bloque" });
+  c2.append(el("h2", {}, "Del crudo al precio en planta"),
+    el("p", { class: "nota" }, "Soles por galón. Muestra cuánto del precio del diésel en Lima es petróleo y cuánto se agrega en cada paso."));
+  const g2 = el("div", { class: "grafico", "data-titulo": "Del crudo Brent al precio de lista en Conchán, en soles por galón", "data-moneda": "S/", "data-decimales": 2 });
+  const ley2 = el("div", { class: "leyenda" });
+  for (const p of CADENA) ley2.append(el("span", {}, chipSerie(p), p.nombre));
+  c2.append(g2, ley2);
+  // Tabla del último valor de cada paso y su diferencia con el crudo
+  const crudo = CADENA[0].serie.at(-1).precio;
+  const t = el("table", {}, el("thead", {}, el("tr", {}, ...["Paso", "S/ por galón", "Sobre el crudo"].map(x => el("th", {}, x)))));
+  const tb = el("tbody");
+  for (const p of CADENA) {
+    const u = p.serie.at(-1), d = u.precio - crudo;
+    tb.append(el("tr", {},
+      el("td", { style: "white-space:normal;text-align:left" }, chipSerie(p), " ", el("strong", {}, p.nombre),
+        el("div", { class: "muted", style: "font-size:13px;margin-top:2px" }, `${p.texto} Dato del ${fFecha(u.fecha)}.`)),
+      el("td", {}, fmt(u.precio)),
+      el("td", {}, p === CADENA[0] ? "—" : `+${fmt(d)}`, p === CADENA[0] ? "" : el("div", { class: "muted", style: "font-size:13px" }, `${(crudo / u.precio * 100).toFixed(0)}% es crudo`))));
+  }
+  t.append(tb);
+  c2.append(el("h3", { class: "subtitulo" }, "Último valor de cada paso"), el("div", { class: "tabla-scroll", style: "max-height:none" }, t));
+  cont.append(c2);
+  graficoLineas(g2, brent, inicio, CADENA);
+
+  // Promedios mensuales
+  const meses = new Map();
+  for (const k of ["brent_usd_bbl", "brent_usd_gal", "brent_pen_gal", "diesel_golfo_usd_gal", "diesel_golfo_pen_gal"])
+    for (const p of brent[k] || []) {
+      const m = Date.UTC(p.fecha.getUTCFullYear(), p.fecha.getUTCMonth(), 1);
+      const o = meses.get(m) || {}; (o[k] ??= []).push(p.precio); meses.set(m, o);
+    }
+  const prom = a => a?.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+  const filas = [...meses.entries()].sort((a, c) => c[0] - a[0]).map(([m, o]) => ({ fecha: new Date(m), dias: o.brent_usd_bbl?.length || 0,
+    ...Object.fromEntries(Object.entries(o).map(([k, v]) => [k, prom(v)])) }));
+  const c3 = el("section", { class: "bloque tabla-card" });
+  const tabla = el("table", {}, el("thead", {}, el("tr", {}, ...["Mes", "Brent US$/barril", "Variación", "Brent US$/galón", "Brent S/ galón", "Diésel Golfo US$/galón", "Diésel Golfo S/ galón"].map(x => el("th", {}, x)))));
+  const tb3 = el("tbody");
+  const n = (v, d = 2) => v == null ? "—" : fmtN(v, d);
+  filas.filter(f => f.fecha >= new Date(Date.UTC(inicio.getUTCFullYear(), inicio.getUTCMonth(), 1))).forEach((f, i, arr) => {
+    const ant = filas[filas.indexOf(f) + 1], d = ant?.brent_usd_bbl != null && f.brent_usd_bbl != null ? (f.brent_usd_bbl / ant.brent_usd_bbl - 1) * 100 : null;
+    const dir = d == null ? "igual" : direccion(d / 100);
+    tb3.append(el("tr", {}, el("td", {}, fMesLargo(f.fecha) + (i === 0 ? " (en curso)" : "")), el("td", {}, n(f.brent_usd_bbl)),
+      el("td", dir === "igual" ? {} : { class: dir }, el("span", { class: "flecha", "aria-hidden": "true" }, dir === "igual" ? "" : FLECHA[dir]), d == null ? "—" : `${d >= 0 ? "+" : "−"}${Math.abs(d).toFixed(1)}%`),
+      el("td", {}, n(f.brent_usd_gal, 3)), el("td", {}, n(f.brent_pen_gal)), el("td", {}, n(f.diesel_golfo_usd_gal, 3)), el("td", {}, n(f.diesel_golfo_pen_gal))));
+  });
+  tabla.append(tb3);
+  const det = el("details", {}, el("summary", {}, "Ver promedios mensuales"),
+    el("p", { class: "nota", style: "margin-top:6px" }, "Promedio simple de los días hábiles de cada mes. El mes en curso cambia cada día."),
+    el("div", { class: "tabla-scroll" }, tabla));
+  const csv = el("a", { class: "boton-excel", href: "data/brent.csv", download: "brent-diesel-internacional.csv",
+    title: "Precio diario del Brent y del diésel desde 2018, en CSV (se abre en Excel)" });
+  csv.innerHTML = ICONO_EXCEL + "<span>Descargar CSV</span>";
+  c3.append(csv, det);
+  cont.append(c3);
+
+  // Sobre estos precios
+  const c4 = el("section", { class: "bloque" });
+  c4.append(el("h2", {}, "Sobre estos precios"),
+    el("ul", { class: "explicacion" },
+      el("li", {}, "El Brent es el crudo de referencia mundial. Un barril tiene 42 galones: el precio por galón es el del barril entre 42, y en soles se multiplica por el tipo de cambio interbancario del BCRP."),
+      el("li", {}, "Un galón de crudo no es un galón de diésel: falta refinarlo, traerlo al Perú, mezclarlo con biodiésel y pagar impuestos. Por eso el diésel de la Costa del Golfo, la referencia de Osinergmin y la lista de Petroperú están por encima."),
+      el("li", {}, "El diésel de la Costa del Golfo de EE.UU. es de donde se importa el diésel al Perú: si sube, la referencia de Osinergmin suele subir una o dos semanas después y, luego, las listas de Petroperú."),
+      el("li", {}, "En este proyecto el Brent también estima el flete marítimo del carbón y de la escoria (el combustible del barco sigue al crudo)."),
+      el("li", {}, "Son precios spot diarios de la EIA de EE.UU., publicados en FRED con 2 a 5 días hábiles de rezago; no hay dato los fines de semana ni feriados.")),
+    el("div", { class: "enlaces" },
+      el("a", { href: URL_FRED("DCOILBRENTEU") }, "Brent en FRED"),
+      el("a", { href: URL_FRED("DDFUELUSGULF") }, "Diésel Costa del Golfo en FRED"),
+      el("a", { href: `${URL_REPO}/blob/main/brent.py` }, "Cómo se calcula")));
+  cont.append(c4);
+}
+
 // Carbón bituminoso (monitor semanal): precio FOB Colombia y CFR Muelle Conchán, en USD por tonelada.
 const esMateria = () => estado.vista in MATERIAS;
-const moneda = () => esMateria() ? "US$" : "S/";
-const fmtDetalle = v => esMateria() ? fmt(v) : fmt4(v);
+const sinPlanta = () => esMateria() || estado.vista === "brent";   // vistas sin filtro de planta
+const moneda = () => sinPlanta() ? "US$" : "S/";
+const fmtDetalle = v => sinPlanta() ? fmt(v) : fmt4(v);
 // Rojo: el material que se compra (FOB); tinta: CFR Conchán; azul y gris: referencias de mercado.
 const CARBON_INDICES = [
   { clave: "carbon_newcastle_fob", nombre: "Newcastle FOB (Australia)", corto: "Newcastle", color: "--series-1" },
@@ -1755,6 +1937,9 @@ function graficoLineas(caja, planta, inicio, defs = null, conCambios = false) {
   const m = { t: 12, r: ancho < 560 ? 12 : 104, b: 28, l: 44 };
   const hoy = new Date();
   const fuente = defs || PRODUCTOS.filter(p => planta[p.clave]?.length).map(p => ({ ...p, serie: planta[p.clave] }));
+  // Unidad y decimales propios del gráfico (data-moneda, data-decimales); si no, los de la vista.
+  const mon = caja.dataset.moneda || moneda(), dec = caja.dataset.decimales ? +caja.dataset.decimales : null;
+  const fmtV = v => dec == null ? fmtDetalle(v) : v.toLocaleString("es-PE", { minimumFractionDigits: dec, maximumFractionDigits: dec });
   const series = fuente.filter(p => p.serie?.length).map(p => {
     const s = p.serie;
     const base = precioEn(s, inicio);
@@ -1788,7 +1973,8 @@ function graficoLineas(caja, planta, inicio, defs = null, conCambios = false) {
   for (const s of series) {
     let path = "";
     s.pts.forEach((p, i) => {
-      path += i === 0 ? `M${x(+p.fecha)},${y(p.precio)}` : `H${x(+p.fecha)}V${y(p.precio)}`;
+      // Precios de lista: escalones (rigen hasta la siguiente). Precios diarios (lineal): línea continua.
+      path += i === 0 ? `M${x(+p.fecha)},${y(p.precio)}` : s.lineal ? `L${x(+p.fecha)},${y(p.precio)}` : `H${x(+p.fecha)}V${y(p.precio)}`;
     });
     path += `H${x(x1)}`;
     svg.append(el("svg:path", { d: path, fill: "none", stroke: css(s.color), "stroke-linejoin": "round",
@@ -1839,7 +2025,7 @@ function graficoLineas(caja, planta, inicio, defs = null, conCambios = false) {
     for (let i = 1; i < etq.length; i++) if (etq[i].y - etq[i - 1].y < 30) etq[i].y = etq[i - 1].y + 30;
     for (const { s, y: py } of etq) {
       svg.append(el("svg:text", { class: "tras-trazo", x: x(x1) + 10, y: py - 2, style: "fill:var(--text-secondary)" }, s.corto));
-      svg.append(el("svg:text", { class: "tras-trazo", x: x(x1) + 10, y: py + 14, style: "fill:var(--text-primary);font:600 15px var(--f-titulo)" }, moneda() + " " + fmt(s.pts.at(-1).precio)));
+      svg.append(el("svg:text", { class: "tras-trazo", x: x(x1) + 10, y: py + 14, style: "fill:var(--text-primary);font:600 15px var(--f-titulo)" }, mon + " " + (dec == null ? fmt : fmtV)(s.pts.at(-1).precio)));
     }
   }
 
@@ -1866,10 +2052,10 @@ function graficoLineas(caja, planta, inicio, defs = null, conCambios = false) {
       puntos[i].setAttribute("cx", xx); puntos[i].setAttribute("cy", y(p.precio));
       tip.append(el("div", { class: "fila" },
         el("span", {}, el("span", { class: "chip", style: `background:var(${s.color})` }), s.corto),
-        el("strong", {}, moneda() + " " + fmtDetalle(p.precio))));
+        el("strong", {}, mon + " " + fmtV(p.precio))));
       const cambio = s.cambios.find(c => c.p === p);
       if (cambio && diasDesde(p.fecha) - diasDesde(f) < 1) tip.append(el("div", { class: "fila" }, el("span", {}),
-        el("span", { class: `pill ${cambio.dir}` }, `${FLECHA[cambio.dir]} ${cambio.d > 0 ? "+" : "−"}${moneda()} ${fmtDetalle(Math.abs(cambio.d))} este día`)));
+        el("span", { class: `pill ${cambio.dir}` }, `${FLECHA[cambio.dir]} ${cambio.d > 0 ? "+" : "−"}${mon} ${fmtV(Math.abs(cambio.d))} este día`)));
     });
     tip.style.opacity = 1;
     const izq = xx + 16 + tip.offsetWidth > ancho ? xx - tip.offsetWidth - 16 : xx + 16;

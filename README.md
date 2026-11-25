@@ -1,16 +1,17 @@
 # Sourcing Internacional Combustibles y Materia Prima
 
 Proyecto de UNACEM que sigue los precios de los combustibles y materias primas que se compran.
-Tiene dos módulos y un solo tablero web:
+Tiene tres módulos y un solo tablero web:
 
 | Módulo | Qué sigue | Frecuencia | Código |
 |---|---|---|---|
 | **Diésel** | Precios de lista de Petroperú (B5 S-50 y B5 S-50 UV) y precios de referencia de Osinergmin | Diario (08:00 y 12:30 de Lima) | `agente_petroperu.py` |
 | **Precios carbones internacionales** | Índices internacionales del carbón (Newcastle, API4, API2), precio FOB Colombia y CFR Muelle Conchán, con alertas por correo | Semanal (lunes) | [`carbon/`](carbon/README.md) |
+| **Petróleo Brent** | Brent spot (US$/barril, US$/galón y S/ por galón) y diésel ULSD de la Costa del Golfo de EE.UU., comparados con la referencia de Osinergmin y la lista de Petroperú en Conchán | Diario (con el diésel; la EIA publica con 2 a 5 días hábiles de rezago) | `brent.py` |
 | **Escoria japonesa** | Escoria granulada de alto horno (GBFS) de Japón: precio FOB Japón y CFR Muelle Conchán, comparados con el comercio exterior Japón→Perú, con alertas por correo | Semanal (lunes) | [`carbon/`](carbon/README.md) |
 
 - **Tablero:** https://elpoppin2.github.io/AGENTE-PETROPERU-COMBUSTIBLES/ (pestañas *Precios Petroperú*,
-  *Referencia Osinergmin*, *Precios carbones internacionales* y *Escoria japonesa*).
+  *Referencia Osinergmin*, *Precios carbones internacionales*, *Escoria japonesa* y *Petróleo Brent*).
 - **Repositorio:** https://github.com/elpoppin2/AGENTE-PETROPERU-COMBUSTIBLES
 - **Preguntar en Claude:** botón flotante abajo a la derecha del tablero. Explica cómo abrir
   Claude Code con este repositorio para hacer consultas sobre los datos. Ver [Preguntar en Claude](#preguntar-en-claude).
@@ -119,6 +120,19 @@ Para probarlo: *Actions → Precios diarios Petroperú → Run workflow* y marca
 "Enviar otra vez el promedio ponderado". A mano: `python agente_petroperu.py --promedio 2026-10`
 (prepara el reporte) y `--enviar-promedio 2026-10` (lo envía).
 La planta se cambia con la variable `PETROPERU_PLANTA_PROMEDIO`.
+
+## Petróleo Brent y diésel internacional
+
+`brent.py` (paso del workflow diario) descarga de FRED los precios spot diarios de la EIA del
+**Brent** (`DCOILBRENTEU`, US$ por barril) y del **diésel de ultra bajo azufre de la Costa del Golfo
+de EE.UU.** (`DDFUELUSGULF`, US$ por galón), y del BCRP el tipo de cambio interbancario venta
+(`PD04638PD`). Escribe `data/brent.csv` desde 2018 con el Brent por barril y por galón
+(1 barril = 42 galones) y ambos en soles por galón. Si una fuente falla, se conservan los datos
+guardados. Con `FRED_API_KEY` usa la API oficial de FRED; sin ella, la descarga CSV pública.
+
+La pestaña "Petróleo Brent" muestra la última cotización, la evolución diaria, la cadena
+**crudo → diésel Golfo → referencia Osinergmin (Callao) → lista Petroperú (Conchán)** en soles por
+galón y los promedios mensuales.
 
 ## Precios de referencia de Osinergmin
 

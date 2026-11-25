@@ -1,7 +1,7 @@
 # Sourcing Internacional Combustibles y Materia Prima (UNACEM)
 
 Proyecto que registra precios de compra: diésel en Perú (Petroperú y Osinergmin), carbón
-bituminoso de Colombia y escoria granulada de Japón. Tablero: https://elpoppin2.github.io/AGENTE-PETROPERU-COMBUSTIBLES/
+bituminoso de Colombia y escoria granulada de Japón, y el petróleo Brent con el diésel internacional como indicador. Tablero: https://elpoppin2.github.io/AGENTE-PETROPERU-COMBUSTIBLES/
 
 ## Cómo trabajar con quien pregunta
 
@@ -25,6 +25,7 @@ bituminoso de Colombia y escoria granulada de Japón. Tablero: https://elpoppin2
 | `data/listas.csv` | Listas de Petroperú desde 2023: `vigencia`, `combustible` (DIESEL_B5_S50, DIESEL_B5_S50_UV), `ubicacion` (planta), `precio`, `fuente` | S/ por galón, con impuestos |
 | `data/historial.csv` | Precio vigente de cada día y planta | S/ por galón |
 | `data/osinergmin.csv` | Referencia semanal de Osinergmin por planta: `b5_bajo_azufre`, `b5_alto_azufre`, `componente_logistico` | S/ por galón, sin impuestos ni margen |
+| `data/brent.csv` | Spot diario desde 2018 (EIA vía FRED): `brent_usd_bbl`, `brent_usd_gal` (= /42), `diesel_golfo_usd_gal` (ULSD Costa del Golfo), `fx_pen_usd` (BCRP), `brent_pen_gal`, `diesel_golfo_pen_gal` | US$ por barril o galón; S/ por galón, sin impuestos |
 | `reportes/carbon/modelo_mensual.csv` | Desde 2018. Carbón: `carbon_col_fob`, `carbon_flete`, `carbon_cfr` (= FOB + flete, Muelle Conchán). Escoria: `escoria_fob`, `escoria_flete`, `escoria_cfr`. Índices: `carbon_newcastle_fob`, `carbon_api4_fob_rb`, `carbon_api2_cif_ara`; `brent`, `fx_pen_usd` | US$ por tonelada |
 | `reportes/carbon/simulacion.csv` | Simulación a 12 meses (p10 a p90) de FOB, flete y CFR | US$ por tonelada |
 | `reportes/carbon/resumen.json` | Alertas vigentes e índice de conveniencia de compra por material | |
@@ -38,6 +39,7 @@ bituminoso de Colombia y escoria granulada de Japón. Tablero: https://elpoppin2
 ## Código
 
 - `agente_petroperu.py`: diésel (lectura de Petroperú y Osinergmin, Excel, avisos por correo, promedio ponderado).
+- `brent.py`: Brent y diésel internacional diarios (FRED/EIA y BCRP), paso del workflow diario.
 - `carbon/`: carbón y escoria (fuentes públicas, modelo FOB/CFR, alertas, `simulacion.py`).
 - `index.html`: tablero (GitHub Pages). Librerías en `assets/vendor/` (se reconstruyen con `herramientas/librerias`).
 - Pruebas: `pip install -r requirements.txt && python -m pytest -q`.
@@ -69,10 +71,10 @@ bituminoso de Colombia y escoria granulada de Japón. Tablero: https://elpoppin2
   cambio de precio del diésel, promedio ponderado mensual y alertas nuevas de carbón y escoria.
   No hay reporte diario sin cambios ni WhatsApp.
 - **Horarios:** diésel a las 08:00 y 12:30 (hora de Lima), con tareas programadas que lanzan el
-  workflow; carbón y escoria cada lunes.
+  workflow (también actualizan el Brent); carbón y escoria cada lunes.
 - **Tablero:** en español, identidad UNACEM (rojo #E60000, tipografías Barlow), modo claro y oscuro,
-  pestañas Precios Petroperú, Referencia Osinergmin, Precios carbones internacionales y Escoria
-  japonesa; botón "Preguntar en Claude" abajo a la derecha.
+  pestañas Precios Petroperú, Referencia Osinergmin, Precios carbones internacionales, Escoria
+  japonesa y Petróleo Brent; botón "Preguntar en Claude" abajo a la derecha.
 - **Equipo:** consulta en Claude Code con el repositorio público en solo lectura (no son colaboradores);
   solo el dueño cambia el proyecto.
 - **Sin IA de pago:** no hay agente por API; las consultas se hacen en Claude Code con la cuenta de cada persona.
